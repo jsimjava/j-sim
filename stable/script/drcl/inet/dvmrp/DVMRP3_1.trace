@@ -1,0 +1,933 @@
+node builders...
+build net2_0...
+build net2_1...
+build net4...
+build net5...
+build the testbed...
+assign CIDR addresses...
+configuring the network...
+simulator...
+start the simulation...
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <50,-32> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <50,-4> at 3
+DEBUG| 1.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| NEIGHBOR UP EVENT: <40,-32> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR UP EVENT: <40,-16> at 3
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| NEIGHBOR UP EVENT: <40,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| NEIGHBOR UP EVENT: <40,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <38,-4> at 1
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <34,-4> at 0
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <6,-4> at 1
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <2,-4> at 0
+DEBUG| 1.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR UP EVENT: <8,-32> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| NEIGHBOR UP EVENT: <8,-16> at 3
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| NEIGHBOR UP EVENT: <8,-1> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| NEIGHBOR UP EVENT: <8,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <18,-32> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <18,-4> at 3
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 50-(0,32,0)(0,-32,0)   50(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 50-(0,48,0)(0,-4,0)   50(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-32,0)   40(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-16,0)   40(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 38-(0,36,0)(0,-4,0)   38(1)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 34-(0,32,0)(0,-4,0)   34(0)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 6-(0,4,0)(0,-4,0)   6(1)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 2-(0,0,0)(0,-4,0)   2(0)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-32,0)   8(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-16,0)   8(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 18-(0,0,0)(0,-32,0)   18(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 18-(0,16,0)(0,-4,0)   18(3)   metric:1(changed)--dependents:(){}
+DEBUG| 8.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 4
+DEBUG| 8.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| TRIGGERED UPDATE: # of changed entries = 4
+DEBUG| 8.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 8.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,32,0)(0,-32,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,4,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,16,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,32,0)(0,-32,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,16,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,48,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,36,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,0,0)(0,-32,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,48,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,0,0)(0,-32,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 14.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+>>>>> Time 50.0: Stabilized routes:
+----- /test/testbed/net0_32/net0_16/n8/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(50){2}	timeout:NaN
+(0,0,0)(0,-16,0)   	??-{}	metric:0--dependents:(18){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	50-{2}	metric:1--dependents:(2,6){0,1}	timeout:149.204
+(0,4,0)(0,-4,0)   	6-{1}	metric:1--dependents:(2){0}	timeout:155.36
+(0,0,0)(0,-4,0)   	2-{0}	metric:1--dependents:(6){1}	timeout:155.36
+(0,16,0)(0,-4,0)   	18-{3}	metric:1--dependents:(2,6){0,1}	timeout:149.224
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,4,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,4,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,0,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:149.244
+
+----- /test/testbed/net0_32/net16_4/n18/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,16,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	40-{2}	metric:1--dependents:(){}	timeout:149.204
+(0,0,0)(0,-16,0)   	8-{3}	metric:1--dependents:(){}	timeout:149.224
+
+----- /test/testbed/net32_32/net32_16/n40/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-16,0)   	??-{}	metric:0--dependents:(50){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(18){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	50-{3}	metric:1--dependents:(34,38){0,1}	timeout:149.224
+(0,36,0)(0,-4,0)   	38-{1}	metric:1--dependents:(34){0}	timeout:155.36
+(0,32,0)(0,-4,0)   	34-{0}	metric:1--dependents:(38){1}	timeout:155.36
+(0,0,0)(0,-32,0)   	18-{2}	metric:1--dependents:(34,38){0,1}	timeout:149.204
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,36,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,36,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,32,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:149.244
+
+----- /test/testbed/net32_32/net48_4/n50/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,48,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-16,0)   	40-{3}	metric:1--dependents:(){}	timeout:149.224
+(0,0,0)(0,-32,0)   	8-{2}	metric:1--dependents:(){}	timeout:149.204
+
+
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+>>>>> Time 100.0: A link between n0_32 and n32_32 fails.
+DEBUG| 121.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 121.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 140.0| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR DOWN EVENT: <8,-32> at 2
+DEBUG| 140.0| /test/testbed/net32_32/net48_4/n50/dvmrp/| hold-down (0,0,0)(0,-32,0):8-2-metric:INF(changed)--dependents:(){}-260.0 due to NEIGHBOR TIMEOUT: 8
+DEBUG| 140.0| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR DOWN EVENT: <50,-32> at 2
+DEBUG| 140.0| /test/testbed/net0_32/net0_16/n8/dvmrp/| hold-down (0,32,0)(0,-32,0):50-2-metric:INF(changed)--dependents:(2,6){0,1}-260.0 due to NEIGHBOR TIMEOUT: 50
+DEBUG| 145.0| /test/testbed/net32_32/net48_4/n50/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 145.0| /test/testbed/net0_32/net0_16/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 146.056| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| hold-down (0,32,0)(0,-32,0):8-2-metric:2--dependents:(){}-262.152 due to route invalidation from NEXT-HOP neighbor
+		--->metric:INF(changed)--dependents:(){}
+DEBUG| 146.056| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| hold-down (0,32,0)(0,-32,0):8-2-metric:2--dependents:(){}-262.152 due to route invalidation from NEXT-HOP neighbor
+		--->metric:INF(changed)--dependents:(){}
+DEBUG| 151.056| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 151.056| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 160.0: Transitional state after link failure:
+----- /test/testbed/net0_32/net0_16/n8/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,0,0)(0,-16,0)   	??-{}	metric:0--dependents:(18){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	50-{2}	metric:INF--dependents:(2,6){0,1}	timeout:260.0
+(0,4,0)(0,-4,0)   	6-{1}	metric:1--dependents:(2){0}	timeout:292.132
+(0,0,0)(0,-4,0)   	2-{0}	metric:1--dependents:(6){1}	timeout:292.132
+(0,16,0)(0,-4,0)   	18-{3}	metric:1--dependents:(2,6){0,1}	timeout:262.132
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:INF--dependents:(){}	timeout:266.05600000000004
+(0,4,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:262.152
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,4,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:INF--dependents:(){}	timeout:266.05600000000004
+(0,0,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:262.152
+
+----- /test/testbed/net0_32/net16_4/n18/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,16,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	40-{2}	metric:1--dependents:(){}	timeout:262.11199999999997
+(0,0,0)(0,-16,0)   	8-{3}	metric:1--dependents:(){}	timeout:286.076
+
+----- /test/testbed/net32_32/net32_16/n40/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-16,0)   	??-{}	metric:0--dependents:(50){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(18){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	50-{3}	metric:1--dependents:(34,38){0,1}	timeout:286.076
+(0,36,0)(0,-4,0)   	38-{1}	metric:1--dependents:(34){0}	timeout:262.152
+(0,32,0)(0,-4,0)   	34-{0}	metric:1--dependents:(38){1}	timeout:262.152
+(0,0,0)(0,-32,0)   	18-{2}	metric:1--dependents:(34,38){0,1}	timeout:262.11199999999997
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,36,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,36,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,32,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:262.152
+
+----- /test/testbed/net32_32/net48_4/n50/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,48,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,32,0)(0,-16,0)   	40-{3}	metric:1--dependents:(){}	timeout:262.132
+(0,0,0)(0,-32,0)   	8-{2}	metric:INF--dependents:(){}	timeout:260.0
+
+
+DEBUG| 181.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 181.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 182.132| /test/testbed/net0_32/net0_16/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,32,0)(0,-32,0):50-2-metric:INF--dependents:(2,6){0,1}-260.0
+		--->18-metric:2(changed)--dependents:(2,6){0,1}
+DEBUG| 182.132| /test/testbed/net32_32/net48_4/n50/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-32,0):8-2-metric:INF--dependents:(){}-260.0
+		--->40-metric:2(changed)--dependents:(){}
+DEBUG| 187.132| /test/testbed/net0_32/net0_16/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 187.132| /test/testbed/net32_32/net48_4/n50/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 188.18800000000002| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Route update from NEXT-HOP neighbor: (0,32,0)(0,-32,0):8-2-metric:INF--dependents:(){}-322.15200000000004
+		--->metric:3(changed)--dependents:(){}
+DEBUG| 188.18800000000002| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Route update from NEXT-HOP neighbor: (0,32,0)(0,-32,0):8-2-metric:INF--dependents:(){}-322.15200000000004
+		--->metric:3(changed)--dependents:(){}
+DEBUG| 193.18800000000002| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 193.18800000000002| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 220.0: Stabilized routes after link failure:
+----- /test/testbed/net0_32/net0_16/n8/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,0,0)(0,-16,0)   	??-{}	metric:0--dependents:(18){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	18-{3}	metric:2--dependents:(2,6){0,1}	timeout:322.132
+(0,4,0)(0,-4,0)   	6-{1}	metric:1--dependents:(2){0}	timeout:334.264
+(0,0,0)(0,-4,0)   	2-{0}	metric:1--dependents:(6){1}	timeout:334.264
+(0,16,0)(0,-4,0)   	18-{3}	metric:1--dependents:(2,6){0,1}	timeout:322.132
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:3--dependents:(){}	timeout:328.188
+(0,4,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,4,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:3--dependents:(){}	timeout:328.188
+(0,0,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+
+----- /test/testbed/net0_32/net16_4/n18/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,16,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	40-{2}	metric:1--dependents:(8){3}	timeout:322.11199999999997
+(0,0,0)(0,-16,0)   	8-{3}	metric:1--dependents:(){}	timeout:328.20799999999997
+
+----- /test/testbed/net32_32/net32_16/n40/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-16,0)   	??-{}	metric:0--dependents:(50){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(18){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	50-{3}	metric:1--dependents:(34,38){0,1}	timeout:328.20799999999997
+(0,36,0)(0,-4,0)   	38-{1}	metric:1--dependents:(34){0}	timeout:322.15200000000004
+(0,32,0)(0,-4,0)   	34-{0}	metric:1--dependents:(38){1}	timeout:322.15200000000004
+(0,0,0)(0,-32,0)   	18-{2}	metric:1--dependents:(34,38,50){0,1,3}	timeout:322.11199999999997
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,36,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,36,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,32,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:322.15200000000004
+
+----- /test/testbed/net32_32/net48_4/n50/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,48,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,32,0)(0,-16,0)   	40-{3}	metric:1--dependents:(){}	timeout:322.132
+(0,0,0)(0,-32,0)   	40-{3}	metric:2--dependents:(){}	timeout:322.132
+
+
+DEBUG| 241.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 241.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+>>>>> Time 250.0: The link failure is recovered.
+DEBUG| 251.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <50,-32> at 2
+DEBUG| 251.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR UP EVENT: <8,-32> at 2
+DEBUG| 253.148| /test/testbed/net0_32/net0_16/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,32,0)(0,-32,0):18-3-metric:2--dependents:(2,6){0,1}-382.132
+		--->50-metric:1(changed)--dependents:(2,6){0,1}
+DEBUG| 253.148| /test/testbed/net32_32/net48_4/n50/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-32,0):40-3-metric:2--dependents:(){}-382.132
+		--->8-metric:1(changed)--dependents:(){}
+DEBUG| 258.148| /test/testbed/net0_32/net0_16/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 258.148| /test/testbed/net32_32/net48_4/n50/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 259.204| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Route update from NEXT-HOP neighbor: (0,32,0)(0,-32,0):8-2-metric:3--dependents:(){}-382.15200000000004
+		--->metric:2(changed)--dependents:(){}
+DEBUG| 259.204| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Route update from NEXT-HOP neighbor: (0,32,0)(0,-32,0):8-2-metric:3--dependents:(){}-382.15200000000004
+		--->metric:2(changed)--dependents:(){}
+DEBUG| 264.204| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 264.204| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 280.0: Stablized routes after link recovery:
+----- /test/testbed/net0_32/net0_16/n8/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(50){2}	timeout:NaN
+(0,0,0)(0,-16,0)   	??-{}	metric:0--dependents:(18){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	50-{2}	metric:1--dependents:(2,6){0,1}	timeout:399.22400000000005
+(0,4,0)(0,-4,0)   	6-{1}	metric:1--dependents:(2){0}	timeout:405.28000000000003
+(0,0,0)(0,-4,0)   	2-{0}	metric:1--dependents:(6){1}	timeout:405.28000000000003
+(0,16,0)(0,-4,0)   	18-{3}	metric:1--dependents:(2,6){0,1}	timeout:382.132
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:399.204
+(0,4,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,4,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:399.204
+(0,0,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+
+----- /test/testbed/net0_32/net16_4/n18/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,16,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	40-{2}	metric:1--dependents:(){}	timeout:382.11199999999997
+(0,0,0)(0,-16,0)   	8-{3}	metric:1--dependents:(){}	timeout:399.22400000000005
+
+----- /test/testbed/net32_32/net32_16/n40/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-16,0)   	??-{}	metric:0--dependents:(50){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(18){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	50-{3}	metric:1--dependents:(34,38){0,1}	timeout:399.22400000000005
+(0,36,0)(0,-4,0)   	38-{1}	metric:1--dependents:(34){0}	timeout:382.15200000000004
+(0,32,0)(0,-4,0)   	34-{0}	metric:1--dependents:(38){1}	timeout:382.15200000000004
+(0,0,0)(0,-32,0)   	18-{2}	metric:1--dependents:(34,38){0,1}	timeout:382.11199999999997
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,36,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,36,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,32,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+(0,0,0)(0,-32,0)   	40-{2}	metric:2--dependents:(){}	timeout:382.15200000000004
+
+----- /test/testbed/net32_32/net48_4/n50/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,48,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-16,0)   	40-{3}	metric:1--dependents:(){}	timeout:382.132
+(0,0,0)(0,-32,0)   	8-{2}	metric:1--dependents:(){}	timeout:399.22400000000005
+
+
+DEBUG| 301.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 301.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 311.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 311.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+>>>>> Time 350.0: Simulation stops.  Resume for testing prune and graft.
+DEBUG| 361.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 361.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 371.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 371.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+>>>>> Time 400.0: Inject a mcast packet at .../h0/csl/100@up to group -111.
+DEBUG| 402.044| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST QUERY for (0,-111,0)(-1,-1,-1)
+DEBUG| 402.044| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-4,0):??-null-metric:0--dependents:(8){2}-NaN)
+DEBUG| 402.044| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-4, upstream=9223372036854775807(if=-1), dependentIfs=2, outgoingIfs=2
+FC@| EVENT--402.044--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,0)(-4,-1,0):??-2-upstream:<null>--(. . + . .)-NaN--
+DEBUG| 404.08799999999997| /test/testbed/net0_32/net0_16/n8/dvmrp/| MCAST QUERY for (0,-111,0)(-1,-1,-1)
+DEBUG| 404.08799999999997| /test/testbed/net0_32/net0_16/n8/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):??-null-metric:0--dependents:(50){2}-NaN,(0,0,0)(0,-16,0):??-null-metric:0--dependents:(18){3}-NaN,(0,0,0)(0,-4,0):2-0-metric:1--dependents:(6){1}-502.152)
+DEBUG| 404.08799999999997| /test/testbed/net0_32/net0_16/n8/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-4, upstream=2(if=0), dependentIfs=1,2,3, outgoingIfs=1,2,3
+FC@| EVENT--404.08799999999997--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,0)(-4,-1,-1):??-1,2,3-upstream:2--(. + + + .)-NaN--
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-4,0):8-2-metric:2--dependents:(){}-512.152)
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| SEND PRUNE to 8 at if 2: DVMRPv3_PRUNE,src:0/-4,group:-111,pruneLifetime:7200
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-4, upstream=8(if=2), dependentIfs=, outgoingIfs=
+FC@| EVENT--406.13199999999995--/test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,2)(-4,-1,-1):??--upstream:8--(. . . . .)--sentPruneUpstream-NaN--
+DEBUG| 406.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 406.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):8-2-metric:1--dependents:(){}-512.1120000000001)
+DEBUG| 406.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| SEND PRUNE to 8 at if 2: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 406.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-32, upstream=8(if=2), dependentIfs=, outgoingIfs=
+FC@| EVENT--406.13199999999995--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,2)(-32,-1,-1):??--upstream:8--(. . . . .)--sentPruneUpstream-NaN--
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net16_4/n18/dvmrp/| MCAST QUERY for (0,-111,3)(-1,-1,-1)
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net16_4/n18/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):??-null-metric:0--dependents:(40){2}-NaN,(0,0,0)(0,-16,0):8-3-metric:1--dependents:(){}-512.1320000000001)
+DEBUG| 406.13199999999995| /test/testbed/net0_32/net16_4/n18/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-16, upstream=8(if=3), dependentIfs=2, outgoingIfs=2
+FC@| EVENT--406.13199999999995--/test/testbed/net0_32/net16_4/n18/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,3)(-16,-1,-1):??-2-upstream:8--(. . + . .)-NaN--
+DEBUG| 407.17599999999993| /test/testbed/net0_32/net0_16/n8/dvmrp/| PRUNE from neighbor 6 at if 1
+FC@| EVENT--407.17599999999993--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-1,2,3-upstream:2--(. + + + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-7607.1759999999995)--(prune)
+DEBUG| 407.17599999999993| /test/testbed/net0_32/net0_16/n8/dvmrp/| PRUNE from neighbor 50 at if 2
+FC@| EVENT--407.17599999999993--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-3-upstream:2--(. 7607.1759999999995 7607.1759999999995 + .)-7607.1759999999995)--(prune)
+DEBUG| 408.17599999999993| /test/testbed/net32_32/net32_16/n40/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 408.17599999999993| /test/testbed/net32_32/net32_16/n40/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):18-2-metric:1--dependents:(34,38){0,1}-502.112)
+DEBUG| 408.17599999999993| /test/testbed/net32_32/net32_16/n40/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-32, upstream=18(if=2), dependentIfs=0,1, outgoingIfs=0,1
+FC@| EVENT--408.17599999999993--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,2)(-32,-1,-1):??-0,1-upstream:18--(+ + . . .)-NaN--
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):40-2-metric:2--dependents:(){}-502.152)
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| SEND PRUNE to 40 at if 2: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-32, upstream=40(if=2), dependentIfs=, outgoingIfs=
+FC@| EVENT--410.2199999999999--/test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,2)(-32,-1,-1):??--upstream:40--(. . . . .)--sentPruneUpstream-NaN--
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| MCAST QUERY: matched rt entries: ((0,0,0)(0,-32,0):40-2-metric:2--dependents:(){}-502.152)
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| SEND PRUNE to 40 at if 2: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 410.2199999999999| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| MCAST QUERY: add fc entry: src=0, srcmask=-32, upstream=40(if=2), dependentIfs=, outgoingIfs=
+FC@| EVENT--410.2199999999999--/test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,2)(-32,-1,-1):??--upstream:40--(. . . . .)--sentPruneUpstream-NaN--
+DEBUG| 411.2639999999999| /test/testbed/net32_32/net32_16/n40/dvmrp/| PRUNE from neighbor 34 at if 0
+FC@| EVENT--411.2639999999999--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??-0,1-upstream:18--(+ + . . .)-7611.264,(0,-111,2)(-32,-1,-1):??-1-upstream:18--(7611.264 + . . .)-7611.264)--(prune)
+DEBUG| 411.2639999999999| /test/testbed/net32_32/net32_16/n40/dvmrp/| PRUNE from neighbor 38 at if 1
+FC@| EVENT--411.2639999999999--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??-1-upstream:18--(7611.264 + . . .)-7611.264,(0,-111,2)(-32,-1,-1):??--upstream:18--(7611.264 7611.264 . . .)-7611.264)--(prune)
+DEBUG| 411.2639999999999| /test/testbed/net32_32/net32_16/n40/dvmrp/| SEND PRUNE to 18 at if 2: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 412.3079999999999| /test/testbed/net0_32/net16_4/n18/dvmrp/| PRUNE from neighbor 40 at if 2
+FC@| EVENT--412.3079999999999--/test/testbed/net0_32/net16_4/n18/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,3)(-16,-1,-1):??-2-upstream:8--(. . + . .)-7612.308,(0,-111,3)(-16,-1,-1):??--upstream:8--(. . 7612.308 . .)-7612.308)--(prune)
+DEBUG| 412.3079999999999| /test/testbed/net0_32/net16_4/n18/dvmrp/| SEND PRUNE to 8 at if 3: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 413.35199999999986| /test/testbed/net0_32/net0_16/n8/dvmrp/| PRUNE from neighbor 18 at if 3
+FC@| EVENT--413.35199999999986--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-3-upstream:2--(. 7607.1759999999995 7607.1759999999995 + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??--upstream:2--(. 7607.1759999999995 7607.1759999999995 7613.352 .)-7607.1759999999995)--(prune)
+DEBUG| 413.35199999999986| /test/testbed/net0_32/net0_16/n8/dvmrp/| SEND PRUNE to 2 at if 0: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7193
+DEBUG| 414.39599999999984| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| PRUNE from neighbor 8 at if 2
+FC@| EVENT--414.39599999999984--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,0):??-2-upstream:<null>--(. . + . .)-7607.396,(0,-111,0)(-4,-1,0):??--upstream:<null>--(. . 7607.396 . .)-7607.396)--(prune)
+>>>>> Time 420.0: Forwarding cache entries after prunes:
+----- /test/testbed/net0_32/net0_16/n8/csl/rt/ -----:
+#Entries=1
+(0,-111,0)(-4,-1,-1)   	---{}	upstream:2--(. 7607.1759999999995 7607.1759999999995 7613.352 .)--sentPruneUpstream	timeout:7607.1759999999995
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/ -----:
+#Entries=3
+(0,1,0)(0,-1,0)   	1-{1}	-toHostSubnet-	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,0)(-4,-1,0)   	---{}	upstream:<null>--(. . 7607.396 . .)	timeout:7607.396
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/ -----:
+#Entries=3
+(0,5,0)(0,-1,0)   	5-{1}	-toHostSubnet-	timeout:NaN
+(0,4,0)(0,-1,0)   	4-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-4,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net0_32/net16_4/n18/csl/rt/ -----:
+#Entries=3
+(0,17,0)(0,-1,0)   	17-{1}	-toHostSubnet-	timeout:NaN
+(0,16,0)(0,-1,0)   	16-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,3)(-16,-1,-1)   	---{}	upstream:8--(. . 7612.308 . .)--sentPruneUpstream	timeout:7612.308
+
+----- /test/testbed/net32_32/net32_16/n40/csl/rt/ -----:
+#Entries=1
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:18--(7611.264 7611.264 . . .)--sentPruneUpstream	timeout:7611.264
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/ -----:
+#Entries=3
+(0,33,0)(0,-1,0)   	33-{1}	-toHostSubnet-	timeout:NaN
+(0,32,0)(0,-1,0)   	32-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/ -----:
+#Entries=3
+(0,37,0)(0,-1,0)   	37-{1}	-toHostSubnet-	timeout:NaN
+(0,36,0)(0,-1,0)   	36-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net48_4/n50/csl/rt/ -----:
+#Entries=3
+(0,49,0)(0,-1,0)   	49-{1}	-toHostSubnet-	timeout:NaN
+(0,48,0)(0,-1,0)   	48-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+
+>>>>> Time 420.0: h32 and h48 join group -111.
+DEBUG| 421.028| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST HOST JOIN EVENT: -111 at if 0
+FC@| EVENT--421.028--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,-1)(0,-1,-1):??-0--GroupEntry--NaN--
+FC@| EVENT--421.028--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??--upstream:8--(. . . . .)--sentPruneUpstream-NaN,(0,-111,2)(-32,-1,-1):??-0-upstream:8--(. . . . .)--sentPruneUpstream-NaN)--(graft)
+DEBUG| 421.028| /test/testbed/net32_32/net48_4/n50/dvmrp/| SEND GRAFT to 8 at if 2: DVMRPv3_GRAFT,src:0/-32,group:-111
+DEBUG| 421.028| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| MCAST HOST JOIN EVENT: -111 at if 0
+FC@| EVENT--421.028--/test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,-1)(0,-1,-1):??-0--GroupEntry--NaN--
+FC@| EVENT--421.028--/test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??--upstream:40--(. . . . .)--sentPruneUpstream-NaN,(0,-111,2)(-32,-1,-1):??-0-upstream:40--(. . . . .)--sentPruneUpstream-NaN)--(graft)
+DEBUG| 421.028| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| SEND GRAFT to 40 at if 2: DVMRPv3_GRAFT,src:0/-32,group:-111
+DEBUG| 421.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 421.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 422.06800000000004| /test/testbed/net0_32/net0_16/n8/dvmrp/| GRAFT from neighbor 50 at if 2
+FC@| EVENT--422.06800000000004--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??--upstream:2--(. 7607.1759999999995 7607.1759999999995 7613.352 .)--sentPruneUpstream-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-2-upstream:2--(. 7607.1759999999995 + 7613.352 .)--sentPruneUpstream-7607.1759999999995)--(graft)
+DEBUG| 422.06800000000004| /test/testbed/net0_32/net0_16/n8/dvmrp/| SEND GRAFT to 2 at if 0: DVMRPv3_GRAFT,src:0/-4,group:-111
+DEBUG| 422.06800000000004| /test/testbed/net0_32/net0_16/n8/dvmrp/| SEND GRAFT-ACK to 50 at if 2: DVMRPv3_GRAFT-ACK,src:0/-32,group:-111
+DEBUG| 422.06800000000004| /test/testbed/net32_32/net32_16/n40/dvmrp/| GRAFT from neighbor 34 at if 0
+FC@| EVENT--422.06800000000004--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??--upstream:18--(7611.264 7611.264 . . .)--sentPruneUpstream-7611.264,(0,-111,2)(-32,-1,-1):??-0-upstream:18--(+ 7611.264 . . .)--sentPruneUpstream-7611.264)--(graft)
+DEBUG| 422.06800000000004| /test/testbed/net32_32/net32_16/n40/dvmrp/| SEND GRAFT to 18 at if 2: DVMRPv3_GRAFT,src:0/-32,group:-111
+DEBUG| 422.06800000000004| /test/testbed/net32_32/net32_16/n40/dvmrp/| SEND GRAFT-ACK to 34 at if 0: DVMRPv3_GRAFT-ACK,src:0/-32,group:-111
+DEBUG| 423.10800000000006| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| GRAFT from neighbor 8 at if 2
+FC@| EVENT--423.10800000000006--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,0):??--upstream:<null>--(. . 7607.396 . .)-7607.396,(0,-111,0)(-4,-1,0):??-2-upstream:<null>--(. . + . .)-7607.396)--(graft)
+DEBUG| 423.10800000000006| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| SEND GRAFT-ACK to 8 at if 2: DVMRPv3_GRAFT-ACK,src:0/-4,group:-111
+DEBUG| 423.10800000000006| /test/testbed/net32_32/net48_4/n50/dvmrp/| GRAFT-ACK from neighbor 8 at if 2
+DEBUG| 423.10800000000006| /test/testbed/net0_32/net16_4/n18/dvmrp/| GRAFT from neighbor 40 at if 2
+FC@| EVENT--423.10800000000006--/test/testbed/net0_32/net16_4/n18/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,3)(-16,-1,-1):??--upstream:8--(. . 7612.308 . .)--sentPruneUpstream-7612.308,(0,-111,3)(-16,-1,-1):??-2-upstream:8--(. . + . .)--sentPruneUpstream-7612.308)--(graft)
+DEBUG| 423.10800000000006| /test/testbed/net0_32/net16_4/n18/dvmrp/| SEND GRAFT to 8 at if 3: DVMRPv3_GRAFT,src:0/-16,group:-111
+DEBUG| 423.10800000000006| /test/testbed/net0_32/net16_4/n18/dvmrp/| SEND GRAFT-ACK to 40 at if 2: DVMRPv3_GRAFT-ACK,src:0/-32,group:-111
+DEBUG| 423.10800000000006| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| GRAFT-ACK from neighbor 40 at if 2
+DEBUG| 424.1480000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| GRAFT-ACK from neighbor 2 at if 0
+DEBUG| 424.1480000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| GRAFT from neighbor 18 at if 3
+FC@| EVENT--424.1480000000001--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-2-upstream:2--(. 7607.1759999999995 + 7613.352 .)-427.06800000000004,(0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-427.06800000000004)--(graft)
+DEBUG| 424.1480000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| SEND GRAFT-ACK to 18 at if 3: DVMRPv3_GRAFT-ACK,src:0/-16,group:-111
+DEBUG| 424.1480000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| GRAFT-ACK from neighbor 18 at if 2
+DEBUG| 425.1880000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| GRAFT-ACK from neighbor 8 at if 3
+>>>>> Time 430.0: Forwarding cache entries after grafts:
+----- /test/testbed/net0_32/net0_16/n8/csl/rt/ -----:
+#Entries=1
+(0,-111,0)(-4,-1,-1)   	---{2,3}	upstream:2--(. 7607.1759999999995 + + .)	timeout:7607.1759999999995
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/ -----:
+#Entries=3
+(0,1,0)(0,-1,0)   	1-{1}	-toHostSubnet-	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,0)(-4,-1,0)   	---{2}	upstream:<null>--(. . + . .)	timeout:7607.396
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/ -----:
+#Entries=3
+(0,5,0)(0,-1,0)   	5-{1}	-toHostSubnet-	timeout:NaN
+(0,4,0)(0,-1,0)   	4-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-4,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net0_32/net16_4/n18/csl/rt/ -----:
+#Entries=3
+(0,17,0)(0,-1,0)   	17-{1}	-toHostSubnet-	timeout:NaN
+(0,16,0)(0,-1,0)   	16-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,3)(-16,-1,-1)   	---{2}	upstream:8--(. . + . .)	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/n40/csl/rt/ -----:
+#Entries=1
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:18--(+ 7611.264 . . .)	timeout:7611.264
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/ -----:
+#Entries=4
+(0,33,0)(0,-1,0)   	33-{1}	-toHostSubnet-	timeout:NaN
+(0,32,0)(0,-1,0)   	32-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:40--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{0}	-GroupEntry-	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/ -----:
+#Entries=3
+(0,37,0)(0,-1,0)   	37-{1}	-toHostSubnet-	timeout:NaN
+(0,36,0)(0,-1,0)   	36-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net48_4/n50/csl/rt/ -----:
+#Entries=4
+(0,49,0)(0,-1,0)   	49-{1}	-toHostSubnet-	timeout:NaN
+(0,48,0)(0,-1,0)   	48-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:8--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{0}	-GroupEntry-	timeout:NaN
+
+
+DEBUG| 431.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 431.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+>>>>> Time 450.0: Simulation stops.  Resume for testing another link failure.
+>>>>> Time 470.0: h48 leaves group -111.
+DEBUG| 471.028| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST HOST LEAVE EVENT: -111 at if 0
+FC@| EVENT--471.028--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??-0-upstream:8--(. . . . .)-NaN,(0,-111,2)(-32,-1,-1):??--upstream:8--(. . . . .)-NaN)--(prune)
+FC@| EVENT--471.028--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,-1)(0,-1,-1):??-0--GroupEntry--NaN,(0,-111,-1)(0,-1,-1):??---GroupEntry--NaN)--(prune)
+>>>>> Time 480.0: Inject a mcast packet at .../h0/csl/100@up to group -111.
+DEBUG| 481.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 481.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 486.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| MCAST QUERY for (0,-111,2)(-1,-1,-1)
+DEBUG| 486.13199999999995| /test/testbed/net32_32/net48_4/n50/dvmrp/| SEND PRUNE to 8 at if 2: DVMRPv3_PRUNE,src:0/-32,group:-111,pruneLifetime:7200
+DEBUG| 487.17599999999993| /test/testbed/net0_32/net0_16/n8/dvmrp/| PRUNE from neighbor 50 at if 2
+FC@| EVENT--487.17599999999993--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-3-upstream:2--(. 7607.1759999999995 7687.1759999999995 + .)-7607.1759999999995)--(prune)
+DEBUG| 491.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 491.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+HOST_32@| sz1044(INET)sz20--src:0--dest:-111--prot:0--TTL:6/255--ToS:#0--label:0__<To Group -111, #2>__
+>>>>> Time 500.0: Forwarding cache entries after prunes:
+----- /test/testbed/net0_32/net0_16/n8/csl/rt/ -----:
+#Entries=1
+(0,-111,0)(-4,-1,-1)   	---{3}	upstream:2--(. 7607.1759999999995 7687.1759999999995 + .)	timeout:7607.1759999999995
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/ -----:
+#Entries=3
+(0,1,0)(0,-1,0)   	1-{1}	-toHostSubnet-	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,0)(-4,-1,0)   	---{2}	upstream:<null>--(. . + . .)	timeout:7607.396
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/ -----:
+#Entries=3
+(0,5,0)(0,-1,0)   	5-{1}	-toHostSubnet-	timeout:NaN
+(0,4,0)(0,-1,0)   	4-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-4,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net0_32/net16_4/n18/csl/rt/ -----:
+#Entries=3
+(0,17,0)(0,-1,0)   	17-{1}	-toHostSubnet-	timeout:NaN
+(0,16,0)(0,-1,0)   	16-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,3)(-16,-1,-1)   	---{2}	upstream:8--(. . + . .)	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/n40/csl/rt/ -----:
+#Entries=1
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:18--(+ 7611.264 . . .)	timeout:7611.264
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/ -----:
+#Entries=4
+(0,33,0)(0,-1,0)   	33-{1}	-toHostSubnet-	timeout:NaN
+(0,32,0)(0,-1,0)   	32-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:40--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{0}	-GroupEntry-	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/ -----:
+#Entries=3
+(0,37,0)(0,-1,0)   	37-{1}	-toHostSubnet-	timeout:NaN
+(0,36,0)(0,-1,0)   	36-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net48_4/n50/csl/rt/ -----:
+#Entries=4
+(0,49,0)(0,-1,0)   	49-{1}	-toHostSubnet-	timeout:NaN
+(0,48,0)(0,-1,0)   	48-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+
+>>>>> Time 510.0: The other link between n0_32 and n32_32 fails.
+DEBUG| 541.0360000000001| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 551.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 551.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 560.0| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR DOWN EVENT: <18,-32> at 2
+DEBUG| 560.0| /test/testbed/net32_32/net32_16/n40/dvmrp/| SYNC fc entries with the rt entry: (0,32,0)(0,-32,0):??-null-metric:0--dependents:(){}-NaN
+DEBUG| 560.0| /test/testbed/net32_32/net32_16/n40/dvmrp/| hold-down (0,0,0)(0,-32,0):18-2-metric:INF(changed)--dependents:(34,38){0,1}-680.0 due to NEIGHBOR TIMEOUT: 18
+DEBUG| 560.0| /test/testbed/net0_32/net16_4/n18/dvmrp/| NEIGHBOR DOWN EVENT: <40,-32> at 2
+DEBUG| 560.0| /test/testbed/net0_32/net16_4/n18/dvmrp/| SYNC fc entries with the rt entry: (0,0,0)(0,-32,0):??-null-metric:0--dependents:(){}-NaN
+FC@| EVENT--560.0--/test/testbed/net0_32/net16_4/n18/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,3)(-16,-1,-1):??-2-upstream:8--(. . + . .)-NaN,(0,-111,3)(-16,-1,-1):??--upstream:8--(. . . . .)-NaN)--
+DEBUG| 560.0| /test/testbed/net0_32/net16_4/n18/dvmrp/| hold-down (0,32,0)(0,-32,0):40-2-metric:INF(changed)--dependents:(){}-680.0 due to NEIGHBOR TIMEOUT: 40
+DEBUG| 565.0| /test/testbed/net32_32/net32_16/n40/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 565.0| /test/testbed/net0_32/net16_4/n18/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 566.056| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| hold-down (0,0,0)(0,-32,0):40-2-metric:2--dependents:(){}-682.152 due to route invalidation from NEXT-HOP neighbor
+		--->metric:INF(changed)--dependents:(){}
+DEBUG| 566.056| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| hold-down (0,0,0)(0,-32,0):40-2-metric:2--dependents:(){}-682.152 due to route invalidation from NEXT-HOP neighbor
+		--->metric:INF(changed)--dependents:(){}
+DEBUG| 571.056| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 571.056| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 601.0360000000001| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 601.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 602.1320000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-32,0):18-2-metric:INF--dependents:(34,38){0,1}-680.0
+		--->50-metric:2(changed)--dependents:(34,38){0,1}
+DEBUG| 602.1320000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| SYNC fc entries with the rt entry: (0,0,0)(0,-32,0):50-3-metric:2(changed)--dependents:(34,38){0,1}-742.1320000000001
+FC@| EVENT--602.1320000000001--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Removed--(0,-111,2)(-32,-1,-1):??-0-upstream:18--(+ 7611.264 . . .)-7611.264--
+FC@| EVENT--602.1320000000001--/test/testbed/net32_32/net32_16/n40/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,3)(-32,-1,-1):??-0-upstream:50--(+ 7611.264 . . .)-NaN--
+DEBUG| 602.1320000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,32,0)(0,-32,0):40-2-metric:INF--dependents:(){}-680.0
+		--->8-metric:2(changed)--dependents:(){}
+DEBUG| 602.1320000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| SYNC fc entries with the rt entry: (0,32,0)(0,-32,0):8-3-metric:2(changed)--dependents:(){}-742.1320000000001
+DEBUG| 607.1320000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 607.1320000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 608.1880000000001| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-32,0):40-2-metric:INF--dependents:(){}-742.152
+		--->metric:3(changed)--dependents:(){}
+DEBUG| 608.1880000000001| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-32,0):40-2-metric:INF--dependents:(){}-742.152
+		--->metric:3(changed)--dependents:(){}
+DEBUG| 608.2080000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| SYNC fc entries with the rt entry: (0,0,0)(0,-32,0):8-2-metric:1--dependents:(40){3}-742.1120000000001
+FC@| EVENT--608.2080000000001--/test/testbed/net32_32/net48_4/n50/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,2)(-32,-1,-1):??--upstream:8--(. . . . .)--sentPruneUpstream-NaN,(0,-111,2)(-32,-1,-1):??-3-upstream:8--(. . . + .)-NaN)--
+DEBUG| 608.2080000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| SEND GRAFT to 8 at if 2: DVMRPv3_GRAFT,src:0/-32,group:-111
+DEBUG| 608.2080000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| SYNC fc entries with the rt entry: (0,32,0)(0,-32,0):50-2-metric:1--dependents:(2,6,18){0,1,3}-742.1120000000001
+DEBUG| 609.248| /test/testbed/net0_32/net0_16/n8/dvmrp/| GRAFT from neighbor 50 at if 2
+FC@| EVENT--609.248--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-3-upstream:2--(. 7607.1759999999995 7687.1759999999995 + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-7607.1759999999995)--(graft)
+DEBUG| 609.248| /test/testbed/net0_32/net0_16/n8/dvmrp/| SEND GRAFT-ACK to 50 at if 2: DVMRPv3_GRAFT-ACK,src:0/-32,group:-111
+DEBUG| 610.288| /test/testbed/net32_32/net48_4/n50/dvmrp/| GRAFT-ACK from neighbor 8 at if 2
+DEBUG| 611.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 611.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 613.1880000000001| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 613.1880000000001| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 630.0: Stabilized routes after link failure:
+----- /test/testbed/net0_32/net0_16/n8/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(50){2}	timeout:NaN
+(0,0,0)(0,-16,0)   	??-{}	metric:0--dependents:(18){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	50-{2}	metric:1--dependents:(2,6,18){0,1,3}	timeout:752.1120000000001
+(0,4,0)(0,-4,0)   	6-{1}	metric:1--dependents:(2){0}	timeout:742.152
+(0,0,0)(0,-4,0)   	2-{0}	metric:1--dependents:(6){1}	timeout:742.152
+(0,16,0)(0,-4,0)   	18-{3}	metric:1--dependents:(2,6){0,1}	timeout:748.2080000000001
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+(0,4,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,4,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+(0,0,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+(0,16,0)(0,-4,0)   	8-{2}	metric:2--dependents:(){}	timeout:752.152
+
+----- /test/testbed/net0_32/net16_4/n18/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,16,0)(0,-4,0)   	??-{}	metric:0--dependents:(8){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	8-{3}	metric:2--dependents:(){}	timeout:752.1320000000001
+(0,0,0)(0,-16,0)   	8-{3}	metric:1--dependents:(){}	timeout:752.1320000000001
+
+----- /test/testbed/net32_32/net32_16/n40/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-16,0)   	??-{}	metric:0--dependents:(50){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(){}	timeout:NaN
+(0,48,0)(0,-4,0)   	50-{3}	metric:1--dependents:(34,38){0,1}	timeout:752.1320000000001
+(0,36,0)(0,-4,0)   	38-{1}	metric:1--dependents:(34){0}	timeout:754.2640000000001
+(0,32,0)(0,-4,0)   	34-{0}	metric:1--dependents:(38){1}	timeout:754.2640000000001
+(0,0,0)(0,-32,0)   	50-{3}	metric:2--dependents:(34,38){0,1}	timeout:752.1320000000001
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,32,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:742.152
+(0,36,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:742.152
+(0,0,0)(0,-32,0)   	40-{2}	metric:3--dependents:(){}	timeout:748.1880000000001
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,36,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){2}	timeout:NaN
+(0,48,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:742.152
+(0,32,0)(0,-4,0)   	40-{2}	metric:2--dependents:(){}	timeout:742.152
+(0,0,0)(0,-32,0)   	40-{2}	metric:3--dependents:(){}	timeout:748.1880000000001
+
+----- /test/testbed/net32_32/net48_4/n50/dvmrp/ -----:
+ifset: all physical ifs
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,48,0)(0,-4,0)   	??-{}	metric:0--dependents:(40){3}	timeout:NaN
+(0,32,0)(0,-32,0)   	??-{}	metric:0--dependents:(8){2}	timeout:NaN
+(0,32,0)(0,-16,0)   	40-{3}	metric:1--dependents:(){}	timeout:748.2080000000001
+(0,0,0)(0,-32,0)   	8-{2}	metric:1--dependents:(40){3}	timeout:752.1120000000001
+
+
+>>>>> Time 650.0: Forwarding cache entries after link failure:
+----- /test/testbed/net0_32/net0_16/n8/csl/rt/ -----:
+#Entries=1
+(0,-111,0)(-4,-1,-1)   	---{2,3}	upstream:2--(. 7607.1759999999995 + + .)	timeout:7607.1759999999995
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/ -----:
+#Entries=3
+(0,1,0)(0,-1,0)   	1-{1}	-toHostSubnet-	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,0)(-4,-1,0)   	---{2}	upstream:<null>--(. . + . .)	timeout:7607.396
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/ -----:
+#Entries=3
+(0,5,0)(0,-1,0)   	5-{1}	-toHostSubnet-	timeout:NaN
+(0,4,0)(0,-1,0)   	4-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-4,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net0_32/net16_4/n18/csl/rt/ -----:
+#Entries=3
+(0,17,0)(0,-1,0)   	17-{1}	-toHostSubnet-	timeout:NaN
+(0,16,0)(0,-1,0)   	16-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,3)(-16,-1,-1)   	---{}	upstream:8--(. . . . .)	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/n40/csl/rt/ -----:
+#Entries=1
+(0,-111,3)(-32,-1,-1)   	---{0}	upstream:50--(+ 7611.264 . . .)	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/ -----:
+#Entries=4
+(0,33,0)(0,-1,0)   	33-{1}	-toHostSubnet-	timeout:NaN
+(0,32,0)(0,-1,0)   	32-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:40--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{0}	-GroupEntry-	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/ -----:
+#Entries=3
+(0,37,0)(0,-1,0)   	37-{1}	-toHostSubnet-	timeout:NaN
+(0,36,0)(0,-1,0)   	36-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net48_4/n50/csl/rt/ -----:
+#Entries=4
+(0,49,0)(0,-1,0)   	49-{1}	-toHostSubnet-	timeout:NaN
+(0,48,0)(0,-1,0)   	48-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{3}	upstream:8--(. . . + .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+
+>>>>> Time 650.0: Inject a mcast packet at .../h0/csl/100@up to group -111.
+DEBUG| 656.132| /test/testbed/net0_32/net16_4/n18/dvmrp/| MCAST QUERY for (0,-111,3)(-1,-1,-1)
+DEBUG| 656.132| /test/testbed/net0_32/net16_4/n18/dvmrp/| SEND PRUNE to 8 at if 3: DVMRPv3_PRUNE,src:0/-16,group:-111,pruneLifetime:7200
+DEBUG| 657.1759999999999| /test/testbed/net0_32/net0_16/n8/dvmrp/| PRUNE from neighbor 18 at if 3
+FC@| EVENT--657.1759999999999--/test/testbed/net0_32/net0_16/n8/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,0)(-4,-1,-1):??-2,3-upstream:2--(. 7607.1759999999995 + + .)-7607.1759999999995,(0,-111,0)(-4,-1,-1):??-2-upstream:2--(. 7607.1759999999995 + 7857.1759999999995 .)-7607.1759999999995)--(prune)
+DEBUG| 661.0360000000001| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 661.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+HOST_32@| sz1044(INET)sz20--src:0--dest:-111--prot:0--TTL:6/255--ToS:#0--label:0__<To Group -111, #3>__
+>>>>> Time 670.0: Forwarding cache entries after prunes:
+----- /test/testbed/net0_32/net0_16/n8/csl/rt/ -----:
+#Entries=1
+(0,-111,0)(-4,-1,-1)   	---{2}	upstream:2--(. 7607.1759999999995 + 7857.1759999999995 .)	timeout:7607.1759999999995
+
+----- /test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/ -----:
+#Entries=3
+(0,1,0)(0,-1,0)   	1-{1}	-toHostSubnet-	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,0)(-4,-1,0)   	---{2}	upstream:<null>--(. . + . .)	timeout:7607.396
+
+----- /test/testbed/net0_32/net0_16/net4_4/n6/csl/rt/ -----:
+#Entries=3
+(0,5,0)(0,-1,0)   	5-{1}	-toHostSubnet-	timeout:NaN
+(0,4,0)(0,-1,0)   	4-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-4,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net0_32/net16_4/n18/csl/rt/ -----:
+#Entries=3
+(0,17,0)(0,-1,0)   	17-{1}	-toHostSubnet-	timeout:NaN
+(0,16,0)(0,-1,0)   	16-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,3)(-16,-1,-1)   	---{}	upstream:8--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/n40/csl/rt/ -----:
+#Entries=1
+(0,-111,3)(-32,-1,-1)   	---{0}	upstream:50--(+ 7611.264 . . .)	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net32_4/n34/csl/rt/ -----:
+#Entries=4
+(0,33,0)(0,-1,0)   	33-{1}	-toHostSubnet-	timeout:NaN
+(0,32,0)(0,-1,0)   	32-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{0}	upstream:40--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{0}	-GroupEntry-	timeout:NaN
+
+----- /test/testbed/net32_32/net32_16/net36_4/n38/csl/rt/ -----:
+#Entries=3
+(0,37,0)(0,-1,0)   	37-{1}	-toHostSubnet-	timeout:NaN
+(0,36,0)(0,-1,0)   	36-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{}	upstream:40--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/testbed/net32_32/net48_4/n50/csl/rt/ -----:
+#Entries=4
+(0,49,0)(0,-1,0)   	49-{1}	-toHostSubnet-	timeout:NaN
+(0,48,0)(0,-1,0)   	48-{0}	-toHostSubnet-	timeout:NaN
+(0,-111,2)(-32,-1,-1)   	---{3}	upstream:8--(. . . + .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+
+DEBUG| 671.0360000000001| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 671.0360000000001| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+>>>>> Time 700.0: ~~~~~~~~~ The End ~~~~~~~~~

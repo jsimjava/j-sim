@@ -1,0 +1,89 @@
+Test1
+--------- TEST STARTS ---------
+5 events in the batch.
+Event 0| (v)msg| Test 1: Deliver to local, unicast + router alert.
+Event 1| (v)send| 0.0| /test/tester/down1@pd| sz20(INET)sz20--src:1--dest:10--prot:3--TTL:0/10--ROUTER_ALERT--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/pktarrival@| (?)EVENT--0.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:1--dest:10--prot:1--TTL:0/10--ROUTER_ALERT--ToS:#309--label:0__<EMPTY_BODY>__--from interface 1
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/up3@pd| (v)sz20(INET)sz20--src:1--dest:10--prot:1--TTL:0/10--ROUTER_ALERT--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (v)finish| 1000.0
+------- (?) Test finished --------
+Test2
+--------- TEST STARTS ---------
+5 events in the batch.
+Event 0| (v)msg| Test 2: Deliver to local, unicast + identity lookup.
+Event 1| (v)send| 0.0| /test/tester/down2@pd| sz20(INET)sz20--src:1--dest:10--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/pktarrival@| (?)EVENT--1000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:1--dest:10--prot:2--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__--from interface 2
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/up6@pd| (v)sz20(INET)sz20--src:1--dest:10--prot:2--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (v)finish| 1000.0
+------- (?) Test finished --------
+Test3
+--------- TEST STARTS ---------
+6 events in the batch.
+Event 0| (v)msg| Test 3: Routing forwarding: multicast.
+Event 1| (v)send| 0.0| /test/tester/down1@pd| sz20(INET)sz20--src:1--dest:-2--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/pktarrival@| (?)EVENT--2000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:1--dest:-2--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__--from interface 1
+Event 4| (v)rcv| (v)0.0| (v)/test/tester/down0@pd| (v)sz20(INET)sz20--src:1--dest:-2--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/down2@pd| (v)sz20(INET)sz20--src:1--dest:-2--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 5| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 4
+--------- TEST STARTS ---------
+6 events in the batch.
+Event 0| (v)msg| Test 4: broadcast forwarding.
+Event 1| (v)send| 0.0| /test/tester/up3@pd| PKT_SENDING:excluded_bcast--(0)--sz20(INET)sz20--src:0--dest:11--prot:0--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--3000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:0--dest:11--prot:3--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__--from local up port 3
+Event 3| (?)rcv| (v)0.0| (v)/test/tester/down1@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:11--prot:3--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (?)rcv| (v)0.0| (v)/test/tester/down2@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:11--prot:3--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 5| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 5
+--------- TEST STARTS ---------
+6 events in the batch.
+Event 0| (v)msg| Test 5: explicit multicast forwarding.
+Event 1| (v)send| 0.0| /test/tester/up6@pd| PKT_SENDING:explicit_mcast--(1,0)--sz20(INET)sz20--src:0--dest:-3--prot:0--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--4000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:0--dest:-3--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__--from local up port 6
+Event 3| (?)rcv| (v)0.0| (v)/test/tester/down1@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-3--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (?)rcv| (v)0.0| (v)/test/tester/down0@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-3--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 5| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 6
+--------- TEST STARTS ---------
+7 events in the batch.
+Event 0| (v)msg| Test 6: Delivers to local + mcast forwarding, from network
+Event 1| (v)send| 0.0| /test/tester/down1@pd| sz20(INET)sz20--src:1--dest:-20--prot:6--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--5000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:1--dest:-20--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__--from interface 1
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/up6@pd| (v)sz20(INET)sz20--src:1--dest:-20--prot:1--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 5| (v)rcv| (v)0.0| (v)/test/tester/down0@pd| (v)sz20(INET)sz20--src:1--dest:-20--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (v)rcv| (v)0.0| (v)/test/tester/down2@pd| (v)sz20(INET)sz20--src:1--dest:-20--prot:6--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 6| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 7
+--------- TEST STARTS ---------
+8 events in the batch.
+Event 0| (v)msg| Test 7: Delivers to local + mcast forwarding, from local
+Event 1| (v)send| 0.0| /test/tester/up3@pd| sz20(INET)sz20--src:0--dest:-11--prot:0--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--6000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:0--dest:-11--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__--from local up port 3
+Event 3| (?)rcv| (v)0.0| (v)/test/tester/up3@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-11--prot:-1--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 5| (?)rcv| (v)0.0| (v)/test/tester/down0@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-11--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 6| (?)rcv| (v)0.0| (v)/test/tester/down1@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-11--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (?)rcv| (v)0.0| (v)/test/tester/down2@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:0--dest:-11--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 7| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 8
+--------- TEST STARTS ---------
+5 events in the batch.
+Event 0| (v)msg| Test 8: TTL exceeds
+Event 1| (v)send| 0.0| /test/tester/down2@pd| sz20(INET)sz20--src:1--dest:33--prot:6--TTL:10/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 3| (?)rcv| (v)0.0| (v)/test/tester/.info@| (?)GARBAGE--7000.0--/test/pd/--sz20(INET)sz20--src:1--dest:33--prot:6--TTL:10/10--ToS:#309--label:0__<EMPTY_BODY>__--exceeds TTL: 11
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--7000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:1--dest:33--prot:6--TTL:10/10--ToS:#309--label:0__<EMPTY_BODY>__--from interface 2
+Event 4| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 9
+--------- TEST STARTS ---------
+5 events in the batch.
+Event 0| (v)msg| Test 10: src addr unspecified
+Event 1| (v)send| 0.0| /test/tester/up3@pd| sz20(INET)sz20--src:----dest:111--prot:0--TTL:0/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 2| (?)rcv| (v)0.0| (v)pkt*@| (?)EVENT--8000.0--/test/pd/.pktarrival@--Packt Arrival--sz20(INET)sz20--src:10--dest:111--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__--from local up port 3
+Event 3| (?)rcv| (v)0.0| (v)/test/tester/down1@pd| (v)drcl.inet.InetPacket| (?)sz20(INET)sz20--src:10--dest:111--prot:3--TTL:1/10--ToS:#309--label:0__<EMPTY_BODY>__
+Event 4| (v)finish| 1000.0
+------- (?) Test finished --------

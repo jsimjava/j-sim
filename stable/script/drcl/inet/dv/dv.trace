@@ -1,0 +1,204 @@
+create nodes...
+build...
+simulator...
+------------- DONE ----------------
+DEBUG| 1.036| /test/n1/dv/| NEIGHBOR UP EVENT: <0,-1> at 1
+RT@| EVENT--1.036--/test/n1/csl/rt/.rt_ucast@--RT Entry Added--(0,1,0)(0,-1,0):??-null-metric:0-NaN--
+DEBUG| 1.036| /test/n2/dv/| NEIGHBOR UP EVENT: <0,-1> at 0
+RT@| EVENT--1.036--/test/n2/csl/rt/.rt_ucast@--RT Entry Added--(0,2,0)(0,-1,0):??-null-metric:0-NaN--
+DEBUG| 1.036| /test/n3/dv/| NEIGHBOR UP EVENT: <0,-1> at 0
+RT@| EVENT--1.036--/test/n3/csl/rt/.rt_ucast@--RT Entry Added--(0,3,0)(0,-1,0):??-null-metric:0-NaN--
+DEBUG| 1.036| /test/n3/dv/| NEIGHBOR UP EVENT: <1,-1> at 1
+DEBUG| 1.036| /test/n0/dv/| NEIGHBOR UP EVENT: <1,-1> at 0
+RT@| EVENT--1.036--/test/n0/csl/rt/.rt_ucast@--RT Entry Added--(0,0,0)(0,-1,0):??-null-metric:0-NaN--
+DEBUG| 1.036| /test/n0/dv/| NEIGHBOR UP EVENT: <2,-1> at 1
+DEBUG| 1.036| /test/n3/dv/| NEIGHBOR UP EVENT: <2,-1> at 2
+DEBUG| 1.036| /test/n0/dv/| NEIGHBOR UP EVENT: <3,-1> at 2
+DEBUG| 1.036| /test/n1/dv/| NEIGHBOR UP EVENT: <3,-1> at 0
+DEBUG| 1.036| /test/n2/dv/| NEIGHBOR UP EVENT: <3,-1> at 1
+DEBUG| 3.128| /test/n1/dv/| Initial route from neighbor: 0-(0,0,0)(0,-1,0)   0(1)   metric:1(changed)
+RT@| EVENT--3.128--/test/n1/csl/rt/.rt_ucast@--RT Entry Added--(0,0,0)(0,-1,0):0-1-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n2/dv/| Initial route from neighbor: 0-(0,0,0)(0,-1,0)   0(0)   metric:1(changed)
+RT@| EVENT--3.128--/test/n2/csl/rt/.rt_ucast@--RT Entry Added--(0,0,0)(0,-1,0):0-0-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n3/dv/| Initial route from neighbor: 0-(0,0,0)(0,-1,0)   0(0)   metric:1(changed)
+RT@| EVENT--3.128--/test/n3/csl/rt/.rt_ucast@--RT Entry Added--(0,0,0)(0,-1,0):0-0-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n3/dv/| Initial route from neighbor: 1-(0,1,0)(0,-1,0)   1(1)   metric:1(changed)
+RT@| EVENT--3.128--/test/n3/csl/rt/.rt_ucast@--RT Entry Added--(0,1,0)(0,-1,0):1-1-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n0/dv/| Initial route from neighbor: 1-(0,1,0)(0,-1,0)   1(0)   metric:1(changed)
+RT@| EVENT--3.128--/test/n0/csl/rt/.rt_ucast@--RT Entry Added--(0,1,0)(0,-1,0):1-0-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n0/dv/| Initial route from neighbor: 2-(0,2,0)(0,-1,0)   2(1)   metric:1(changed)
+RT@| EVENT--3.128--/test/n0/csl/rt/.rt_ucast@--RT Entry Added--(0,2,0)(0,-1,0):2-1-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n3/dv/| Initial route from neighbor: 2-(0,2,0)(0,-1,0)   2(2)   metric:1(changed)
+RT@| EVENT--3.128--/test/n3/csl/rt/.rt_ucast@--RT Entry Added--(0,2,0)(0,-1,0):2-2-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n0/dv/| Initial route from neighbor: 3-(0,3,0)(0,-1,0)   3(2)   metric:1(changed)
+RT@| EVENT--3.128--/test/n0/csl/rt/.rt_ucast@--RT Entry Added--(0,3,0)(0,-1,0):3-2-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n1/dv/| Initial route from neighbor: 3-(0,3,0)(0,-1,0)   3(0)   metric:1(changed)
+RT@| EVENT--3.128--/test/n1/csl/rt/.rt_ucast@--RT Entry Added--(0,3,0)(0,-1,0):3-0-metric:1(changed)-NaN--
+DEBUG| 3.128| /test/n2/dv/| Initial route from neighbor: 3-(0,3,0)(0,-1,0)   3(1)   metric:1(changed)
+RT@| EVENT--3.128--/test/n2/csl/rt/.rt_ucast@--RT Entry Added--(0,3,0)(0,-1,0):3-1-metric:1(changed)-NaN--
+DEBUG| 8.128| /test/n1/dv/| TRIGGERED UPDATE
+DEBUG| 8.128| /test/n2/dv/| TRIGGERED UPDATE
+DEBUG| 8.128| /test/n3/dv/| TRIGGERED UPDATE
+DEBUG| 8.128| /test/n0/dv/| TRIGGERED UPDATE
+DEBUG| 9.244| /test/n1/dv/| Initial route from neighbor: 3-(0,2,0)(0,-1,0)   3(0)   metric:2(changed)
+RT@| EVENT--9.244--/test/n1/csl/rt/.rt_ucast@--RT Entry Added--(0,2,0)(0,-1,0):3-0-metric:2(changed)-NaN--
+DEBUG| 9.244| /test/n2/dv/| Initial route from neighbor: 3-(0,1,0)(0,-1,0)   3(1)   metric:2(changed)
+RT@| EVENT--9.244--/test/n2/csl/rt/.rt_ucast@--RT Entry Added--(0,1,0)(0,-1,0):3-1-metric:2(changed)-NaN--
+DEBUG| 14.244| /test/n1/dv/| TRIGGERED UPDATE
+DEBUG| 14.244| /test/n2/dv/| TRIGGERED UPDATE
+DEBUG| 31.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 31.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 31.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 31.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 61.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 61.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 61.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 61.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 91.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 91.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 91.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 91.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 121.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 121.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 121.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 121.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 151.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 151.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 151.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 151.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 181.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 181.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 181.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 181.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 211.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 211.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 211.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 211.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 212.152| /test/n1/dv/| NeighborTimeout:0,212.152
+RT@| EVENT--212.152--/test/n1/csl/rt/.rt_ucast@--RT Entry Modified--((0,0,0)(0,-1,0):0-1-metric:1-NaN,(0,0,0)(0,-1,0):0-1-metric:INF(changed)-332.152)--
+DEBUG| 212.152| /test/n1/dv/| hold-down (0,0,0)(0,-1,0):0-1-metric:INF(changed)-332.152 due to neighbor timeout
+DEBUG| 212.152| /test/n0/dv/| NeighborTimeout:1,212.152
+RT@| EVENT--212.152--/test/n0/csl/rt/.rt_ucast@--RT Entry Modified--((0,1,0)(0,-1,0):1-0-metric:1-NaN,(0,1,0)(0,-1,0):1-0-metric:INF(changed)-332.152)--
+DEBUG| 212.152| /test/n0/dv/| hold-down (0,1,0)(0,-1,0):1-0-metric:INF(changed)-332.152 due to neighbor timeout
+DEBUG| 212.15200000000002| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,1,0)(0,-1,0):1-0-metric:INF(changed)-332.152
+		--->3-metric:2(changed)
+RT@| EVENT--212.15200000000002--/test/n0/csl/rt/.rt_ucast@--RT Entry Modified--((0,1,0)(0,-1,0):1-0-metric:INF(changed)-332.152,(0,1,0)(0,-1,0):3-2-metric:2(changed)-NaN)--
+DEBUG| 212.15200000000002| /test/n1/dv/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-1,0):0-1-metric:INF(changed)-332.152
+		--->3-metric:2(changed)
+RT@| EVENT--212.15200000000002--/test/n1/csl/rt/.rt_ucast@--RT Entry Modified--((0,0,0)(0,-1,0):0-1-metric:INF(changed)-332.152,(0,0,0)(0,-1,0):3-0-metric:2(changed)-NaN)--
+DEBUG| 217.152| /test/n1/dv/| TRIGGERED UPDATE
+DEBUG| 217.152| /test/n0/dv/| TRIGGERED UPDATE
+DEBUG| 241.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 241.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 241.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 241.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 271.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 271.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 271.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 271.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 301.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 301.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 301.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 301.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 331.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 331.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 331.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 331.036| /test/n2/dv/| REGULAR UPDATE
+----- /test/n0/csl/rt/ -----:
+#Entries=4
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,1,0)(0,-1,0)   	3-{2}	metric:2	timeout:NaN
+(0,2,0)(0,-1,0)   	2-{1}	metric:1	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{2}	metric:1	timeout:NaN
+
+----- /test/n1/csl/rt/ -----:
+#Entries=4
+(0,1,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	3-{0}	metric:2	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{0}	metric:1	timeout:NaN
+(0,2,0)(0,-1,0)   	3-{0}	metric:2	timeout:NaN
+
+----- /test/n2/csl/rt/ -----:
+#Entries=4
+(0,2,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	metric:1	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{1}	metric:1	timeout:NaN
+(0,1,0)(0,-1,0)   	3-{1}	metric:2	timeout:NaN
+
+----- /test/n3/csl/rt/ -----:
+#Entries=4
+(0,3,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	metric:1	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{1}	metric:1	timeout:NaN
+(0,2,0)(0,-1,0)   	2-{2}	metric:1	timeout:NaN
+
+DEBUG| 351.036| /test/n1/dv/| NEIGHBOR UP EVENT: <0,-1> at 1
+DEBUG| 351.036| /test/n0/dv/| NEIGHBOR UP EVENT: <1,-1> at 0
+DEBUG| 353.188| /test/n1/dv/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-1,0):3-0-metric:2-NaN
+		--->0-metric:1(changed)
+RT@| EVENT--353.188--/test/n1/csl/rt/.rt_ucast@--RT Entry Modified--((0,0,0)(0,-1,0):3-0-metric:2-NaN,(0,0,0)(0,-1,0):0-1-metric:1(changed)-NaN)--
+DEBUG| 353.188| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,1,0)(0,-1,0):3-2-metric:2-NaN
+		--->1-metric:1(changed)
+RT@| EVENT--353.188--/test/n0/csl/rt/.rt_ucast@--RT Entry Modified--((0,1,0)(0,-1,0):3-2-metric:2-NaN,(0,1,0)(0,-1,0):1-0-metric:1(changed)-NaN)--
+DEBUG| 358.188| /test/n1/dv/| TRIGGERED UPDATE
+DEBUG| 358.188| /test/n0/dv/| TRIGGERED UPDATE
+DEBUG| 361.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 361.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 381.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 381.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 391.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 391.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 411.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 411.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 421.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 421.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 441.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 441.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 451.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 451.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 471.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 471.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 481.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 481.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 501.036| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 501.036| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 511.036| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 511.036| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 531.0360000000001| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 531.0360000000001| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 541.0360000000001| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 561.0360000000001| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 561.0360000000001| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 571.0360000000001| /test/n3/dv/| REGULAR UPDATE
+DEBUG| 571.0360000000001| /test/n2/dv/| REGULAR UPDATE
+DEBUG| 591.0360000000001| /test/n1/dv/| REGULAR UPDATE
+DEBUG| 591.0360000000001| /test/n0/dv/| REGULAR UPDATE
+----- /test/n0/csl/rt/ -----:
+#Entries=4
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{0}	metric:1	timeout:NaN
+(0,2,0)(0,-1,0)   	2-{1}	metric:1	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{2}	metric:1	timeout:NaN
+
+----- /test/n1/csl/rt/ -----:
+#Entries=4
+(0,1,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{1}	metric:1	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{0}	metric:1	timeout:NaN
+(0,2,0)(0,-1,0)   	3-{0}	metric:2	timeout:NaN
+
+----- /test/n2/csl/rt/ -----:
+#Entries=4
+(0,2,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	metric:1	timeout:NaN
+(0,3,0)(0,-1,0)   	3-{1}	metric:1	timeout:NaN
+(0,1,0)(0,-1,0)   	3-{1}	metric:2	timeout:NaN
+
+----- /test/n3/csl/rt/ -----:
+#Entries=4
+(0,3,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,0,0)(0,-1,0)   	0-{0}	metric:1	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{1}	metric:1	timeout:NaN
+(0,2,0)(0,-1,0)   	2-{2}	metric:1	timeout:NaN
+

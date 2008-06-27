@@ -1,0 +1,5 @@
+The difference between aodv_n6_tcp3_single_hop.tcl and aodv_n6_tcp3_multi_hop.tcl
+is that we test the single hop case in the first script and multiple hops rouging
+n the second script. In aodv_n6_tcp3_single_hop.tcl all nodes are confined to a
+small region such that every node can talk with each other.
+

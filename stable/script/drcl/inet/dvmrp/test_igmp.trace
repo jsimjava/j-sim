@@ -1,0 +1,72 @@
+node builders...
+build net2_0...
+build net2_1...
+build net4...
+build net5...
+build the testbed...
+assign CIDR addresses...
+configuring the network...
+simulator...
+start the simulation...
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <50,-32> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <50,-4> at 3
+DEBUG| 1.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| NEIGHBOR UP EVENT: <40,-32> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR UP EVENT: <40,-16> at 3
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| NEIGHBOR UP EVENT: <40,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| NEIGHBOR UP EVENT: <40,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <38,-4> at 1
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <34,-4> at 0
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <6,-4> at 1
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <2,-4> at 0
+DEBUG| 1.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| NEIGHBOR UP EVENT: <8,-32> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| NEIGHBOR UP EVENT: <8,-16> at 3
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| NEIGHBOR UP EVENT: <8,-1> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| NEIGHBOR UP EVENT: <8,-1> at 2
+DEBUG| 1.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| NEIGHBOR UP EVENT: <18,-32> at 2
+DEBUG| 1.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| NEIGHBOR UP EVENT: <18,-4> at 3
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 50-(0,32,0)(0,-32,0)   50(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 50-(0,48,0)(0,-4,0)   50(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-32,0)   40(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-16,0)   40(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 38-(0,36,0)(0,-4,0)   38(1)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 34-(0,32,0)(0,-4,0)   34(0)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 6-(0,4,0)(0,-4,0)   6(1)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 2-(0,0,0)(0,-4,0)   2(0)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-32,0)   8(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-16,0)   8(3)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| Initial route from neighbor: 18-(0,0,0)(0,-32,0)   18(2)   metric:1(changed)--dependents:(){}
+DEBUG| 3.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| Initial route from neighbor: 18-(0,16,0)(0,-4,0)   18(3)   metric:1(changed)--dependents:(){}
+DEBUG| 8.128| /test/testbed/net0_32/net0_16/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 4
+DEBUG| 8.128| /test/testbed/net32_32/net32_16/n40/dvmrp/| TRIGGERED UPDATE: # of changed entries = 4
+DEBUG| 8.128| /test/testbed/net0_32/net16_4/n18/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 8.128| /test/testbed/net32_32/net48_4/n50/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,32,0)(0,-32,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,4,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| Initial route from neighbor: 8-(0,16,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,32,0)(0,-32,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,0,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| Initial route from neighbor: 8-(0,16,0)(0,-4,0)   8(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,48,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,36,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| Initial route from neighbor: 40-(0,0,0)(0,-32,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,48,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,32,0)(0,-4,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 9.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| Initial route from neighbor: 40-(0,0,0)(0,-32,0)   40(2)   metric:2(changed)--dependents:(){}
+DEBUG| 14.244| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 14.244| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/net32_4/n34/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/net36_4/n38/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net48_4/n50/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net16_4/n18/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/net4_4/n6/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net32_32/net32_16/n40/dvmrp/| REGULAR UPDATE
+DEBUG| 61.036| /test/testbed/net0_32/net0_16/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 101.028| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST HOST JOIN EVENT: -111 at if 1
+FC@| EVENT--101.028--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,-1)(0,-1,-1):??-1--GroupEntry--NaN--
+DEBUG| 101.028| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST HOST JOIN EVENT: -111 at if 0
+FC@| EVENT--101.028--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,-1)(0,-1,-1):??-1--GroupEntry--NaN,(0,-111,-1)(0,-1,-1):??-0,1--GroupEntry--NaN)--(graft)
+DEBUG| 103.028| /test/testbed/net0_32/net0_16/net0_4/n2/dvmrp/| MCAST HOST LEAVE EVENT: -111 at if 0
+FC@| EVENT--103.028--/test/testbed/net0_32/net0_16/net0_4/n2/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,-1)(0,-1,-1):??-0,1--GroupEntry--NaN,(0,-111,-1)(0,-1,-1):??-1--GroupEntry--NaN)--(prune)
