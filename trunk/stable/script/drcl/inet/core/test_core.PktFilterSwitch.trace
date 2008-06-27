@@ -1,0 +1,16 @@
+--------- TEST STARTS ---------
+13 events in the batch.
+Event 0| (v)send| 0.0| /test/tester/config@| CONFIG_SWITCH_REQ--(1,2)--REQUEST1
+Event 1| (v)rr-request| (v)0.0| (v)/test/tester/2@1| (v)REQUEST1
+Event 2| (v)rr-reply| 10.0| /test/tester/2@1| REPLY1
+Event 3| (v)send| 10.0| /test/tester/config@| CONFIG_SWITCH_REQ--(0,1)--REQUEST2
+Event 4| (v)send| 10.0| /test/tester/config@| CONFIG_SWITCH_REQ--(2,0)--REQUEST3
+Event 6| (v)rr-request| (v)10.0| (v)/test/tester/1@0| (v)REQUEST2
+Event 7| (v)rr-request| (v)10.0| (v)/test/tester/0@2| (v)REQUEST3
+Event 5| (v)rcv| (v)10.0| (v)/test/tester/config@| (v)REPLY1
+Event 8| (v)rr-reply| 20.0| /test/tester/1@0| REPLY2
+Event 9| (v)rcv| (v)20.0| (v)/test/tester/config@| (v)REPLY2
+Event 10| (v)rr-reply| 30.0| /test/tester/0@2| REPLY3
+Event 11| (v)rcv| (v)30.0| (v)/test/tester/config@| (v)REPLY3
+Event 12| (v)finish| 100.0
+------- (v) Test finished --------

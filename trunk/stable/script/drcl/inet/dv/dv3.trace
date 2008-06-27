@@ -1,0 +1,68 @@
+create nodes...
+build...
+Overlay network ...
+simulator...
+DEBUG| 14.001386666666663| /test/h9/dv/| NEIGHBOR UP EVENT: <1,-1> at 2
+DEBUG| 14.001386666666663| /test/h1/dv/| NEIGHBOR UP EVENT: <17,-1> at 3
+DEBUG| 14.001685333333329| /test/h1/dv/| NEIGHBOR UP EVENT: <25,-1> at 4
+DEBUG| 14.001685333333329| /test/h17/dv/| NEIGHBOR UP EVENT: <1,-1> at 2
+DEBUG| 14.001685333333329| /test/h25/dv/| NEIGHBOR UP EVENT: <17,-1> at 4
+DEBUG| 14.001685333333329| /test/h9/dv/| NEIGHBOR UP EVENT: <25,-1> at 3
+DEBUG| 14.001983999999995| /test/h1/dv/| NEIGHBOR UP EVENT: <9,-1> at 2
+DEBUG| 14.001983999999995| /test/h25/dv/| NEIGHBOR UP EVENT: <9,-1> at 3
+DEBUG| 14.001983999999995| /test/h17/dv/| NEIGHBOR UP EVENT: <25,-1> at 3
+DEBUG| 14.00228266666666| /test/h25/dv/| NEIGHBOR UP EVENT: <1,-1> at 2
+DEBUG| 22.004202666666657| /test/h9/dv/| Initial route from neighbor: 1-(0,1,0)(0,-1,0)   1(2)   metric:1(changed)
+DEBUG| 22.004202666666657| /test/h1/dv/| Initial route from neighbor: 17-(0,17,0)(0,-1,0)   17(3)   metric:1(changed)
+DEBUG| 22.00460799999999| /test/h1/dv/| Initial route from neighbor: 25-(0,25,0)(0,-1,0)   25(4)   metric:1(changed)
+DEBUG| 22.00460799999999| /test/h17/dv/| Initial route from neighbor: 1-(0,1,0)(0,-1,0)   1(2)   metric:1(changed)
+DEBUG| 22.00460799999999| /test/h25/dv/| Initial route from neighbor: 17-(0,17,0)(0,-1,0)   17(4)   metric:1(changed)
+DEBUG| 22.004906666666656| /test/h9/dv/| Initial route from neighbor: 25-(0,25,0)(0,-1,0)   25(3)   metric:1(changed)
+DEBUG| 22.005013333333324| /test/h1/dv/| Initial route from neighbor: 9-(0,9,0)(0,-1,0)   9(2)   metric:1(changed)
+DEBUG| 22.005098666666655| /test/h25/dv/| Initial route from neighbor: 1-(0,1,0)(0,-1,0)   1(2)   metric:1(changed)
+DEBUG| 22.00531199999999| /test/h17/dv/| Initial route from neighbor: 25-(0,25,0)(0,-1,0)   25(3)   metric:1(changed)
+DEBUG| 22.005503999999988| /test/h25/dv/| Initial route from neighbor: 9-(0,9,0)(0,-1,0)   9(3)   metric:1(changed)
+DEBUG| 27.004202666666657| /test/h9/dv/| TRIGGERED UPDATE
+DEBUG| 27.004202666666657| /test/h1/dv/| TRIGGERED UPDATE
+DEBUG| 27.00460799999999| /test/h17/dv/| TRIGGERED UPDATE
+DEBUG| 27.00460799999999| /test/h25/dv/| TRIGGERED UPDATE
+DEBUG| 31.007103999999984| /test/h9/dv/| Initial route from neighbor: 1-(0,17,0)(0,-1,0)   1(2)   metric:2(changed)
+DEBUG| 31.007829333333316| /test/h17/dv/| Initial route from neighbor: 1-(0,9,0)(0,-1,0)   1(2)   metric:2(changed)
+DEBUG| 36.007103999999984| /test/h9/dv/| TRIGGERED UPDATE
+DEBUG| 36.00782933333332| /test/h17/dv/| TRIGGERED UPDATE
+DEBUG| 44.00168533333333| /test/h9/dv/| REGULAR UPDATE
+DEBUG| 44.00198399999999| /test/h1/dv/| REGULAR UPDATE
+DEBUG| 44.00198399999999| /test/h17/dv/| REGULAR UPDATE
+DEBUG| 44.00228266666666| /test/h25/dv/| REGULAR UPDATE
+DEBUG| 74.00168533333333| /test/h9/dv/| REGULAR UPDATE
+DEBUG| 74.001984| /test/h1/dv/| REGULAR UPDATE
+DEBUG| 74.001984| /test/h17/dv/| REGULAR UPDATE
+DEBUG| 74.00228266666666| /test/h25/dv/| REGULAR UPDATE
+----- /test/h1/rt/ -----:
+#Entries=4
+(0,1,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,17,0)(0,-1,0)   	17-{3}	metric:1	timeout:NaN
+(0,25,0)(0,-1,0)   	25-{4}	metric:1	timeout:NaN
+(0,9,0)(0,-1,0)   	9-{2}	metric:1	timeout:NaN
+
+----- /test/h17/rt/ -----:
+#Entries=4
+(0,17,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{2}	metric:1	timeout:NaN
+(0,25,0)(0,-1,0)   	25-{3}	metric:1	timeout:NaN
+(0,9,0)(0,-1,0)   	1-{2}	metric:2	timeout:NaN
+
+----- /test/h25/rt/ -----:
+#Entries=4
+(0,25,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,17,0)(0,-1,0)   	17-{4}	metric:1	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{2}	metric:1	timeout:NaN
+(0,9,0)(0,-1,0)   	9-{3}	metric:1	timeout:NaN
+
+----- /test/h9/rt/ -----:
+#Entries=4
+(0,9,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,1,0)(0,-1,0)   	1-{2}	metric:1	timeout:NaN
+(0,25,0)(0,-1,0)   	25-{3}	metric:1	timeout:NaN
+(0,17,0)(0,-1,0)   	1-{2}	metric:2	timeout:NaN
+

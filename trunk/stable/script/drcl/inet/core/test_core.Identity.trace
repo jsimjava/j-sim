@@ -1,0 +1,66 @@
+Test 1
+--------- TEST STARTS ---------
+11 events in the batch.
+Event 0| (v)msg| Test 1: add an id, w/ timeout
+Event 1| (v)send| 0.0| /test/tester/idconfig@| IDCONFIG:add--(10)--(200.0)
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/idchange@| (?)EVENT--0.0--/test/id/.id@--Identity Added--(10)--Default identity is set to 10 and will be timed out at 200.0.
+
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/idconfig@| (v)<null>
+Event 4| (v)msg| Test: look up the entry
+Event 5| (v)send| 100.0| /test/tester/idconfig@| IDCONFIG:query--(10)
+Event 6| (?)rcv| (v)100.0| (v)/test/tester/idconfig@| (v)double[]| (?)(200.0)
+Event 7| (?)rcv| (v)200.0| (v)/test/tester/idchange@| (?)EVENT--200.0--/test/id/.id@--Identity Removed--10--Default identity:10 is removed due to timeout
+Event 8| (v)send| 300.0| /test/tester/idconfig@| IDCONFIG:query--(10)
+Event 9| (?)rcv| (v)300.0| (v)/test/tester/idconfig@| (v)double[]| (?)(NaN)
+Event 10| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 2
+Test 3
+--------- TEST STARTS ---------
+40 events in the batch.
+Event 0| (v)msg| ----- Test : add a list of ids:((20,30,40)) w/ timeout ((200.0,300.0,400.0))
+Event 1| (v)send| 0.0| /test/tester/idconfig@| IDCONFIG:add--(20,30,40)--(200.0,300.0,400.0)
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/idchange@| (?)EVENT--1000.0--/test/id/.id@--Identity Added--(20,30,40)--Default identity is set to 20 and will be timed out at 1200.0.
+Identity:30 is added, and will be timed out at 1300.0.
+Identity:40 is added, and will be timed out at 1400.0.
+
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/idconfig@| (v)<null>
+Event 4| (v)msg| Test: query 20's timeout
+Event 5| (v)send| 100.0| /test/tester/idconfig@| IDCONFIG:query--(20)
+Event 6| (?)rcv| (v)100.0| (v)/test/tester/idconfig@| (v)double[]| (?)(1200.0)
+Event 7| (v)msg| Test: query all
+Event 8| (v)send| 100.0| /test/tester/idconfig@| (20,30,40)
+Event 9| (v)rcv| (v)100.0| (v)/test/tester/idconfig@| (v)(true,true,true)
+Event 10| (v)msg| Test: get default
+Event 11| (v)send| 100.0| /test/tester/idconfig@| 0
+Event 12| (v)rcv| (v)100.0| (v)/test/tester/idconfig@| (v)20
+Event 13| (v)msg| 
+Event 14| (v)msg| ----- Test: check timeout of 20
+Event 15| (v)send| 199.0| /test/tester/idconfig@| (20,30,40)
+Event 16| (v)rcv| (v)199.0| (v)/test/tester/idconfig@| (v)(true,true,true)
+Event 17| (?)rcv| (v)200.0| (v)/test/tester/idchange@| (?)EVENT--1200.0--/test/id/.id@--Identity Removed--20--Default identity:20 is removed due to timeout
+Event 18| (v)send| 201.0| /test/tester/idconfig@| 1
+Event 19| (v)rcv| (v)201.0| (v)/test/tester/idconfig@| (v)(30,40)
+Event 20| (v)msg| 
+Event 21| (v)msg| ----- Test: remover id 30
+Event 22| (v)send| 279.0| /test/tester/idconfig@| IDCONFIG:query--<null_long[]>
+Event 23| (?)rcv| (v)279.0| (v)/test/tester/idconfig@| (v)[Ljava.lang.Object;| (?)((30,40),(1300.0,1400.0))
+Event 24| (v)send| 280.0| /test/tester/idconfig@| IDCONFIG:remove--(30)
+Event 25| (?)rcv| (v)280.0| (v)/test/tester/idchange@| (?)EVENT--1280.0--/test/id/.id@--Identity Removed--(30)--Identity:30 is removed.
+
+Event 26| (v)rcv| (v)280.0| (v)/test/tester/idconfig@| (v)<null>
+Event 27| (v)send| 281.0| /test/tester/idconfig@| IDCONFIG:query--<null_long[]>
+Event 28| (?)rcv| (v)281.0| (v)/test/tester/idconfig@| (v)[Ljava.lang.Object;| (?)((40),(1400.0))
+Event 29| (?)rcv| (v)400.0| (v)/test/tester/idchange@| (?)EVENT--1400.0--/test/id/.id@--Identity Removed--40--Identity:40 is removed due to timeout
+Event 30| (v)msg| 
+Event 31| (v)msg| ----- Test: check case of no timeout
+Event 32| (v)send| 500.0| /test/tester/idconfig@| IDCONFIG:add--(10)--(-1.0)
+Event 33| (?)rcv| (v)500.0| (v)/test/tester/idchange@| (?)EVENT--1500.0--/test/id/.id@--Identity Added--(10)--Default identity is set to 10.
+
+Event 34| (v)rcv| (v)500.0| (v)/test/tester/idconfig@| (v)<null>
+Event 35| (v)send| 501.0| /test/tester/idconfig@| IDCONFIG:query--(10)
+Event 36| (?)rcv| (v)501.0| (v)/test/tester/idconfig@| (v)double[]| (?)(NaN)
+Event 37| (v)send| 501.0| /test/tester/idconfig@| 0
+Event 38| (v)rcv| (v)501.0| (v)/test/tester/idconfig@| (v)10
+Event 39| (v)finish| 1000.0
+------- (?) Test finished --------
