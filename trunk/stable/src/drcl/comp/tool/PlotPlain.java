@@ -48,201 +48,201 @@ import drcl.comp.contract.*;
  */
 public class PlotPlain extends drcl.comp.Extension
 {
-	String VALUE_SEPARATOR = " ";
-	String FILE_SEPARATOR = "_";
-	String FILE_PREFIX = "data";
-	
-	HashMap htWriter = new HashMap(); // port -> PrintWriter
+  String VALUE_SEPARATOR = " ";
+  String FILE_SEPARATOR = "_";
+  String FILE_PREFIX = "data";
+  
+  HashMap htWriter = new HashMap(); // port -> PrintWriter
 
-	public PlotPlain()
-	{ super(); }
-	
-	public PlotPlain(String id_)
-	{ super(id_); }
+  public PlotPlain()
+  { super(); }
+  
+  public PlotPlain(String id_)
+  { super(id_); }
 
-	public void setValueSeparator(String s)
-	{ VALUE_SEPARATOR = s; }
+  public void setValueSeparator(String s)
+  { VALUE_SEPARATOR = s; }
 
-	public String getValueSeparator()
-	{ return VALUE_SEPARATOR; }
+  public String getValueSeparator()
+  { return VALUE_SEPARATOR; }
 
-	public void setFilePrefix(String s)
-	{ FILE_PREFIX = s; }
+  public void setFilePrefix(String s)
+  { FILE_PREFIX = s; }
 
-	public void setFileSeparator(String s)
-	{ FILE_SEPARATOR = s; }
+  public void setFileSeparator(String s)
+  { FILE_SEPARATOR = s; }
 
-	public String getFileSeparator()
-	{ return FILE_SEPARATOR; }
+  public String getFileSeparator()
+  { return FILE_SEPARATOR; }
 
-	public String getFilePrefix()
-	{ return FILE_PREFIX; }
+  public String getFilePrefix()
+  { return FILE_PREFIX; }
 
-	public synchronized void flush()
-	{
-		for (Iterator it_ = htWriter.values().iterator(); it_.hasNext(); ) {
-			Object o = it_.next();
-			try {
-			PrintWriter w = (PrintWriter)o;
-				w.flush();
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-				System.out.println(o);
-			}
-		}
-	}
+  public synchronized void flush()
+  {
+    for (Iterator it_ = htWriter.values().iterator(); it_.hasNext(); ) {
+      Object o = it_.next();
+      try {
+      PrintWriter w = (PrintWriter)o;
+        w.flush();
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+        System.out.println(o);
+      }
+    }
+  }
 
-	public synchronized void reset()
-	{
-		super.reset();
-		for (Iterator it_ = htWriter.values().iterator(); it_.hasNext(); ) {
-			PrintWriter w = (PrintWriter)it_.next();
-			try {
-				w.close();
-			}
-			catch (Exception e)
-			{}
-		}
-		htWriter.clear();
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof PlotPlain)) return;
-		FILE_PREFIX = ((PlotPlain)source_).FILE_PREFIX;
-		FILE_SEPARATOR = ((PlotPlain)source_).FILE_SEPARATOR;
-		VALUE_SEPARATOR = ((PlotPlain)source_).VALUE_SEPARATOR;
-	}
-	
-	// plot ID is according to inPort_
-	// dataset ID is according to d.getID()
-	void processXYData(XYDataInterface d, Port inPort_)
-	{
-		_plot(inPort_, d.getX(), d.getY());
-	}
+  public synchronized void reset()
+  {
+    super.reset();
+    for (Iterator it_ = htWriter.values().iterator(); it_.hasNext(); ) {
+      PrintWriter w = (PrintWriter)it_.next();
+      try {
+        w.close();
+      }
+      catch (Exception e)
+      {}
+    }
+    htWriter.clear();
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof PlotPlain)) return;
+    FILE_PREFIX = ((PlotPlain)source_).FILE_PREFIX;
+    FILE_SEPARATOR = ((PlotPlain)source_).FILE_SEPARATOR;
+    VALUE_SEPARATOR = ((PlotPlain)source_).VALUE_SEPARATOR;
+  }
+  
+  // plot ID is according to inPort_
+  // dataset ID is according to d.getID()
+  void processXYData(XYDataInterface d, Port inPort_)
+  {
+    _plot(inPort_, d.getX(), d.getY());
+  }
 
-	protected void process(Object data_, Port inPort_) 
-	{
-		if (data_ instanceof XYDataInterface) {
-			processXYData((XYDataInterface)data_, inPort_);
-			return;
-		}
+  protected void process(Object data_, Port inPort_) 
+  {
+    if (data_ instanceof XYDataInterface) {
+      processXYData((XYDataInterface)data_, inPort_);
+      return;
+    }
 
-		int figID_=0, setID_=0;
-		try {
-			figID_ = Integer.parseInt(inPort_.groupID);
-			setID_ = Integer.parseInt(inPort_.id);
-		}
-		catch (Exception e_) {
-			// ignored
-		}
-		if (data_ instanceof DoubleEventContract.Message) {
-			DoubleEventContract.Message s_ = (DoubleEventContract.Message)data_;
-			_plot(inPort_, s_.getTime(), s_.getValue());
-		}
-		else if (data_ instanceof EventContract.Message) {
-			EventContract.Message s_ = (EventContract.Message)data_;
-			Object evt_ = s_.getEvent();
-			double x_ = 0.0, y_ = 0.0;
-			if (evt_ instanceof Double) {
-				x_ = s_.getTime();
-				y_ = ((Double)evt_).doubleValue();
-			}
-			else if (evt_ instanceof DoubleObj) {
-				x_ = s_.getTime();
-				y_ = ((DoubleObj)evt_).value;
-			}
-			else if (evt_ instanceof double[]) {
-				double[] xy_ = (double[])evt_;
-				if (xy_.length >= 2) {
-					x_ = xy_[0];  y_ = xy_[1];
-				}
-				else if (xy_.length == 1) {
-					x_ = s_.getTime();  y_ = xy_[0];
-				}
-				else {
-					error(data_, "process()", inPort_, "zero-length double array");
-					return;
-				}
-			}
-			else {
-				error(data_, "process()", inPort_, "unrecognized event object: " + evt_);
-				return;
-			}
-			_plot(inPort_, x_, y_);
-		}
-		else if (data_ instanceof String) {
-			_plot(inPort_, (String)data_);
-		}
-		else if (data_ instanceof double[]) {
-			double[] xy_ = (double[])data_;
-			double x_ = 0.0, y_ = 0.0;
-			if (xy_.length == 0) {
-				error(data_, "process()", inPort_, "zero-length double array");
-				return;
-			}
-			else if (xy_.length == 1) {
-				x_ = getTime();  y_ = xy_[0];
-			}
-			else {
-				x_ = xy_[0];  y_ = xy_[1];
-			}
-			_plot(inPort_, x_, y_);
-		}
-		else if (data_ instanceof Double || data_ instanceof DoubleObj) {
-			double y_ = data_ instanceof Double?
-										((Double)data_).doubleValue():
-										((DoubleObj)data_).value;
-			_plot(inPort_, getTime(), y_);
-		}
-		else {
-			error(data_, "process()", inPort_, "unrecognized data");
-		}
-	}
-	
-	synchronized void _plot(Port inPort_, double x_, double y_)
-	{
-		try {
-			PrintWriter w = (PrintWriter)htWriter.get(inPort_);
-			if (w == null) {
-				w = new PrintWriter(new FileWriter(
-									FILE_PREFIX + inPort_.getGroupID()
-									+ FILE_SEPARATOR + inPort_.getID()));
-				htWriter.put(inPort_, w);
-			}
-			w.println(x_ + VALUE_SEPARATOR + y_);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    int figID_=0, setID_=0;
+    try {
+      figID_ = Integer.parseInt(inPort_.groupID);
+      setID_ = Integer.parseInt(inPort_.id);
+    }
+    catch (Exception e_) {
+      // ignored
+    }
+    if (data_ instanceof DoubleEventContract.Message) {
+      DoubleEventContract.Message s_ = (DoubleEventContract.Message)data_;
+      _plot(inPort_, s_.getTime(), s_.getValue());
+    }
+    else if (data_ instanceof EventContract.Message) {
+      EventContract.Message s_ = (EventContract.Message)data_;
+      Object evt_ = s_.getEvent();
+      double x_ = 0.0, y_ = 0.0;
+      if (evt_ instanceof Double) {
+        x_ = s_.getTime();
+        y_ = ((Double)evt_).doubleValue();
+      }
+      else if (evt_ instanceof DoubleObj) {
+        x_ = s_.getTime();
+        y_ = ((DoubleObj)evt_).value;
+      }
+      else if (evt_ instanceof double[]) {
+        double[] xy_ = (double[])evt_;
+        if (xy_.length >= 2) {
+          x_ = xy_[0];  y_ = xy_[1];
+        }
+        else if (xy_.length == 1) {
+          x_ = s_.getTime();  y_ = xy_[0];
+        }
+        else {
+          error(data_, "process()", inPort_, "zero-length double array");
+          return;
+        }
+      }
+      else {
+        error(data_, "process()", inPort_, "unrecognized event object: " + evt_);
+        return;
+      }
+      _plot(inPort_, x_, y_);
+    }
+    else if (data_ instanceof String) {
+      _plot(inPort_, (String)data_);
+    }
+    else if (data_ instanceof double[]) {
+      double[] xy_ = (double[])data_;
+      double x_ = 0.0, y_ = 0.0;
+      if (xy_.length == 0) {
+        error(data_, "process()", inPort_, "zero-length double array");
+        return;
+      }
+      else if (xy_.length == 1) {
+        x_ = getTime();  y_ = xy_[0];
+      }
+      else {
+        x_ = xy_[0];  y_ = xy_[1];
+      }
+      _plot(inPort_, x_, y_);
+    }
+    else if (data_ instanceof Double || data_ instanceof DoubleObj) {
+      double y_ = data_ instanceof Double?
+                    ((Double)data_).doubleValue():
+                    ((DoubleObj)data_).value;
+      _plot(inPort_, getTime(), y_);
+    }
+    else {
+      error(data_, "process()", inPort_, "unrecognized data");
+    }
+  }
+  
+  synchronized void _plot(Port inPort_, double x_, double y_)
+  {
+    try {
+      PrintWriter w = (PrintWriter)htWriter.get(inPort_);
+      if (w == null) {
+        w = new PrintWriter(new FileWriter(
+                  FILE_PREFIX + inPort_.getGroupID()
+                  + FILE_SEPARATOR + inPort_.getID()));
+        htWriter.put(inPort_, w);
+      }
+      w.println(x_ + VALUE_SEPARATOR + y_);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	synchronized void _plot(Port inPort_, String line_)
-	{
-		try {
-			PrintWriter w = (PrintWriter)htWriter.get(inPort_);
-			if (w == null) {
-				w = new PrintWriter(new FileWriter(
-									FILE_PREFIX + inPort_.getGroupID()
-									+ FILE_SEPARATOR + inPort_.getID()));
-				htWriter.put(inPort_, w);
-			}
-			w.println(line_);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+  synchronized void _plot(Port inPort_, String line_)
+  {
+    try {
+      PrintWriter w = (PrintWriter)htWriter.get(inPort_);
+      if (w == null) {
+        w = new PrintWriter(new FileWriter(
+                  FILE_PREFIX + inPort_.getGroupID()
+                  + FILE_SEPARATOR + inPort_.getID()));
+        htWriter.put(inPort_, w);
+      }
+      w.println(line_);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	/** Associates the incoming port with the result file. */
-	public synchronized void associates(Port p, String fileName_)
-	{
-		try {
-			htWriter.put(p, new PrintWriter(new FileWriter(fileName_)));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+  /** Associates the incoming port with the result file. */
+  public synchronized void associates(Port p, String fileName_)
+  {
+    try {
+      htWriter.put(p, new PrintWriter(new FileWriter(fileName_)));
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }

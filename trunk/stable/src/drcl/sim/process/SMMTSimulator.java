@@ -41,77 +41,77 @@ import drcl.util.StringUtil;
  */
 public class SMMTSimulator extends ARuntime
 {
-	public static final String Debug_LEAP_FORWARD = "LEAP";
+  public static final String Debug_LEAP_FORWARD = "LEAP";
 
-	public SMMTSimulator()
-	{ this("SMMT");	}
-	
-	public SMMTSimulator(String name_)
-	{	
-		super(name_);
-		//setTimeScale(1.0e200); //1.0e9); // us level
-		setTimeScale(Double.POSITIVE_INFINITY); //1.0e9); // us level
-		addDebugLevel(Debug_LEAP_FORWARD);
-	}
-	
-	double timeDiff = 0.0;
+  public SMMTSimulator()
+  { this("SMMT");  }
+  
+  public SMMTSimulator(String name_)
+  {  
+    super(name_);
+    //setTimeScale(1.0e200); //1.0e9); // us level
+    setTimeScale(Double.POSITIVE_INFINITY); //1.0e9); // us level
+    addDebugLevel(Debug_LEAP_FORWARD);
+  }
+  
+  double timeDiff = 0.0;
 
-	//
-	private void ___OVERRIDES___() {}
-	//
-	
-	public void reset()
-	{
-		super.reset();
-		timeDiff = 0.0;
-	}
-	
-	// Advance in time to the first sleeping thread in Q.
-	protected void systemBecomesIdle(drcl.comp.AWorkerThread exe_)
-	{
-		//if (state == State_SUSPENDED || state == State_INACTIVE) return;
-		if (state == State_SUSPENDED) return;
-		if (getQ().isEmpty()) return;
-		
-		// adjust the system time to that of the nearest future event.
-		double time_ = getQ().firstKey();
-		
-		double newTimeDiff_ = timeScaleReciprocal == 0.0? time_:
-			time_ - timeScaleReciprocal * (System.currentTimeMillis()
-				- startTime);
+  //
+  private void ___OVERRIDES___() {}
+  //
+  
+  public void reset()
+  {
+    super.reset();
+    timeDiff = 0.0;
+  }
+  
+  // Advance in time to the first sleeping thread in Q.
+  protected void systemBecomesIdle(drcl.comp.AWorkerThread exe_)
+  {
+    //if (state == State_SUSPENDED || state == State_INACTIVE) return;
+    if (state == State_SUSPENDED) return;
+    if (getQ().isEmpty()) return;
+    
+    // adjust the system time to that of the nearest future event.
+    double time_ = getQ().firstKey();
+    
+    double newTimeDiff_ = timeScaleReciprocal == 0.0? time_:
+      time_ - timeScaleReciprocal * (System.currentTimeMillis()
+        - startTime);
 
-		if (debug && isDebugEnabledAt(Debug_LEAP_FORWARD))
-			println(Debug_LEAP_FORWARD, null, "-->" + time_);
-		
-		timeDiff = newTimeDiff_;
-	}
+    if (debug && isDebugEnabledAt(Debug_LEAP_FORWARD))
+      println(Debug_LEAP_FORWARD, null, "-->" + time_);
+    
+    timeDiff = newTimeDiff_;
+  }
 
-	protected double _getTime() 
-	{
-		if (state == State_SUSPENDED) return time;
-		if (timeScaleReciprocal == 0.0)
-			time = timeDiff;
-		else {
-			if (state != State_INACTIVE)
-				ltime = System.currentTimeMillis() - startTime;
-			time = (double)ltime * timeScaleReciprocal + timeDiff; 
-		}
-		return time;
-	}
+  protected double _getTime() 
+  {
+    if (state == State_SUSPENDED) return time;
+    if (timeScaleReciprocal == 0.0)
+      time = timeDiff;
+    else {
+      if (state != State_INACTIVE)
+        ltime = System.currentTimeMillis() - startTime;
+      time = (double)ltime * timeScaleReciprocal + timeDiff; 
+    }
+    return time;
+  }
 
-	protected String t_info(String prefix_)
-	{
-		if (state != State_SUSPENDED && state != State_INACTIVE)
-			ltime = System.currentTimeMillis() - startTime;
-		StringBuffer sb_ = new StringBuffer();
-		sb_.append(prefix_ + "timeScale     = " + (timeScale/1.0e3)
-					+ " (wall time/virtual time)\n");
-		sb_.append(prefix_ + "1.0/timeScale = " + (timeScaleReciprocal*1.0e3)
-					+ " (virtual time/wall time)\n");
-		sb_.append(prefix_ + "startTime     = " + startTime + "\n");
-		sb_.append(prefix_ + "ltime         = " + ltime + "\n");
-		sb_.append(prefix_ + "timeDiff      = " + timeDiff + "\n");
-		sb_.append(prefix_ + "currentTime   = " + _getTime() + "\n");
-		return sb_.toString();
-	}
+  protected String t_info(String prefix_)
+  {
+    if (state != State_SUSPENDED && state != State_INACTIVE)
+      ltime = System.currentTimeMillis() - startTime;
+    StringBuffer sb_ = new StringBuffer();
+    sb_.append(prefix_ + "timeScale     = " + (timeScale/1.0e3)
+          + " (wall time/virtual time)\n");
+    sb_.append(prefix_ + "1.0/timeScale = " + (timeScaleReciprocal*1.0e3)
+          + " (virtual time/wall time)\n");
+    sb_.append(prefix_ + "startTime     = " + startTime + "\n");
+    sb_.append(prefix_ + "ltime         = " + ltime + "\n");
+    sb_.append(prefix_ + "timeDiff      = " + timeDiff + "\n");
+    sb_.append(prefix_ + "currentTime   = " + _getTime() + "\n");
+    return sb_.toString();
+  }
 }

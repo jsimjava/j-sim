@@ -33,5 +33,5 @@ package drcl.comp;
  */
 public interface Wrapper
 {
-	public Object getObject();
+  public Object getObject();
 }

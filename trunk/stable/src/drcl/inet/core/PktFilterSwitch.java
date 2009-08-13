@@ -52,61 +52,61 @@ import drcl.inet.contract.ConfigSwitch;
  * 
  * <ul>
  * <li>Ports:
- *		<ul>
- *		<li>"config" port group: follows PacketFilter Switch Contracts.
- *		<li> filter bank port groups: ports connecting to fiters follow PacketFilter Configuration Contracts.
- *		</ul>
+ *    <ul>
+ *    <li>"config" port group: follows PacketFilter Switch Contracts.
+ *    <li> filter bank port groups: ports connecting to fiters follow PacketFilter Configuration Contracts.
+ *    </ul>
  * </ul>
  */
 public class PktFilterSwitch extends drcl.comp.Component 
-	implements drcl.inet.InetConstants
+  implements drcl.inet.InetConstants
 {
-	static {
-		setContract(PktFilterSwitch.class, 
-			SERVICE_CONFIGSW_PORT_ID + "@" + PortGroup_SERVICE,
-			new ConfigSwitch(Contract.Role_REACTOR));
-	}
-	
-	{
-		addServerPort(SERVICE_CONFIGSW_PORT_ID);
-	}
-	
-	public PktFilterSwitch()
-	{ super(); }
-	
-	public PktFilterSwitch(String id_)
-	{ super(id_); }
-	
-	protected void process(Object data_, drcl.comp.Port inPort_)
-	{
-		//XXX: wildcard spec
-		if (!(data_ instanceof ConfigSwitch.Message)) {
-			error(data_, "process()", inPort_, "unrecognized data");
-			return;
-		}
-		ConfigSwitch.Message req_ = (ConfigSwitch.Message)data_;
-		int bankID_ = req_.getBankID();
-		int filterID_ = req_.getFilterID();
-		Port p_ = getPort(String.valueOf(bankID_), String.valueOf(filterID_));
-		Object request_ = req_.getRequest();
-		Object reply_ = p_.sendReceive(request_);
-		inPort_.doLastSending(reply_);
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-	}
-	
-	/** A utility method to connect between the manager and the packet filter 
-	 * bank. */
-	public void connect(int bankID_, Component[] ff_)
-	{
-		String pgid_ = String.valueOf(bankID_);
-		for (int i=0; i<ff_.length; i++) {
-			Port peer_ = ff_[i].getPort(PktFilter.CONFIG_PORT_ID);
-			if (peer_ == null) continue;
-			addPort(pgid_, String.valueOf(i)).connect(peer_);
-		}
-	}
+  static {
+    setContract(PktFilterSwitch.class, 
+      SERVICE_CONFIGSW_PORT_ID + "@" + PortGroup_SERVICE,
+      new ConfigSwitch(Contract.Role_REACTOR));
+  }
+  
+  {
+    addServerPort(SERVICE_CONFIGSW_PORT_ID);
+  }
+  
+  public PktFilterSwitch()
+  { super(); }
+  
+  public PktFilterSwitch(String id_)
+  { super(id_); }
+  
+  protected void process(Object data_, drcl.comp.Port inPort_)
+  {
+    //XXX: wildcard spec
+    if (!(data_ instanceof ConfigSwitch.Message)) {
+      error(data_, "process()", inPort_, "unrecognized data");
+      return;
+    }
+    ConfigSwitch.Message req_ = (ConfigSwitch.Message)data_;
+    int bankID_ = req_.getBankID();
+    int filterID_ = req_.getFilterID();
+    Port p_ = getPort(String.valueOf(bankID_), String.valueOf(filterID_));
+    Object request_ = req_.getRequest();
+    Object reply_ = p_.sendReceive(request_);
+    inPort_.doLastSending(reply_);
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+  }
+  
+  /** A utility method to connect between the manager and the packet filter 
+   * bank. */
+  public void connect(int bankID_, Component[] ff_)
+  {
+    String pgid_ = String.valueOf(bankID_);
+    for (int i=0; i<ff_.length; i++) {
+      Port peer_ = ff_[i].getPort(PktFilter.CONFIG_PORT_ID);
+      if (peer_ == null) continue;
+      addPort(pgid_, String.valueOf(i)).connect(peer_);
+    }
+  }
 }

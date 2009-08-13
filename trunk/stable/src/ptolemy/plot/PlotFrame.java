@@ -391,7 +391,7 @@ public class PlotFrame extends JFrame {
      *  @exception IOException If the stream cannot be read.
      */
     protected void _read(URL base, InputStream in) throws IOException {
-		new ptolemy.plot.plotml.PlotMLParser((Plot)plot);
+    new ptolemy.plot.plotml.PlotMLParser((Plot)plot);
         //plot.read(in);
     }
 
@@ -488,11 +488,11 @@ public class PlotFrame extends JFrame {
                 plot.clear(false);
                 plot.repaint();
             } else if (actionCommand.equals("Sample plot")) {
-				// DRCL: create a new window to display sample plot
+        // DRCL: create a new window to display sample plot
                 //plot.clear(true);
                 //samplePlot();
-				PlotFrame another_ = new PlotFrame("Sample Plot", new Plot());
-				another_.samplePlot();
+        PlotFrame another_ = new PlotFrame("Sample Plot", new Plot());
+        another_.samplePlot();
             }
 
             // NOTE: The following should not be needed, but there jdk1.3beta

@@ -70,68 +70,68 @@ import drcl.comp.*;
  */
 public class ErrorContract extends Contract
 {
-	public static final ErrorContract INSTANCE = new ErrorContract();
+  public static final ErrorContract INSTANCE = new ErrorContract();
 
-	public String getName()
-	{ return "ACA Error Message Format"; }
+  public String getName()
+  { return "ACA Error Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static class Message extends ComponentMessage
-	{
-		double time;
-		String portPath;
-		Object data;
-		String where;
-		Object description;
-	
-		public Message (double time_, Port p_, Object data_,
-			String where_, Object description_)
-		{
-			time = time_;
-			portPath = p_ == null? null: p_.toString();
-			data = data_;
-			where = where_;
-			description = description_;
-		}
+  public static class Message extends ComponentMessage
+  {
+    double time;
+    String portPath;
+    Object data;
+    String where;
+    Object description;
+  
+    public Message (double time_, Port p_, Object data_,
+      String where_, Object description_)
+    {
+      time = time_;
+      portPath = p_ == null? null: p_.toString();
+      data = data_;
+      where = where_;
+      description = description_;
+    }
 
-		private Message (double time_, String portPath_, Object data_,
-			String where_, Object description_)
-		{
-			time = time_;
-			portPath = portPath_;
-			data = data_;
-			where = where_;
-			description = description_;
-		}
-	
-		public double getTime()
-		{ return time; }
-	
-		public String getPortPath()
-		{ return portPath; }
-	
-		public Object getData()
-		{ return data; }
-	
-		public String getSpot()
-		{ return where; }
-	
-		public Object getDescription()
-		{ return description; }
+    private Message (double time_, String portPath_, Object data_,
+      String where_, Object description_)
+    {
+      time = time_;
+      portPath = portPath_;
+      data = data_;
+      where = where_;
+      description = description_;
+    }
+  
+    public double getTime()
+    { return time; }
+  
+    public String getPortPath()
+    { return portPath; }
+  
+    public Object getData()
+    { return data; }
+  
+    public String getSpot()
+    { return where; }
+  
+    public Object getDescription()
+    { return description; }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{ return new Message(time, portPath, data, where, description); }
+    public Object clone()
+    { return new Message(time, portPath, data, where, description); }
 
-		public String toString(String separator_)
-		{
-			return time + (portPath == null? "": separator_ + portPath)
-				+ (where == null? "": separator_ + where) + separator_ + "data:" + data
-				+ (description == null? "": separator_ + description);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return time + (portPath == null? "": separator_ + portPath)
+        + (where == null? "": separator_ + where) + separator_ + "data:" + data
+        + (description == null? "": separator_ + description);
+    }
+  }
 }

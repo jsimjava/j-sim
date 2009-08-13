@@ -379,7 +379,7 @@ public class Plot extends PlotBox {
         return _connected;
     }
 
-	// DRCL:
+  // DRCL:
     public boolean getStepwise() {
         return _stepwise;
     }
@@ -393,22 +393,22 @@ public class Plot extends PlotBox {
         return _impulses;
     }
 
-	// DRCL:
-	public synchronized PlotPoint getPoint(int dataset, int index_)
-	{
-		Vector pts = (Vector)_points.elementAt(dataset);
-		return (PlotPoint)pts.elementAt(index_);
-	}
+  // DRCL:
+  public synchronized PlotPoint getPoint(int dataset, int index_)
+  {
+    Vector pts = (Vector)_points.elementAt(dataset);
+    return (PlotPoint)pts.elementAt(index_);
+  }
 
-	// DRCL:
-	public synchronized PlotPoint[] getPoints(int dataset)
-	{
-		Vector pts = (Vector)_points.elementAt(dataset);
-		if (pts == null) return new PlotPoint[0];
-		PlotPoint[] pp_ = new PlotPoint[pts.size()];
-		pts.copyInto(pp_);
-		return pp_;
-	}
+  // DRCL:
+  public synchronized PlotPoint[] getPoints(int dataset)
+  {
+    Vector pts = (Vector)_points.elementAt(dataset);
+    if (pts == null) return new PlotPoint[0];
+    PlotPoint[] pp_ = new PlotPoint[pts.size()];
+    pts.copyInto(pp_);
+    return pp_;
+  }
 
    /** Get the marks style, which is one of
      *  "none", "points", "dots", or "various".
@@ -430,7 +430,7 @@ public class Plot extends PlotBox {
         }
     }
 
-	// DRCL:
+  // DRCL:
    /** Get the marks style, which is one of
      *  "none", "points", "dots", "various", or "pixels".
      *  @return A string specifying the style for points.
@@ -469,21 +469,21 @@ public class Plot extends PlotBox {
         return _points.size();
     }
 
-  	// DRCL:
- 	public synchronized int getNumPoints(int dataset_)
-	{
-		return dataset_ >= _points.size()? 
-			   0: ((Vector)_points.elementAt(dataset_)).size();
-	}
+    // DRCL:
+   public synchronized int getNumPoints(int dataset_)
+  {
+    return dataset_ >= _points.size()? 
+         0: ((Vector)_points.elementAt(dataset_)).size();
+  }
 
-	// DRCL:
- 	public synchronized boolean isSetEmpty(int dataset_)
-	{
-		return dataset_ >= _points.size()? 
-			   true: ((Vector)_points.elementAt(dataset_)).size() == 0;
-	}
+  // DRCL:
+   public synchronized boolean isSetEmpty(int dataset_)
+  {
+    return dataset_ >= _points.size()? 
+         true: ((Vector)_points.elementAt(dataset_)).size() == 0;
+  }
 
-	/** Override the base class to indicate that a new data set is being read.
+  /** Override the base class to indicate that a new data set is being read.
      *  This method is deprecated.  Use read() instead (to read the old
      *  file format) or one of the classes in the plotml package to read
      *  the new (XML) file format.
@@ -600,40 +600,40 @@ public class Plot extends PlotBox {
         _bars = true;
     }
 
-	// DRCL:
-	public void setWrapY(boolean wrap_)
-	{
-		int n = getNumDataSets();
-		if (wrap_) {
-			super.setWrapY(wrap_);
-			double width = _wrapYHigh - _wrapYLow;
-			for (int i=0; i<n; i++) {
-				PlotPoint[] pp_ = getPoints(i);
-				for (int j=0; j<pp_.length; j++) {
-					double y = pp_[j].originaly;
-					if (y < _wrapYLow) {
-						y += width*Math.floor(1.0 + (_wrapYLow-y)/width);
-					} else if (y > _wrapYHigh) {
-						y -= width*Math.floor(1.0 + (y-_wrapYHigh)/width);
-						// NOTE: Could quantization errors be a problem here?
-						if (y == _wrapYLow) y = _wrapYHigh;
-					}
-					pp_[j].y = y;
-					// FIXME: pp_[j].connected?
-				}
-			}
-		}
-		else {
-			for (int i=0; i<n; i++) {
-				PlotPoint[] pp_ = getPoints(i);
-				for (int j=0; j<pp_.length; j++) {
-					double y = pp_[j].y = pp_[j].originaly;
-					if (y > _yTop) _yTop = y;
-					else if (y < _yBottom) _yBottom = y;
-				}
-			}
-		}
-	}
+  // DRCL:
+  public void setWrapY(boolean wrap_)
+  {
+    int n = getNumDataSets();
+    if (wrap_) {
+      super.setWrapY(wrap_);
+      double width = _wrapYHigh - _wrapYLow;
+      for (int i=0; i<n; i++) {
+        PlotPoint[] pp_ = getPoints(i);
+        for (int j=0; j<pp_.length; j++) {
+          double y = pp_[j].originaly;
+          if (y < _wrapYLow) {
+            y += width*Math.floor(1.0 + (_wrapYLow-y)/width);
+          } else if (y > _wrapYHigh) {
+            y -= width*Math.floor(1.0 + (y-_wrapYHigh)/width);
+            // NOTE: Could quantization errors be a problem here?
+            if (y == _wrapYLow) y = _wrapYHigh;
+          }
+          pp_[j].y = y;
+          // FIXME: pp_[j].connected?
+        }
+      }
+    }
+    else {
+      for (int i=0; i<n; i++) {
+        PlotPoint[] pp_ = getPoints(i);
+        for (int j=0; j<pp_.length; j++) {
+          double y = pp_[j].y = pp_[j].originaly;
+          if (y > _yTop) _yTop = y;
+          else if (y < _yBottom) _yBottom = y;
+        }
+      }
+    }
+  }
 
     /** If the argument is true, then the default is to connect
      *  subsequent points with a line.  If the argument is false, then
@@ -661,17 +661,17 @@ public class Plot extends PlotBox {
         fmt.connectedUseDefault = false;
     }
 
-	// DRCL:
+  // DRCL:
     public synchronized boolean getConnected(int dataset) {
         _checkDatasetIndex(dataset);
         Format fmt = (Format)_formats.elementAt(dataset);
         if (fmt.connectedUseDefault)
-			return _connected;
-		else
-        	return fmt.connected;
+      return _connected;
+    else
+          return fmt.connected;
     }
 
-	// DRCL:
+  // DRCL:
     /** If the first argument is true, then by default for the specified
      *  dataset, points will be connected stepwise.  Otherwise, the
      *  points will be connected depending on the connected flag.
@@ -683,14 +683,14 @@ public class Plot extends PlotBox {
         fmt.stepwise = on;
     }
 
-	// DRCL:
+  // DRCL:
     public synchronized boolean getStepwise(int dataset) {
         _checkDatasetIndex(dataset);
         Format fmt = (Format)_formats.elementAt(dataset);
         return fmt.stepwise;
     }
 
-	// DRCL:
+  // DRCL:
     public void setStepwise(boolean on) {
         _stepwise = on;
     }
@@ -866,19 +866,19 @@ public class Plot extends PlotBox {
                 switch(fmt.marks) {
                 case 0:
                     options.append(" marks=\"none\"");
-					break; // DRCL: bug, "break" was missing
+          break; // DRCL: bug, "break" was missing
                 case 1:
                     options.append(" marks=\"points\"");
-					break; // DRCL: bug, "break" was missing
+          break; // DRCL: bug, "break" was missing
                 case 2:
                     options.append(" marks=\"dots\"");
-					break; // DRCL: bug, "break" was missing
+          break; // DRCL: bug, "break" was missing
                 case 3:
                     options.append(" marks=\"various\"");
-					break; // DRCL: bug, "break" was missing
+          break; // DRCL: bug, "break" was missing
                 case 4:
                     options.append(" marks=\"pixels\"");
-					break; // DRCL: bug, "break" was missing
+          break; // DRCL: bug, "break" was missing
                 }
             }
 
@@ -1194,21 +1194,21 @@ public class Plot extends PlotBox {
         // appear on top.
         for (int dataset = _points.size() - 1; dataset >= 0 ; dataset--) {
             Vector data = (Vector)_points.elementAt(dataset);
-			// DRCL: copy the following codes (setColor) from _drawPlotPoint()
-			// Set the color
-			if (_usecolor) {
-				int color = dataset % _colors.length;
-				graphics.setColor(_colors[color]);
-			} else {
-				graphics.setColor(_foreground);
-			}
+      // DRCL: copy the following codes (setColor) from _drawPlotPoint()
+      // Set the color
+      if (_usecolor) {
+        int color = dataset % _colors.length;
+        graphics.setColor(_colors[color]);
+      } else {
+        graphics.setColor(_foreground);
+      }
             for (int pointnum = 0; pointnum < data.size(); pointnum++) {
-				// DRCL: call __drawPlotPoint() instead of _drawPlotPoint()
+        // DRCL: call __drawPlotPoint() instead of _drawPlotPoint()
                 __drawPlotPoint(graphics, dataset, pointnum);
             }
-			// DRCL: copy the following two lines of codes from _drawPlotPoint()
-			// Restore the color, in case the box gets redrawn.
-			graphics.setColor(_foreground);
+      // DRCL: copy the following two lines of codes from _drawPlotPoint()
+      // Restore the color, in case the box gets redrawn.
+      graphics.setColor(_foreground);
         }
         //_showing = true;
     }
@@ -1240,10 +1240,10 @@ public class Plot extends PlotBox {
 
             // Check to see whether the dataset has a marks directive
             int marks = _marks;
-			if (_formats.size() > dataset) {
-            	Format fmt = (Format)_formats.elementAt(dataset);
-				if (!fmt.marksUseDefault) marks = fmt.marks;
-			}
+      if (_formats.size() > dataset) {
+              Format fmt = (Format)_formats.elementAt(dataset);
+        if (!fmt.marksUseDefault) marks = fmt.marks;
+      }
 
             // If the point is out of range, and being drawn, then it is
             // probably a legend point.  When printing in black and white,
@@ -1279,7 +1279,7 @@ public class Plot extends PlotBox {
                     // Points are only distinguished up to _MAX_MARKS data sets.
                     int mark = dataset % _MAX_MARKS;
                     switch (mark) {
-					// DRCL: change the order of marks
+          // DRCL: change the order of marks
                     case 0:
                         // square
                         graphics.drawRect(xposi-_radius, yposi-_radius,
@@ -1689,7 +1689,7 @@ public class Plot extends PlotBox {
                 ! _reusedatasets) {
             // We did not set a DataSet line, but
             // we did get called with -<digit> args and
-	    // we did not see reusedatasets: yes
+      // we did not see reusedatasets: yes
             _sawfirstdataset = true;
             _currentdataset++;
         }
@@ -1830,23 +1830,23 @@ public class Plot extends PlotBox {
         if (size == 0) {
             pt.connected = false;
         } else {
-			// Do not connect points if wrapping...
-			if(_wrap) {
-				PlotPoint old = (PlotPoint)(pts.elementAt(size-1));
-				if (old.x > x) pt.connected = false;
-			}
-			// DRCL:
-			if(pt.connected && _wrapY) {
-				PlotPoint old = (PlotPoint)(pts.elementAt(size-1));
-				if (old.y > y) pt.connected = false;
-			}
+      // Do not connect points if wrapping...
+      if(_wrap) {
+        PlotPoint old = (PlotPoint)(pts.elementAt(size-1));
+        if (old.x > x) pt.connected = false;
+      }
+      // DRCL:
+      if(pt.connected && _wrapY) {
+        PlotPoint old = (PlotPoint)(pts.elementAt(size-1));
+        if (old.y > y) pt.connected = false;
+      }
         }
         pts.addElement(pt);
         // If points persistence has been set, then delete one old point.
         if (_pointsPersistence > 0) {
             if (size > _pointsPersistence) erasePoint(dataset, 0);
         }
-		/*
+    /*
         // Draw the point on the screen only if the plot is showing.
         Graphics graphics = getGraphics();
         // Need to check that graphics is not null because plot may have
@@ -1906,7 +1906,7 @@ public class Plot extends PlotBox {
             // Again, we are in the event thread, so this is safe...
             _drawPlotPoint(graphics, dataset, pts.size() - 1);
         }
-		*/
+    */
 
         if(_wrap && x == _wrapHigh) {
             // Plot a second point at the low end of the range.
@@ -1970,11 +1970,11 @@ public class Plot extends PlotBox {
         repaint();
     }
 
-	// DRCL:
-	// - create __drawPlotPoint() to be used in drawPlot()
-	//   so that setColor() is not called every time _drawPlotPoint() is called
-	// - __drawPlotPoint() is just a copy of _drawPlotPoint() with the setColor()
-	//   and stuff being commented out, look for "DRCL"
+  // DRCL:
+  // - create __drawPlotPoint() to be used in drawPlot()
+  //   so that setColor() is not called every time _drawPlotPoint() is called
+  // - __drawPlotPoint() is just a copy of _drawPlotPoint() with the setColor()
+  //   and stuff being commented out, look for "DRCL"
 
     /* Draw the specified point and associated lines, if any.
      * Note that paintComponent() should be called before
@@ -1990,14 +1990,14 @@ public class Plot extends PlotBox {
             int dataset, int index) {
         if (_pointsPersistence > 0 || _xPersistence > 0.0) {
             // To allow erasing to work by just redrawing the points.
-	    if (_background == null) {
-		// java.awt.Component.setBackground(color) says that
-		// if the color "parameter is null then this component
-		// will inherit the  background color of its parent."
-		graphics.setXORMode(getBackground());
-	    } else {
-		graphics.setXORMode(_background);
-	    }
+      if (_background == null) {
+    // java.awt.Component.setBackground(color) says that
+    // if the color "parameter is null then this component
+    // will inherit the  background color of its parent."
+    graphics.setXORMode(getBackground());
+      } else {
+    graphics.setXORMode(_background);
+      }
         }
         // Set the color
         if (_usecolor) {
@@ -2007,7 +2007,7 @@ public class Plot extends PlotBox {
             graphics.setColor(_foreground);
         }
 
-		__drawPlotPoint(graphics, dataset, index);
+    __drawPlotPoint(graphics, dataset, index);
 
         // Restore the color, in case the box gets redrawn.
         graphics.setColor(_foreground);
@@ -2015,21 +2015,21 @@ public class Plot extends PlotBox {
             // Restore paint mode in case axes get redrawn.
             graphics.setPaintMode();
         }
-	}
+  }
 
     private void __drawPlotPoint(Graphics graphics,
             int dataset, int index) {
-			/* DRCL:
+      /* DRCL:
         if (_pointsPersistence > 0 || _xPersistence > 0.0) {
             // To allow erasing to work by just redrawing the points.
-	    if (_background == null) {
-		// java.awt.Component.setBackground(color) says that
-		// if the color "parameter is null then this component
-		// will inherit the  background color of its parent."
-		graphics.setXORMode(getBackground());
-	    } else {
-		graphics.setXORMode(_background);
-	    }
+      if (_background == null) {
+    // java.awt.Component.setBackground(color) says that
+    // if the color "parameter is null then this component
+    // will inherit the  background color of its parent."
+    graphics.setXORMode(getBackground());
+      } else {
+    graphics.setXORMode(_background);
+      }
         }
         // Set the color
         if (_usecolor) {
@@ -2038,7 +2038,7 @@ public class Plot extends PlotBox {
         } else {
             graphics.setColor(_foreground);
         }
-		*/
+    */
 
         Vector pts = (Vector)_points.elementAt(dataset);
         PlotPoint pt = (PlotPoint)pts.elementAt(index);
@@ -2051,14 +2051,14 @@ public class Plot extends PlotBox {
         long prevx = ((Long)_prevx.elementAt(dataset)).longValue();
         long prevy = ((Long)_prevy.elementAt(dataset)).longValue();
         // MIN_VALUE is a flag that there has been no previous x or y.
-		// DRCL: consider stepwise
+    // DRCL: consider stepwise
         Format fmt = (Format)_formats.elementAt(dataset);
         if (_stepwise || fmt.stepwise) {
-        	if (pt.connected) {
-            	_drawLine(graphics, dataset, xpos, prevy, prevx, prevy, true);
-				_drawLine(graphics, dataset, xpos, ypos, xpos, prevy, true);
-			}
-		} else
+          if (pt.connected) {
+              _drawLine(graphics, dataset, xpos, prevy, prevx, prevy, true);
+        _drawLine(graphics, dataset, xpos, ypos, xpos, prevy, true);
+      }
+    } else
 
         if (pt.connected) {
             _drawLine(graphics, dataset, xpos, ypos, prevx, prevy, true);
@@ -2070,7 +2070,7 @@ public class Plot extends PlotBox {
         _prevy.setElementAt(new Long(ypos), dataset);
 
         // Draw decorations that may be specified on a per-dataset basis
-		// DRCL: the following line is moved up for stepwise drawing
+    // DRCL: the following line is moved up for stepwise drawing
         //Format fmt = (Format)_formats.elementAt(dataset);
         if (fmt.impulsesUseDefault) {
             if (_impulses) _drawImpulse(graphics, xpos, ypos, true);
@@ -2089,14 +2089,14 @@ public class Plot extends PlotBox {
                     _lry - (long)((pt.yLowEB - _yMin) * _yscale),
                     _lry - (long)((pt.yHighEB - _yMin) * _yscale), true);
 
-		/*
+    /*
         // Restore the color, in case the box gets redrawn.
         graphics.setColor(_foreground);
         if (_pointsPersistence > 0 || _xPersistence > 0.0) {
             // Restore paint mode in case axes get redrawn.
             graphics.setPaintMode();
         }
-		*/
+    */
     }
 
     /* Erase the point at the given index in the given dataset.  If
@@ -2110,7 +2110,7 @@ public class Plot extends PlotBox {
     private void _erasePoint(int dataset, int index) {
         _checkDatasetIndex(dataset);
         // Plot has probably been dismissed.  Return.
-		/*
+    /*
         Graphics graphics = getGraphics();
         // Need to check that graphics is not null because plot may have
         // been dismissed.
@@ -2118,11 +2118,11 @@ public class Plot extends PlotBox {
             // Set the color
             if (_pointsPersistence > 0 || _xPersistence > 0.0) {
                 // To allow erasing to work by just redrawing the points.
-		if (_background == null) {
-		    graphics.setXORMode(getBackground());
-		} else {
-		    graphics.setXORMode(_background);
-		}
+    if (_background == null) {
+        graphics.setXORMode(getBackground());
+    } else {
+        graphics.setXORMode(_background);
+    }
             }
             if (_usecolor) {
                 int color = dataset % _colors.length;
@@ -2173,7 +2173,7 @@ public class Plot extends PlotBox {
                 graphics.setPaintMode();
             }
         }
-		*/
+    */
 
         // The following is executed whether the plot is showing or not.
         // Remove the point from the model.
@@ -2264,7 +2264,7 @@ public class Plot extends PlotBox {
     /** @serial True if the points are connected. */
     private boolean _connected = true;
 
-	// DRCL:
+  // DRCL:
     /** @serial True if the points are connected stepwise. */
     private boolean _stepwise = false;
 
@@ -2308,7 +2308,7 @@ public class Plot extends PlotBox {
     /** @serial Last filename seen in command-line arguments. */
     private String _filename = null;
 
-	// DRCL: don't automatically repaint when add or remove a point
+  // DRCL: don't automatically repaint when add or remove a point
     /** @serial Set by _drawPlot(), and reset by clear(). */
     private boolean _showing = false;
 
@@ -2324,8 +2324,8 @@ public class Plot extends PlotBox {
 
         // Indicate whether the above variable should be ignored.
         public boolean connectedUseDefault = true;
-		
-		// DRCL: 
+    
+    // DRCL: 
         public boolean stepwise = false;
 
         // Indicate whether a stem plot should be drawn for this data set.

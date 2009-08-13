@@ -34,6 +34,6 @@ the {@link #duplicate(Object)}.
  */
 public interface ObjectDuplicable extends ObjectCloneable
 {
-	/** Copies the content of the <code>source_</code> object to this object. */
-	public void duplicate(Object source_);
+  /** Copies the content of the <code>source_</code> object to this object. */
+  public void duplicate(Object source_);
 }

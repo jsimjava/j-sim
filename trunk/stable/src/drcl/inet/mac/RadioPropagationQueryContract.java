@@ -176,7 +176,7 @@ public class RadioPropagationQueryContract extends Contract {
             Lambda = 0; sid = 0;
         }
         
-		/*
+    /*
         public void duplicate(Object source_)  {
             Message that_ = (Message)source_;
             Xs = that_.Xs; Ys = that_.Ys; Zs = that_.Zs;
@@ -184,7 +184,7 @@ public class RadioPropagationQueryContract extends Contract {
             loss = that_.loss; sid = that_.sid;
             Lambda = that_.Lambda; sid = that_.sid;
         }
-		*/
+    */
         
         public Object clone() {
             return new Message(sid, Lambda, Xs, Ys, Zs, Xr, Yr, Zr, loss);

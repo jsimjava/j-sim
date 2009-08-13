@@ -39,9 +39,9 @@ package drcl.intserv;
  */
 public abstract class RspecTranslator
 {
-	/**
-	 * Given the Adspec, the method returns the "minimum" Rspec that satisfies 
-	 * the specified QoS requirement.  It returns null if such an Rspec does not exist.
-	 */
-	public abstract SpecR translate(SpecAd adspec, QoSRequirement qos);
+  /**
+   * Given the Adspec, the method returns the "minimum" Rspec that satisfies 
+   * the specified QoS requirement.  It returns null if such an Rspec does not exist.
+   */
+  public abstract SpecR translate(SpecAd adspec, QoSRequirement qos);
 }

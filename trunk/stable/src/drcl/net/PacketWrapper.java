@@ -31,6 +31,6 @@ package drcl.net;
 /** Packet wrapper interface. */
 public interface PacketWrapper extends drcl.ObjectCloneable
 {
-	/** Wraps up the specified packet. */
-	public void wraps(Packet pkt_);
+  /** Wraps up the specified packet. */
+  public void wraps(Packet pkt_);
 }

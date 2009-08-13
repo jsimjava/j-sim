@@ -41,62 +41,62 @@ package drcl.net.traffic;
  */
 public class traffic_Poisson extends TrafficModel implements TrafficPeriodic
 {
-	public int packetSize;
-	public double rate;  // avg sending rate (bps)
+  public int packetSize;
+  public double rate;  // avg sending rate (bps)
 
-	public traffic_Poisson()
-	{}
+  public traffic_Poisson()
+  {}
 
-	public traffic_Poisson(int mtu_, double brate_)
-	{ set(mtu_, brate_); }
-	
-	public void set(int mtu_, double brate_)
-	{
-		packetSize = mtu_;
-		rate = brate_;
-	}
-	
-	public double getPeriod() 
-	{ return (double)(packetSize << 3) / rate; }
-	
-	public double getLoad() { return rate; }
-	
-	public int getBurst() { return packetSize; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_Poisson)) return null;
-		traffic_Poisson thatTraffic_ = (traffic_Poisson) that_;
-		double load1_ = getLoad();
-		double load2_ = thatTraffic_.getLoad();
-		packetSize = Math.max(packetSize, thatTraffic_.packetSize);
-		rate = Math.max(load1_, load2_);
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_Poisson)) return;
-		traffic_Poisson that_ = (traffic_Poisson) source_;
-		packetSize = that_.packetSize;
-		rate = that_.rate;
-	}
-		
-	public String oneline()
-	{
-		return  getClass().getName() + ":packetSize(B)=" + packetSize
-			+ ", rate(bps)=" + rate;
-	}
-	
-	//
-	private void ___PROPERTY___() {}
-	//	
-	
-	public void setPacketSize(int size_) { packetSize = size_; }
-	public int getPacketSize() { return packetSize; }
-	
-	public void setRate(double brate_) {rate = brate_; }
-	public double getRate() { return rate; }
-	
-	public int getMTU() { return packetSize; }
+  public traffic_Poisson(int mtu_, double brate_)
+  { set(mtu_, brate_); }
+  
+  public void set(int mtu_, double brate_)
+  {
+    packetSize = mtu_;
+    rate = brate_;
+  }
+  
+  public double getPeriod() 
+  { return (double)(packetSize << 3) / rate; }
+  
+  public double getLoad() { return rate; }
+  
+  public int getBurst() { return packetSize; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_Poisson)) return null;
+    traffic_Poisson thatTraffic_ = (traffic_Poisson) that_;
+    double load1_ = getLoad();
+    double load2_ = thatTraffic_.getLoad();
+    packetSize = Math.max(packetSize, thatTraffic_.packetSize);
+    rate = Math.max(load1_, load2_);
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_Poisson)) return;
+    traffic_Poisson that_ = (traffic_Poisson) source_;
+    packetSize = that_.packetSize;
+    rate = that_.rate;
+  }
+    
+  public String oneline()
+  {
+    return  getClass().getName() + ":packetSize(B)=" + packetSize
+      + ", rate(bps)=" + rate;
+  }
+  
+  //
+  private void ___PROPERTY___() {}
+  //  
+  
+  public void setPacketSize(int size_) { packetSize = size_; }
+  public int getPacketSize() { return packetSize; }
+  
+  public void setRate(double brate_) {rate = brate_; }
+  public double getRate() { return rate; }
+  
+  public int getMTU() { return packetSize; }
 }

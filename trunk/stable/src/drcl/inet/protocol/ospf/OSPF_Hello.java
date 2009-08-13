@@ -40,64 +40,64 @@ import java.util.*;
 
 public class OSPF_Hello extends drcl.DrclObj
 {
-	private int	hello_interval;
-	private int	router_dead_interval;
-	/* The OSPF Options field is present in OSPF Hello packets, Database
+  private int  hello_interval;
+  private int  router_dead_interval;
+  /* The OSPF Options field is present in OSPF Hello packets, Database
            Description packets and all LSAs. */
-	private int     options;
-	
-	/* this field does not exist in the specification, for implementation simplicity */
-	protected int	neighbor_no;
-	protected Vector		neighbor_id_list; /* router id of neighbors */
-
-	public Object clone()
-	{
-		OSPF_Hello new_ = new OSPF_Hello(hello_interval, router_dead_interval);
-		new_.duplicate(this);
-		return new_;
-	}
-
-	public void duplicate(Object source_)
-	{
-		OSPF_Hello that_ = (OSPF_Hello)source_;
-		neighbor_no = that_.neighbor_no;
-		neighbor_id_list.removeAllElements();
-		neighbor_id_list.setSize(neighbor_no);
-		for (int i=0; i<neighbor_no; i++)
-			neighbor_id_list.setElementAt(that_.neighbor_id_list.elementAt(i), i); // FIXME: dont clone
-	}
-	
-	OSPF_Hello( int hello_interval_, int dead_interval)
-	{
-		neighbor_id_list = new Vector();
-		hello_interval = hello_interval_;
-		router_dead_interval = dead_interval;
-	}
-	
-	protected int get_hello_interval() { return hello_interval; }
-	protected int get_router_dead_interval() { return router_dead_interval; }
+  private int     options;
   
-	protected void set_neighbor_id(Vector list) {
-		neighbor_no = list.size();
-		neighbor_id_list = list;
-	}
+  /* this field does not exist in the specification, for implementation simplicity */
+  protected int  neighbor_no;
+  protected Vector    neighbor_id_list; /* router id of neighbors */
 
-	protected void add_neighbor_id( int id ) {
-		neighbor_no++ ;
-		neighbor_id_list.addElement( new Integer(id));
-	}
+  public Object clone()
+  {
+    OSPF_Hello new_ = new OSPF_Hello(hello_interval, router_dead_interval);
+    new_.duplicate(this);
+    return new_;
+  }
 
-	private static final int FIX_HELLO_LEN = 20;
-	
-	/**
-	 * return the packet length of Hello Body (in byte) , which excludes the OSPF header length
-	 * Network Mask: 4, HelloInterval:2, Options:1, Rtr Pri:1, RouterDeadInterval: 4
-	 * Designated Router: 4, Backup: 4, the sum of the above items is assigned to 
-	 * FIX_HELLO_LEN = 20, Neighbor: each 4 byte
-	 */
-	protected int size()
-	{
-		return FIX_HELLO_LEN + neighbor_no *4;
-	}
+  public void duplicate(Object source_)
+  {
+    OSPF_Hello that_ = (OSPF_Hello)source_;
+    neighbor_no = that_.neighbor_no;
+    neighbor_id_list.removeAllElements();
+    neighbor_id_list.setSize(neighbor_no);
+    for (int i=0; i<neighbor_no; i++)
+      neighbor_id_list.setElementAt(that_.neighbor_id_list.elementAt(i), i); // FIXME: dont clone
+  }
+  
+  OSPF_Hello( int hello_interval_, int dead_interval)
+  {
+    neighbor_id_list = new Vector();
+    hello_interval = hello_interval_;
+    router_dead_interval = dead_interval;
+  }
+  
+  protected int get_hello_interval() { return hello_interval; }
+  protected int get_router_dead_interval() { return router_dead_interval; }
+  
+  protected void set_neighbor_id(Vector list) {
+    neighbor_no = list.size();
+    neighbor_id_list = list;
+  }
+
+  protected void add_neighbor_id( int id ) {
+    neighbor_no++ ;
+    neighbor_id_list.addElement( new Integer(id));
+  }
+
+  private static final int FIX_HELLO_LEN = 20;
+  
+  /**
+   * return the packet length of Hello Body (in byte) , which excludes the OSPF header length
+   * Network Mask: 4, HelloInterval:2, Options:1, Rtr Pri:1, RouterDeadInterval: 4
+   * Designated Router: 4, Backup: 4, the sum of the above items is assigned to 
+   * FIX_HELLO_LEN = 20, Neighbor: each 4 byte
+   */
+  protected int size()
+  {
+    return FIX_HELLO_LEN + neighbor_no *4;
+  }
 }
 

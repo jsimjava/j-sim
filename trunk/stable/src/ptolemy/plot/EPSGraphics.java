@@ -156,7 +156,7 @@ public class EPSGraphics extends Graphics {
     public void drawLine(int x1, int y1, int x2, int y2) {
         Point start = _convert(x1, y1);
         Point end = _convert(x2, y2);
-		//DRCL: use more succinct form
+    //DRCL: use more succinct form
         //_buffer.append("newpath " + start.x + " " + start.y + " moveto\n");
         //_buffer.append("" + end.x + " " + end.y + " lineto\n");
         //_buffer.append("stroke\n");
@@ -282,7 +282,7 @@ public class EPSGraphics extends Graphics {
         _buffer.append("0 " + height + " rlineto ");
         _buffer.append("" + (-width) + " 0 rlineto ");
         _buffer.append("closepath gsave fill grestore\n");
-		// DRCL: remove setgray
+    // DRCL: remove setgray
         //_buffer.append("0.5 setlinewidth 0 setgray [] 0 setdash stroke\n");
         //// reset the gray scale to black
         //_buffer.append("1 setlinewidth\n");
@@ -336,14 +336,14 @@ public class EPSGraphics extends Graphics {
      *  @param c The desired current color.
      */
     public void setColor(Color c) {
-		// DRCL: 
-		int red_ = c.getRed() * 100 / 255;
-		int green_ = c.getGreen() * 100 / 255;
-		int blue_ = c.getBlue() * 100 / 255;
-		_buffer.append((red_/100) + (red_%100>0? "." + red_: "") + " "
-				+ (green_/100) + (green_%100>0? "." + green_: "") + " "
-				+ (blue_/100) + (blue_%100>0? "." + blue_: "") + "  setrgbcolor\n");
-	/*
+    // DRCL: 
+    int red_ = c.getRed() * 100 / 255;
+    int green_ = c.getGreen() * 100 / 255;
+    int blue_ = c.getBlue() * 100 / 255;
+    _buffer.append((red_/100) + (red_%100>0? "." + red_: "") + " "
+        + (green_/100) + (green_%100>0? "." + green_: "") + " "
+        + (blue_/100) + (blue_%100>0? "." + blue_: "") + "  setrgbcolor\n");
+  /*
         if (c == Color.black) {
             _buffer.append("0 setgray\n");
             _buffer.append("[] 0 setdash\n");
@@ -372,7 +372,7 @@ public class EPSGraphics extends Graphics {
                 _patternIndex++;
             }
         }
-		*/
+    */
         _currentColor = c;
     }
 

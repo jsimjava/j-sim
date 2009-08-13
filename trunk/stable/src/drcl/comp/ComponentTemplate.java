@@ -35,45 +35,45 @@ import drcl.comp.*;
  */
 public class ComponentTemplate extends drcl.comp.Component implements drcl.comp.ActiveComponent
 {
-	/** Constructor. */
-	public ComponentTemplate()
-	{ super(); }
+  /** Constructor. */
+  public ComponentTemplate()
+  { super(); }
 
-	/** Constructor. */
-	public ComponentTemplate(String id_)
-	{ super(id_); }
+  /** Constructor. */
+  public ComponentTemplate(String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset(); // Let super class reset its fields.
-	}
+  public void reset()
+  {
+    super.reset(); // Let super class reset its fields.
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_); // Let super class copy its fields.
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_); // Let super class copy its fields.
+  }
 
-	public String info()
-	{
-		return "Not implemented.\n";
-	}
+  public String info()
+  {
+    return "Not implemented.\n";
+  }
 
-	protected void process(Object data_, drcl.comp.Port inPort_)
-	{
-	}
+  protected void process(Object data_, drcl.comp.Port inPort_)
+  {
+  }
 
-	// Starts as an ActiveComponent.
-	protected void _start()
-	{
-	}
+  // Starts as an ActiveComponent.
+  protected void _start()
+  {
+  }
 
-	// Stops this ActiveComponent.
-	protected void _stop()
-	{
-	}
+  // Stops this ActiveComponent.
+  protected void _stop()
+  {
+  }
 
-	// Resumes this ActiveComponent.
-	protected void _resume()
-	{
-	}
+  // Resumes this ActiveComponent.
+  protected void _resume()
+  {
+  }
 }

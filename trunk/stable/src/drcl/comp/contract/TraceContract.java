@@ -67,50 +67,50 @@ import drcl.comp.Contract;
  */
 public class TraceContract extends Contract
 {
-	public static final TraceContract INSTANCE = new TraceContract();
+  public static final TraceContract INSTANCE = new TraceContract();
 
-	public String getName()
-	{ return "ACA Trace Message Format"; }
+  public String getName()
+  { return "ACA Trace Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static class Message extends ComponentMessage
-	{
-		String trace;
-		double time;
-		Object description;
-		String where;
-	
-		public Message (String trace_, double time_, Object where_, Object description_)
-		{
-			trace = trace_;
-			time = time_;
-			description = description_;
-			where = where_ == null? null: where_.toString();
-		}
-	
-		public String getTrace()
-		{ return trace; }
-	
-		public double getTime()
-		{ return time; }
-	
-		public String getWhere()
-		{ return where; }
-	
-		public Object getDescription()
-		{ return description; }
+  public static class Message extends ComponentMessage
+  {
+    String trace;
+    double time;
+    Object description;
+    String where;
+  
+    public Message (String trace_, double time_, Object where_, Object description_)
+    {
+      trace = trace_;
+      time = time_;
+      description = description_;
+      where = where_ == null? null: where_.toString();
+    }
+  
+    public String getTrace()
+    { return trace; }
+  
+    public double getTime()
+    { return time; }
+  
+    public String getWhere()
+    { return where; }
+  
+    public Object getDescription()
+    { return description; }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{ return new Message(trace, time, where, description); }
+    public Object clone()
+    { return new Message(trace, time, where, description); }
 
-		public String toString(String separator_)
-		{
-			return trace + separator_ + time + separator_ + where + separator_ + drcl.util.StringUtil.toString(description);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return trace + separator_ + time + separator_ + where + separator_ + drcl.util.StringUtil.toString(description);
+    }
+  }
 }

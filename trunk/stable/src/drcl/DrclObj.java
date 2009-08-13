@@ -34,38 +34,38 @@ properties that are desirable in many class implementations.
  */
 public class DrclObj implements java.io.Serializable, ObjectDuplicable
 {
-	/**
-	 opies the content of the <code>source_</code> object to this object.
-	 he subclass must implement this method to realize {@link #clone()}.
-	 */
-	public void duplicate(Object source_)
-	{}
+  /**
+   opies the content of the <code>source_</code> object to this object.
+   he subclass must implement this method to realize {@link #clone()}.
+   */
+  public void duplicate(Object source_)
+  {}
 
-	/**
-	 Returns a clone of this object.
-	 By default, this method creates an object of the same class and 
-	 calls {@link #duplicate(Object)} to duplicate the content of this object to
-	 the newly-created one.
-	  
-	 <p>This method uses <code>getClass().newInstance()</code> to create 
-	 new instance.  Hence,
-	 subclasses need to override this method only if the subclass is not
-	 declared as public or does not have explicit no-argument constructor.
-	 A subclass may override this method for performance reason.
-	 */
-	public Object clone()
-	{
-		try {
-			DrclObj o_ = (DrclObj)getClass().newInstance(); //(DrclObj)drcl.RecycleManager.reproduce(this.getClass());
-			o_.duplicate(this);
-			return o_;
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			return null;
-		}
-	}
-	
-	public String toString()
-	{ return drcl.util.StringUtil.lastSubstring(super.toString(), "."); }
+  /**
+   Returns a clone of this object.
+   By default, this method creates an object of the same class and 
+   calls {@link #duplicate(Object)} to duplicate the content of this object to
+   the newly-created one.
+    
+   <p>This method uses <code>getClass().newInstance()</code> to create 
+   new instance.  Hence,
+   subclasses need to override this method only if the subclass is not
+   declared as public or does not have explicit no-argument constructor.
+   A subclass may override this method for performance reason.
+   */
+  public Object clone()
+  {
+    try {
+      DrclObj o_ = (DrclObj)getClass().newInstance(); //(DrclObj)drcl.RecycleManager.reproduce(this.getClass());
+      o_.duplicate(this);
+      return o_;
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      return null;
+    }
+  }
+  
+  public String toString()
+  { return drcl.util.StringUtil.lastSubstring(super.toString(), "."); }
 }

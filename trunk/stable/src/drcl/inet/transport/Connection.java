@@ -34,12 +34,12 @@ import drcl.net.Packet;
  */
 interface Connection
 { 
-	/** Returns the peer address. */
-	public long getPeer();
-	/** Returns the peer port. */
-	public int getRemotePort();
-	/** Returns the local address. */
-	public long getLocalAddr();
-	/** Returns the local port. */
-	public int getLocalPort();
+  /** Returns the peer address. */
+  public long getPeer();
+  /** Returns the peer port. */
+  public int getRemotePort();
+  /** Returns the local address. */
+  public long getLocalAddr();
+  /** Returns the local port. */
+  public int getLocalPort();
 }

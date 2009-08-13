@@ -38,64 +38,64 @@ import drcl.data.*;
   */
 public class AODV_Packet extends drcl.net.Packet
 {
-	protected static final int AODV_HEADER_LEN = 24;
+  protected static final int AODV_HEADER_LEN = 24;
 
   /************************* PACKET VARIABLES **************************/
 
-	/** the type of this AODV_Pkt_header */
-	private int Type;
+  /** the type of this AODV_Pkt_header */
+  private int Type;
   
-	/** the identification of the router which sent this packet, chosen 
-	* as the smallest of the IPaddress of all its interfaces
-	*/
-	private int Router_ID;
+  /** the identification of the router which sent this packet, chosen 
+  * as the smallest of the IPaddress of all its interfaces
+  */
+  private int Router_ID;
   
-	/** constructs an AODV_Pkt_header with a given type, router ID */
-	protected AODV_Packet(int type, int routerid)
-	{
-		super(AODV_HEADER_LEN);
-		Type        = type;
-		Router_ID   = routerid;
-	}
+  /** constructs an AODV_Pkt_header with a given type, router ID */
+  protected AODV_Packet(int type, int routerid)
+  {
+    super(AODV_HEADER_LEN);
+    Type        = type;
+    Router_ID   = routerid;
+  }
 
-	// Tyan: for clone()
-	private AODV_Packet(int type, int routerid, int hsize_, int bsize_,
-					Object body_)
-	{
-		super(hsize_, bsize_, body_);
-		Type        = type;
-		Router_ID   = routerid;
-	}
+  // Tyan: for clone()
+  private AODV_Packet(int type, int routerid, int hsize_, int bsize_,
+          Object body_)
+  {
+    super(hsize_, bsize_, body_);
+    Type        = type;
+    Router_ID   = routerid;
+  }
   
-	protected int getType() { return Type; }
-	protected void setType( int type_) { Type = type_; }
-	protected int getRouterID() { return Router_ID; }
-	protected int getLength() { return size; }
+  protected int getType() { return Type; }
+  protected void setType( int type_) { Type = type_; }
+  protected int getRouterID() { return Router_ID; }
+  protected int getLength() { return size; }
 
-	public String getName()
-	{ return "AODV"; }
+  public String getName()
+  { return "AODV"; }
 
-	public String _toString(String separator_)
-	{
-		return AODV.PKT_TYPES[Type] + separator_ + "router:" + Router_ID
-			+ separator_;
-	}
+  public String _toString(String separator_)
+  {
+    return AODV.PKT_TYPES[Type] + separator_ + "router:" + Router_ID
+      + separator_;
+  }
 
-	/*
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		AODV_Packet that_ = (AODV_Packet)source_;
-		Type = that_.Type;
-		Router_ID = that_.Router_ID;
-	}
-	*/
+  /*
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    AODV_Packet that_ = (AODV_Packet)source_;
+    Type = that_.Type;
+    Router_ID = that_.Router_ID;
+  }
+  */
 
-	public Object clone()
-	{
-		// Tyan: need to clone body and pkt size info as well
-		return new AODV_Packet(Type, Router_ID, headerSize, size-headerSize,
-				body instanceof drcl.ObjectCloneable?
-				((drcl.ObjectCloneable)body).clone(): body);
-	}
-}	
+  public Object clone()
+  {
+    // Tyan: need to clone body and pkt size info as well
+    return new AODV_Packet(Type, Router_ID, headerSize, size-headerSize,
+        body instanceof drcl.ObjectCloneable?
+        ((drcl.ObjectCloneable)body).clone(): body);
+  }
+}  

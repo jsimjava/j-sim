@@ -52,55 +52,55 @@ import drcl.net.*;
 public class Mac_802_11_CTS_Frame extends Mac_802_11_Packet
 {
     static final int Mac_802_11_CTS_Frame_Header_Length = 14;
-	
+  
     public String getName()  { return "MAC-802.11_CTS_Frame"; }
     
     /**  define the structure of  frame, refer to Figure 17   */
-	long                       ra;        // 6 bytes    // the address of the STA this cts is responding to, copied from the TA field of the RTS frame
+  long                       ra;        // 6 bytes    // the address of the STA this cts is responding to, copied from the TA field of the RTS frame
 
 
-	/** Construct a CTS frame
-	  * @param fc_ - MAC frame control
-	  * @param duration_ - duration
-	  * @param fcs_ - frame check sequence
-	  */
-	public Mac_802_11_CTS_Frame(int hsize_, Mac_802_11_Frame_Control fc_, int duration_, long ra_, int fcs_) {
-		super();
-        headerSize = hsize_;	
-		size = headerSize;
+  /** Construct a CTS frame
+    * @param fc_ - MAC frame control
+    * @param duration_ - duration
+    * @param fcs_ - frame check sequence
+    */
+  public Mac_802_11_CTS_Frame(int hsize_, Mac_802_11_Frame_Control fc_, int duration_, long ra_, int fcs_) {
+    super();
+        headerSize = hsize_;  
+    size = headerSize;
         fc = fc_;
-		duration = duration_;
-		ra = ra_;
-		fcs = fcs_;
-	}	
+    duration = duration_;
+    ra = ra_;
+    fcs = fcs_;
+  }  
 
-	/** Construct a CTS frame
-	  * @param fc_ - MAC frame control
-	  * @param duration_ - duration
-	  * @param fcs_ - frame check sequence
+  /** Construct a CTS frame
+    * @param fc_ - MAC frame control
+    * @param duration_ - duration
+    * @param fcs_ - frame check sequence
       * @param ferror_ - indicating if the packet is corrupted
-	  */
-	public Mac_802_11_CTS_Frame(int hsize_, Mac_802_11_Frame_Control fc_, int duration_, long ra_, int fcs_, boolean forcedError_) {
-		super();
-		headerSize = hsize_;	
-		size = headerSize;
-		fc = fc_;
-		duration = duration_;
-		ra = ra_;
-		fcs = fcs_;
-		forcedError = forcedError_;
-	}	
-	
-	/** Get receiver's address */
-	public long getRa( ) { return ra; }
-	/** Set receiver's address */
-	public void setRa(long ra_) { ra = ra_; }
+    */
+  public Mac_802_11_CTS_Frame(int hsize_, Mac_802_11_Frame_Control fc_, int duration_, long ra_, int fcs_, boolean forcedError_) {
+    super();
+    headerSize = hsize_;  
+    size = headerSize;
+    fc = fc_;
+    duration = duration_;
+    ra = ra_;
+    fcs = fcs_;
+    forcedError = forcedError_;
+  }  
+  
+  /** Get receiver's address */
+  public long getRa( ) { return ra; }
+  /** Set receiver's address */
+  public void setRa(long ra_) { ra = ra_; }
 
-	public Object clone() {
-	    return new Mac_802_11_CTS_Frame(headerSize, (Mac_802_11_Frame_Control) fc.clone(), duration, ra, fcs, forcedError);
-	}
-		
-	public String _toString(String separator_) { 
+  public Object clone() {
+      return new Mac_802_11_CTS_Frame(headerSize, (Mac_802_11_Frame_Control) fc.clone(), duration, ra, fcs, forcedError);
+  }
+    
+  public String _toString(String separator_) { 
         return "CTS Frame" + separator_ + "duration:" + duration + separator_ + "ra:" + ra; 
         // return "CTS Frame" + separator_ + "frame control:" + this.fc._toString(separator_) + separator_ + "duration:" + duration + separator_ + "ra:" + ra;
     }

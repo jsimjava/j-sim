@@ -41,63 +41,63 @@ import drcl.util.StringUtil;
 */
 public class SensorAppAgentContract extends Contract
 {
-	public static final SensorAppAgentContract INSTANCE = new SensorAppAgentContract();
+  public static final SensorAppAgentContract INSTANCE = new SensorAppAgentContract();
 
-	public SensorAppAgentContract()
-	{ super(); }
-	
-	public SensorAppAgentContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Sensor Application Agent Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
+  public SensorAppAgentContract()
+  { super(); }
+  
+  public SensorAppAgentContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Sensor Application Agent Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
 
-	 /** This class implements the underlying message of the contract. */	
-	public static class Message extends drcl.comp.Message
-	{
-		int dataSize ;
-		double snr;
-		long target_nid; // the id of the target node to which this data pertains
+   /** This class implements the underlying message of the contract. */  
+  public static class Message extends drcl.comp.Message
+  {
+    int dataSize ;
+    double snr;
+    long target_nid; // the id of the target node to which this data pertains
         
-        	public Message ()	{ }
+          public Message ()  { }
 
-		public Message (int dataSize_, double snr_, long target_nid_)
-		{
-			dataSize = dataSize_ ;
-			snr = snr_;
-			target_nid = target_nid_;
-		}
+    public Message (int dataSize_, double snr_, long target_nid_)
+    {
+      dataSize = dataSize_ ;
+      snr = snr_;
+      target_nid = target_nid_;
+    }
 
- 		public int getDataSize() { return dataSize; }
- 		public double getSNR() { return snr; }
-		public long getTargetNid() {return target_nid; }
-		
-		/*
+     public int getDataSize() { return dataSize; }
+     public double getSNR() { return snr; }
+    public long getTargetNid() {return target_nid; }
+    
+    /*
         public void duplicate(Object source_)
-		{
-		    Message that_ = (Message)source_;
-		    dataSize = that_.dataSize;
-		    snr = that_.snr;
-		    target_nid = that_.target_nid ;
-		}
-		*/
-	
-		public Object clone()
-		{ 
-			return new Message(dataSize, snr, target_nid); 
-		}
+    {
+        Message that_ = (Message)source_;
+        dataSize = that_.dataSize;
+        snr = that_.snr;
+        target_nid = that_.target_nid ;
+    }
+    */
+  
+    public Object clone()
+    { 
+      return new Message(dataSize, snr, target_nid); 
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-	            String str;
-        	    str = "Sensor-App-Agent Message:" + separator_ + "dataSize=" + dataSize + separator_ + "snr=" + snr + separator_ + "target_nid=" + target_nid; 
-			return str;
-		}
-	}
+    public String toString(String separator_)
+    {
+              String str;
+              str = "Sensor-App-Agent Message:" + separator_ + "dataSize=" + dataSize + separator_ + "snr=" + snr + separator_ + "target_nid=" + target_nid; 
+      return str;
+    }
+  }
 }

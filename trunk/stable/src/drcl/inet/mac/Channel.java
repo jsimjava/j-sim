@@ -162,20 +162,20 @@ public class Channel extends drcl.net.Module
     
     public String getName() { return "Channel"; }
     
-	public void duplicate(Object source_)
-	{ 
-		super.duplicate(source_);
+  public void duplicate(Object source_)
+  { 
+    super.duplicate(source_);
         // no reason to duplicate nPort and vp
-	}    
+  }    
 
     
-  	protected synchronized void processOther(Object data_, Port inPort_)
-	{
+    protected synchronized void processOther(Object data_, Port inPort_)
+  {
         
-		String portid_ = inPort_.getID();
+    String portid_ = inPort_.getID();
     
         if (portid_.equals(NODE_PORT_ID)) {
-    		if (!(data_ instanceof NodeChannelContract.Message)) {
+        if (!(data_ instanceof NodeChannelContract.Message)) {
                 error(data_, "processOther()", inPort_, "unknown object");
                 return;
             }
@@ -183,7 +183,7 @@ public class Channel extends drcl.net.Module
             return;
         }
         super.processOther(data_, inPort_);
-	}  
+  }  
 
     /**
      * Processes the data packet sent down from any node by retrieving out the sender node's position 

@@ -32,9 +32,9 @@ import drcl.comp.ACARuntime;
 
 public class SimulatorAssistant
 {
-	public static final ACARuntime onSingleMachine()
-	{ return new drcl.sim.process.SMMTSimulator(); }
+  public static final ACARuntime onSingleMachine()
+  { return new drcl.sim.process.SMMTSimulator(); }
 
-	public static final ACARuntime defaultInstance()
-	{ return new drcl.sim.process.SMMTSimulator(); }
+  public static final ACARuntime defaultInstance()
+  { return new drcl.sim.process.SMMTSimulator(); }
 }

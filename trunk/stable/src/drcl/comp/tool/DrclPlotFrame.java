@@ -66,75 +66,75 @@ public class DrclPlotFrame extends ptolemy.plot.plotml.PlotMLFrame
     public DrclPlotFrame(String title, PlotBox plotArg) {
         super(title, plotArg);
         setJMenuBar(null);
-		_init();
-		pack();
+    _init();
+    pack();
     }
 
-	boolean menuUp = false;
-	boolean buttonEnabled = false;
+  boolean menuUp = false;
+  boolean buttonEnabled = false;
 
-	JMenuBar _getMenuBar()
-	{ return _menubar; }
+  JMenuBar _getMenuBar()
+  { return _menubar; }
 
-	void _init()
-	{
-		plot.removeKeyListener(plot.myKeyListener);
-		plot.myKeyListener = new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				switch(e.getKeyChar()) {
-				case 'C':
-					// The "null" sends the output to the clipboard.
-					plot.export(null);
-					String message = "Encapsulated PostScript (EPS) exported to clipboard.";
-					JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
-						JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case 'D':
-					plot.write(System.out);
-					message = "Plot data sent to standard out.";
-					JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
-						JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case 'E':
-					plot.export(System.out);
-					message = "Encapsulated PostScript (EPS) exported to standard out.";
-					JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
-						JOptionPane.INFORMATION_MESSAGE);
-					break;
-				case 'F':
-					plot.fillPlot();
-					break;
-				case 'M':
-					setJMenuBar(menuUp? null: _getMenuBar());
-					DrclPlotFrame.this.validate();
-					menuUp = !menuUp;
-					break;
-				case 'T':
-					buttonEnabled = !buttonEnabled;
-					plot.setButtons(buttonEnabled);
-					plot.validate();
-					break;
-				case '?':
-				case 'H':
-					_help();
-					break;
-				default:
-					// None
-					break;
-				}
-			}
-		};
-		plot.addKeyListener(plot.myKeyListener);
-	}
+  void _init()
+  {
+    plot.removeKeyListener(plot.myKeyListener);
+    plot.myKeyListener = new KeyAdapter() {
+      public void keyTyped(KeyEvent e) {
+        switch(e.getKeyChar()) {
+        case 'C':
+          // The "null" sends the output to the clipboard.
+          plot.export(null);
+          String message = "Encapsulated PostScript (EPS) exported to clipboard.";
+          JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
+            JOptionPane.INFORMATION_MESSAGE);
+          break;
+        case 'D':
+          plot.write(System.out);
+          message = "Plot data sent to standard out.";
+          JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
+            JOptionPane.INFORMATION_MESSAGE);
+          break;
+        case 'E':
+          plot.export(System.out);
+          message = "Encapsulated PostScript (EPS) exported to standard out.";
+          JOptionPane.showMessageDialog(plot, message, "Ptolemy Plot Message",
+            JOptionPane.INFORMATION_MESSAGE);
+          break;
+        case 'F':
+          plot.fillPlot();
+          break;
+        case 'M':
+          setJMenuBar(menuUp? null: _getMenuBar());
+          DrclPlotFrame.this.validate();
+          menuUp = !menuUp;
+          break;
+        case 'T':
+          buttonEnabled = !buttonEnabled;
+          plot.setButtons(buttonEnabled);
+          plot.validate();
+          break;
+        case '?':
+        case 'H':
+          _help();
+          break;
+        default:
+          // None
+          break;
+        }
+      }
+    };
+    plot.addKeyListener(plot.myKeyListener);
+  }
 
    protected void _help() {
         String message = 
                 "Ptolemy Plot\n" +
-				"Modified By: Hung-ying Tyan, tyanh@ee.eng.ohio-state.edu\n" +
+        "Modified By: Hung-ying Tyan, tyanh@ee.eng.ohio-state.edu\n" +
                 "Originally By: Edward A. Lee, eal@eecs.berkeley.edu\n" +
                 "and Christopher Hylands, cxh@eecs.berkeley.edu\n" +
-				"Version " + PlotBox.PTPLOT_RELEASE +
-				", Build: $Id: DrclPlotFrame.java,v 1.1.1.1 2004/01/26 21:52:02 hyuklim Exp $\n\n" +
+        "Version " + PlotBox.PTPLOT_RELEASE +
+        ", Build: $Id: DrclPlotFrame.java,v 1.1.1.1 2004/01/26 21:52:02 hyuklim Exp $\n\n" +
                 "Key bindings:\n" +
                 "   Shift-D: dump plot data to standard out (PlotML)\n" +
                 "   Shift-E: export plot to standard out (EPS format)\n" +

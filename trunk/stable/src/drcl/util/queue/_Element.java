@@ -30,34 +30,34 @@ package drcl.util.queue;
 
 class _Element extends drcl.DrclObj implements Element
 {
-	_Element (double key_, Object o_)
-	{
-		key = key_;
-		obj = o_;
-		next = null;
-	}
-		
-	static _Element create(double key_, Object o_, int size_)
-	{
-		if (size_ == 1) return new _Element(key_, o_);
-		return new SizedElement(key_, o_, size_); //(_Element)elementCan.reproduce();
-	}
-		
-	void recycle()
-	{
-		obj = null;
-		next = null;
-		//elementCan.recycle(this);
-	}
-		
-	public Object getObject()
-	{ return obj; }
-		
-	public int getSize()
-	{ return 1; }
-		
-	double  key;
-	Object  obj;
-	_Element next;
+  _Element (double key_, Object o_)
+  {
+    key = key_;
+    obj = o_;
+    next = null;
+  }
+    
+  static _Element create(double key_, Object o_, int size_)
+  {
+    if (size_ == 1) return new _Element(key_, o_);
+    return new SizedElement(key_, o_, size_); //(_Element)elementCan.reproduce();
+  }
+    
+  void recycle()
+  {
+    obj = null;
+    next = null;
+    //elementCan.recycle(this);
+  }
+    
+  public Object getObject()
+  { return obj; }
+    
+  public int getSize()
+  { return 1; }
+    
+  double  key;
+  Object  obj;
+  _Element next;
 }
 

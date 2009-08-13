@@ -38,62 +38,62 @@ import drcl.net.FooPacket;
  */
 public class tsPacketTrain extends TrafficSourceComponent
 {
-	double nextTime;
-	traffic_PacketTrain traffic = null;
+  double nextTime;
+  traffic_PacketTrain traffic = null;
 
-	public tsPacketTrain()
-	{ this(new traffic_PacketTrain()); }
+  public tsPacketTrain()
+  { this(new traffic_PacketTrain()); }
 
-	public tsPacketTrain(String id_)
-	{ super(id_); traffic = new traffic_PacketTrain(); reset(); }
+  public tsPacketTrain(String id_)
+  { super(id_); traffic = new traffic_PacketTrain(); reset(); }
 
-	public tsPacketTrain(traffic_PacketTrain traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsPacketTrain(traffic_PacketTrain traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void reset()
-	{
-		super.reset();
-		nextTime   = 0.0;
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_) + prefix_
-			+ "State: nextTime=" + nextTime + "\n";
-	}
+  public void reset()
+  {
+    super.reset();
+    nextTime   = 0.0;
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_) + prefix_
+      + "State: nextTime=" + nextTime + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_PacketTrain)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_PacketTrain)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_) 
-	{ 
-		double time_ = nextTime;
-		nextTime += traffic.interArrivalTime;
-		nextpkt_.setPacketSize(traffic.packetSize);
-		return time_;
-	}
+  protected double setNextPacket(FooPacket nextpkt_) 
+  { 
+    double time_ = nextTime;
+    nextTime += traffic.interArrivalTime;
+    nextpkt_.setPacketSize(traffic.packetSize);
+    return time_;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime = newTime_ + traffic.interArrivalTime;
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime = newTime_ + traffic.interArrivalTime;
+    super.reschedule(newTime_);
+  }
 
-	public void setPacketSize(int size_)
-	{ traffic.setPacketSize(size_); }
+  public void setPacketSize(int size_)
+  { traffic.setPacketSize(size_); }
 
-	public int getPacketSize()
-	{ return traffic.getPacketSize(); }
-	
-	public void setIntArrivalTime(double t_)
-	{ traffic.setIntArrivalTime(t_); }
+  public int getPacketSize()
+  { return traffic.getPacketSize(); }
+  
+  public void setIntArrivalTime(double t_)
+  { traffic.setIntArrivalTime(t_); }
 
-	public double getIntArrivalTime()
-	{ return traffic.getIntArrivalTime(); }
+  public double getIntArrivalTime()
+  { return traffic.getIntArrivalTime(); }
 
-	public void set(int mtu_, double iat_)
-	{ traffic.set(mtu_, iat_); reset(); }
+  public void set(int mtu_, double iat_)
+  { traffic.set(mtu_, iat_); reset(); }
 }

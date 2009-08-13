@@ -31,10 +31,10 @@ package drcl.net.traffic;
 /**
  * Defines the periodic property of a traffic model.
  * The traffic amount per period can be obtained by
- *		(getLoad() * getPeriod()).
+ *    (getLoad() * getPeriod()).
  */
 public interface TrafficPeriodic
 {
-	/** Returns the period in second. */
-	public double getPeriod();
+  /** Returns the period in second. */
+  public double getPeriod();
 }

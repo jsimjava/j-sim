@@ -46,27 +46,27 @@ class DeferTimer extends Mac_802_11_Timer {
     /**
      * Contructor.
      */
-	public DeferTimer(Mac_802_11 h, double s) {
-		super(h, s);
-		o_.setType(MacTimeoutEvt.Defer_timeout); 
-	}	
+  public DeferTimer(Mac_802_11 h, double s) {
+    super(h, s);
+    o_.setType(MacTimeoutEvt.Defer_timeout); 
+  }  
 
     /**
      * Contructor.
      */
-	public DeferTimer(Mac_802_11 h) {
-		super(h, 0);
-		o_.setType(MacTimeoutEvt.Defer_timeout); 
-	}	
+  public DeferTimer(Mac_802_11 h) {
+    super(h, 0);
+    o_.setType(MacTimeoutEvt.Defer_timeout); 
+  }  
 
     /**
      * Handles the timeout event. This method is called in Mac_802_11 class.
      */
-	public void handle( ) {       
-		busy_ = false;
-		paused_ = false;
-		stime = 0.0;
-		rtime = 0.0;
+  public void handle( ) {       
+    busy_ = false;
+    paused_ = false;
+    stime = 0.0;
+    rtime = 0.0;
     }
 
     /**
@@ -74,13 +74,13 @@ class DeferTimer extends Mac_802_11_Timer {
      */
     public void start(double time) {
         _assert("DeferTimer start()", "busy_ == false", (busy_ == false));
-     	busy_ = true;
-		paused_ = false;
-		stime = host_.getTime();
-		rtime = time;
+       busy_ = true;
+    paused_ = false;
+    stime = host_.getTime();
+    rtime = time;
 
         _assert("DeferTimer start()", "rtime >= 0.0", (rtime >= 0.0));
-		host_.setTimeout(o_, rtime);
-	}
+    host_.setTimeout(o_, rtime);
+  }
 }
 

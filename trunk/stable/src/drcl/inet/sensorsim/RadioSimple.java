@@ -37,70 +37,70 @@ import drcl.comp.*;
 */
 public class RadioSimple extends RadioBase
 {
-  	// Values for currents of different Radio modes
-	public static final double TX_CUR = 5.2e-3; // Transmit mode current draw = 12 mA
-	public static final double RX_CUR = 4.1e-3;   // Receiver mode current draw   1.8 mA
-	public static final double SLEEP_CUR = 5e-6; // Sleep mode current draw  5 microA
-	public static final double DATARATE = 19200;  // Data Rate 19.2 kbps
+    // Values for currents of different Radio modes
+  public static final double TX_CUR = 5.2e-3; // Transmit mode current draw = 12 mA
+  public static final double RX_CUR = 4.1e-3;   // Receiver mode current draw   1.8 mA
+  public static final double SLEEP_CUR = 5e-6; // Sleep mode current draw  5 microA
+  public static final double DATARATE = 19200;  // Data Rate 19.2 kbps
 
-	public RadioSimple() 
-	{
-		super();
-		txCur = TX_CUR;
-		rxCur = RX_CUR;
-		dataRate = DATARATE;
-		radioMode = RADIO_RECEIVE;
-	}
+  public RadioSimple() 
+  {
+    super();
+    txCur = TX_CUR;
+    rxCur = RX_CUR;
+    dataRate = DATARATE;
+    radioMode = RADIO_RECEIVE;
+  }
 
-	/** Reports the current to the battery model. */
-	public void reportCurrent(double current)
-	{
-		BatteryContract.setConsumerCurrent(BatteryBase.RADIO_MODEL, current, batteryPort);
-	}
+  /** Reports the current to the battery model. */
+  public void reportCurrent(double current)
+  {
+    BatteryContract.setConsumerCurrent(BatteryBase.RADIO_MODEL, current, batteryPort);
+  }
 
-	/** Sets the radio mode and reports the current to the battery model. */
-	public int setRadioMode(int mode) 
-	{
-		switch (mode)
-		{
-			case RADIO_TRANSMIT:
-				if ( radioMode != RADIO_OFF )
-					reportCurrent(txCur) ;
-				else
-					return 0;
-				break;
-			case RADIO_IDLE:
-			case RADIO_RECEIVE:
-				if ( radioMode != RADIO_OFF )
-					reportCurrent(rxCur);
-				break;
-			case RADIO_SLEEP:
-				if ( radioMode != RADIO_OFF)
-					reportCurrent(SLEEP_CUR);
-				break;
-			case RADIO_OFF:
-				reportCurrent(0.0);
-				break;
-		} // end switch
-		
-		radioMode = mode;  
-		reportRadioMode(mode);  // report it to the application
-		return 1;
-	} 
+  /** Sets the radio mode and reports the current to the battery model. */
+  public int setRadioMode(int mode) 
+  {
+    switch (mode)
+    {
+      case RADIO_TRANSMIT:
+        if ( radioMode != RADIO_OFF )
+          reportCurrent(txCur) ;
+        else
+          return 0;
+        break;
+      case RADIO_IDLE:
+      case RADIO_RECEIVE:
+        if ( radioMode != RADIO_OFF )
+          reportCurrent(rxCur);
+        break;
+      case RADIO_SLEEP:
+        if ( radioMode != RADIO_OFF)
+          reportCurrent(SLEEP_CUR);
+        break;
+      case RADIO_OFF:
+        reportCurrent(0.0);
+        break;
+    } // end switch
+    
+    radioMode = mode;  
+    reportRadioMode(mode);  // report it to the application
+    return 1;
+  } 
 
-	public void turnOnTransmit() {
-		setRadioMode(RADIO_TRANSMIT);
-	}
+  public void turnOnTransmit() {
+    setRadioMode(RADIO_TRANSMIT);
+  }
 
-	public void turnOffTransmit() { 
-		setRadioMode(RADIO_RECEIVE);
-	}
+  public void turnOffTransmit() { 
+    setRadioMode(RADIO_RECEIVE);
+  }
  
-	public void sleep() {  
-		setRadioMode(RADIO_SLEEP);
-	}
+  public void sleep() {  
+    setRadioMode(RADIO_SLEEP);
+  }
 
-	public void wakeup() { 
-		setRadioMode(RADIO_RECEIVE);
-	}
+  public void wakeup() { 
+    setRadioMode(RADIO_RECEIVE);
+  }
 }

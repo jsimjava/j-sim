@@ -38,78 +38,78 @@ import drcl.net.FooPacket;
  */
 public class tsPoissonVariableSize extends TrafficSourceComponent
 {
-	double nextTime;
-	ExponentialDistribution arrival = new ExponentialDistribution();
-	ExponentialDistribution pktSize = new ExponentialDistribution();
-		
-	traffic_PoissonVariableSize traffic = null;
+  double nextTime;
+  ExponentialDistribution arrival = new ExponentialDistribution();
+  ExponentialDistribution pktSize = new ExponentialDistribution();
+    
+  traffic_PoissonVariableSize traffic = null;
 
-	public tsPoissonVariableSize()
-	{ this(new traffic_PoissonVariableSize()); }
+  public tsPoissonVariableSize()
+  { this(new traffic_PoissonVariableSize()); }
 
-	public tsPoissonVariableSize(String id_)
-	{ super(id_); traffic = new traffic_PoissonVariableSize(); reset(); }
+  public tsPoissonVariableSize(String id_)
+  { super(id_); traffic = new traffic_PoissonVariableSize(); reset(); }
 
-	public tsPoissonVariableSize(traffic_PoissonVariableSize traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsPoissonVariableSize(traffic_PoissonVariableSize traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void setSeed(long seed_)
-	{
-		super.setSeed(seed_);
-		java.util.Random r = new java.util.Random(seed_);
-		arrival.setSeed(r.nextLong());
-		pktSize.setSeed(r.nextLong());
-	}
+  public void setSeed(long seed_)
+  {
+    super.setSeed(seed_);
+    java.util.Random r = new java.util.Random(seed_);
+    arrival.setSeed(r.nextLong());
+    pktSize.setSeed(r.nextLong());
+  }
 
-	public void reset()
-	{
-		super.reset();
-		nextTime = 0.0;
-		if (traffic != null) {
-			arrival.setRate(1.0 / traffic.getPeriod());
-			pktSize.setRate(1.0 / traffic.packetSize);
-		}
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-				+ prefix_ + "Arrival: " + arrival + "\n"
-				+ prefix_ + "PktSize: " + pktSize + "\n"
-				+ prefix_ + "State: nextTime=" + nextTime + "\n";
-	}
+  public void reset()
+  {
+    super.reset();
+    nextTime = 0.0;
+    if (traffic != null) {
+      arrival.setRate(1.0 / traffic.getPeriod());
+      pktSize.setRate(1.0 / traffic.packetSize);
+    }
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+        + prefix_ + "Arrival: " + arrival + "\n"
+        + prefix_ + "PktSize: " + pktSize + "\n"
+        + prefix_ + "State: nextTime=" + nextTime + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_PoissonVariableSize)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_PoissonVariableSize)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_) 
-	{ 
-		nextTime += arrival.nextDouble();
-		int pktsize_ = pktSize.nextInt();
-		// XX:
-		while (pktsize_ <= 0)
-			pktsize_ = pktSize.nextInt();
-		nextpkt_.setPacketSize(pktsize_);
-		return nextTime;
-	}
+  protected double setNextPacket(FooPacket nextpkt_) 
+  { 
+    nextTime += arrival.nextDouble();
+    int pktsize_ = pktSize.nextInt();
+    // XX:
+    while (pktsize_ <= 0)
+      pktsize_ = pktSize.nextInt();
+    nextpkt_.setPacketSize(pktsize_);
+    return nextTime;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime = newTime_;
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime = newTime_;
+    super.reschedule(newTime_);
+  }
 
-	public void setAvgPacketSize(int size_)
-   	{ traffic.packetSize = size_; reset(); }
-	public int getAvgPacketSize() { return traffic.packetSize; }
-	
-	public void setRate(double brate_)
-   	{ traffic.rate = brate_; reset(); }
-	public double getRate() { return traffic.rate; }
-	
-	public void set(int avgPktSize_, double brate_)
-	{ traffic.set(avgPktSize_, brate_); reset(); }
+  public void setAvgPacketSize(int size_)
+     { traffic.packetSize = size_; reset(); }
+  public int getAvgPacketSize() { return traffic.packetSize; }
+  
+  public void setRate(double brate_)
+     { traffic.rate = brate_; reset(); }
+  public double getRate() { return traffic.rate; }
+  
+  public void set(int avgPktSize_, double brate_)
+  { traffic.set(avgPktSize_, brate_); reset(); }
 }

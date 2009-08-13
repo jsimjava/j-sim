@@ -41,90 +41,90 @@ import drcl.comp.*;
  */
 public class Mac_802_11_Timer {
 
-	MacTimeoutEvt   o_;
-	
-	boolean     busy_;
-	boolean  	paused_;
-	/** Start time */
-	double		stime;	
-	/** Remaining time */
-	double		rtime;	
-	double		slottime;
-	
-	Mac_802_11  host_;
+  MacTimeoutEvt   o_;
+  
+  boolean     busy_;
+  boolean    paused_;
+  /** Start time */
+  double    stime;  
+  /** Remaining time */
+  double    rtime;  
+  double    slottime;
+  
+  Mac_802_11  host_;
 
     ACATimer timer_;
     
     
     public Mac_802_11_Timer(Mac_802_11 h, double s) {
-		busy_    = false;
-		paused_  = false; 
-		stime    = 0;
-		rtime    = 0.0;
-		slottime = s;
-		
-		host_     = h;
-		o_ = new MacTimeoutEvt(MacTimeoutEvt.Testing_timeout);
-	}
-	
-	public Mac_802_11_Timer(Mac_802_11 h) { 
-		this(h, 1.0); 
-	}	
+    busy_    = false;
+    paused_  = false; 
+    stime    = 0;
+    rtime    = 0.0;
+    slottime = s;
+    
+    host_     = h;
+    o_ = new MacTimeoutEvt(MacTimeoutEvt.Testing_timeout);
+  }
+  
+  public Mac_802_11_Timer(Mac_802_11 h) { 
+    this(h, 1.0); 
+  }  
 
-	/**
-	  * Start the timer 
-	  * @param time - duration
-	  * @param ctime - start timer
-	  */
-	public void start(double time, double ctime) {
+  /**
+    * Start the timer 
+    * @param time - duration
+    * @param ctime - start timer
+    */
+  public void start(double time, double ctime) {
         _assert("Mac_802_11_Timer start()", "busy_ == false", (busy_ == false));
-		
-      	busy_ = true;
-		paused_ = false;
-	    stime = ctime;
-		rtime = time;
-		
-		_assert("Mac_802_11_Timer start()", "rtime >= 0.0", (rtime >= 0.0));
-		
-		timer_ = host_.setTimeout(o_, rtime);
-	}
+    
+        busy_ = true;
+    paused_ = false;
+      stime = ctime;
+    rtime = time;
+    
+    _assert("Mac_802_11_Timer start()", "rtime >= 0.0", (rtime >= 0.0));
+    
+    timer_ = host_.setTimeout(o_, rtime);
+  }
 
-	/**
-	  * Start the timer 
-	  * @param time - duration 
-	  */
-	public void start(double time) {
+  /**
+    * Start the timer 
+    * @param time - duration 
+    */
+  public void start(double time) {
         _assert("Mac_802_11_Timer start()", "busy_ == false", (busy_ == false));
-		busy_ = true;
-		paused_ = false;
-	    stime = host_.getTime();
-		rtime = time;
+    busy_ = true;
+    paused_ = false;
+      stime = host_.getTime();
+    rtime = time;
         _assert("Mac_802_11_Timer start()", "rtime >= 0.0", (rtime >= 0.0));
-		
-		timer_ = host_.setTimeout(o_, rtime);
-	}
-	
-	public void stop( ) {
+    
+    timer_ = host_.setTimeout(o_, rtime);
+  }
+  
+  public void stop( ) {
         _assert("Mac_802_11_Timer stop()", "busy_ == true", (busy_ == true));
 
-		if (paused_ == false && timer_ != null) 
-		    host_.cancelTimeout(timer_);
+    if (paused_ == false && timer_ != null) 
+        host_.cancelTimeout(timer_);
 
-		busy_ = false;
-		paused_ = false;
-		stime = 0.0;
-		rtime = 0.0;
-	}	
-	
-	public void pause( ) {}
-	public void resume( ) {}
-	public void handle( ) {};
+    busy_ = false;
+    paused_ = false;
+    stime = 0.0;
+    rtime = 0.0;
+  }  
+  
+  public void pause( ) {}
+  public void resume( ) {}
+  public void handle( ) {};
 
-	public boolean busy( )   { return busy_;   }
-	public boolean paused( ) { return paused_; }
-	public double expire( ) {
-		return ((stime + rtime) - host_.getTime());
-	}
+  public boolean busy( )   { return busy_;   }
+  public boolean paused( ) { return paused_; }
+  public double expire( ) {
+    return ((stime + rtime) - host_.getTime());
+  }
     
     protected void _assert(String where, String why, boolean continue_) {
         if ( continue_ == false ) 

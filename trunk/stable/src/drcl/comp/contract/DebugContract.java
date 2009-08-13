@@ -57,46 +57,46 @@ import drcl.comp.Contract;
  */
 public class DebugContract extends Contract
 {
-	public static final DebugContract INSTANCE = new DebugContract();
+  public static final DebugContract INSTANCE = new DebugContract();
 
-	public String getName()
-	{ return "ACA Debug Message Format"; }
+  public String getName()
+  { return "ACA Debug Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static class Message extends ComponentMessage
-	{
-		double time;
-		Object description;
-		String where;
-	
-		public Message (double time_, Object where_, Object description_)
-		{
-			time = time_;
-			description = description_;
-			where = where_ == null? null: where_.toString();
-		}
-	
-		public double getTime()
-		{ return time; }
-	
-		public Object getWhere()
-		{ return where; }
-	
-		public Object getDescription()
-		{ return description; }
+  public static class Message extends ComponentMessage
+  {
+    double time;
+    Object description;
+    String where;
+  
+    public Message (double time_, Object where_, Object description_)
+    {
+      time = time_;
+      description = description_;
+      where = where_ == null? null: where_.toString();
+    }
+  
+    public double getTime()
+    { return time; }
+  
+    public Object getWhere()
+    { return where; }
+  
+    public Object getDescription()
+    { return description; }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{ return new Message(time, where, description); }
+    public Object clone()
+    { return new Message(time, where, description); }
 
-		public String toString(String separator_)
-		{
-			return "DEBUG" + separator_ + time + separator_
-				+ (where == null? "": where + separator_) + description;
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "DEBUG" + separator_ + time + separator_
+        + (where == null? "": where + separator_) + description;
+    }
+  }
 }

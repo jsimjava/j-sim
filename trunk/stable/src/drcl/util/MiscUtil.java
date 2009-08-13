@@ -36,43 +36,43 @@ package drcl.util;
  */
 public class MiscUtil
 {
-	/**
-	 * Returns the wall time (in second) elapsed since <code>pastReferencePoint_</code>.
-	 * This method uses <code>java.lang.System.currentTimeMillis()</code> to obtain the current time.
-	 * @param pastReferencePoint_ past time instance in ms.
-	 */
-	public static double timeElapsed(long pastReferencePoint_)
-	{
-		return (double)(System.currentTimeMillis() - pastReferencePoint_)/1000.0;
-	}
+  /**
+   * Returns the wall time (in second) elapsed since <code>pastReferencePoint_</code>.
+   * This method uses <code>java.lang.System.currentTimeMillis()</code> to obtain the current time.
+   * @param pastReferencePoint_ past time instance in ms.
+   */
+  public static double timeElapsed(long pastReferencePoint_)
+  {
+    return (double)(System.currentTimeMillis() - pastReferencePoint_)/1000.0;
+  }
 
-	static long lastTimeMarked;
+  static long lastTimeMarked;
 
-	/** Marks the current time for calculate time elapsed in {@link #timeElapsed()}. */
-	public static void markTime()
-	{ lastTimeMarked = System.currentTimeMillis(); }
+  /** Marks the current time for calculate time elapsed in {@link #timeElapsed()}. */
+  public static void markTime()
+  { lastTimeMarked = System.currentTimeMillis(); }
 
-	/**
-	 * Returns the wall time (in second) elapsed since last time marked.
-	 * This method uses <code>java.lang.System.currentTimeMillis()</code> to obtain the current time.
-	 */
-	public static double timeElapsed()
-	{ return (double)(System.currentTimeMillis() - lastTimeMarked)/1000.0; }
+  /**
+   * Returns the wall time (in second) elapsed since last time marked.
+   * This method uses <code>java.lang.System.currentTimeMillis()</code> to obtain the current time.
+   */
+  public static double timeElapsed()
+  { return (double)(System.currentTimeMillis() - lastTimeMarked)/1000.0; }
 
-	static Runtime runtime = Runtime.getRuntime();
+  static Runtime runtime = Runtime.getRuntime();
 
-	public static void gc()
-	{ runtime.gc(); }
+  public static void gc()
+  { runtime.gc(); }
 
-	public static long totalMemory()
-	{ return runtime.totalMemory(); }
+  public static long totalMemory()
+  { return runtime.totalMemory(); }
 
-	public static long freeMemory()
-	{ return runtime.freeMemory(); }
+  public static long freeMemory()
+  { return runtime.freeMemory(); }
 
-	public static long maxMemory()
-	{ return runtime.maxMemory(); }
+  public static long maxMemory()
+  { return runtime.maxMemory(); }
 
-	public static long allocatedMemory()
-	{ return runtime.totalMemory() - runtime.freeMemory(); }
+  public static long allocatedMemory()
+  { return runtime.totalMemory() - runtime.freeMemory(); }
 }

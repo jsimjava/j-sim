@@ -33,43 +33,43 @@ package drcl.comp;
  */
 public class TaskReceive extends Task
 {
-	/** Creates a task to be executed immediately. */
-	public TaskReceive (Port port_, Object data_)
-	{
-		port = port_;
-		data = data_;
-	}
+  /** Creates a task to be executed immediately. */
+  public TaskReceive (Port port_, Object data_)
+  {
+    port = port_;
+    data = data_;
+  }
 
-	/** Creates a prioritized task to be conducted immediately, with a return port. */
-	public TaskReceive (Port port_, Object data_, Port returnPort_)
-	{
-		port = port_;
-		data = data_;
-		returnPort = returnPort_;
-	}
+  /** Creates a prioritized task to be conducted immediately, with a return port. */
+  public TaskReceive (Port port_, Object data_, Port returnPort_)
+  {
+    port = port_;
+    data = data_;
+    returnPort = returnPort_;
+  }
 
-	/** Creates a prioritized task to be conducted at the specified time. */
-	public TaskReceive (Port port_, Object data_, double time_)
-	{
-		port = port_;
-		data = data_;
-		time = time_;
-	}
+  /** Creates a prioritized task to be conducted at the specified time. */
+  public TaskReceive (Port port_, Object data_, double time_)
+  {
+    port = port_;
+    data = data_;
+    time = time_;
+  }
 
-	public final String toString()
-	{
-		return "RECEIVE:" + port + "," + drcl.util.StringUtil.toString(data)
-			+ ",time:" + time;
-	}
+  public final String toString()
+  {
+    return "RECEIVE:" + port + "," + drcl.util.StringUtil.toString(data)
+      + ",time:" + time;
+  }
 
-	public void execute(WorkerThread thread_)
-	{
-		synchronized (thread_) { thread_.totalNumEvents++; }
-		if (port.flagTraceData)
-			port.host.trace(Component.Trace_DATA, port, data);
-		if (port.host.isEnabled())
-			port.host.process(data, port);
-		thread_.releaseAllLocks(port.host);
-			// Don't hold locks across executions!
-	}
+  public void execute(WorkerThread thread_)
+  {
+    synchronized (thread_) { thread_.totalNumEvents++; }
+    if (port.flagTraceData)
+      port.host.trace(Component.Trace_DATA, port, data);
+    if (port.host.isEnabled())
+      port.host.process(data, port);
+    thread_.releaseAllLocks(port.host);
+      // Don't hold locks across executions!
+  }
 }

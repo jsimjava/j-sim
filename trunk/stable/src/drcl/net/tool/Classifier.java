@@ -44,171 +44,171 @@ configure the key-port map.
 */
 public class Classifier extends drcl.comp.Component
 {
-	drcl.data.Map map;
-	Hashtable ht;
-	PktClassifier pktclassifier;
-								 
-	public Classifier()
-	{	this(null);	}
-	
-	public Classifier(String id_)
-	{	super(id_);	}
-	
-	protected void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		if (!(data_ instanceof Packet)) {
-			error(data_, "process()", inPort_, "unrecognized data");
-			return;
-		}
-		
-		Packet s_ = (Packet)data_;
-		Port p_ = null;
-		IntObj key_ = new IntObj(pktclassifier.classify(s_));
-			
-		// first look in hashtable
-		if (ht != null)
-			p_ = (Port)ht.get(key_);
-		else if (map != null) {
-			drcl.data.BitSet bs_ = new drcl.data.BitSet(32, key_.value);
-			p_ = (Port)map.get(bs_, drcl.data.Map.MATCH_LONGEST);
-		}
-			
-		if (p_ != null) p_.doLastSending(data_);
-		else if (isGarbageEnabled())
-			drop(data_, "no port assigned to key " + key_);
-	}
-	
-	public void reset()
-	{
-		super.reset();
-	}
+  drcl.data.Map map;
+  Hashtable ht;
+  PktClassifier pktclassifier;
+                 
+  public Classifier()
+  {  this(null);  }
+  
+  public Classifier(String id_)
+  {  super(id_);  }
+  
+  protected void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    if (!(data_ instanceof Packet)) {
+      error(data_, "process()", inPort_, "unrecognized data");
+      return;
+    }
+    
+    Packet s_ = (Packet)data_;
+    Port p_ = null;
+    IntObj key_ = new IntObj(pktclassifier.classify(s_));
+      
+    // first look in hashtable
+    if (ht != null)
+      p_ = (Port)ht.get(key_);
+    else if (map != null) {
+      drcl.data.BitSet bs_ = new drcl.data.BitSet(32, key_.value);
+      p_ = (Port)map.get(bs_, drcl.data.Map.MATCH_LONGEST);
+    }
+      
+    if (p_ != null) p_.doLastSending(data_);
+    else if (isGarbageEnabled())
+      drop(data_, "no port assigned to key " + key_);
+  }
+  
+  public void reset()
+  {
+    super.reset();
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		Classifier that_ = (Classifier)source_;
-		if (that_.map != null)
-			map = (drcl.data.Map)that_.map.clone();
-		if (that_.ht != null)
-			ht = (Hashtable) ht.clone();
-		pktclassifier = that_.pktclassifier; // FIXME
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    Classifier that_ = (Classifier)source_;
+    if (that_.map != null)
+      map = (drcl.data.Map)that_.map.clone();
+    if (that_.ht != null)
+      ht = (Hashtable) ht.clone();
+    pktclassifier = that_.pktclassifier; // FIXME
+  }
 
-	public String info()
-	{
-		StringBuffer sb_ = new StringBuffer();
-		sb_.append("PktClassifier: " + pktclassifier + "\n");
-		if (ht != null) {
-			Enumeration elements_ = ht.elements();
-			for (Enumeration keys_ = ht.keys(); keys_.hasMoreElements(); ) {
-				Object element_ = elements_.nextElement();
-				Object key_ = keys_.nextElement();
-				sb_.append(key_ + "(-1): " + element_ + "\n");
-			}
-		}
-		if (map != null) sb_.append(map.numberRepresentation());
-		return sb_.toString();
-	}
+  public String info()
+  {
+    StringBuffer sb_ = new StringBuffer();
+    sb_.append("PktClassifier: " + pktclassifier + "\n");
+    if (ht != null) {
+      Enumeration elements_ = ht.elements();
+      for (Enumeration keys_ = ht.keys(); keys_.hasMoreElements(); ) {
+        Object element_ = elements_.nextElement();
+        Object key_ = keys_.nextElement();
+        sb_.append(key_ + "(-1): " + element_ + "\n");
+      }
+    }
+    if (map != null) sb_.append(map.numberRepresentation());
+    return sb_.toString();
+  }
 
-	public void setPktClassifier(PktClassifier pc_)
-	{ pktclassifier = pc_; }
+  public void setPktClassifier(PktClassifier pc_)
+  { pktclassifier = pc_; }
 
-	public PktClassifier getPktClassifier()
-	{ return pktclassifier; }
-	
-	//
-	private void ___SCRIPT___() {}
-	//
-	
-	/**
-	 * Adds or replaces a mapping.
-	 * @param value_	value of the key.
-	 * @param mask_		mask of the key.
-	 * @param portID_	ID of the port to be mapped from the key.
-	 */
-	public void add(int value_, int mask_, String portID_)
-	{
-		Port p_ = addPort(portID_);
-		add(value_, mask_, p_);
-	}
-	
-	/**
-	 * Adds or replaces a mapping.
-	 * @param value_	value of the key.
-	 * @param mask_		mask of the key.
-	 * @param portID_	ID of the port to be mapped from the key.
-	 * @param portGroup_	port group ID of the port to be mapped from the key.
-	 */
-	public void add(int value_, int mask_, String portGroup_, String portID_)
-	{
-		Port p_ = addPort(portGroup_, portID_);
-		add(value_, mask_, p_);
-	}
-	
-	/**
-	 * Adds or replaces a mapping.
-	 * @param key_		the key.
-	 * @param p_		the port to be mapped from the key.
-	 */
-	public void add(MapKey key_, Port p_)
-	{
-		add((int)key_.getValue().getSubset(0), (int)key_.getMask().getSubset(0), p_);
-	}
-	
-	/**
-	 * Adds or replaces a mapping.
-	 * @param value_	value of the key.
-	 * @param mask_		mask of the key.
-	 * @param p_		the port to be mapped from the key.
-	 */
-	public void add(int value_, int mask_, Port p_)
-	{
-		if (p_ == null || !containsPort(p_)) return;
-		if (mask_ == -1) {
-			if (ht == null) ht = new Hashtable();
-			ht.put(new IntObj(value_), p_);
-		}
-		else {
-			if (map == null) map = new drcl.data.Map();
-			map.addEntry(new MapKey(mask_, value_), p_);
-		}
-	}
-	
-	/**
-	 * Removes a mapping.
-	 * @param value_	value of the key.
-	 * @param mask_		mask of the key.
-	 * @return the port mapped from the key.
-	 */
-	public Port remove(int value_, int mask_)
-	{
-		if (mask_ == -1) {
-			Object o_ = null;
-			if (ht != null) o_ = ht.remove(new IntObj(value_));
-			return (Port) o_;
-		}
-		if (map != null) {
-			MapKey key_ = new MapKey(mask_, value_);
-			Object o_ = map.remove(key_, drcl.data.Map.MATCH_EXACT);
-			return (Port)o_;
-		}
-		return null;
-	}
-	
-	/**
-	 * Removes a mapping.
-	 * @param key_		the key.
-	 * @return the port mapped from the key.
-	 */
-	public Port remove(MapKey key_)
-	{
-		return remove((int)key_.getValue().getSubset(0), (int)key_.getMask().getSubset(0));
-	}
-	
-	/** Removes all the mappings. */
-	public void removeAll()
-	{
-		if (ht != null) ht.clear();
-		if (map != null) map.reset();
-	}
+  public PktClassifier getPktClassifier()
+  { return pktclassifier; }
+  
+  //
+  private void ___SCRIPT___() {}
+  //
+  
+  /**
+   * Adds or replaces a mapping.
+   * @param value_  value of the key.
+   * @param mask_    mask of the key.
+   * @param portID_  ID of the port to be mapped from the key.
+   */
+  public void add(int value_, int mask_, String portID_)
+  {
+    Port p_ = addPort(portID_);
+    add(value_, mask_, p_);
+  }
+  
+  /**
+   * Adds or replaces a mapping.
+   * @param value_  value of the key.
+   * @param mask_    mask of the key.
+   * @param portID_  ID of the port to be mapped from the key.
+   * @param portGroup_  port group ID of the port to be mapped from the key.
+   */
+  public void add(int value_, int mask_, String portGroup_, String portID_)
+  {
+    Port p_ = addPort(portGroup_, portID_);
+    add(value_, mask_, p_);
+  }
+  
+  /**
+   * Adds or replaces a mapping.
+   * @param key_    the key.
+   * @param p_    the port to be mapped from the key.
+   */
+  public void add(MapKey key_, Port p_)
+  {
+    add((int)key_.getValue().getSubset(0), (int)key_.getMask().getSubset(0), p_);
+  }
+  
+  /**
+   * Adds or replaces a mapping.
+   * @param value_  value of the key.
+   * @param mask_    mask of the key.
+   * @param p_    the port to be mapped from the key.
+   */
+  public void add(int value_, int mask_, Port p_)
+  {
+    if (p_ == null || !containsPort(p_)) return;
+    if (mask_ == -1) {
+      if (ht == null) ht = new Hashtable();
+      ht.put(new IntObj(value_), p_);
+    }
+    else {
+      if (map == null) map = new drcl.data.Map();
+      map.addEntry(new MapKey(mask_, value_), p_);
+    }
+  }
+  
+  /**
+   * Removes a mapping.
+   * @param value_  value of the key.
+   * @param mask_    mask of the key.
+   * @return the port mapped from the key.
+   */
+  public Port remove(int value_, int mask_)
+  {
+    if (mask_ == -1) {
+      Object o_ = null;
+      if (ht != null) o_ = ht.remove(new IntObj(value_));
+      return (Port) o_;
+    }
+    if (map != null) {
+      MapKey key_ = new MapKey(mask_, value_);
+      Object o_ = map.remove(key_, drcl.data.Map.MATCH_EXACT);
+      return (Port)o_;
+    }
+    return null;
+  }
+  
+  /**
+   * Removes a mapping.
+   * @param key_    the key.
+   * @return the port mapped from the key.
+   */
+  public Port remove(MapKey key_)
+  {
+    return remove((int)key_.getValue().getSubset(0), (int)key_.getMask().getSubset(0));
+  }
+  
+  /** Removes all the mappings. */
+  public void removeAll()
+  {
+    if (ht != null) ht.clear();
+    if (map != null) map.reset();
+  }
 }

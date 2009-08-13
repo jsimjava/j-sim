@@ -31,13 +31,13 @@ package drcl.inet.socket;
 /** Defines states of a socket. */
 public interface SocketStates
 {
-	public final static int INIT = 0;
-	public final static int CONNECTED = 1;
-	public final static int CONNECTING = 2;
-	public final static int CLOSED = 3;
-	public final static int CLOSING = 4;
-	public final static int ACCEPTING = 5;
-	public final static int NO_OP = 6;
-	final static String[] STATES = {
-		"init", "connected", "connecting", "closed", "closing", "accepting", "no_op"};
+  public final static int INIT = 0;
+  public final static int CONNECTED = 1;
+  public final static int CONNECTING = 2;
+  public final static int CLOSED = 3;
+  public final static int CLOSING = 4;
+  public final static int ACCEPTING = 5;
+  public final static int NO_OP = 6;
+  final static String[] STATES = {
+    "init", "connected", "connecting", "closed", "closing", "accepting", "no_op"};
 }

@@ -37,83 +37,83 @@ import drcl.comp.*;
 */
 public class BatteryTable extends drcl.DrclObj
 {
-	public static final int MAX_TABLE_SIZE = 25;  	
-	public static final int CURRENT = 0;  
-	public static final int CAPACITY = 1;  
-	public static final int SEC_IN_HOUR = 3600;  
-	public static final int MAX_CAPACITY = 10;  	
-	
-	double maxCapacity ; // in mAh
-	double curCapacity ; 
+  public static final int MAX_TABLE_SIZE = 25;    
+  public static final int CURRENT = 0;  
+  public static final int CAPACITY = 1;  
+  public static final int SEC_IN_HOUR = 3600;  
+  public static final int MAX_CAPACITY = 10;    
+  
+  double maxCapacity ; // in mAh
+  double curCapacity ; 
 
-	double [] [] data = new double [2] [MAX_TABLE_SIZE];
+  double [] [] data = new double [2] [MAX_TABLE_SIZE];
 
-	public BatteryTable()
-	{
-		for ( int i = 0 ; i < MAX_TABLE_SIZE; i++ )
-		{
-			data[CURRENT][i] = 0.0 ;
-			data[CAPACITY][i] = 0.0 ;			
-		}
-	}
+  public BatteryTable()
+  {
+    for ( int i = 0 ; i < MAX_TABLE_SIZE; i++ )
+    {
+      data[CURRENT][i] = 0.0 ;
+      data[CAPACITY][i] = 0.0 ;      
+    }
+  }
 
-	/** Sets the maximum capacity */
-	public void setMaxCapacity(double a)
-	{
-		maxCapacity = a ; // in mAh
-		curCapacity = a ; 
-	}
-	
-	/** Gets the current capacity */
-	public double getCurCapacity()
-	{
-		return curCapacity ;
-	}
+  /** Sets the maximum capacity */
+  public void setMaxCapacity(double a)
+  {
+    maxCapacity = a ; // in mAh
+    curCapacity = a ; 
+  }
+  
+  /** Gets the current capacity */
+  public double getCurCapacity()
+  {
+    return curCapacity ;
+  }
 
-	/** Computes the new value of the capacity based on a given value for current and after a certain given time duration */
-	public double computeNewCapacity(double current, double duration)
-	{
-		double newCap;
-		double effCap = getCapacity(current);
-		newCap = curCapacity - (current*duration/SEC_IN_HOUR)/effCap;
-		curCapacity = newCap;
-		return ( curCapacity );		
-	}
+  /** Computes the new value of the capacity based on a given value for current and after a certain given time duration */
+  public double computeNewCapacity(double current, double duration)
+  {
+    double newCap;
+    double effCap = getCapacity(current);
+    newCap = curCapacity - (current*duration/SEC_IN_HOUR)/effCap;
+    curCapacity = newCap;
+    return ( curCapacity );    
+  }
 
-	/** Gets the interpolated capacity at a given value of current */
-	public double getCapacity(double current)
-	{
-		int i;
-		for (i=0; i < MAX_TABLE_SIZE; i++) {
-			if ( data[CURRENT][i] >= current )
-				break;
-		} // end for
-		
-		if ( i == 0 )  // current smaller than 0.1
-			return 1.0 ;
-		
-		if ( i >= MAX_TABLE_SIZE ) // current out of range
-			return 0.0 ;
+  /** Gets the interpolated capacity at a given value of current */
+  public double getCapacity(double current)
+  {
+    int i;
+    for (i=0; i < MAX_TABLE_SIZE; i++) {
+      if ( data[CURRENT][i] >= current )
+        break;
+    } // end for
+    
+    if ( i == 0 )  // current smaller than 0.1
+      return 1.0 ;
+    
+    if ( i >= MAX_TABLE_SIZE ) // current out of range
+      return 0.0 ;
 
-		// find the interpolated capacity
-		double midPoint, capRange;
-		midPoint = (current - data[CURRENT][i-1]) / ( data[CURRENT][i] - data[CURRENT][i-1] ) ;
-		capRange = data[CAPACITY][i]-data[CAPACITY][i-1];
-		return ((capRange*midPoint)+data[CAPACITY][i-1]);
-	}
+    // find the interpolated capacity
+    double midPoint, capRange;
+    midPoint = (current - data[CURRENT][i-1]) / ( data[CURRENT][i] - data[CURRENT][i-1] ) ;
+    capRange = data[CAPACITY][i]-data[CAPACITY][i-1];
+    return ((capRange*midPoint)+data[CAPACITY][i-1]);
+  }
 
-	/** Inputs an entry in the table */
-	public int inputData(int i, double current, double capacity)
-	{
-		if ( (i < 0) || (i >= MAX_TABLE_SIZE) )
-		{
-			return -1 ;
-		} 
-		else 
-		{
-			data[CURRENT][i] = current ;
-			data[CAPACITY][i] = capacity ;
-			return 1 ;
-		}
-	}
+  /** Inputs an entry in the table */
+  public int inputData(int i, double current, double capacity)
+  {
+    if ( (i < 0) || (i >= MAX_TABLE_SIZE) )
+    {
+      return -1 ;
+    } 
+    else 
+    {
+      data[CURRENT][i] = current ;
+      data[CAPACITY][i] = capacity ;
+      return 1 ;
+    }
+  }
 }

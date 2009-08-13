@@ -35,29 +35,29 @@ import drcl.comp.*;
  */
 public class Network extends Component
 {
-	public long netaddr;
-	public long netmask;
-	
-	public void setNetworkAddr(long addr_)
-	{ netaddr = addr_; }
-	
-	public long getNetworkAddr()
-	{ return netaddr; }
-	
-	public void setNetworkMask(long mask_)
-	{ netmask = mask_; }
-	
-	public long getNetworkMask()
-	{ return netmask; }
-	
-	public Network()
-	{ super(); }
-	
-	public Network(String id_)
-	{ super(id_); }
-	
-	public String info()
-	{
-		return InetUtil.toString(this);
-	}
+  public long netaddr;
+  public long netmask;
+  
+  public void setNetworkAddr(long addr_)
+  { netaddr = addr_; }
+  
+  public long getNetworkAddr()
+  { return netaddr; }
+  
+  public void setNetworkMask(long mask_)
+  { netmask = mask_; }
+  
+  public long getNetworkMask()
+  { return netmask; }
+  
+  public Network()
+  { super(); }
+  
+  public Network(String id_)
+  { super(id_); }
+  
+  public String info()
+  {
+    return InetUtil.toString(this);
+  }
 }

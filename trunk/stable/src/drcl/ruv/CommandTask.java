@@ -32,76 +32,76 @@ import drcl.comp.*;
 
 public class CommandTask extends drcl.DrclObj implements Runnable
 {
-	static final String INACTIVE = "INACTIVE";
-	static final String IN_EXECUTION = "IN_EXECUTION";
-	static final String DONE = "DONE";
-	String cmd;
-	Shell shell;
-	drcl.comp.ACARuntime runtime;
-	double period;
-	boolean enabled = true;
-	String state = INACTIVE;
-	
-	public static CommandTask add(String cmd_, double later_, double period_, drcl.comp.ACARuntime runtime_,
-								  Shell shell_)
-	{
-		CommandTask ct_ = new CommandTask(); //(CommandTask) drcl.RecycleManager.reproduce(CommandTask.class);
-		ct_.cmd = cmd_;
-		ct_.period = period_;
-		ct_.runtime = runtime_;
-		ct_.shell = shell_;
-		runtime_.addRunnable(later_, ct_);
-		return ct_;
-	}
-	
-	public static CommandTask addAt(String cmd_, double time_, double period_, drcl.comp.ACARuntime runtime_,
-								  Shell shell_)
-	{
-		CommandTask ct_ = new CommandTask(); //(CommandTask) drcl.RecycleManager.reproduce(CommandTask.class);
-		ct_.cmd = cmd_;
-		ct_.period = period_;
-		ct_.runtime = runtime_;
-		ct_.shell = shell_;
-		runtime_.addRunnableAt(time_, ct_);
-		return ct_;
-	}
-	
-	public void run()
-	{
-		//java.lang.System.out.println("--------CommandTask------");
-		state = IN_EXECUTION;
-		if (!enabled) return;
-		try {
-			//java.lang.System.out.println("---------------- Execute: " + cmd);
-			synchronized (shell) {
-				Object result_ = shell.eval(cmd);
-				//java.lang.System.out.println("--------------- ENd execution");
-				if (result_ != null) shell.print(result_.toString());
-			}
-			
-			if (period > 0.0 && runtime != null) {
-				runtime.addRunnable(period, this);
-			}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			String msg_ = "Script Error| " + e_ + "| executing '" + this;
-			shell.println(msg_);
-		}
-		state = DONE;
-	}
-	
-	public void setEnabled(boolean v_) { enabled = v_; }
-	public boolean isEnabled() {return enabled; }
+  static final String INACTIVE = "INACTIVE";
+  static final String IN_EXECUTION = "IN_EXECUTION";
+  static final String DONE = "DONE";
+  String cmd;
+  Shell shell;
+  drcl.comp.ACARuntime runtime;
+  double period;
+  boolean enabled = true;
+  String state = INACTIVE;
+  
+  public static CommandTask add(String cmd_, double later_, double period_, drcl.comp.ACARuntime runtime_,
+                  Shell shell_)
+  {
+    CommandTask ct_ = new CommandTask(); //(CommandTask) drcl.RecycleManager.reproduce(CommandTask.class);
+    ct_.cmd = cmd_;
+    ct_.period = period_;
+    ct_.runtime = runtime_;
+    ct_.shell = shell_;
+    runtime_.addRunnable(later_, ct_);
+    return ct_;
+  }
+  
+  public static CommandTask addAt(String cmd_, double time_, double period_, drcl.comp.ACARuntime runtime_,
+                  Shell shell_)
+  {
+    CommandTask ct_ = new CommandTask(); //(CommandTask) drcl.RecycleManager.reproduce(CommandTask.class);
+    ct_.cmd = cmd_;
+    ct_.period = period_;
+    ct_.runtime = runtime_;
+    ct_.shell = shell_;
+    runtime_.addRunnableAt(time_, ct_);
+    return ct_;
+  }
+  
+  public void run()
+  {
+    //java.lang.System.out.println("--------CommandTask------");
+    state = IN_EXECUTION;
+    if (!enabled) return;
+    try {
+      //java.lang.System.out.println("---------------- Execute: " + cmd);
+      synchronized (shell) {
+        Object result_ = shell.eval(cmd);
+        //java.lang.System.out.println("--------------- ENd execution");
+        if (result_ != null) shell.print(result_.toString());
+      }
+      
+      if (period > 0.0 && runtime != null) {
+        runtime.addRunnable(period, this);
+      }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      String msg_ = "Script Error| " + e_ + "| executing '" + this;
+      shell.println(msg_);
+    }
+    state = DONE;
+  }
+  
+  public void setEnabled(boolean v_) { enabled = v_; }
+  public boolean isEnabled() {return enabled; }
 
-	public void stop()
-	{ enabled = false; }
-	
-	public String toString()
-	{
-		return state + ",script='" + cmd + "',period=" + period + ",shell=" + shell + ",enabled=" + enabled;
-	}
-	
-	public String info()
-	{ return toString() + "\n"; }
+  public void stop()
+  { enabled = false; }
+  
+  public String toString()
+  {
+    return state + ",script='" + cmd + "',period=" + period + ",shell=" + shell + ",enabled=" + enabled;
+  }
+  
+  public String info()
+  { return toString() + "\n"; }
 }

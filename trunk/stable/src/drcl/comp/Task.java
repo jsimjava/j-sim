@@ -33,46 +33,46 @@ package drcl.comp;
  */
 public abstract class Task extends ACATimer
 {
-	public static final int TYPE_UNKNOWN = Integer.MIN_VALUE;
-	public static final int TYPE_START = Integer.MIN_VALUE + 1;
-	public static final int TYPE_STOP = Integer.MIN_VALUE + 2;
-	public static final int TYPE_RESUME = Integer.MIN_VALUE + 3;
-	public static final int TYPE_RUNNABLE = Integer.MIN_VALUE + 4;
+  public static final int TYPE_UNKNOWN = Integer.MIN_VALUE;
+  public static final int TYPE_START = Integer.MIN_VALUE + 1;
+  public static final int TYPE_STOP = Integer.MIN_VALUE + 2;
+  public static final int TYPE_RESUME = Integer.MIN_VALUE + 3;
+  public static final int TYPE_RUNNABLE = Integer.MIN_VALUE + 4;
 
-	/** Port to which data is delivered. */
-	public Port port;
+  /** Port to which data is delivered. */
+  public Port port;
 
-	/** The return port for server port operation. */
-	public Port returnPort;
+  /** The return port for server port operation. */
+  public Port returnPort;
 
-	/** Specific thread group for the task to be executed in. */
-	public ThreadGroup threadGroup;
+  /** Specific thread group for the task to be executed in. */
+  public ThreadGroup threadGroup;
 
-	// by WorkerThread to queue notified object
-	/** Creates a special task to notify on the targeted object. */
-	public static Task createNotify(Object target_)
-	{ return new TaskNotify(target_, 0.0); }
+  // by WorkerThread to queue notified object
+  /** Creates a special task to notify on the targeted object. */
+  public static Task createNotify(Object target_)
+  { return new TaskNotify(target_, 0.0); }
 
-	/** Creates a special task to notify on the targeted object. */
-	public static Task createNotify(Object target_, double time_)
-	{ return new TaskNotify(target_, time_); }
+  /** Creates a special task to notify on the targeted object. */
+  public static Task createNotify(Object target_, double time_)
+  { return new TaskNotify(target_, time_); }
 
-	/** Creates a special task to start the component system. */
-	public static Task createStart(Component c_, double time_)
-	{ return new TaskSpecial(c_.infoPort, null, TYPE_START, time_); }
+  /** Creates a special task to start the component system. */
+  public static Task createStart(Component c_, double time_)
+  { return new TaskSpecial(c_.infoPort, null, TYPE_START, time_); }
 
-	/** Creates a special task to stop the component system. */
-	public static Task createStop(Component c_, double time_)
-	{ return new TaskSpecial(c_.infoPort, null, TYPE_STOP, time_); }
+  /** Creates a special task to stop the component system. */
+  public static Task createStop(Component c_, double time_)
+  { return new TaskSpecial(c_.infoPort, null, TYPE_STOP, time_); }
 
-	/** Creates a special task to resume the component system. */
-	public static Task createResume(Component c_, double time_)
-	{ return new TaskSpecial(c_.infoPort, null, TYPE_RESUME, time_); }
+  /** Creates a special task to resume the component system. */
+  public static Task createResume(Component c_, double time_)
+  { return new TaskSpecial(c_.infoPort, null, TYPE_RESUME, time_); }
 
-	/** Creates a special task to execute the Runnable as a normal Java thread. */
-	public static Task createRunnable(Runnable r_, double time_)
-	{ return new TaskSpecial(r_, TYPE_RUNNABLE, time_); }
+  /** Creates a special task to execute the Runnable as a normal Java thread. */
+  public static Task createRunnable(Runnable r_, double time_)
+  { return new TaskSpecial(r_, TYPE_RUNNABLE, time_); }
 
-	/** Executes the task in <code>thread_</code>. */
-	public abstract void execute(WorkerThread thread_);
+  /** Executes the task in <code>thread_</code>. */
+  public abstract void execute(WorkerThread thread_);
 }

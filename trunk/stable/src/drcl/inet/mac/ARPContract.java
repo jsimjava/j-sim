@@ -41,41 +41,41 @@ import drcl.inet.contract.*;
  */
 public class ARPContract extends Contract
 {
-	public static final ARPContract INSTANCE = new ARPContract();
+  public static final ARPContract INSTANCE = new ARPContract();
 
     /**
      *  Constructor
      */
-	public ARPContract()
-	{ super(); }
-	
+  public ARPContract()
+  { super(); }
+  
     
     /**
      * Constructor
      */
-	public ARPContract(int role_)
-	{ super(role_); }
-	
+  public ARPContract(int role_)
+  { super(role_); }
+  
     
     /**
      * Return "ARP Contract" as its name.
      */
-	public String getName()
-	{ return "ARP Contract"; }
-	
+  public String getName()
+  { return "ARP Contract"; }
+  
     /**
      * Return null
      */
-	public Object getContractContent()
-	{ return null; }
-	
+  public Object getContractContent()
+  { return null; }
+  
     
     /**
      * A Message class defined for carrying information between ARP components
      * and LL components.
      */
-	public static class Message extends drcl.comp.Message
-	{
+  public static class Message extends drcl.comp.Message
+  {
         
         static final int ARP_Resolve      = 0;    // to arp
         static final int ARP_ResolveReply = 1;    // to ll
@@ -90,7 +90,7 @@ public class ARPContract extends Contract
          * An opration code which is used to decide the corresponding operation
          * after an ARP or LL component receives this message.
          */
-		int opCode;
+    int opCode;
         
         
         long dst;
@@ -100,7 +100,7 @@ public class ARPContract extends Contract
          * Constructor.
          */
         public Message ()
-		{}
+    {}
 
         /**
          * Constructor. 
@@ -108,12 +108,12 @@ public class ARPContract extends Contract
          * @param opCode_ operation code.
          * @param data_   the packet being exchanged between ARP and LL.
          */
-		public Message (int opCode_, Object data_ )
-		{
-			opCode = opCode_;
+    public Message (int opCode_, Object data_ )
+    {
+      opCode = opCode_;
             dst = 0;
             pkt = data_;
-		}
+    }
 
         /**
          * Constructor. This is used while contructing an ARP request message.
@@ -123,57 +123,57 @@ public class ARPContract extends Contract
          * @param data_   the packet being exchanged between ARP and LL.
          *
          */
-		public Message (int opCode_, long dst_, Object data_ )
-		{
-			opCode = opCode_;
+    public Message (int opCode_, long dst_, Object data_ )
+    {
+      opCode = opCode_;
             dst = dst_;
             pkt = data_;
-		}
-		
-		protected Object getPkt()
-		{ return pkt; }
+    }
+    
+    protected Object getPkt()
+    { return pkt; }
         
-	    protected int getOpCode() 
+      protected int getOpCode() 
         { return opCode; }
         
         protected long getDst() 
         { return dst; }
         
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			pkt = that_.pkt instanceof drcl.ObjectCloneable?
-				((drcl.ObjectCloneable)that_.pkt).clone(): that_.pkt;
-			opCode = that_.opCode;
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      pkt = that_.pkt instanceof drcl.ObjectCloneable?
+        ((drcl.ObjectCloneable)that_.pkt).clone(): that_.pkt;
+      opCode = that_.opCode;
             dst = that_.dst;
-		}
-		*/
-	
+    }
+    */
+  
         /**
          * Clones itself.
          */
-		public Object clone()
-		{
-			// the contract is only between two components; don't clone pkt
-			return new Message(opCode, dst, pkt);
-		}
+    public Object clone()
+    {
+      // the contract is only between two components; don't clone pkt
+      return new Message(opCode, dst, pkt);
+    }
 
         
         /**
          * Gets an instance of ARPContract class, which is a static field
          * defined in ARPContract class.
          */
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
 
         /**
          * Converts the message content to a String object.
          */
-		public String toString(String separator_)
-		{
-			return "ARPContract.Message" + separator_ + "OpCode:" + opCode + separator_ + "dst:" + dst + separator_ + "," + drcl.util.StringUtil.toString(pkt);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "ARPContract.Message" + separator_ + "OpCode:" + opCode + separator_ + "dst:" + dst + separator_ + "," + drcl.util.StringUtil.toString(pkt);
+    }
+  }
 }

@@ -31,6 +31,6 @@ package drcl.ruv;
 /** Filters out non-critical stack trace information. */
 public interface StackTraceFilter
 {
-	/** Filters the stack trace in the exception and returns the result. */
-	public String filter(Exception e_);
+  /** Filters the stack trace in the exception and returns the result. */
+  public String filter(Exception e_);
 }

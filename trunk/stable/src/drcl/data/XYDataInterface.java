@@ -32,8 +32,8 @@ package drcl.data;
  */
 public interface XYDataInterface
 {
-	public double getX();
-	public double getY();
-	/** Identifies the data set this x-y pair belongs to. */
-	public Object getID();
+  public double getX();
+  public double getY();
+  /** Identifies the data set this x-y pair belongs to. */
+  public Object getID();
 }

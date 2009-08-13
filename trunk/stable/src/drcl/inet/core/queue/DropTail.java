@@ -36,124 +36,124 @@ import drcl.net.*;
 
 public class DropTail extends drcl.inet.core.Queue
 {
-	public static final String EVENT_QLEN = "Instant Q Length";
-	protected Port qLenPort = addEventPort(".q");
+  public static final String EVENT_QLEN = "Instant Q Length";
+  protected Port qLenPort = addEventPort(".q");
 
-	protected VSFIFOQueue q = null;
-	protected int capacity = DEFAULT_BUFFER_SIZE; // default in bytes
-	
-	public DropTail()
-	{ super(); }
-	
-	public DropTail(String id_)
-	{ super(id_); }
-	
-	public void reset()
-	{
-		if (q != null) q.reset();
-		super.reset();
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		DropTail that_ = (DropTail)source_;
-		capacity = that_.capacity;
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			   + prefix_ + (q == null? "Queue is empty.\n": "Content:\n" + q.info(prefix_ + "   "));
-	}
-	
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueue(Object obj_)
-	{
-		Packet p_ = (Packet)obj_;
-		int psize_ = isByteMode()? p_.size: 1;
-		
-		if (psize_ > capacity) {
-			if (isGarbageEnabled()) {
-				if (isDebugEnabled()) drop(p_, "pkt too large: " + psize_
-					+ ">" + capacity);
-				else drop(p_, "pkt too large");
-			}
-			return null;
-		}
-		
-		if (q == null) q = new VSFIFOQueue();
-		if (q.getSize() + psize_ > capacity) {
-			if (isGarbageEnabled()) {
-				if (isDebugEnabled()) drop(p_, "exceeds capacity: " + psize_
-					+ "+" + q.getSize() + ">" + capacity);
-				else drop(p_, "exceeds capacity");
-			}
-		}
-		else {
-			q.enqueue(obj_, psize_);
-			//if (isDebugEnabled())
-			//	debug("qsize=" + q.getSize() + ", enqueue " + p_);
-			if (qLenPort._isEventExportEnabled())
-				qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
-		}
-		return null;
-	}
-	
-	/**
-	 * Dequeues and returns the first object in the queue.
-	 * @return the object dequeued; null if queue is empty.
-	 */
-	public Object dequeue()
-	{
-		if (q == null || q.isEmpty()) return null;
-		Packet p_ = (Packet) q.dequeue();
-		if (qLenPort._isEventExportEnabled())
-			qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
-		return p_;
-	}
-	
-	/**
-	 * Retrieves but not remove the object at the position specified.
-	 * @return the object; null if position is not valid.
-	 */
-	public Object peekAt(int pos_)
-	{ return  q == null? null: q.retrieveAt(pos_); }
-	
-	/**
-	 * Retrieves but not dequeue the first object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object firstElement()
-	{ return  q == null? null: q.firstElement(); }
+  protected VSFIFOQueue q = null;
+  protected int capacity = DEFAULT_BUFFER_SIZE; // default in bytes
+  
+  public DropTail()
+  { super(); }
+  
+  public DropTail(String id_)
+  { super(id_); }
+  
+  public void reset()
+  {
+    if (q != null) q.reset();
+    super.reset();
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    DropTail that_ = (DropTail)source_;
+    capacity = that_.capacity;
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+         + prefix_ + (q == null? "Queue is empty.\n": "Content:\n" + q.info(prefix_ + "   "));
+  }
+  
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueue(Object obj_)
+  {
+    Packet p_ = (Packet)obj_;
+    int psize_ = isByteMode()? p_.size: 1;
+    
+    if (psize_ > capacity) {
+      if (isGarbageEnabled()) {
+        if (isDebugEnabled()) drop(p_, "pkt too large: " + psize_
+          + ">" + capacity);
+        else drop(p_, "pkt too large");
+      }
+      return null;
+    }
+    
+    if (q == null) q = new VSFIFOQueue();
+    if (q.getSize() + psize_ > capacity) {
+      if (isGarbageEnabled()) {
+        if (isDebugEnabled()) drop(p_, "exceeds capacity: " + psize_
+          + "+" + q.getSize() + ">" + capacity);
+        else drop(p_, "exceeds capacity");
+      }
+    }
+    else {
+      q.enqueue(obj_, psize_);
+      //if (isDebugEnabled())
+      //  debug("qsize=" + q.getSize() + ", enqueue " + p_);
+      if (qLenPort._isEventExportEnabled())
+        qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
+    }
+    return null;
+  }
+  
+  /**
+   * Dequeues and returns the first object in the queue.
+   * @return the object dequeued; null if queue is empty.
+   */
+  public Object dequeue()
+  {
+    if (q == null || q.isEmpty()) return null;
+    Packet p_ = (Packet) q.dequeue();
+    if (qLenPort._isEventExportEnabled())
+      qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
+    return p_;
+  }
+  
+  /**
+   * Retrieves but not remove the object at the position specified.
+   * @return the object; null if position is not valid.
+   */
+  public Object peekAt(int pos_)
+  { return  q == null? null: q.retrieveAt(pos_); }
+  
+  /**
+   * Retrieves but not dequeue the first object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object firstElement()
+  { return  q == null? null: q.firstElement(); }
 
-	/**
-	 * Retrieves but not remove the last object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object lastElement()
-	{ return  q == null? null: q.lastElement(); }
+  /**
+   * Retrieves but not remove the last object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object lastElement()
+  { return  q == null? null: q.lastElement(); }
 
-	/** Return true if the queue is full. */
-	public boolean isFull()
-	{ return q == null? false: q.getSize() == capacity;	}
-	
-	/** Return true if the queue is empty. */
-	public boolean isEmpty()
-	{ return q == null? true: q.isEmpty();	}
-	
-	/** Sets the capacity of the queue. */
-	public void setCapacity(int capacity_)
-	{ capacity = capacity_; }
-	
-	/** Returns the capacity of the queue. */
-	public int getCapacity()
-	{ return capacity; }
-	
-	/** Returns the current size of the queue. */
-	public int getSize()
-	{ return q == null? 0: q.getSize(); }
+  /** Return true if the queue is full. */
+  public boolean isFull()
+  { return q == null? false: q.getSize() == capacity;  }
+  
+  /** Return true if the queue is empty. */
+  public boolean isEmpty()
+  { return q == null? true: q.isEmpty();  }
+  
+  /** Sets the capacity of the queue. */
+  public void setCapacity(int capacity_)
+  { capacity = capacity_; }
+  
+  /** Returns the capacity of the queue. */
+  public int getCapacity()
+  { return capacity; }
+  
+  /** Returns the current size of the queue. */
+  public int getSize()
+  { return q == null? 0: q.getSize(); }
 }

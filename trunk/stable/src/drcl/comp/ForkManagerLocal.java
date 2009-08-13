@@ -36,140 +36,140 @@ import drcl.util.queue.*;
  */
 class ForkManagerLocal extends ForkManager
 {
-	Queue qEvents;
-	
-	public ForkManagerLocal(String name_, ForkManager parent_, ACARuntime runtime_)
-	{ super(name_); parent = parent_; runtime = runtime_; }
+  Queue qEvents;
+  
+  public ForkManagerLocal(String name_, ForkManager parent_, ACARuntime runtime_)
+  { super(name_); parent = parent_; runtime = runtime_; }
 
-	public synchronized void reset()
-	{ if (qEvents != null) qEvents.reset(); }
-	
-	public final String a_info(boolean listEvent_)
-	{
-		if (listEvent_)
-			return name + ": parent=" + parent + "," + (qEvents == null? "no event": qEvents.info());
-		else
-			return name + ": parent=" + parent + "," + (qEvents == null? "no event":
-				qEvents.getLength() + (qEvents.getLength() <= 1? " event": " events")) + "\n";
-	}
+  public synchronized void reset()
+  { if (qEvents != null) qEvents.reset(); }
+  
+  public final String a_info(boolean listEvent_)
+  {
+    if (listEvent_)
+      return name + ": parent=" + parent + "," + (qEvents == null? "no event": qEvents.info());
+    else
+      return name + ": parent=" + parent + "," + (qEvents == null? "no event":
+        qEvents.getLength() + (qEvents.getLength() <= 1? " event": " events")) + "\n";
+  }
 
-	protected synchronized void process(WorkerThread current_, double now_)
-	{
-		if (current_ != Thread.currentThread()) {
-			drcl.Debug.error("ForkManager.process() must be called"
-							+ " in the same context as the argument");
-			return;
-		}
-		double key_ = Double.NaN;
-		ForkEvent e_ = null;
-		while (!qEvents.isEmpty()) {
-			key_ = qEvents.firstKey();
-			if (key_ - now_ > current_.runtime.timeScaleReciprocal) break;
-			e_ = (ForkEvent)qEvents.dequeue();
-			if (debug) drcl.Debug.debug("localfork| " + now_ + "| executing " + e_ + "\n");
-			if (e_ instanceof ForkChild)
-				((ForkManager)e_.data).process(current_, now_);
-			else
-				((ForkEvent)e_).execute(current_);
-		}
-		e_ = (ForkEvent)qEvents.firstElement();
-		if (e_ != null && !e_.sent()) {
-			if (debug)
-				drcl.Debug.debug("localfork| " + now_ + "| sent_up_" + parent
-					+ ":timeout=" + key_ + "--" + qEvents.firstElement() + "\n");
-			e_.setSent();
-			parent.childManager(this, key_);
-		}
-	}
-	
-	public synchronized ACATimer sendAt(Port p_, Object evt_, double time_)
-	{
-		return goAt(new ForkSend(evt_, p_, time_));
-	}
+  protected synchronized void process(WorkerThread current_, double now_)
+  {
+    if (current_ != Thread.currentThread()) {
+      drcl.Debug.error("ForkManager.process() must be called"
+              + " in the same context as the argument");
+      return;
+    }
+    double key_ = Double.NaN;
+    ForkEvent e_ = null;
+    while (!qEvents.isEmpty()) {
+      key_ = qEvents.firstKey();
+      if (key_ - now_ > current_.runtime.timeScaleReciprocal) break;
+      e_ = (ForkEvent)qEvents.dequeue();
+      if (debug) drcl.Debug.debug("localfork| " + now_ + "| executing " + e_ + "\n");
+      if (e_ instanceof ForkChild)
+        ((ForkManager)e_.data).process(current_, now_);
+      else
+        ((ForkEvent)e_).execute(current_);
+    }
+    e_ = (ForkEvent)qEvents.firstElement();
+    if (e_ != null && !e_.sent()) {
+      if (debug)
+        drcl.Debug.debug("localfork| " + now_ + "| sent_up_" + parent
+          + ":timeout=" + key_ + "--" + qEvents.firstElement() + "\n");
+      e_.setSent();
+      parent.childManager(this, key_);
+    }
+  }
+  
+  public synchronized ACATimer sendAt(Port p_, Object evt_, double time_)
+  {
+    return goAt(new ForkSend(evt_, p_, time_));
+  }
 
-	public synchronized ACATimer send(Port p_, Object evt_, double duration_)
-	{
-		try {
-			return goAt(new ForkSend(evt_, p_, runtime.getTime() + duration_));
-		}
-		catch (Exception e_) {
-			if (!(Thread.currentThread() instanceof WorkerThread))
-				drcl.Debug.error("attempt to invoke fork manager " + this + " in non-WorkerThread: "
-					+ Thread.currentThread());
-			else e_.printStackTrace();
-			return null;
-		}
-	}
-	
-	public synchronized ACATimer receiveAt(Port p_, Object evt_, double time_)
-	{
-		return goAt(new ForkReceive(evt_, p_, time_));
-	}
+  public synchronized ACATimer send(Port p_, Object evt_, double duration_)
+  {
+    try {
+      return goAt(new ForkSend(evt_, p_, runtime.getTime() + duration_));
+    }
+    catch (Exception e_) {
+      if (!(Thread.currentThread() instanceof WorkerThread))
+        drcl.Debug.error("attempt to invoke fork manager " + this + " in non-WorkerThread: "
+          + Thread.currentThread());
+      else e_.printStackTrace();
+      return null;
+    }
+  }
+  
+  public synchronized ACATimer receiveAt(Port p_, Object evt_, double time_)
+  {
+    return goAt(new ForkReceive(evt_, p_, time_));
+  }
 
-	public synchronized ACATimer receive(Port p_, Object evt_, double duration_)
-	{
-		try {
-			return goAt(new ForkReceive(evt_, p_, runtime.getTime() + duration_));
-		}
-		catch (Exception e_) {
-			if (!(Thread.currentThread() instanceof WorkerThread))
-				drcl.Debug.error("attempt to invoke fork manager " + this + " in non-WorkerThread: "
-					+ Thread.currentThread());
-			else e_.printStackTrace();
-			return null;
-		}
-	}
-	
-	ACATimer goAt(ForkEvent tevt_)
-	{
-		double time_ = tevt_.time;
-		/*
-		if (evt_ == null) {
-			drcl.Debug.error(p_ + ": cannot send null to fork");
-			return Double.NaN;
-		}
-		*/
-		if (qEvents == null) qEvents = new TreeMapQueue();
-		double firstKey_ = qEvents.firstKey();
+  public synchronized ACATimer receive(Port p_, Object evt_, double duration_)
+  {
+    try {
+      return goAt(new ForkReceive(evt_, p_, runtime.getTime() + duration_));
+    }
+    catch (Exception e_) {
+      if (!(Thread.currentThread() instanceof WorkerThread))
+        drcl.Debug.error("attempt to invoke fork manager " + this + " in non-WorkerThread: "
+          + Thread.currentThread());
+      else e_.printStackTrace();
+      return null;
+    }
+  }
+  
+  ACATimer goAt(ForkEvent tevt_)
+  {
+    double time_ = tevt_.time;
+    /*
+    if (evt_ == null) {
+      drcl.Debug.error(p_ + ": cannot send null to fork");
+      return Double.NaN;
+    }
+    */
+    if (qEvents == null) qEvents = new TreeMapQueue();
+    double firstKey_ = qEvents.firstKey();
 
-		// remove previous install
-		/*
-		if (p_ != DUMMY_PORT) {
-			Object tmp_ = qEvents.remove(tevt_);
-			if (tmp_ != null) {
-				tevt_ = (ForkEvent)tmp_;
-				tevt_.event = evt_;
-				tevt_.sent = false;
-			}
-		}
-		*/
+    // remove previous install
+    /*
+    if (p_ != DUMMY_PORT) {
+      Object tmp_ = qEvents.remove(tevt_);
+      if (tmp_ != null) {
+        tevt_ = (ForkEvent)tmp_;
+        tevt_.event = evt_;
+        tevt_.sent = false;
+      }
+    }
+    */
 
-		if (debug)
-			drcl.Debug.debug("localfork| add_new:timeout=" + time_ + "--" + tevt_ + "\n");
+    if (debug)
+      drcl.Debug.debug("localfork| add_new:timeout=" + time_ + "--" + tevt_ + "\n");
 
-		qEvents.enqueue(time_, tevt_);
+    qEvents.enqueue(time_, tevt_);
 
-		double newFirst_ = qEvents.firstKey();
-		if (firstKey_ != newFirst_) {
-			if (debug)
-				drcl.Debug.debug("localfork|  sent_up_" + parent + ":timeout="
-					+ time_ + "--" + tevt_ + "\n");
-			tevt_.setSent();
-			parent.childManager(this, newFirst_);
-		}
-		return tevt_;
-	}
-	
-	protected void childManager(ForkManager child_, double time_)
-	{
-		goAt(new ForkChild(child_, time_));
-	}
+    double newFirst_ = qEvents.firstKey();
+    if (firstKey_ != newFirst_) {
+      if (debug)
+        drcl.Debug.debug("localfork|  sent_up_" + parent + ":timeout="
+          + time_ + "--" + tevt_ + "\n");
+      tevt_.setSent();
+      parent.childManager(this, newFirst_);
+    }
+    return tevt_;
+  }
+  
+  protected void childManager(ForkManager child_, double time_)
+  {
+    goAt(new ForkChild(child_, time_));
+  }
 
 
 
-	protected void off(ACATimer handle_)
-	{
-		if (qEvents == null) return;
-		qEvents.remove(((ForkEvent)handle_).time, handle_);
-	}
+  protected void off(ACATimer handle_)
+  {
+    if (qEvents == null) return;
+    qEvents.remove(((ForkEvent)handle_).time, handle_);
+  }
 }

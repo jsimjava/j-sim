@@ -139,8 +139,8 @@ modules.&nbsp; For example, the node map for a UDP application laying on top of
 UDP at port 1100 is as follows:</p>
 
 <blockquote>
-<pre>udp	17/csl		drcl.inet.transport.UDP
-app	1100/udp	Application_Class</pre>
+<pre>udp  17/csl    drcl.inet.transport.UDP
+app  1100/udp  Application_Class</pre>
 </blockquote>
 
 <p>And then we can use the {@link #loadmap(String)} method
@@ -148,7 +148,7 @@ to load a node map into a <code>NodeBuilder</code>.&nbsp; Each line in a node
 map corresponds to a module.  The syntax is as follows:</p>
 
 <blockquote>
-<pre>&lt;module_id&gt;	&lt;port&gt;/&lt;lower_layer_module_id&gt;	&lt;module_class&gt;</pre>
+<pre>&lt;module_id&gt;  &lt;port&gt;/&lt;lower_layer_module_id&gt;  &lt;module_class&gt;</pre>
 </blockquote>
 
 <p>After parsing a line, <code>NodeBuilder</code> creates the module and
@@ -239,545 +239,545 @@ node.</p>
  */
 public class NodeBuilder extends Component implements InetConstants
 {
-	public NodeBuilder()
-	{ super(); }
+  public NodeBuilder()
+  { super(); }
 
-	public NodeBuilder(String id_)
-	{ super(id_); }
-	
-	public void duplicate(Object source_) 
-	{
-		super.duplicate(source_);
-		NodeBuilder that_ = (NodeBuilder)source_;
-		bw = that_.bw;
-		bs = that_.bs;
-		mtu = that_.mtu;
-		bufferMode = that_.bufferMode;
-	}
-	
-	public String info()
-	{
-		String mtu_ = mtu > 0? String.valueOf(mtu): mtu == 0? "disabled":
-			"default value (depending on CSL implementation)";
-		return   "   Bandwidth = " + (bw > 0.0? String.valueOf(bw):
-					"default value (depending on CSL implementation)") + "\n"
-			   + " Buffer mode : " + bufferMode + "\n"
-			   + " Buffer size = " + (bs > 0.0? String.valueOf(bs):
-			   		"default value (depending on CSL implementation)") + "\n"
-			   + "Fragmentation: " + mtu_ + "\n"
-			   + _printPID()
-			   + (map == null? "": "----------\nlast parsed map:\n" + map);
-	}
+  public NodeBuilder(String id_)
+  { super(id_); }
+  
+  public void duplicate(Object source_) 
+  {
+    super.duplicate(source_);
+    NodeBuilder that_ = (NodeBuilder)source_;
+    bw = that_.bw;
+    bs = that_.bs;
+    mtu = that_.mtu;
+    bufferMode = that_.bufferMode;
+  }
+  
+  public String info()
+  {
+    String mtu_ = mtu > 0? String.valueOf(mtu): mtu == 0? "disabled":
+      "default value (depending on CSL implementation)";
+    return   "   Bandwidth = " + (bw > 0.0? String.valueOf(bw):
+          "default value (depending on CSL implementation)") + "\n"
+         + " Buffer mode : " + bufferMode + "\n"
+         + " Buffer size = " + (bs > 0.0? String.valueOf(bs):
+             "default value (depending on CSL implementation)") + "\n"
+         + "Fragmentation: " + mtu_ + "\n"
+         + _printPID()
+         + (map == null? "": "----------\nlast parsed map:\n" + map);
+  }
 
-	String _printPID()
-	{
-		if (htPID == null) return "";
-		StringBuffer sb_ = new StringBuffer();
-		for (Enumeration e_ = htPID.keys(); e_.hasMoreElements(); ) {
-			String name_ = (String)e_.nextElement();
-			Object pid_ = htPID.get(name_);
-			sb_.append("    " + name_ + "   " + pid_ + "\n");
-		}
-		if (sb_.length() > 0) return "PIDs:\n" + sb_;
-		else return "";
-	}
+  String _printPID()
+  {
+    if (htPID == null) return "";
+    StringBuffer sb_ = new StringBuffer();
+    for (Enumeration e_ = htPID.keys(); e_.hasMoreElements(); ) {
+      String name_ = (String)e_.nextElement();
+      Object pid_ = htPID.get(name_);
+      sb_.append("    " + name_ + "   " + pid_ + "\n");
+    }
+    if (sb_.length() > 0) return "PIDs:\n" + sb_;
+    else return "";
+  }
 
-	/**
-	 * Extracts the structure of an existing Node to the builder.
-	 */
-	public void extract(Node node_)
-	{
-		if (node_ == null) return;
-		addComponent(new Component(ID_CSL));
-		iduplicate(node_);
-		/*
-		Component[] tmp_ = node_.getAllComponents();
-		Vector v_ = new Vector(); // protocols
-		for (int i=0; i<tmp_.length; i++) {
-			Component c_ = tmp_[i];
-			if (c_ instanceof Protocol) v_.addElement(c_);
-			// ignore other components
-		}
-		for (int i=0; i<v_.size(); i++) {
-			Component c_ = (Component)v_.elementAt(i);
-			removeComponent(c_.getID());
-			addComponent((Component)c_.clone());
-		}
-		*/
-	}
-	
-	/** Builds up the node structure inside the specified containers.
-	The method calls <code>build(cc_, (CSLBuilder)null)</code>.
-	@see #build(Object[], CSLBuilder) */
-	public void build(Object[] cc_)
-	{ build(cc_, (CSLBuilder)null); }
+  /**
+   * Extracts the structure of an existing Node to the builder.
+   */
+  public void extract(Node node_)
+  {
+    if (node_ == null) return;
+    addComponent(new Component(ID_CSL));
+    iduplicate(node_);
+    /*
+    Component[] tmp_ = node_.getAllComponents();
+    Vector v_ = new Vector(); // protocols
+    for (int i=0; i<tmp_.length; i++) {
+      Component c_ = tmp_[i];
+      if (c_ instanceof Protocol) v_.addElement(c_);
+      // ignore other components
+    }
+    for (int i=0; i<v_.size(); i++) {
+      Component c_ = (Component)v_.elementAt(i);
+      removeComponent(c_.getID());
+      addComponent((Component)c_.clone());
+    }
+    */
+  }
+  
+  /** Builds up the node structure inside the specified containers.
+  The method calls <code>build(cc_, (CSLBuilder)null)</code>.
+  @see #build(Object[], CSLBuilder) */
+  public void build(Object[] cc_)
+  { build(cc_, (CSLBuilder)null); }
 
-	/** Builds up the node structure inside the specified containers with a
-	node map.
-	The method calls <code>build(cc_, null, map_)</code>.
-	@see #build(Object[], CSLBuilder, String) */
-	public void build(Object[] cc_, String map_)
-	{ build(cc_, null, map_); }
+  /** Builds up the node structure inside the specified containers with a
+  node map.
+  The method calls <code>build(cc_, null, map_)</code>.
+  @see #build(Object[], CSLBuilder, String) */
+  public void build(Object[] cc_, String map_)
+  { build(cc_, null, map_); }
 
-	/** Builds up the node structure inside the specified containers
-	together with the CSL builder and the node map.
-	This method first calls <code>loadmap(map_)</code> to create protocols and
-	applications, and then <code>build(cc_, cb_)</code> to build the nodes.
-	@param cc_ array of components in which the node structure is constructed.
-		Components other than <code>drcl.inet.Node</code> are omitted processed.
-	@param cb_ the CSL builder.
-	@param map_ the node map.
-	@see #loadmap(String)
-	@see #build(Object[], CSLBuilder) */
-	public void build(Object[] cc_, CSLBuilder cb_, String map_)
-	{
-		// create components according to map_
-		loadmap(map_);
-		build(cc_, cb_);
-	}
+  /** Builds up the node structure inside the specified containers
+  together with the CSL builder and the node map.
+  This method first calls <code>loadmap(map_)</code> to create protocols and
+  applications, and then <code>build(cc_, cb_)</code> to build the nodes.
+  @param cc_ array of components in which the node structure is constructed.
+    Components other than <code>drcl.inet.Node</code> are omitted processed.
+  @param cb_ the CSL builder.
+  @param map_ the node map.
+  @see #loadmap(String)
+  @see #build(Object[], CSLBuilder) */
+  public void build(Object[] cc_, CSLBuilder cb_, String map_)
+  {
+    // create components according to map_
+    loadmap(map_);
+    build(cc_, cb_);
+  }
 
-	/** Loads the node map into this node builder.
-	Appropriate components and connections are established as the map instructs.
-   	*/
-	public void loadmap(String map_)
-	{
-		// create components according to map_
-		if (map_ != null && map_ != map) try {
-			removeAll();
-			if (htPID != null)
-				htPID.clear();
-			map = map_;
-			java.io.LineNumberReader reader_ =
-				new java.io.LineNumberReader(new java.io.StringReader(map_));
-			while (true) {
-				String line_ = reader_.readLine();
-				if (line_ == null) break;
-				line_ = line_.trim();
-				if (line_.length() == 0) continue;
-				if (line_.charAt(0) == '#') continue;
-				//System.out.println("parse " + line_);
-				// format: <id>    [<port#>/<llp_id>]    [<class_name>]
-				String[] ss_ = drcl.util.StringUtil.substrings(line_, " \t");
-				Component c_ = getComponent(ss_[0]);
-				if (c_ == null) {
-					String className_ = ss_.length > 2? ss_[2]: ss_[1];
-					try {
-						c_ = (Component)Class.forName(className_).newInstance();
-						c_.setID(ss_[0]);
-						addComponent(c_);
-					}
-					catch (Exception e_) {
-						if (className_.indexOf("/") >= 0)
-							drcl.Debug.debug(ss_[0] + " does not exist.\n");
-						else
-							e_.printStackTrace();
-						drcl.Debug.debug("Building process stops.\n");
-						return;
-					}
-				}
-				// parse port# and llp_id
-				if (ss_.length < 2 || ss_[1].indexOf("/") < 0) {
-					// well-defined protocol above CSL
-					if (InetUtil.getPID(c_) < 0) {
-						if (isDebugEnabled())
-							debug("ProtocolID is not provided for "
-									+ c_.getName() + " to connect to CSL; "
-									+ "suppose it's an application or "
-									+ "a standalone component");
-						continue; // ignored
-					}
-					else {
-						//do nothing, well-defined protocol is connected later
-					}
-				}
-				else {
-					int i = ss_[1].indexOf("/");
-					String portID_ = ss_[1].substring(0,i);
-					String llpid_ = ss_[1].substring(i+1);
-					if (llpid_.equals(ID_CSL)) {
-						int port_ = -1;
-						try {
-							port_ = Integer.parseInt(portID_);
-						}
-						catch (NumberFormatException e) {} // ignored
-						// protocol above CSL
-						int defaultPID_ = InetUtil.getPID(c_);
-						if (defaultPID_ != port_ && port_ >= 0) {
-							//System.out.println(c_ + " on port " + port_ + ", default port=" + defaultPID_);
-							if (defaultPID_ >= 0
-								&& c_.getID().equals(c_.getName()))
-								drcl.Debug.debug("* warning * the supplied PID "
-									+ port_ + " overrides the default one "
-									+ defaultPID_ + ".\n");
-							if (htPID == null)
-								htPID = new Hashtable();
-							htPID.put(c_.getID(), new Integer(port_));
-						}
-					}
-					else {
-						// application
-						Component llp_ = getComponent(llpid_);
-						if (llp_ == null) {
-							// XX: can do better than this...
-							drcl.Debug.debug(llpid_ + " not found for " + ss_[0]
-											+ ".\nBuilding process stops.\n");
-							return;
-						}
+  /** Loads the node map into this node builder.
+  Appropriate components and connections are established as the map instructs.
+     */
+  public void loadmap(String map_)
+  {
+    // create components according to map_
+    if (map_ != null && map_ != map) try {
+      removeAll();
+      if (htPID != null)
+        htPID.clear();
+      map = map_;
+      java.io.LineNumberReader reader_ =
+        new java.io.LineNumberReader(new java.io.StringReader(map_));
+      while (true) {
+        String line_ = reader_.readLine();
+        if (line_ == null) break;
+        line_ = line_.trim();
+        if (line_.length() == 0) continue;
+        if (line_.charAt(0) == '#') continue;
+        //System.out.println("parse " + line_);
+        // format: <id>    [<port#>/<llp_id>]    [<class_name>]
+        String[] ss_ = drcl.util.StringUtil.substrings(line_, " \t");
+        Component c_ = getComponent(ss_[0]);
+        if (c_ == null) {
+          String className_ = ss_.length > 2? ss_[2]: ss_[1];
+          try {
+            c_ = (Component)Class.forName(className_).newInstance();
+            c_.setID(ss_[0]);
+            addComponent(c_);
+          }
+          catch (Exception e_) {
+            if (className_.indexOf("/") >= 0)
+              drcl.Debug.debug(ss_[0] + " does not exist.\n");
+            else
+              e_.printStackTrace();
+            drcl.Debug.debug("Building process stops.\n");
+            return;
+          }
+        }
+        // parse port# and llp_id
+        if (ss_.length < 2 || ss_[1].indexOf("/") < 0) {
+          // well-defined protocol above CSL
+          if (InetUtil.getPID(c_) < 0) {
+            if (isDebugEnabled())
+              debug("ProtocolID is not provided for "
+                  + c_.getName() + " to connect to CSL; "
+                  + "suppose it's an application or "
+                  + "a standalone component");
+            continue; // ignored
+          }
+          else {
+            //do nothing, well-defined protocol is connected later
+          }
+        }
+        else {
+          int i = ss_[1].indexOf("/");
+          String portID_ = ss_[1].substring(0,i);
+          String llpid_ = ss_[1].substring(i+1);
+          if (llpid_.equals(ID_CSL)) {
+            int port_ = -1;
+            try {
+              port_ = Integer.parseInt(portID_);
+            }
+            catch (NumberFormatException e) {} // ignored
+            // protocol above CSL
+            int defaultPID_ = InetUtil.getPID(c_);
+            if (defaultPID_ != port_ && port_ >= 0) {
+              //System.out.println(c_ + " on port " + port_ + ", default port=" + defaultPID_);
+              if (defaultPID_ >= 0
+                && c_.getID().equals(c_.getName()))
+                drcl.Debug.debug("* warning * the supplied PID "
+                  + port_ + " overrides the default one "
+                  + defaultPID_ + ".\n");
+              if (htPID == null)
+                htPID = new Hashtable();
+              htPID.put(c_.getID(), new Integer(port_));
+            }
+          }
+          else {
+            // application
+            Component llp_ = getComponent(llpid_);
+            if (llp_ == null) {
+              // XX: can do better than this...
+              drcl.Debug.debug(llpid_ + " not found for " + ss_[0]
+                      + ".\nBuilding process stops.\n");
+              return;
+            }
 
-						if (portID_.equals("-"))
-							c_.addPort(Module.PortGroup_DOWN).connect(
-											llp_.addPort(Module.PortGroup_UP));
-						else
-							c_.addPort(Module.PortGroup_DOWN).connect(
-									llp_.addPort(Module.PortGroup_UP, portID_));
-						/*
-						if (port_ >= 0)
-							c_.addPort(Module.PortGroup_DOWN).connect(
-											llp_.addPort(Module.PortGroup_UP,
-											portID_));
-						else
-							c_.addPort(Module.PortGroup_DOWN).connect(
-											llp_.addPort(Module.PortGroup_UP));
-						*/
-					}
-				}
-			}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			drcl.Debug.debug("Building process stops.\n");
-			return;
-		}
-	}
+            if (portID_.equals("-"))
+              c_.addPort(Module.PortGroup_DOWN).connect(
+                      llp_.addPort(Module.PortGroup_UP));
+            else
+              c_.addPort(Module.PortGroup_DOWN).connect(
+                  llp_.addPort(Module.PortGroup_UP, portID_));
+            /*
+            if (port_ >= 0)
+              c_.addPort(Module.PortGroup_DOWN).connect(
+                      llp_.addPort(Module.PortGroup_UP,
+                      portID_));
+            else
+              c_.addPort(Module.PortGroup_DOWN).connect(
+                      llp_.addPort(Module.PortGroup_UP));
+            */
+          }
+        }
+      }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      drcl.Debug.debug("Building process stops.\n");
+      return;
+    }
+  }
 
-	String map; // save last map to avoid parsing the same map
-	Hashtable htPID = null; // ID --> PID, 
+  String map; // save last map to avoid parsing the same map
+  Hashtable htPID = null; // ID --> PID, 
 
-	int _getPID(Component protocol_)
-	{
-		if (htPID != null) {
-			Object tmp_ = htPID.get(protocol_.getID());
-			if (tmp_ != null) return ((Integer)tmp_).intValue();
-		}
-		return InetUtil.getPID(protocol_);
-	}
+  int _getPID(Component protocol_)
+  {
+    if (htPID != null) {
+      Object tmp_ = htPID.get(protocol_.getID());
+      if (tmp_ != null) return ((Integer)tmp_).intValue();
+    }
+    return InetUtil.getPID(protocol_);
+  }
 
-	/** Builds up the node structure inside the specified containers
-	together with the CSL builder.
-	If <code>cb_</code> is <code>null</code>, then this method finds the
-	CSL builder inside this node builder as a child component with ID "csl".
-	If no CSL builder exists, the default CSL builder 
-	(<code>CSLBuilder.DEFAULT_BUILDER</code>) is used.
-	@param cc_ array of components in which the node structure is constructed.
-		Components other than <code>drcl.inet.Node</code> are omitted processed.
-	@param cb_ the CSL builder.
-	@see CSLBuilder
-	 */
-	public void build(Object[] cc_, CSLBuilder cb_)
-	{
-		try {
-		if (cb_ == null) {
-			Component tmp_ = getComponent(ID_CSL);
-			if (tmp_ instanceof CSLBuilder)
-				cb_ = (CSLBuilder)getComponent(ID_CSL);
-			else
-				cb_ = CSLBuilder.DEFAULT_BUILDER;
-		}
-		if (cc_ == null) return;
-		
-		// Bandwidth and buffer size
-		// The settings in NodeBuilder overrides the settings in CSLBuilder
-		if (bw > 0.0) cb_.setBandwidth(bw);
-		if (bs > 0.0) cb_.setBufferSize(bs);
-		if (mtu >= 0) cb_.setMTU(mtu);
-		cb_.setBufferMode(bufferMode);
-		cb_.setLinkEmulationEnabled(linkEmu);
-		if (linkEmu)
-			cb_.setLinkPropDelay(linkPropDelay);
+  /** Builds up the node structure inside the specified containers
+  together with the CSL builder.
+  If <code>cb_</code> is <code>null</code>, then this method finds the
+  CSL builder inside this node builder as a child component with ID "csl".
+  If no CSL builder exists, the default CSL builder 
+  (<code>CSLBuilder.DEFAULT_BUILDER</code>) is used.
+  @param cc_ array of components in which the node structure is constructed.
+    Components other than <code>drcl.inet.Node</code> are omitted processed.
+  @param cb_ the CSL builder.
+  @see CSLBuilder
+   */
+  public void build(Object[] cc_, CSLBuilder cb_)
+  {
+    try {
+    if (cb_ == null) {
+      Component tmp_ = getComponent(ID_CSL);
+      if (tmp_ instanceof CSLBuilder)
+        cb_ = (CSLBuilder)getComponent(ID_CSL);
+      else
+        cb_ = CSLBuilder.DEFAULT_BUILDER;
+    }
+    if (cc_ == null) return;
+    
+    // Bandwidth and buffer size
+    // The settings in NodeBuilder overrides the settings in CSLBuilder
+    if (bw > 0.0) cb_.setBandwidth(bw);
+    if (bs > 0.0) cb_.setBufferSize(bs);
+    if (mtu >= 0) cb_.setMTU(mtu);
+    cb_.setBufferMode(bufferMode);
+    cb_.setLinkEmulationEnabled(linkEmu);
+    if (linkEmu)
+      cb_.setLinkPropDelay(linkPropDelay);
 
-		// CoreServiceLayer
-		Component csl_ = addCSL(this, cb_);
-		Port[] pp_ = new Port[]{
-			getPort(EVENT_ID_CHANGED_PORT_ID),
-			getPort(EVENT_RT_UCAST_CHANGED_PORT_ID),
-			getPort(EVENT_RT_MCAST_CHANGED_PORT_ID),
-			getPort(EVENT_IF_PORT_ID),
-			getPort(EVENT_VIF_PORT_ID),
-			getPort(EVENT_PKT_ARRIVAL_PORT_ID),
-			getPort(EVENT_MCAST_HOST_PORT_ID),
-			getPort(SERVICE_ID_PORT_ID),
-			getPort(SERVICE_RT_PORT_ID),
-			getPort(SERVICE_IF_PORT_ID),
-			getPort(SERVICE_CONFIGSW_PORT_ID),
-			getPort(SERVICE_MCAST_PORT_ID),
-			getPort(UCAST_QUERY_PORT_ID),
-			getPort(MCAST_QUERY_PORT_ID)
-		};
-		for (int i=0; i<pp_.length; i++) {
-			Port p_ = pp_[i];
-			if (p_ != null)
-				csl_.addPort((Port)p_.clone(), p_.getGroupID(), p_.getID());
-		}
+    // CoreServiceLayer
+    Component csl_ = addCSL(this, cb_);
+    Port[] pp_ = new Port[]{
+      getPort(EVENT_ID_CHANGED_PORT_ID),
+      getPort(EVENT_RT_UCAST_CHANGED_PORT_ID),
+      getPort(EVENT_RT_MCAST_CHANGED_PORT_ID),
+      getPort(EVENT_IF_PORT_ID),
+      getPort(EVENT_VIF_PORT_ID),
+      getPort(EVENT_PKT_ARRIVAL_PORT_ID),
+      getPort(EVENT_MCAST_HOST_PORT_ID),
+      getPort(SERVICE_ID_PORT_ID),
+      getPort(SERVICE_RT_PORT_ID),
+      getPort(SERVICE_IF_PORT_ID),
+      getPort(SERVICE_CONFIGSW_PORT_ID),
+      getPort(SERVICE_MCAST_PORT_ID),
+      getPort(UCAST_QUERY_PORT_ID),
+      getPort(MCAST_QUERY_PORT_ID)
+    };
+    for (int i=0; i<pp_.length; i++) {
+      Port p_ = pp_[i];
+      if (p_ != null)
+        csl_.addPort((Port)p_.clone(), p_.getGroupID(), p_.getID());
+    }
 
-		Port[] up_ = getAllPorts(Module.PortGroup_UP);
-		if (up_ != null) {
-			for (int i=0; i<up_.length; i++)
-				csl_.addPort(Module.PortGroup_UP, up_[i].getID());
-		}
-		
-		// get protocols
-		Component[] tmp_ = getAllComponents();
-		for (int i=0; i<tmp_.length; i++) {
-			if (csl_ == tmp_[i]) continue;
-			addProtocol(this, csl_, tmp_[i]);
-		}
-		
-		//System.out.println(this + ": " + drcl.util.StringUtil.toString(protocol_));
-		Vector v_ = new Vector();
-		for (int i=0; i<cc_.length; i++) {
-			//if (Math.random() > .999) System.out.print(i + " ");
-			if (!(cc_[i] instanceof Node)) {
-				if (cc_[i] instanceof Network)
-					build(((Component)cc_[i]).getAllComponents(), cb_);
-				continue;
-			}
-			Node target_ = (Node)cc_[i];
-			target_.setComponentFlag(Component.FLAG_COMPONENT_NOTIFICATION,
-							false);
-			Component thatcsl_ = addCSL(target_, cb_);
-				// this takes care of the shadow connections
-			target_.iduplicate(this);
-				// duplicate everything except the shadow connections
-			target_.setComponentFlag(Component.FLAG_COMPONENT_NOTIFICATION,
-							true);
-			v_.addElement(thatcsl_);
-		} // end i, loop on cc_
-		tmp_ = new Component[v_.size()];
-		v_.copyInto(tmp_);
-		//System.out.println("build csl...");
-		cb_.build(tmp_);
-		for (int i=0; i<tmp_.length; i++)
-			tmp_[i].setComponentFlag(Component.FLAG_PORT_NOTIFICATION, true);
-		
-		// set node address
-		//System.out.println("set node addresses...");
-		for (int i=0; i<cc_.length; i++) {
-			if (!(cc_[i] instanceof Node) || this == cc_[i]) continue;
-			Node target_ = (Node)cc_[i];
-			if (target_.addr != drcl.net.Address.NULL_ADDR) {
-				target_.addAddress(target_.addr);
-			}
-		} // end i, loop on cc_
-		}
-		catch (Throwable e_) {
-			e_.printStackTrace();
-		}
-	}
-	
-	/** Builds the node structure inside the specified container.
-	The method calls <code>build(new Object[]{c_}, (CSLBuilder)null)</code>.
-	@param c_ the container component.
-	@see #build(Object[], CSLBuilder) */
-	public void build(Object c_)
-	{ build(new Object[]{c_}, (CSLBuilder)null); }
+    Port[] up_ = getAllPorts(Module.PortGroup_UP);
+    if (up_ != null) {
+      for (int i=0; i<up_.length; i++)
+        csl_.addPort(Module.PortGroup_UP, up_[i].getID());
+    }
+    
+    // get protocols
+    Component[] tmp_ = getAllComponents();
+    for (int i=0; i<tmp_.length; i++) {
+      if (csl_ == tmp_[i]) continue;
+      addProtocol(this, csl_, tmp_[i]);
+    }
+    
+    //System.out.println(this + ": " + drcl.util.StringUtil.toString(protocol_));
+    Vector v_ = new Vector();
+    for (int i=0; i<cc_.length; i++) {
+      //if (Math.random() > .999) System.out.print(i + " ");
+      if (!(cc_[i] instanceof Node)) {
+        if (cc_[i] instanceof Network)
+          build(((Component)cc_[i]).getAllComponents(), cb_);
+        continue;
+      }
+      Node target_ = (Node)cc_[i];
+      target_.setComponentFlag(Component.FLAG_COMPONENT_NOTIFICATION,
+              false);
+      Component thatcsl_ = addCSL(target_, cb_);
+        // this takes care of the shadow connections
+      target_.iduplicate(this);
+        // duplicate everything except the shadow connections
+      target_.setComponentFlag(Component.FLAG_COMPONENT_NOTIFICATION,
+              true);
+      v_.addElement(thatcsl_);
+    } // end i, loop on cc_
+    tmp_ = new Component[v_.size()];
+    v_.copyInto(tmp_);
+    //System.out.println("build csl...");
+    cb_.build(tmp_);
+    for (int i=0; i<tmp_.length; i++)
+      tmp_[i].setComponentFlag(Component.FLAG_PORT_NOTIFICATION, true);
+    
+    // set node address
+    //System.out.println("set node addresses...");
+    for (int i=0; i<cc_.length; i++) {
+      if (!(cc_[i] instanceof Node) || this == cc_[i]) continue;
+      Node target_ = (Node)cc_[i];
+      if (target_.addr != drcl.net.Address.NULL_ADDR) {
+        target_.addAddress(target_.addr);
+      }
+    } // end i, loop on cc_
+    }
+    catch (Throwable e_) {
+      e_.printStackTrace();
+    }
+  }
+  
+  /** Builds the node structure inside the specified container.
+  The method calls <code>build(new Object[]{c_}, (CSLBuilder)null)</code>.
+  @param c_ the container component.
+  @see #build(Object[], CSLBuilder) */
+  public void build(Object c_)
+  { build(new Object[]{c_}, (CSLBuilder)null); }
 
-	/** Builds the node structure inside the specified container with a node
-	map.
-	The method calls <code>build(new Object[]{c_}, null, map_)</code>.
-	@param c_ the container component.
-	@param map_ the node map.
-	@see #build(Object[], CSLBuilder, String) */
-	public void build(Object c_, String map_)
-	{ build(new Object[]{c_}, null, map_); }
+  /** Builds the node structure inside the specified container with a node
+  map.
+  The method calls <code>build(new Object[]{c_}, null, map_)</code>.
+  @param c_ the container component.
+  @param map_ the node map.
+  @see #build(Object[], CSLBuilder, String) */
+  public void build(Object c_, String map_)
+  { build(new Object[]{c_}, null, map_); }
 
-	/** Builds the node structure inside the specified container
-	together with the CSL builder.
-	The method calls <code>build(new Object[]{c_}, cb_)</code>.
-	@param c_ the container component.
-	@param cb_ the CSL builder.
-	@see #build(Object[], CSLBuilder) */
-	public void build(Object c_, CSLBuilder cb_)
-	{ build(new Object[]{c_}, cb_); }
+  /** Builds the node structure inside the specified container
+  together with the CSL builder.
+  The method calls <code>build(new Object[]{c_}, cb_)</code>.
+  @param c_ the container component.
+  @param cb_ the CSL builder.
+  @see #build(Object[], CSLBuilder) */
+  public void build(Object c_, CSLBuilder cb_)
+  { build(new Object[]{c_}, cb_); }
 
-	/** Builds the node structure inside the specified container
-	together with the CSL builder and a map.
-	The method calls <code>build(new Object[]{c_}, cb_, map_)</code>.
-	@param c_ the container component.
-	@param cb_ the CSL builder.
-	@param map_ the node map.
-	@see #build(Object[], CSLBuilder, String) */
-	public void build(Object c_, CSLBuilder cb_, String map_)
-	{ build(new Object[]{c_}, cb_, map_); }
+  /** Builds the node structure inside the specified container
+  together with the CSL builder and a map.
+  The method calls <code>build(new Object[]{c_}, cb_, map_)</code>.
+  @param c_ the container component.
+  @param cb_ the CSL builder.
+  @param map_ the node map.
+  @see #build(Object[], CSLBuilder, String) */
+  public void build(Object c_, CSLBuilder cb_, String map_)
+  { build(new Object[]{c_}, cb_, map_); }
 
-	Component addCSL(Component target_, CSLBuilder cb_)
-	{
-		Component csl_ = target_.getComponent(ID_CSL);
-		if (csl_ == null) {
-			csl_ = cb_.createCSL();
-			target_.addComponent(csl_);
-		}
-		else 
-			csl_.setComponentFlag(Component.FLAG_PORT_NOTIFICATION, false);
-		
-		// create CSL up ports
-		Port[] pp_ = cb_.getAllPorts(Module.PortGroup_UP);
-		if (pp_ != null)
-			for (int i=0; i<pp_.length; i++) {
-				Port p_ = pp_[i];
-				String id_ = p_.getID();
-				csl_.addPort(drcl.net.Module.PortGroup_UP, id_);
-			}
+  Component addCSL(Component target_, CSLBuilder cb_)
+  {
+    Component csl_ = target_.getComponent(ID_CSL);
+    if (csl_ == null) {
+      csl_ = cb_.createCSL();
+      target_.addComponent(csl_);
+    }
+    else 
+      csl_.setComponentFlag(Component.FLAG_PORT_NOTIFICATION, false);
+    
+    // create CSL up ports
+    Port[] pp_ = cb_.getAllPorts(Module.PortGroup_UP);
+    if (pp_ != null)
+      for (int i=0; i<pp_.length; i++) {
+        Port p_ = pp_[i];
+        String id_ = p_.getID();
+        csl_.addPort(drcl.net.Module.PortGroup_UP, id_);
+      }
 
-		// create CSL down ports
-		pp_ = target_.getAllPorts(PortGroup_DEFAULT_GROUP);
-		if (pp_ != null)
-			for (int i=0; i<pp_.length; i++) {
-				Port p_ = pp_[i];
-				String id_ = p_.getID();
-				if (id_.startsWith(".")) continue;
-				Port tmp_ = csl_.addPort(drcl.net.Module.PortGroup_DOWN, id_);
-				p_.connectTo(tmp_);
-				tmp_.connectTo(p_);
-			}
-		
-		pp_ = cb_.getAllPorts(Module.PortGroup_DOWN);
-		if (pp_ != null)
-			for (int i=0; i<pp_.length; i++) {
-				Port p_ = pp_[i];
-				String id_ = p_.getID();
-				Port tmp_ = csl_.addPort(drcl.net.Module.PortGroup_DOWN, id_);
-				p_.connectTo(tmp_);
-				tmp_.connectTo(p_);
-			}
-		
-		return csl_;
-	}
-	
-	Component addProtocol(Component target_, Component csl_, Component pr_)
-	{
-		Component tmp_ = target_.getComponent(pr_.getID());
-		if (tmp_ == null) {
-			pr_ = (Component)pr_.clone();
-			target_.addComponent(pr_);
-		}
-		//else if (!(tmp_ instanceof Protocol)) return null;
-		else pr_ = tmp_;
-		
-		int pid_ = _getPID(pr_);
-		if (pid_ >= 0) {
-			pr_.addPort(Module.PortGroup_DOWN).connect(csl_.addPort(
-									Module.PortGroup_UP, String.valueOf(pid_)));
-		}
-		
-		// service ports
-		String[] portIDs_ = new String[]{
-			SERVICE_ID_PORT_ID,
-			SERVICE_RT_PORT_ID,
-			SERVICE_IF_PORT_ID,
-			SERVICE_CONFIGSW_PORT_ID
-		};
-		for (int i=0; i<portIDs_.length; i++) {
-			Port p_ = pr_.getPort(portIDs_[i]);
-			if (p_ != null) p_.connect(csl_.addPort(new Port(Port.PortType_SERVER), portIDs_[i]));
-		}
+    // create CSL down ports
+    pp_ = target_.getAllPorts(PortGroup_DEFAULT_GROUP);
+    if (pp_ != null)
+      for (int i=0; i<pp_.length; i++) {
+        Port p_ = pp_[i];
+        String id_ = p_.getID();
+        if (id_.startsWith(".")) continue;
+        Port tmp_ = csl_.addPort(drcl.net.Module.PortGroup_DOWN, id_);
+        p_.connectTo(tmp_);
+        tmp_.connectTo(p_);
+      }
+    
+    pp_ = cb_.getAllPorts(Module.PortGroup_DOWN);
+    if (pp_ != null)
+      for (int i=0; i<pp_.length; i++) {
+        Port p_ = pp_[i];
+        String id_ = p_.getID();
+        Port tmp_ = csl_.addPort(drcl.net.Module.PortGroup_DOWN, id_);
+        p_.connectTo(tmp_);
+        tmp_.connectTo(p_);
+      }
+    
+    return csl_;
+  }
+  
+  Component addProtocol(Component target_, Component csl_, Component pr_)
+  {
+    Component tmp_ = target_.getComponent(pr_.getID());
+    if (tmp_ == null) {
+      pr_ = (Component)pr_.clone();
+      target_.addComponent(pr_);
+    }
+    //else if (!(tmp_ instanceof Protocol)) return null;
+    else pr_ = tmp_;
+    
+    int pid_ = _getPID(pr_);
+    if (pid_ >= 0) {
+      pr_.addPort(Module.PortGroup_DOWN).connect(csl_.addPort(
+                  Module.PortGroup_UP, String.valueOf(pid_)));
+    }
+    
+    // service ports
+    String[] portIDs_ = new String[]{
+      SERVICE_ID_PORT_ID,
+      SERVICE_RT_PORT_ID,
+      SERVICE_IF_PORT_ID,
+      SERVICE_CONFIGSW_PORT_ID
+    };
+    for (int i=0; i<portIDs_.length; i++) {
+      Port p_ = pr_.getPort(portIDs_[i]);
+      if (p_ != null) p_.connect(csl_.addPort(new Port(Port.PortType_SERVER), portIDs_[i]));
+    }
 
-		// service ports: bidirection connection 
-		portIDs_ = new String[]{
-			SERVICE_MCAST_PORT_ID
-		};
-		for (int i=0; i<portIDs_.length; i++) {
-			Port p_ = pr_.getPort(portIDs_[i]);
-			if (p_ != null) {
-				Port p2_ = csl_.addPort(new Port(Port.PortType_SERVER),
-							portIDs_[i]);
-				p_.connectTo(p2_);
-				p2_.connectTo(p_); // for receiving join/leave replies
-			}
-		}
-		
-		// helping ports:
-		portIDs_ = new String[]{
-			UCAST_QUERY_PORT_ID,
-			MCAST_QUERY_PORT_ID
-		};
-		for (int i=0; i<portIDs_.length; i++) {
-			Port p_ = pr_.getPort(portIDs_[i]);
-			if (p_ != null) p_.connect(csl_.addPort(portIDs_[i]));
-		}
+    // service ports: bidirection connection 
+    portIDs_ = new String[]{
+      SERVICE_MCAST_PORT_ID
+    };
+    for (int i=0; i<portIDs_.length; i++) {
+      Port p_ = pr_.getPort(portIDs_[i]);
+      if (p_ != null) {
+        Port p2_ = csl_.addPort(new Port(Port.PortType_SERVER),
+              portIDs_[i]);
+        p_.connectTo(p2_);
+        p2_.connectTo(p_); // for receiving join/leave replies
+      }
+    }
+    
+    // helping ports:
+    portIDs_ = new String[]{
+      UCAST_QUERY_PORT_ID,
+      MCAST_QUERY_PORT_ID
+    };
+    for (int i=0; i<portIDs_.length; i++) {
+      Port p_ = pr_.getPort(portIDs_[i]);
+      if (p_ != null) p_.connect(csl_.addPort(portIDs_[i]));
+    }
 
-		// event ports
-		portIDs_ = new String[]{
-			EVENT_PKT_ARRIVAL_PORT_ID,
-			EVENT_ID_CHANGED_PORT_ID,
-			EVENT_RT_UCAST_CHANGED_PORT_ID,
-			EVENT_RT_MCAST_CHANGED_PORT_ID,
-			EVENT_IF_PORT_ID,
-			EVENT_VIF_PORT_ID,
-			EVENT_MCAST_HOST_PORT_ID
-		};
-		for (int i=0; i<portIDs_.length; i++) {
-			Port p_ = pr_.getPort(portIDs_[i]);
-			if (p_ != null) csl_.addPort(portIDs_[i]).connectTo(p_);
-		}
-		return pr_;
-	}
-	
-	double bw; // global bandwidth setting
-	int bs; // global buffer size setting
-	int mtu = -1; // -1: depends on CSL, 0: no fragmentation, >0: override CSL setting
-	String bufferMode = "byte";
-	boolean linkEmu = false;
-	double linkPropDelay = Double.NaN; // for link emulation
-	
-	/** Sets the bandwidth (in bps) for all the interfaces. */
-	public void setBandwidth(double bw_)
-	{ bw = bw_; }
-	
-	public double getBandwidth()
-	{ return bw; }
-	
-	/** Sets the buffer size (in bytes) for all the interfaces. */
-	public void setBufferSize(int bs_)
-	{ bs = bs_; }
-	
-	public int getBufferSize()
-	{ return bs; }
-	
-	/**
-	 * Sets the maximum transmission unit (MTU) for all interfaces.
-	 * The length includes the size of the packet header for physical link transmission.
-	 * A positive value also enables the fragmentation in the core service layer.
-	 * Zero disables it.  The default value applies if a negative value is given.
-	 */
-	public void setMTU(int mtu_)
-	{ mtu = mtu_; }
+    // event ports
+    portIDs_ = new String[]{
+      EVENT_PKT_ARRIVAL_PORT_ID,
+      EVENT_ID_CHANGED_PORT_ID,
+      EVENT_RT_UCAST_CHANGED_PORT_ID,
+      EVENT_RT_MCAST_CHANGED_PORT_ID,
+      EVENT_IF_PORT_ID,
+      EVENT_VIF_PORT_ID,
+      EVENT_MCAST_HOST_PORT_ID
+    };
+    for (int i=0; i<portIDs_.length; i++) {
+      Port p_ = pr_.getPort(portIDs_[i]);
+      if (p_ != null) csl_.addPort(portIDs_[i]).connectTo(p_);
+    }
+    return pr_;
+  }
+  
+  double bw; // global bandwidth setting
+  int bs; // global buffer size setting
+  int mtu = -1; // -1: depends on CSL, 0: no fragmentation, >0: override CSL setting
+  String bufferMode = "byte";
+  boolean linkEmu = false;
+  double linkPropDelay = Double.NaN; // for link emulation
+  
+  /** Sets the bandwidth (in bps) for all the interfaces. */
+  public void setBandwidth(double bw_)
+  { bw = bw_; }
+  
+  public double getBandwidth()
+  { return bw; }
+  
+  /** Sets the buffer size (in bytes) for all the interfaces. */
+  public void setBufferSize(int bs_)
+  { bs = bs_; }
+  
+  public int getBufferSize()
+  { return bs; }
+  
+  /**
+   * Sets the maximum transmission unit (MTU) for all interfaces.
+   * The length includes the size of the packet header for physical link transmission.
+   * A positive value also enables the fragmentation in the core service layer.
+   * Zero disables it.  The default value applies if a negative value is given.
+   */
+  public void setMTU(int mtu_)
+  { mtu = mtu_; }
 
-	public int getMTU()
-	{ return mtu; }
+  public int getMTU()
+  { return mtu; }
 
-	/**
-	 * Sets the buffer mode of all the interfaces.
-	 * @param mode_ can be either "packet" or "byte".
-	 */
-	public void setBufferMode(String mode_)
-	{ bufferMode = mode_; }
+  /**
+   * Sets the buffer mode of all the interfaces.
+   * @param mode_ can be either "packet" or "byte".
+   */
+  public void setBufferMode(String mode_)
+  { bufferMode = mode_; }
 
-	public String getBufferMode()
-	{ return bufferMode; }
+  public String getBufferMode()
+  { return bufferMode; }
 
-	public void setLinkEmulationEnabled(boolean enabled_)
-	{ linkEmu = enabled_; }
+  public void setLinkEmulationEnabled(boolean enabled_)
+  { linkEmu = enabled_; }
 
-	public boolean isLinkEmulationEnabled()
-	{ return linkEmu; }
+  public boolean isLinkEmulationEnabled()
+  { return linkEmu; }
 
-	/** Sets the (global) emulated link propagation delay setting.
-	 * Used with link emulation enabled. */
-	public void setLinkPropDelay(double delay_)
-	{ linkPropDelay = delay_; }
+  /** Sets the (global) emulated link propagation delay setting.
+   * Used with link emulation enabled. */
+  public void setLinkPropDelay(double delay_)
+  { linkPropDelay = delay_; }
 
-	/** Returns the (global) emulated link propagation delay setting.
-	 * Used with link emulation enabled. */
-	public double getLinkPropDelay()
-	{ return linkPropDelay; }
+  /** Returns the (global) emulated link propagation delay setting.
+   * Used with link emulation enabled. */
+  public double getLinkPropDelay()
+  { return linkPropDelay; }
 }

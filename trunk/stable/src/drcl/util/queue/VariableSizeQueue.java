@@ -32,56 +32,56 @@ package drcl.util.queue;
  * Base implementation is provided by {@link VariableSizeQueueImpl}. */
 public interface VariableSizeQueue extends Queue
 {
-	/**
-	 * Enqueues the element with the associated key.
-	 * The elements in queue are sorted in the ascending order of their
-	 * associated keys.  If same keys appear in the queue,
-	 * the element is put right after the last element with the same key.
-	 * 
-	 * @param key_		the associated key.
-	 * @param element_	the element to be put in the queue.
-	 * @param size_		size of the element.
-	 */
-	public void enqueue(double key_, Object element_, int size_);
-	
-	/**
-	 * Enqueues the element at the position specified with the associated key.  
-	 * Note that the elements in queue are sorted in the ascending order of 
-	 * their associated keys.  Enqueue fails if position and key create a 
-	 * conflict to the above condition.
-	 *
-	 * @param pos_ the position.
-	 * @param key_ the associated key.
-	 * @param element_ the element to be put in the queue.
-	 * @param size_		size of the element.
-	 * @return false if key and position create a conflict.
-	 */
-	public boolean enqueueAt(int pos_, double key_, Object element_,
-					int size_);
-	
-	/**
-	 * Enqueues the element right after the <code>previousElement_</code>
-	 * element and associates the element with a key equal to the previous
-	 * element's.
-	 * 
-	 * @param previousElement_ the previous element.
-	 * @param element_ the element to be put in the queue.
-	 * @param size_		size of the element.
-	 * @return false if <code>previousElement_</code> does not appear.
-	 */
-	public boolean enqueueAfter(Object previousElement_, 
-					Object element_, int size_);
-	
-	/**
-	 * Associates the element with the largest key in the queue and then 
-	 * enqueues the element.
-	 * If the queue is originally empty, then key 0.0 is assigned.
-	 * 
-	 * @param size_		size of the element.
-	 */
-	public void enqueue(Object element_, int size_);
-	
+  /**
+   * Enqueues the element with the associated key.
+   * The elements in queue are sorted in the ascending order of their
+   * associated keys.  If same keys appear in the queue,
+   * the element is put right after the last element with the same key.
+   * 
+   * @param key_    the associated key.
+   * @param element_  the element to be put in the queue.
+   * @param size_    size of the element.
+   */
+  public void enqueue(double key_, Object element_, int size_);
+  
+  /**
+   * Enqueues the element at the position specified with the associated key.  
+   * Note that the elements in queue are sorted in the ascending order of 
+   * their associated keys.  Enqueue fails if position and key create a 
+   * conflict to the above condition.
+   *
+   * @param pos_ the position.
+   * @param key_ the associated key.
+   * @param element_ the element to be put in the queue.
+   * @param size_    size of the element.
+   * @return false if key and position create a conflict.
+   */
+  public boolean enqueueAt(int pos_, double key_, Object element_,
+          int size_);
+  
+  /**
+   * Enqueues the element right after the <code>previousElement_</code>
+   * element and associates the element with a key equal to the previous
+   * element's.
+   * 
+   * @param previousElement_ the previous element.
+   * @param element_ the element to be put in the queue.
+   * @param size_    size of the element.
+   * @return false if <code>previousElement_</code> does not appear.
+   */
+  public boolean enqueueAfter(Object previousElement_, 
+          Object element_, int size_);
+  
+  /**
+   * Associates the element with the largest key in the queue and then 
+   * enqueues the element.
+   * If the queue is originally empty, then key 0.0 is assigned.
+   * 
+   * @param size_    size of the element.
+   */
+  public void enqueue(Object element_, int size_);
+  
 
-	/** Returns the current size of the queue.  */
-	public int getSize();
+  /** Returns the current size of the queue.  */
+  public int getSize();
 }

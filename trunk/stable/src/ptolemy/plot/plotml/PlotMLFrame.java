@@ -112,7 +112,7 @@ public class PlotMLFrame extends PlotFrame {
                 "By: Edward A. Lee, eal@eecs.berkeley.edu\n" +
                 "and Christopher Hylands, cxh@eecs.berkeley.edu\n" +
                 "Version " + PlotBox.PTPLOT_RELEASE +
-	        ", Build: $Id: PlotMLFrame.java,v 1.1.1.1 2004/01/26 21:52:02 hyuklim Exp $"+
+          ", Build: $Id: PlotMLFrame.java,v 1.1.1.1 2004/01/26 21:52:02 hyuklim Exp $"+
                 "For more information, see\n" +
                 "http://ptolemy.eecs.berkeley.edu/java/ptplot\n",
                 "About Ptolemy Plot", JOptionPane.INFORMATION_MESSAGE);

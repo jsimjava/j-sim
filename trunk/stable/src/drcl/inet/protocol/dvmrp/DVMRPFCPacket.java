@@ -34,125 +34,125 @@ with neighbors.
  */
 public class DVMRPFCPacket extends drcl.DrclObj
 { 
-	static String[] CMDS = {"PRUNE", "GRAFT", "GRAFT-ACK"};
+  static String[] CMDS = {"PRUNE", "GRAFT", "GRAFT-ACK"};
 
-	// commands
-	static final int PRUNE = 0;
-	static final int GRAFT = 1;
-	static final int GRAFT_ACK = 2;
-	static final int PRUNE_SIZE = 24; // header size 24: DVMRPv3 internet draft
-	static final int GRAFT_SIZE = 20; // header size 20: DVMRPv3 internet draft
-	
-	int cmd, version;
-	long src, group, srcmask;
-	int pruneLifetime;
+  // commands
+  static final int PRUNE = 0;
+  static final int GRAFT = 1;
+  static final int GRAFT_ACK = 2;
+  static final int PRUNE_SIZE = 24; // header size 24: DVMRPv3 internet draft
+  static final int GRAFT_SIZE = 20; // header size 20: DVMRPv3 internet draft
+  
+  int cmd, version;
+  long src, group, srcmask;
+  int pruneLifetime;
 
-	public DVMRPFCPacket()
-	{ super(); }
-	
-	/**
-	 * Creates a prune packet
-	 * @param pruneLifetime_ in seconds.
-	 */
-	public DVMRPFCPacket (int version_, long src_, long group_,
-											long srcmask_, int pruneLifetime_)
-	{
-		cmd = PRUNE;
-		version = version_;
-		src = src_;
-		group = group_;
-		srcmask = srcmask_;
-		pruneLifetime = pruneLifetime_;
-	}
-	
-	/** Creates a graft(-ack) packet. */
-	public DVMRPFCPacket (int version_, long src_, long group_,
-											long srcmask_, boolean ack_)
-	{
-		cmd = ack_? GRAFT_ACK: GRAFT;
-		version = version_;
-		src = src_;
-		group = group_;
-		srcmask = srcmask_;
-	}
+  public DVMRPFCPacket()
+  { super(); }
+  
+  /**
+   * Creates a prune packet
+   * @param pruneLifetime_ in seconds.
+   */
+  public DVMRPFCPacket (int version_, long src_, long group_,
+                      long srcmask_, int pruneLifetime_)
+  {
+    cmd = PRUNE;
+    version = version_;
+    src = src_;
+    group = group_;
+    srcmask = srcmask_;
+    pruneLifetime = pruneLifetime_;
+  }
+  
+  /** Creates a graft(-ack) packet. */
+  public DVMRPFCPacket (int version_, long src_, long group_,
+                      long srcmask_, boolean ack_)
+  {
+    cmd = ack_? GRAFT_ACK: GRAFT;
+    version = version_;
+    src = src_;
+    group = group_;
+    srcmask = srcmask_;
+  }
 
-	private DVMRPFCPacket (int cmd_, int version_, long src_, long group_,
-											long srcmask_, int pruneLifetime_)
-	{
-		cmd = cmd_;
-		version = version_;
-		src = src_;
-		group = group_;
-		srcmask = srcmask_;
-		pruneLifetime = pruneLifetime_;
-	}
-	
-	public int getCommand()
-	{	return cmd; }
-	
-	public int getVersion()
-	{	return version;	}
-	
-	public boolean isPrune()
-	{ return cmd == PRUNE; }
-	
-	public boolean isGraft()
-	{ return cmd == GRAFT; }
-	
-	public boolean isGraftAck()
-	{ return cmd == GRAFT_ACK; }
-	
-	/** Retrieves the source field. */
-	public long getSource()
-	{	return src;	}
-	
-	/** Retrieves the group field. */
-	public long getGroup()
-	{	return group;	}
-	
-	/** Retrieves the source network mask field. */
-	public long getSourceMask()
-	{	return srcmask;	}
-	
-	/** Retrieves the prune lifetime field. */
-	public int getPruneLifetime()
-	{ return pruneLifetime; }
-	
-	public void setCommand(int value_)
-	{ cmd = value_; }
-	
-	public void setVersion(int value_)
-	{ version = value_; }
-	
-	public void setSource(long value_)
-	{ src = value_; }
-	
-	public void setSourceMask(long value_)
-	{ srcmask = value_; }
-	
-	public void setGroup(long value_)
-	{ group = value_; }
-	
-	public void setPruneLifetime(int value_)
-	{ pruneLifetime = value_; }
-	
-	public void duplicate(Object source_)
-	{
-		DVMRPFCPacket that_ = (DVMRPFCPacket)source_;
-		cmd = that_.cmd;
-		version = that_.version;
-		src = that_.src;
-		group = that_.group;
-		srcmask = that_.srcmask;
-		if (cmd == PRUNE) pruneLifetime = that_.pruneLifetime;
-	}
+  private DVMRPFCPacket (int cmd_, int version_, long src_, long group_,
+                      long srcmask_, int pruneLifetime_)
+  {
+    cmd = cmd_;
+    version = version_;
+    src = src_;
+    group = group_;
+    srcmask = srcmask_;
+    pruneLifetime = pruneLifetime_;
+  }
+  
+  public int getCommand()
+  {  return cmd; }
+  
+  public int getVersion()
+  {  return version;  }
+  
+  public boolean isPrune()
+  { return cmd == PRUNE; }
+  
+  public boolean isGraft()
+  { return cmd == GRAFT; }
+  
+  public boolean isGraftAck()
+  { return cmd == GRAFT_ACK; }
+  
+  /** Retrieves the source field. */
+  public long getSource()
+  {  return src;  }
+  
+  /** Retrieves the group field. */
+  public long getGroup()
+  {  return group;  }
+  
+  /** Retrieves the source network mask field. */
+  public long getSourceMask()
+  {  return srcmask;  }
+  
+  /** Retrieves the prune lifetime field. */
+  public int getPruneLifetime()
+  { return pruneLifetime; }
+  
+  public void setCommand(int value_)
+  { cmd = value_; }
+  
+  public void setVersion(int value_)
+  { version = value_; }
+  
+  public void setSource(long value_)
+  { src = value_; }
+  
+  public void setSourceMask(long value_)
+  { srcmask = value_; }
+  
+  public void setGroup(long value_)
+  { group = value_; }
+  
+  public void setPruneLifetime(int value_)
+  { pruneLifetime = value_; }
+  
+  public void duplicate(Object source_)
+  {
+    DVMRPFCPacket that_ = (DVMRPFCPacket)source_;
+    cmd = that_.cmd;
+    version = that_.version;
+    src = that_.src;
+    group = that_.group;
+    srcmask = that_.srcmask;
+    if (cmd == PRUNE) pruneLifetime = that_.pruneLifetime;
+  }
 
-	public Object clone()
-	{ return new DVMRPFCPacket (cmd, version, src, group, srcmask, pruneLifetime); }
+  public Object clone()
+  { return new DVMRPFCPacket (cmd, version, src, group, srcmask, pruneLifetime); }
 
-	public String toString()
-	{
-		return "DVMRPv" + version + "_" + CMDS[cmd] + ",src:" + src + "/" + srcmask
-			+ ",group:" + group + (cmd == PRUNE? ",pruneLifetime:" + pruneLifetime: "");
-	}
+  public String toString()
+  {
+    return "DVMRPv" + version + "_" + CMDS[cmd] + ",src:" + src + "/" + srcmask
+      + ",group:" + group + (cmd == PRUNE? ",pruneLifetime:" + pruneLifetime: "");
+  }
 }

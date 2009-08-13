@@ -35,125 +35,125 @@ import drcl.util.ObjectUtil;
 /** The file service protocol message. */
 class FSPMessage implements drcl.ObjectCloneable
 {
-	String fileName;
-	int code;
-	long startIndex, endIndex;
-	long size;
-	Object content;// could be null (request), byte[], (reply) or String (error)
-	int msgSize; 
+  String fileName;
+  int code;
+  long startIndex, endIndex;
+  long size;
+  Object content;// could be null (request), byte[], (reply) or String (error)
+  int msgSize; 
 
-	// errors
-	public static final int EXCEPTION = 0;
-	public static final int FILE_NOT_EXIST = 1;
-	
-	public FSPMessage()
-	{ super(); }
-	
-	/**
-	 * Constructor for the FSP request.
-	 * 
-	 * @param code_ the code sent by server in the previous reply.
-	 * @param endIndex_ the end byte index, exclusive.
-	 */
-	public FSPMessage(String fileName_, int code_, long startIndex_,
-										long endIndex_)
-	{
-		fileName = fileName_;
-		code = code_;
-		startIndex = startIndex_;
-		endIndex = endIndex_;
-	}
-	
-	/**
-	 * Constructor for the FSP reply.
-	 * 
-	 * @param code_ the code for next request.
-	 * @param endIndex_ the end byte index, exclusive.
-	 */
-	public FSPMessage(String fileName_, int code_, long startIndex_,
-					   long endIndex_, long size_, byte[] content_)
-	{
-		fileName = fileName_;
-		code = code_;
-		startIndex = startIndex_;
-		endIndex = endIndex_;
-		size = size_;
-		content = content_;
-	}
-	
-	/** Constructor for the FSP error reply. */
-	public FSPMessage(String fileName_, int errorCode_, String error_)
-	{
-		fileName = fileName_;
-		code = errorCode_;
-		content = error_;
-	}
-	
-	public String getFileName()
-	{ return fileName; }
-	
-	public long getStartIndex()
-	{ return startIndex; }
-	
-	public long getEndIndex()
-	{ return endIndex; }
-	
-	public int getCode()
-	{ return code; }
-	
-	public int getErrorCode()
-	{ return code; }
-	
-	public byte[] getFileContent()
-	{ return (byte[])content; }
+  // errors
+  public static final int EXCEPTION = 0;
+  public static final int FILE_NOT_EXIST = 1;
+  
+  public FSPMessage()
+  { super(); }
+  
+  /**
+   * Constructor for the FSP request.
+   * 
+   * @param code_ the code sent by server in the previous reply.
+   * @param endIndex_ the end byte index, exclusive.
+   */
+  public FSPMessage(String fileName_, int code_, long startIndex_,
+                    long endIndex_)
+  {
+    fileName = fileName_;
+    code = code_;
+    startIndex = startIndex_;
+    endIndex = endIndex_;
+  }
+  
+  /**
+   * Constructor for the FSP reply.
+   * 
+   * @param code_ the code for next request.
+   * @param endIndex_ the end byte index, exclusive.
+   */
+  public FSPMessage(String fileName_, int code_, long startIndex_,
+             long endIndex_, long size_, byte[] content_)
+  {
+    fileName = fileName_;
+    code = code_;
+    startIndex = startIndex_;
+    endIndex = endIndex_;
+    size = size_;
+    content = content_;
+  }
+  
+  /** Constructor for the FSP error reply. */
+  public FSPMessage(String fileName_, int errorCode_, String error_)
+  {
+    fileName = fileName_;
+    code = errorCode_;
+    content = error_;
+  }
+  
+  public String getFileName()
+  { return fileName; }
+  
+  public long getStartIndex()
+  { return startIndex; }
+  
+  public long getEndIndex()
+  { return endIndex; }
+  
+  public int getCode()
+  { return code; }
+  
+  public int getErrorCode()
+  { return code; }
+  
+  public byte[] getFileContent()
+  { return (byte[])content; }
 
-	public long getFileSize()
-	{ return size; }
-	
-	public String getError()
-	{ return (String)content; }
+  public long getFileSize()
+  { return size; }
+  
+  public String getError()
+  { return (String)content; }
 
-	public boolean isError()
-	{ return content instanceof String; }
+  public boolean isError()
+  { return content instanceof String; }
 
-	public boolean isRequest()
-	{ return content == null; }
+  public boolean isRequest()
+  { return content == null; }
 
-	public boolean isReply()
-	{ return content != null; }
+  public boolean isReply()
+  { return content != null; }
 
-	public String toString()
-	{
-		if (content == null) {
-			// a request
-			return "FSP_REQUEST:" + fileName
-					+ "(" + startIndex + "-" + endIndex + "),code=" + code;
-		}
-		else if (content instanceof String) {
-			// an error
-			return "FSP_ERROR:" + fileName + "," + code + ",'" + content + "'";
-		}
-		else {
-			// a reply
-			return "FSP_REPLY:" + fileName + "(" + size + ","
-				+ startIndex + "-" + endIndex
-				+ "),content=" + drcl.util.StringUtil.toString(content)
-				+ ",code=" + code;
-		}
-	}
+  public String toString()
+  {
+    if (content == null) {
+      // a request
+      return "FSP_REQUEST:" + fileName
+          + "(" + startIndex + "-" + endIndex + "),code=" + code;
+    }
+    else if (content instanceof String) {
+      // an error
+      return "FSP_ERROR:" + fileName + "," + code + ",'" + content + "'";
+    }
+    else {
+      // a reply
+      return "FSP_REPLY:" + fileName + "(" + size + ","
+        + startIndex + "-" + endIndex
+        + "),content=" + drcl.util.StringUtil.toString(content)
+        + ",code=" + code;
+    }
+  }
 
-	public Object clone()
-	{
-		FSPMessage m = new FSPMessage();
-		m.fileName = fileName;
-		m.code = code;
-		m.startIndex = startIndex;
-		m.endIndex = endIndex;
-		m.size = size;
-		m.msgSize = msgSize;
-		m.content = drcl.util.ObjectUtil.clone(content);
-		return m;
-	}
+  public Object clone()
+  {
+    FSPMessage m = new FSPMessage();
+    m.fileName = fileName;
+    m.code = code;
+    m.startIndex = startIndex;
+    m.endIndex = endIndex;
+    m.size = size;
+    m.msgSize = msgSize;
+    m.content = drcl.util.ObjectUtil.clone(content);
+    return m;
+  }
 }
 
 

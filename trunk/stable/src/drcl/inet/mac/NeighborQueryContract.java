@@ -46,25 +46,25 @@ import drcl.util.StringUtil;
  */
 public class NeighborQueryContract extends Contract
 {
-	public static final NeighborQueryContract INSTANCE = new NeighborQueryContract();
+  public static final NeighborQueryContract INSTANCE = new NeighborQueryContract();
 
-	public NeighborQueryContract()
-	{ super(); }
-	
-	public NeighborQueryContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Position Report Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
+  public NeighborQueryContract()
+  { super(); }
+  
+  public NeighborQueryContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Position Report Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
     /** 
      * Queries the neighbours of the sender whose current position is (X_, Y_, Z_).
      */
-	public static Object query(long nid_, double X_, double Y_, double Z_, Port out_)
-	{ return out_.sendReceive(new Message(nid_, X_, Y_, Z_)); }
+  public static Object query(long nid_, double X_, double Y_, double Z_, Port out_)
+  { return out_.sendReceive(new Message(nid_, X_, Y_, Z_)); }
 
     /**
      * Sends back a reply through the out_ port
@@ -72,11 +72,11 @@ public class NeighborQueryContract extends Contract
      *@param nodeList_ an array of the nid's of neighboring nodes.
      *@out_  the port through which a reply message should be sent back. 
      */
-	public static void reply(long[] nodeList_, Port out_)
-	{ out_.doSending(new Message(nodeList_)); }
-	
+  public static void reply(long[] nodeList_, Port out_)
+  { out_.doSending(new Message(nodeList_)); }
+  
     public static class Message extends drcl.comp.Message
-	{
+  {
         long   nid;
         double X, Y, Z;
         long[] nodeList;
@@ -86,7 +86,7 @@ public class NeighborQueryContract extends Contract
         // subareas (including the subarea where the sender is located) are neighbours.
         int    nGrids = 1;
         
-		public Message ()	{ }
+    public Message ()  { }
 
         /**
          * Constructor. Assumes nGrids is 1.
@@ -98,14 +98,14 @@ public class NeighborQueryContract extends Contract
          *@param Z_ the z coordinate of the node current position.
          *
          */
-		public Message (long nid_, double X_, double Y_, double Z_)
-		{
-			nid = nid_;
+    public Message (long nid_, double X_, double Y_, double Z_)
+    {
+      nid = nid_;
             X = X_;  Y = Y_;  Z = Z_;
             nodeList = null;
             nGrids = 1;
-		}
-		
+    }
+    
         
         /**
          * Constructor. 
@@ -117,13 +117,13 @@ public class NeighborQueryContract extends Contract
          *@param Z_ the z coordinate of the node current position.
          *@nGrids_ the nGrid value.
          */
-		public Message (long nid_, double X_, double Y_, double Z_, int nGrids_)
-		{
-			nid = nid_;
+    public Message (long nid_, double X_, double Y_, double Z_, int nGrids_)
+    {
+      nid = nid_;
             X = X_;  Y = Y_;  Z = Z_;
             nodeList = null;
             nGrids = nGrids_;
-		}
+    }
         
         /**
          * Construct. Constructs a reply message containning only a node list.
@@ -139,20 +139,20 @@ public class NeighborQueryContract extends Contract
             nodeList = nodeList_;
         }
         
-		/** 
+    /** 
           * Constructor. Constructs a message 
           *
-		  * @param nid_ the node id
-		  * @param X_   the X coordinate of the querying node
-		  * @param Y_   the Y coordinate of the querying node
-		  * @param Z_   the Z coordinate of the querying node
-		  * @param nodeList_ the id list of all neighbour nodes 
-		  * @param nGrids_ the value of nGrids
-		  */
-		public Message (long nid_, double X_, double Y_, double Z_, long[] nodeList_, int nGrids_)
-		{
+      * @param nid_ the node id
+      * @param X_   the X coordinate of the querying node
+      * @param Y_   the Y coordinate of the querying node
+      * @param Z_   the Z coordinate of the querying node
+      * @param nodeList_ the id list of all neighbour nodes 
+      * @param nGrids_ the value of nGrids
+      */
+    public Message (long nid_, double X_, double Y_, double Z_, long[] nodeList_, int nGrids_)
+    {
             nid = nid_;
-			X = X_;  Y = Y_;  Z = Z_;
+      X = X_;  Y = Y_;  Z = Z_;
             if ( nodeList_ != null ) {
                 int n = nodeList_.length;
                 nodeList = new long[n];
@@ -162,32 +162,32 @@ public class NeighborQueryContract extends Contract
             else 
                 nodeList = null;
             nGrids = nGrids_;
-		}
+    }
         
-		/** Gets the node id */
+    /** Gets the node id */
         public long   getNid()     { return nid; }
-		/** Gets the X coordinate */
-		public double getX()       { return X; }
-		/** Gets the Y coordinate */
-		public double getY()       { return Y; }
-		/** Gets the Z coordinate */
-		public double getZ()       { return Z; }
-		/** Gets nGrids */
-		public int    getnGrids()  { return nGrids; }
+    /** Gets the X coordinate */
+    public double getX()       { return X; }
+    /** Gets the Y coordinate */
+    public double getY()       { return Y; }
+    /** Gets the Z coordinate */
+    public double getZ()       { return Z; }
+    /** Gets nGrids */
+    public int    getnGrids()  { return nGrids; }
 
         /** Gets node list in the message */
         public long[] getNodeList() { 
             return nodeList; 
         }
-		
-		public Object clone()
-		{ return new Message(nid, X, Y, Z, nodeList, nGrids); }
+    
+    public Object clone()
+    { return new Message(nid, X, Y, Z, nodeList, nGrids); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
+    public String toString(String separator_)
+    {
             String str;
             str = "Neighbor Query:" + separator_ + "nid=" + nid + separator_ + "X=" + X + separator_ + "Y=" + Y + separator_ + "Z=" + Z + separator_ + "nodeList =";
             if ( nodeList != null ) 
@@ -195,7 +195,7 @@ public class NeighborQueryContract extends Contract
                     for ( int i = 0; i < nodeList.length; i ++ ) 
                         str = str + nodeList[i] + " ";
             str = str + separator_ + "nGrids=" + nGrids;
-			return str;
-		}
-	}
+      return str;
+    }
+  }
 }

@@ -54,158 +54,158 @@ in order to give correct advices later on.
  */
 public class QLogic extends drcl.DrclObj
 {
-	/** Name of the instant queue size change event. */
-	public static final String EVENT_QSIZE = "Instant Q Size";
+  /** Name of the instant queue size change event. */
+  public static final String EVENT_QSIZE = "Instant Q Size";
 
-	/** Default advice for replying in {@link #adviceOn(Object, int)} when the host's
-	  * garbage flag is not on (for better performance). */
-	protected static final String DEFAULT_ADVICE = "just drop it!"; 
+  /** Default advice for replying in {@link #adviceOn(Object, int)} when the host's
+    * garbage flag is not on (for better performance). */
+  protected static final String DEFAULT_ADVICE = "just drop it!"; 
 
-	/** Port that exports the instant queue size change events. */
-	protected Port qSizePort;
+  /** Port that exports the instant queue size change events. */
+  protected Port qSizePort;
 
-	/** The host component who owns this object. */
-	protected Component host;
+  /** The host component who owns this object. */
+  protected Component host;
 
-	/** The capacity of the queue. */
-	public int capacity;
+  /** The capacity of the queue. */
+  public int capacity;
 
-	/** The current queue size (each object in the queue may have different size). */
-	public int qsize;
+  /** The current queue size (each object in the queue may have different size). */
+  public int qsize;
 
-	/** The current queue length (# of objects in the queue). */
-	public int qlen;
+  /** The current queue length (# of objects in the queue). */
+  public int qlen;
 
-	public QLogic()
-	{}
+  public QLogic()
+  {}
 
-	public QLogic(Component host_)
-	{ this(); host = host_; }
+  public QLogic(Component host_)
+  { this(); host = host_; }
 
-	public QLogic(Component host_, String qpid_)
-	{ this(); host = host_; setQSizePort(qpid_); }
+  public QLogic(Component host_, String qpid_)
+  { this(); host = host_; setQSizePort(qpid_); }
 
-	/**
-	 * Resets this object to the initial state.
-	 * Subclasses must call <code>super.reset()</code> when
-	 * overriding this method.
-	 */
-	public void reset()
-	{ qlen = qsize = 0; }
+  /**
+   * Resets this object to the initial state.
+   * Subclasses must call <code>super.reset()</code> when
+   * overriding this method.
+   */
+  public void reset()
+  { qlen = qsize = 0; }
 
-	/**
-	 * Duplicates the content of the source object to this object.
-	 * If the host component is already set, this method also creates
-	 * the <i>queue size change event</i> port of the same ID as that in
-	 * <code>source_</code>.
-	 * Subclasses must call <code>super.duplicate()</code> when
-	 * overriding this method.
-	 */
-	public void duplicate(Object source_)
-	{
-		QLogic that_ = (QLogic)source_;
-		capacity = that_.capacity;
-		if (host != null && that_.qSizePort != null)
-			setQSizePort(that_.qSizePort.getID());
-	}
+  /**
+   * Duplicates the content of the source object to this object.
+   * If the host component is already set, this method also creates
+   * the <i>queue size change event</i> port of the same ID as that in
+   * <code>source_</code>.
+   * Subclasses must call <code>super.duplicate()</code> when
+   * overriding this method.
+   */
+  public void duplicate(Object source_)
+  {
+    QLogic that_ = (QLogic)source_;
+    capacity = that_.capacity;
+    if (host != null && that_.qSizePort != null)
+      setQSizePort(that_.qSizePort.getID());
+  }
 
-	/**
-	 * Prints the content (states) of this queue management instance.
-	 * It is equivalent to calling <code>info(null)</code>.
-	 */
-	public String info()
-	{ return info(""); }
+  /**
+   * Prints the content (states) of this queue management instance.
+   * It is equivalent to calling <code>info(null)</code>.
+   */
+  public String info()
+  { return info(""); }
 
-	/**
-	 * Prints the content (states) of this queue management instance.
-	 * @param prefix_ prefix of each line in the printout.
-	 */
-	public String info(String prefix_)
-	{
-		return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass())
-			+ ", occupancy:" + qsize + "/" + capacity + ", Q length:" + qlen + "\n";
-	}
+  /**
+   * Prints the content (states) of this queue management instance.
+   * @param prefix_ prefix of each line in the printout.
+   */
+  public String info(String prefix_)
+  {
+    return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass())
+      + ", occupancy:" + qsize + "/" + capacity + ", Q length:" + qlen + "\n";
+  }
 
-	/**
-	 * Advices the host component for deciding whether or not
-	 * to drop the (arriving) object.
-	 *
-	 * @return the advice; null if advicing not to drop the object.
-	 */
-	public String adviceOn(Object obj_, int size_)
-	{
-		if (size_ + qsize > capacity) {
-			if (!host.isGarbageEnabled())
-				return DEFAULT_ADVICE; // just tell the host to drop it
-			else if (host.isDebugEnabled())
-				return "exceeds capacity:" + qsize + "+" + size_ + ">" + capacity;
-			else
-				return "exceeds capacity";
-		}
-		else return null;
-	}
+  /**
+   * Advices the host component for deciding whether or not
+   * to drop the (arriving) object.
+   *
+   * @return the advice; null if advicing not to drop the object.
+   */
+  public String adviceOn(Object obj_, int size_)
+  {
+    if (size_ + qsize > capacity) {
+      if (!host.isGarbageEnabled())
+        return DEFAULT_ADVICE; // just tell the host to drop it
+      else if (host.isDebugEnabled())
+        return "exceeds capacity:" + qsize + "+" + size_ + ">" + capacity;
+      else
+        return "exceeds capacity";
+    }
+    else return null;
+  }
 
-	/** Handles the event of dropping the object of the given size.  */
-	public void dropHandler(Object obj_, int size_)
-	{}
+  /** Handles the event of dropping the object of the given size.  */
+  public void dropHandler(Object obj_, int size_)
+  {}
 
-	/** Handles the event of enqueuing the object of the given size.  */
-	public void enqueueHandler(Object obj_, int size_)
-	{
-		qsize += size_;
-		qlen++;
-		if (qSizePort != null && qSizePort._isEventExportEnabled())
-			qSizePort.exportEvent(EVENT_QSIZE, new DoubleObj(qsize), null);
-	}
+  /** Handles the event of enqueuing the object of the given size.  */
+  public void enqueueHandler(Object obj_, int size_)
+  {
+    qsize += size_;
+    qlen++;
+    if (qSizePort != null && qSizePort._isEventExportEnabled())
+      qSizePort.exportEvent(EVENT_QSIZE, new DoubleObj(qsize), null);
+  }
 
-	/** Handles the event of dequeuing the object of the given size.  */
-	public void dequeueHandler(Object obj_, int size_)
-	{
-		qsize -= size_;
-		qlen--;
-		if (qSizePort != null && qSizePort._isEventExportEnabled())
-			qSizePort.exportEvent(EVENT_QSIZE, new DoubleObj(qsize), null);
-	}
+  /** Handles the event of dequeuing the object of the given size.  */
+  public void dequeueHandler(Object obj_, int size_)
+  {
+    qsize -= size_;
+    qlen--;
+    if (qSizePort != null && qSizePort._isEventExportEnabled())
+      qSizePort.exportEvent(EVENT_QSIZE, new DoubleObj(qsize), null);
+  }
 
-	/** Sets the capacity of the queue. */
-	public void setCapacity(int capacity_)
-	{ capacity = capacity_; }
+  /** Sets the capacity of the queue. */
+  public void setCapacity(int capacity_)
+  { capacity = capacity_; }
 
-	/** Returns the capacity of the queue. */
-	public int getCapacity()
-	{ return capacity; }
+  /** Returns the capacity of the queue. */
+  public int getCapacity()
+  { return capacity; }
 
-	/** Returns the current size of the queue. */
-	public int getCurrentQSize()
-	{ return qsize; }
+  /** Returns the current size of the queue. */
+  public int getCurrentQSize()
+  { return qsize; }
 
-	/** Returns the current length of the queue. */
-	public int getCurrentQLength()
-	{ return qlen; }
+  /** Returns the current length of the queue. */
+  public int getCurrentQLength()
+  { return qlen; }
 
-	/** Returns true if the queue is full. */
-	public boolean isFull()
-	{ return qsize == capacity; }
+  /** Returns true if the queue is full. */
+  public boolean isFull()
+  { return qsize == capacity; }
 
-	/** Returns true if the queue is empty. */
-	public boolean isEmpty()
-	{ return qlen == 0; }
+  /** Returns true if the queue is empty. */
+  public boolean isEmpty()
+  { return qlen == 0; }
 
-	public void setHost(Component host_)
-	{ host = host_; }
+  public void setHost(Component host_)
+  { host = host_; }
 
-	public Component getHost()
-	{ return host; }
+  public Component getHost()
+  { return host; }
 
-	/**
-	 * @param pid_ ID of the port.
-	 */
-	public void setQSizePort(String pid_)
-	{ qSizePort = host.addEventPort(pid_); }
+  /**
+   * @param pid_ ID of the port.
+   */
+  public void setQSizePort(String pid_)
+  { qSizePort = host.addEventPort(pid_); }
 
-	/**
-	 * @param pid_ ID of the port.
-	 */
-	public void set(Component host_, String pid_)
-	{ setHost(host_);  setQSizePort(pid_); }
+  /**
+   * @param pid_ ID of the port.
+   */
+  public void set(Component host_, String pid_)
+  { setHost(host_);  setQSizePort(pid_); }
 }

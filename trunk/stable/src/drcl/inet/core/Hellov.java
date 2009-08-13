@@ -44,65 +44,65 @@ import drcl.inet.contract.*;
  * @see Hello
  */
 public class Hellov extends Hello
-{	
-	Port vEvtPort = addEventPort(EVENT_VIF_PORT_ID);
-	int vifStartIndex = Integer.MAX_VALUE;
-	
-	public Hellov()
-	{ super(); }
-	
-	public Hellov(String id_)
-	{ super(id_); }
-					  
-	public void reset()
-	{ super.reset(); }
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		Hellov that_ = (Hellov)source_;
-		vifStartIndex = that_.vifStartIndex;
-	}
-	
-	public String info()
-	{
-		return super.info() + "VIF start index: " + vifStartIndex + "\n";
-	}
-	
-	protected void fireEvent(String evtName_, int ifindex_, NetAddress neighbor_)
-	{
-		if (ifindex_ < vifStartIndex)
-			evtPort.exportEvent(evtName_, new NeighborEvent.Message(ifindex_, neighbor_), null);
-		else {
-			if (evtName_.equals(EVENT_IF_NEIGHBOR_UP))
-				vEvtPort.exportEvent(EVENT_VIF_NEIGHBOR_UP,
-					new NeighborEvent.Message(ifindex_, neighbor_), null);
-			else
-				vEvtPort.exportEvent(EVENT_VIF_NEIGHBOR_DOWN,
-					new NeighborEvent.Message(ifindex_, neighbor_), null);
-		}
-	}
-	
-	protected InterfaceInfo[] _queryAll()
-	{
-		if (neighbors == null || neighbors.length == 0)
-			return new InterfaceInfo[0];
-		
-		int length_ = Math.min(vifStartIndex, neighbors.length);
-		InterfaceInfo[] tmp_ = new InterfaceInfo[length_];
-		for (int i=0; i<length_; i++)
-			tmp_[i] = (InterfaceInfo)drcl.util.ObjectUtil.clone(neighbors[i]);
-		return tmp_;
-	}
-	
-	
-	//
-	private void ___SCRIPT___() {}
-	//
-	
-	public void setVIFStartIndex(int index_)
-	{	vifStartIndex = index_;	}
-	
-	public int getVIFStartIndex()
-	{ return vifStartIndex; }
+{  
+  Port vEvtPort = addEventPort(EVENT_VIF_PORT_ID);
+  int vifStartIndex = Integer.MAX_VALUE;
+  
+  public Hellov()
+  { super(); }
+  
+  public Hellov(String id_)
+  { super(id_); }
+            
+  public void reset()
+  { super.reset(); }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    Hellov that_ = (Hellov)source_;
+    vifStartIndex = that_.vifStartIndex;
+  }
+  
+  public String info()
+  {
+    return super.info() + "VIF start index: " + vifStartIndex + "\n";
+  }
+  
+  protected void fireEvent(String evtName_, int ifindex_, NetAddress neighbor_)
+  {
+    if (ifindex_ < vifStartIndex)
+      evtPort.exportEvent(evtName_, new NeighborEvent.Message(ifindex_, neighbor_), null);
+    else {
+      if (evtName_.equals(EVENT_IF_NEIGHBOR_UP))
+        vEvtPort.exportEvent(EVENT_VIF_NEIGHBOR_UP,
+          new NeighborEvent.Message(ifindex_, neighbor_), null);
+      else
+        vEvtPort.exportEvent(EVENT_VIF_NEIGHBOR_DOWN,
+          new NeighborEvent.Message(ifindex_, neighbor_), null);
+    }
+  }
+  
+  protected InterfaceInfo[] _queryAll()
+  {
+    if (neighbors == null || neighbors.length == 0)
+      return new InterfaceInfo[0];
+    
+    int length_ = Math.min(vifStartIndex, neighbors.length);
+    InterfaceInfo[] tmp_ = new InterfaceInfo[length_];
+    for (int i=0; i<length_; i++)
+      tmp_[i] = (InterfaceInfo)drcl.util.ObjectUtil.clone(neighbors[i]);
+    return tmp_;
+  }
+  
+  
+  //
+  private void ___SCRIPT___() {}
+  //
+  
+  public void setVIFStartIndex(int index_)
+  {  vifStartIndex = index_;  }
+  
+  public int getVIFStartIndex()
+  { return vifStartIndex; }
 }

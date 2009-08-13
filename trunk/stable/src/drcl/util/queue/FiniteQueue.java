@@ -32,10 +32,10 @@ package drcl.util.queue;
  * Base implementation is provided by {@link FiniteQueueImpl}. */
 public interface FiniteQueue extends Queue
 {
-	public int getCapacity();
+  public int getCapacity();
 
-	public void setCapacity(int cap_);
+  public void setCapacity(int cap_);
 
-	/** Returns true if this queue is full. */
-	public boolean isFull();
+  /** Returns true if this queue is full. */
+  public boolean isFull();
 }

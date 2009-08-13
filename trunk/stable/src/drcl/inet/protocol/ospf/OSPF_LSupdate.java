@@ -39,83 +39,83 @@ import java.util.*;
  */
 public class OSPF_LSupdate extends drcl.DrclObj
 {
-	public int lsupdate_num;
-	Vector	LSA_list = new Vector();
-	
-	public OSPF_LSupdate()
-	{}
+  public int lsupdate_num;
+  Vector  LSA_list = new Vector();
+  
+  public OSPF_LSupdate()
+  {}
 
-	public Object clone()
-	{
-		OSPF_LSupdate new_ = new OSPF_LSupdate();
-		new_.duplicate(this);
-		return new_;
-	}
+  public Object clone()
+  {
+    OSPF_LSupdate new_ = new OSPF_LSupdate();
+    new_.duplicate(this);
+    return new_;
+  }
 
-	public void duplicate(Object source_)
-	{
-		OSPF_LSupdate that_ = (OSPF_LSupdate)source_;
-		lsupdate_num = that_.lsupdate_num;
-		LSA_list.removeAllElements();
-		LSA_list.setSize(lsupdate_num);
-		for (int i=0; i<lsupdate_num; i++)
-			LSA_list.setElementAt(((OSPF_LSA)that_.LSA_list.elementAt(i)).clone(), i); // clone LSA
-	}
+  public void duplicate(Object source_)
+  {
+    OSPF_LSupdate that_ = (OSPF_LSupdate)source_;
+    lsupdate_num = that_.lsupdate_num;
+    LSA_list.removeAllElements();
+    LSA_list.setSize(lsupdate_num);
+    for (int i=0; i<lsupdate_num; i++)
+      LSA_list.setElementAt(((OSPF_LSA)that_.LSA_list.elementAt(i)).clone(), i); // clone LSA
+  }
 
-  	public OSPF_LSupdate ( int no )
-	{
-		/* create a OPSF_LSupdate object through 
-		   RecycleManager.reproduce() to improve the performance
-		   of simulator. For more details, refer to the RecycleManager 
-		   class. 
-		 */
-		/*OSPF_LSupdate h_ = (OSPF_LSupdate)drcl.RecycleManager.reproduce(OSPF_LSupdate.class);*/
-		setlsa(no);
-	}
+    public OSPF_LSupdate ( int no )
+  {
+    /* create a OPSF_LSupdate object through 
+       RecycleManager.reproduce() to improve the performance
+       of simulator. For more details, refer to the RecycleManager 
+       class. 
+     */
+    /*OSPF_LSupdate h_ = (OSPF_LSupdate)drcl.RecycleManager.reproduce(OSPF_LSupdate.class);*/
+    setlsa(no);
+  }
 
-	public OSPF_LSupdate ( OSPF_LSA lsa )
-	{
-		/* create a OPSF_LSupdate object through 
-		   RecycleManager.reproduce() to improve the performance
-		   of simulator. For more details, refer to the RecycleManager 
-		   class. 
-		 */
-		/*OSPF_LSupdate h_ = (OSPF_LSupdate)drcl.RecycleManager.reproduce(OSPF_LSupdate.class);*/
-		setlsa(lsa);
-	}
-	
-	// create new LSAs for a recycle object
-	private void setlsa( int no )
-	{
-		if ( LSA_list == null) {
-			LSA_list = new Vector(no);
-		} else {
-			LSA_list.removeAllElements();
-			LSA_list = null;
-			LSA_list = new Vector(no);
-		}
-		lsupdate_num = 0;
-	}
+  public OSPF_LSupdate ( OSPF_LSA lsa )
+  {
+    /* create a OPSF_LSupdate object through 
+       RecycleManager.reproduce() to improve the performance
+       of simulator. For more details, refer to the RecycleManager 
+       class. 
+     */
+    /*OSPF_LSupdate h_ = (OSPF_LSupdate)drcl.RecycleManager.reproduce(OSPF_LSupdate.class);*/
+    setlsa(lsa);
+  }
+  
+  // create new LSAs for a recycle object
+  private void setlsa( int no )
+  {
+    if ( LSA_list == null) {
+      LSA_list = new Vector(no);
+    } else {
+      LSA_list.removeAllElements();
+      LSA_list = null;
+      LSA_list = new Vector(no);
+    }
+    lsupdate_num = 0;
+  }
 
-	private void setlsa( OSPF_LSA lsa )
-	{
-		if ( LSA_list == null) {
-			LSA_list = new Vector(1);
-		} else {
-			LSA_list.removeAllElements();
-		}
-		LSA_list.addElement(lsa);
-		lsupdate_num = 1;
-	}
-	
-	public void addlsa( OSPF_LSA lsa )
-	{
-		LSA_list.addElement(lsa);
-		lsupdate_num++ ;
-	}
+  private void setlsa( OSPF_LSA lsa )
+  {
+    if ( LSA_list == null) {
+      LSA_list = new Vector(1);
+    } else {
+      LSA_list.removeAllElements();
+    }
+    LSA_list.addElement(lsa);
+    lsupdate_num = 1;
+  }
+  
+  public void addlsa( OSPF_LSA lsa )
+  {
+    LSA_list.addElement(lsa);
+    lsupdate_num++ ;
+  }
 
-	public String toString()
-	{
-		return "#lsas:" + lsupdate_num + (lsupdate_num>0 && lsupdate_num<5? ",lsas:" + LSA_list: "");
-	}
+  public String toString()
+  {
+    return "#lsas:" + lsupdate_num + (lsupdate_num>0 && lsupdate_num<5? ",lsas:" + LSA_list: "");
+  }
 }

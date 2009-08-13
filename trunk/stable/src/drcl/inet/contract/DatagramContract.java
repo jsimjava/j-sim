@@ -55,147 +55,147 @@ layer to put in an appropriate address for the upper layer.
 */
 public class DatagramContract extends Contract
 {
-	public static final DatagramContract INSTANCE = new DatagramContract();
+  public static final DatagramContract INSTANCE = new DatagramContract();
 
-	public DatagramContract()
-	{ super(); }
-	
-	public DatagramContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Datagram Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	/**
-	 * Creates and returns a datagram forwarding request.
-	 * 
-	 * @param data_ the datagram.
-	 * @param src_ source.
-	 * @param dest_ destination.
-	 * @param destPort_ destination port number.
-	 * @param tos_ type of service.
-	 */
-	public static Message getForwardPack(
-					Object data_, int size_, long src_,
-					long dest_, int port_, long tos_)
-	{
-		return new Message(data_, size_, src_, dest_, port_, tos_);
-	}
+  public DatagramContract()
+  { super(); }
+  
+  public DatagramContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Datagram Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  /**
+   * Creates and returns a datagram forwarding request.
+   * 
+   * @param data_ the datagram.
+   * @param src_ source.
+   * @param dest_ destination.
+   * @param destPort_ destination port number.
+   * @param tos_ type of service.
+   */
+  public static Message getForwardPack(
+          Object data_, int size_, long src_,
+          long dest_, int port_, long tos_)
+  {
+    return new Message(data_, size_, src_, dest_, port_, tos_);
+  }
 
-	public static class Message extends drcl.comp.Message
-					implements PacketWrapper, Countable
-	{
-		Object pkt;
-		long src, dest, tos;
-		int port, pktsize;
-		
-		public Message ()
-		{}
+  public static class Message extends drcl.comp.Message
+          implements PacketWrapper, Countable
+  {
+    Object pkt;
+    long src, dest, tos;
+    int port, pktsize;
+    
+    public Message ()
+    {}
 
-		/**
-		 * Datagram sending contract between application and transport.
-		 * 
-		 * @param data_ the datagram.
-		 * @param src_ source.
-		 * @param dest_ destination.
-		 * @param destPort_ destination port number.
-		 * @param tos_ type of service.
-		 */
-		public Message (Object data_, int size_, long src_, long dest_,
-									  int port_, long tos_)
-		{
-			pkt = data_;
-			pktsize = size_;
-			src = src_;
-			dest = dest_;
-			port = port_;
-			tos = tos_;
-		}
+    /**
+     * Datagram sending contract between application and transport.
+     * 
+     * @param data_ the datagram.
+     * @param src_ source.
+     * @param dest_ destination.
+     * @param destPort_ destination port number.
+     * @param tos_ type of service.
+     */
+    public Message (Object data_, int size_, long src_, long dest_,
+                    int port_, long tos_)
+    {
+      pkt = data_;
+      pktsize = size_;
+      src = src_;
+      dest = dest_;
+      port = port_;
+      tos = tos_;
+    }
 
-		public void wraps(Packet pkt_)
-		{
-			pkt = pkt_;
-			pktsize = pkt_.getSize();
-		}
-		
-		/** Returns the "sequence" of the object. */
-		public int getNumberCount()
-		{
-			if (pkt instanceof Countable)
-				return ((Countable)pkt).getNumberCount();
-			else
-				return -1;
-		}
+    public void wraps(Packet pkt_)
+    {
+      pkt = pkt_;
+      pktsize = pkt_.getSize();
+    }
+    
+    /** Returns the "sequence" of the object. */
+    public int getNumberCount()
+    {
+      if (pkt instanceof Countable)
+        return ((Countable)pkt).getNumberCount();
+      else
+        return -1;
+    }
 
-		/** Returns the size "sequence" of the object. */
-		public long getSizeCount()
-		{
-			if (pkt instanceof Countable)
-				return ((Countable)pkt).getSizeCount();
-			else
-				return -1L;
-		}
+    /** Returns the size "sequence" of the object. */
+    public long getSizeCount()
+    {
+      if (pkt instanceof Countable)
+        return ((Countable)pkt).getSizeCount();
+      else
+        return -1L;
+    }
 
-		public Object getContent()
-		{ return pkt; }
-	
-		public int getSize()
-		{return pktsize; }
-	
-		public long getSource()
-		{ return src; }
-	
-		public void setSource(long src_)
-		{ src = src_; }
-	
-		public long getDestination()
-		{ return dest; }
-	
-		public long getTOS()
-		{ return tos; }
-	
-		public int getDestinationPort()
-		{ return port; }
-	
-		public int getSourcePort()
-		{ return port; }
+    public Object getContent()
+    { return pkt; }
+  
+    public int getSize()
+    {return pktsize; }
+  
+    public long getSource()
+    { return src; }
+  
+    public void setSource(long src_)
+    { src = src_; }
+  
+    public long getDestination()
+    { return dest; }
+  
+    public long getTOS()
+    { return tos; }
+  
+    public int getDestinationPort()
+    { return port; }
+  
+    public int getSourcePort()
+    { return port; }
 
-		public int getPort()
-		{ return port; }
+    public int getPort()
+    { return port; }
 
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			pkt = that_.pkt instanceof drcl.ObjectCloneable?
-				((drcl.ObjectCloneable)that_.pkt).clone(): that_.pkt;
-			pktsize = that_.pktsize;
-			src = that_.src;
-			dest = that_.dest;
-			port = that_.port;
-			tos = that_.tos;
-		}
-		*/
-	
-		public Object clone()
-		{
-			// the contract is between two components; dont clone pkt
-			return new Message(pkt, pktsize, src, dest, port, tos);
-		}
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      pkt = that_.pkt instanceof drcl.ObjectCloneable?
+        ((drcl.ObjectCloneable)that_.pkt).clone(): that_.pkt;
+      pktsize = that_.pktsize;
+      src = that_.src;
+      dest = that_.dest;
+      port = that_.port;
+      tos = that_.tos;
+    }
+    */
+  
+    public Object clone()
+    {
+      // the contract is between two components; dont clone pkt
+      return new Message(pkt, pktsize, src, dest, port, tos);
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			return "DATAGRAM" + separator_ + "src:" + src
-				+ separator_ + "dest:" + dest + separator_ + "port:" + port
-				+ separator_ + "tos:" + tos + separator_
-				+ "content:" + pktsize + ","
-				+ drcl.util.StringUtil.toString(pkt);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "DATAGRAM" + separator_ + "src:" + src
+        + separator_ + "dest:" + dest + separator_ + "port:" + port
+        + separator_ + "tos:" + tos + separator_
+        + "content:" + pktsize + ","
+        + drcl.util.StringUtil.toString(pkt);
+    }
+  }
 }

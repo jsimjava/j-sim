@@ -63,7 +63,7 @@ package drcl.util;
  */
 
 /*
- * @(#)MemoryMonitor.java	1.32 03/01/23
+ * @(#)MemoryMonitor.java  1.32 03/01/23
  */
 
 //package java2d;
@@ -88,18 +88,18 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
     //static JCheckBox dateStampCB = new JCheckBox("Output Date Stamp");
     public Surface surf;
     JPanel controls;
-	boolean controlHidden = true;
+  boolean controlHidden = true;
     JTextField tf;
-	JButton btnGC = new JButton("GC");
-	JToggleButton btnStop = new JToggleButton("Stop");
-	Runtime runtime = Runtime.getRuntime();
+  JButton btnGC = new JButton("GC");
+  JToggleButton btnStop = new JToggleButton("Stop");
+  Runtime runtime = Runtime.getRuntime();
 
     public MemoryMonitor() {
         setLayout(new BorderLayout());
         //setBorder(new TitledBorder(new EtchedBorder(), "Memory Monitor"));
         add(surf = new Surface());
         controls = new JPanel();
-		//add(BorderLayout.SOUTH, controls);
+    //add(BorderLayout.SOUTH, controls);
         //controls.setPreferredSize(new Dimension(135,80));
         Font font = new Font("serif", Font.PLAIN, 10);
         JLabel label = new JLabel("Sample Rate");
@@ -108,13 +108,13 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
         controls.add(label);
         tf = new JTextField("1000");
         tf.setPreferredSize(new Dimension(45,20));
-		tf.addActionListener(this);
+    tf.addActionListener(this);
         controls.add(tf);
         controls.add(label = new JLabel("ms"));
-		controls.add(btnGC);
-		controls.add(btnStop);
-		btnGC.addActionListener(this);
-		btnStop.addActionListener(this);
+    controls.add(btnGC);
+    controls.add(btnStop);
+    btnGC.addActionListener(this);
+    btnStop.addActionListener(this);
         label.setFont(font);
         label.setForeground(Color.black);
         //controls.add(dateStampCB);
@@ -123,49 +123,49 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
         surf.addMouseListener(this);
     }
 
-	public void actionPerformed(ActionEvent e)
-	{
-		Object o = e.getSource();
-		if (o == tf)
-			setUpdateInterval(Long.parseLong(tf.getText().trim()));
-		else if (o == btnGC)
-			runtime.gc();
-		else if (o == btnStop) {
-			if (btnStop.isSelected())
-				surf.stop();
-			else
-				surf.start();
-		}
-	}
+  public void actionPerformed(ActionEvent e)
+  {
+    Object o = e.getSource();
+    if (o == tf)
+      setUpdateInterval(Long.parseLong(tf.getText().trim()));
+    else if (o == btnGC)
+      runtime.gc();
+    else if (o == btnStop) {
+      if (btnStop.isSelected())
+        surf.stop();
+      else
+        surf.start();
+    }
+  }
 
-	public void setUpdateInterval(long intervalMS_)
-	{
-		tf.setText(intervalMS_+"");
-		surf.sleepAmount = intervalMS_;
-   	}
+  public void setUpdateInterval(long intervalMS_)
+  {
+    tf.setText(intervalMS_+"");
+    surf.sleepAmount = intervalMS_;
+     }
 
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
+  public void mouseEntered(MouseEvent e) {}
+  public void mouseExited(MouseEvent e) {}
+  public void mousePressed(MouseEvent e) {}
+  public void mouseReleased(MouseEvent e) {}
 
-	public void mouseClicked(MouseEvent e)
-   	{
-		//System.out.println(e);
-		int clickCount_ = e.getClickCount();
-		if (clickCount_ >= 2) {
-			controlHidden = !controlHidden;
-			//System.out.println("control " + (controlHidden? "hidden": "showing"));
-			if (controlHidden) {
-				remove(controls);
-			}
-			else {
-				add(BorderLayout.SOUTH, controls);
-			}
-		   	revalidate();
-			surf.repaint();
-		}
-	}
+  public void mouseClicked(MouseEvent e)
+     {
+    //System.out.println(e);
+    int clickCount_ = e.getClickCount();
+    if (clickCount_ >= 2) {
+      controlHidden = !controlHidden;
+      //System.out.println("control " + (controlHidden? "hidden": "showing"));
+      if (controlHidden) {
+        remove(controls);
+      }
+      else {
+        add(BorderLayout.SOUTH, controls);
+      }
+         revalidate();
+      surf.repaint();
+    }
+  }
 
     public class Surface extends JPanel implements Runnable, ComponentListener {
 
@@ -178,7 +178,7 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
         private Runtime r = Runtime.getRuntime();
         private int columnInc;
         private int pts[];
-		private float values[];
+    private float values[];
         private int ptNum;
         private int ascent, descent;
         private Rectangle graphOutlineRect = new Rectangle();
@@ -188,37 +188,37 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
         private Color graphColor = new Color(46, 139, 87);
         private Color mfColor = new Color(0, 100, 0);
         private String usedStr;
-		private boolean updatePts = false;
+    private boolean updatePts = false;
       
 
         public Surface() {
-			super();
+      super();
             setBackground(Color.black);
-			addComponentListener(this);
+      addComponentListener(this);
         }
 
         public Dimension getMinimumSize() {
             return getPreferredSize();
         }
 
-		/*
+    /*
         public Dimension getMaximumSize() {
             return getPreferredSize();
         }
-		*/
+    */
 
         public Dimension getPreferredSize() {
             return new Dimension(controls.getPreferredSize().width,135);
         }
 
-		float totalMemoryPrev = 0.0f;
+    float totalMemoryPrev = 0.0f;
             
         public synchronized void paintComponent(Graphics g)
-	   	{
+       {
             //if (big == null) {
             //    return;
             //}
-			big = (Graphics2D)g;
+      big = (Graphics2D)g;
                     FontMetrics fm = big.getFontMetrics(font);
                     ascent = (int) fm.getAscent();
                     descent = (int) fm.getDescent();
@@ -227,9 +227,9 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
             big.clearRect(0,0,w,h);
 
             float totalMemory = (float) r.totalMemory();
-			float freeMemory = (float)r.freeMemory();
+      float freeMemory = (float)r.freeMemory();
             float usedMemory = (float) totalMemory - freeMemory;
-			if (totalMemoryPrev != totalMemory) updatePts = true;
+      if (totalMemoryPrev != totalMemory) updatePts = true;
 
             // .. Draw allocated and used strings ..
             big.setColor(Color.green);
@@ -269,12 +269,12 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
             int graphY = (int) ssH;
             int graphW = w - graphX - 5;
             int graphH = (int) remainingHeight;
-			if (graphW <= 0 || graphH <= 0) {
-				System.out.println("size = " + getSize());
-				System.out.println("w = " + w + ", h = " + h);
-				System.out.println("graphW = " + graphW + ", graphH = " + graphH);
-				return;
-			}
+      if (graphW <= 0 || graphH <= 0) {
+        System.out.println("size = " + getSize());
+        System.out.println("w = " + w + ", h = " + h);
+        System.out.println("graphW = " + graphW + ", graphH = " + graphH);
+        return;
+      }
             graphOutlineRect.setRect(graphX, graphY, graphW, graphH);
             big.draw(graphOutlineRect);
 
@@ -289,12 +289,12 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
             // .. Draw animated column movement ..
             int graphColumn = graphW/15;
 
-			if (animating()) {
+      if (animating()) {
             if (columnInc == 0) {
                 columnInc = graphColumn;
             }
             --columnInc;
-			}
+      }
 
             for (int j = graphX+columnInc; j < graphW+graphX; j+=graphColumn) {
                 graphLine.setLine(j,graphY,j,graphY+graphH);
@@ -307,7 +307,7 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
                 ptNum = 0;
             } else if (pts.length != graphW) {
                 int tmp[] = null;
-				float tmpf[] = null;
+        float tmpf[] = null;
                 if (ptNum < graphW) {     
                     tmp = new int[ptNum];
                     System.arraycopy(pts, 0, tmp, 0, ptNum);
@@ -325,48 +325,48 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
                 values = new float[graphW];
                 System.arraycopy(tmpf, 0, values, 0, tmpf.length);
             } else {
-				if (ptNum > values.length) {
-					System.out.println("size = " + getSize());
-					System.out.println("w = " + w + ", h = " + h);
-					System.out.println("graphW = " + graphW + ", graphH = " + graphH);
-					System.out.println("ptNum = " + ptNum);
-					return;
-				}
+        if (ptNum > values.length) {
+          System.out.println("size = " + getSize());
+          System.out.println("w = " + w + ", h = " + h);
+          System.out.println("graphW = " + graphW + ", graphH = " + graphH);
+          System.out.println("ptNum = " + ptNum);
+          return;
+        }
                 big.setColor(Color.yellow);
-				if (animating()) {
-                	if (ptNum == graphW) {
-						ptNum--;
-					   	// throw out oldest point
-						for (int j = 0;j < ptNum; j++) {
-							pts[j] = pts[j+1];
-						   	values[j] = values[j+1];
-					   	}
-                	}
-                	values[ptNum] = usedMemory;
-                	pts[ptNum] = (int)(graphY+graphH
-									*(totalMemory-values[ptNum])/totalMemory);
+        if (animating()) {
+                  if (ptNum == graphW) {
+            ptNum--;
+               // throw out oldest point
+            for (int j = 0;j < ptNum; j++) {
+              pts[j] = pts[j+1];
+                 values[j] = values[j+1];
+               }
+                  }
+                  values[ptNum] = usedMemory;
+                  pts[ptNum] = (int)(graphY+graphH
+                  *(totalMemory-values[ptNum])/totalMemory);
                     ptNum++;
                 }
-			}
+      }
 
-			if (updatePts) { // due to resize
-				for (int k=0; k<ptNum; k++)
-               		pts[k] = (int)(graphY+graphH
-									*(totalMemory-values[k])/totalMemory);
-				updatePts = false;
-			} 
-			
-			for (int j=graphX+graphW-ptNum+1, k=1;k < ptNum; k++, j++) {
-				//if (pts[k] != pts[k-1]) {
-					big.drawLine(j-1, pts[k-1], j, pts[k]);
-			   	//} else {
-				//	big.fillRect(j, pts[k], 1, 1);
-			   	//}
-		   	}
+      if (updatePts) { // due to resize
+        for (int k=0; k<ptNum; k++)
+                   pts[k] = (int)(graphY+graphH
+                  *(totalMemory-values[k])/totalMemory);
+        updatePts = false;
+      } 
+      
+      for (int j=graphX+graphW-ptNum+1, k=1;k < ptNum; k++, j++) {
+        //if (pts[k] != pts[k-1]) {
+          big.drawLine(j-1, pts[k-1], j, pts[k]);
+           //} else {
+        //  big.fillRect(j, pts[k], 1, 1);
+           //}
+         }
         }
 
-		boolean animating()
-		{ return thread != null; }
+    boolean animating()
+    { return thread != null; }
 
         public void start() {
             thread = new Thread(this);
@@ -393,7 +393,7 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
             }
     
             while (thread == me && isShowing()) {
-					/*
+          /*
                 Dimension d = getSize();
                 if (d.width != w || d.height != h) {
                     w = d.width;
@@ -405,7 +405,7 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
                     ascent = (int) fm.getAscent();
                     descent = (int) fm.getDescent();
                 }
-				*/
+        */
                 repaint();
                 try {
                     thread.sleep(sleepAmount);
@@ -417,38 +417,38 @@ public class MemoryMonitor extends JPanel implements ActionListener, MouseListen
             thread = null;
         }
 
-		public void componentHidden(ComponentEvent e) {}
-		public void componentMoved(ComponentEvent e) {}
-		public void componentShown(ComponentEvent e) {}
+    public void componentHidden(ComponentEvent e) {}
+    public void componentMoved(ComponentEvent e) {}
+    public void componentShown(ComponentEvent e) {}
 
-		public synchronized void componentResized(ComponentEvent e)
-		{
-			Dimension d = getSize();
-		   	if (d.width == w && d.height == h) return;
-			if (d.height != h) updatePts = true;
-			w = d.width; h = d.height;
-			repaint();
-		}
+    public synchronized void componentResized(ComponentEvent e)
+    {
+      Dimension d = getSize();
+         if (d.width == w && d.height == h) return;
+      if (d.height != h) updatePts = true;
+      w = d.width; h = d.height;
+      repaint();
+    }
     }
 
 
     public static void main(String s[]) {
-		run(500);
-	}
+    run(500);
+  }
 
-	public static void run()
-	{ run(1000); }
+  public static void run()
+  { run(1000); }
 
-	public static void run(long sleepAmount)
-	{
+  public static void run(long sleepAmount)
+  {
         final MemoryMonitor mm = new MemoryMonitor();
-		mm.setUpdateInterval(sleepAmount);
+    mm.setUpdateInterval(sleepAmount);
         WindowListener l = new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-				//System.exit(0);
-				JFrame f = (JFrame)e.getSource();
-				f.dispose();
-			}
+        //System.exit(0);
+        JFrame f = (JFrame)e.getSource();
+        f.dispose();
+      }
             public void windowDeiconified(WindowEvent e) { mm.surf.start(); }
             public void windowIconified(WindowEvent e) { mm.surf.stop(); }
         };

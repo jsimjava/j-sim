@@ -43,25 +43,25 @@ import drcl.util.StringUtil;
  */ 
 public class LLMacContract extends Contract
 {
-	public static final LLMacContract INSTANCE = new LLMacContract();
+  public static final LLMacContract INSTANCE = new LLMacContract();
 
     /**
      * Constructor.
      */
-	public LLMacContract()
-	{ super(); }
-	
+  public LLMacContract()
+  { super(); }
+  
     /**
      * Constructor.
      */
-	public LLMacContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "LL Mac Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
+  public LLMacContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "LL Mac Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
     
     /**
      * Creates a LLPacket.

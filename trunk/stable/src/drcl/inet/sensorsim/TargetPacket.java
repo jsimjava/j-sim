@@ -35,19 +35,19 @@ package drcl.inet.sensorsim;
 */
 public class TargetPacket extends Object
 {
-	/** size of the data array */
-	int size ;
+  /** size of the data array */
+  int size ;
 
-	/** data array */
-	double data [] ;
+  /** data array */
+  double data [] ;
 
-	TargetPacket(int size_, double [] data_)
-	{
-		size = size_ ;
-		data = new double [size] ;
-		for ( int i = 0 ; i < size ; i++)
-		{
-			data[i] = data_[i] ;
-		}
-	}
+  TargetPacket(int size_, double [] data_)
+  {
+    size = size_ ;
+    data = new double [size] ;
+    for ( int i = 0 ; i < size ; i++)
+    {
+      data[i] = data_[i] ;
+    }
+  }
 }

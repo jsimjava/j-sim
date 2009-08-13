@@ -47,76 +47,76 @@ package drcl.net.traffic;
  */
 public class traffic_PeakRate extends TrafficModel implements TrafficPeriodic
 {
-	public int maxPktSize;
-	public int minPktSize;
-	public double maxIntArrivalTime;
-	public double minIntArrivalTime;
-	
-	public traffic_PeakRate()
-	{}
+  public int maxPktSize;
+  public int minPktSize;
+  public double maxIntArrivalTime;
+  public double minIntArrivalTime;
+  
+  public traffic_PeakRate()
+  {}
 
-	public traffic_PeakRate(int min_, int max_, double miniat_, double maxiat_)
-	{ set(min_, max_, miniat_, maxiat_); }
-		
-	public void set(int min_, int max_, double miniat_, double maxiat_)
-	{
-		minPktSize = min_;
-		maxPktSize = max_;
-		minIntArrivalTime = miniat_;
-		maxIntArrivalTime = maxiat_;
-	}
-		
-	public double getPeriod() 
-	{ return (maxIntArrivalTime + minIntArrivalTime) / 2.0; }
-	
-	public double getLoad() 
-	{ return ((maxPktSize + minPktSize) << 3) / (maxIntArrivalTime
-						+ minIntArrivalTime); }
-	
-	public int getBurst() { return maxPktSize; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_PeakRate)) return null;
-		traffic_PeakRate thatTraffic_ = (traffic_PeakRate) that_;
-		if (maxPktSize < thatTraffic_.maxPktSize)	maxPktSize = thatTraffic_.maxPktSize;
-		if (minPktSize > thatTraffic_.minPktSize)	minPktSize = thatTraffic_.minPktSize;
-		if (maxIntArrivalTime < thatTraffic_.maxIntArrivalTime)	maxIntArrivalTime = thatTraffic_.maxIntArrivalTime;
-		if (minIntArrivalTime > thatTraffic_.minIntArrivalTime)	minIntArrivalTime = thatTraffic_.minIntArrivalTime;
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		traffic_PeakRate that_ = (traffic_PeakRate) source_;
-		maxPktSize = that_.maxPktSize;
-		minPktSize = that_.minPktSize;
-		maxIntArrivalTime = that_.maxIntArrivalTime;
-		minIntArrivalTime = that_.minIntArrivalTime;
-	}
-		
-	public String oneline()
-	{
-		return	getClass().getName() + ":packetSize=" + minPktSize
-			+ "-" + maxPktSize + ", interArrivalTime=" + minIntArrivalTime
-			+ "-" + maxIntArrivalTime;
-	}
-	
-	//
-	private void ___PROPERTY___() {}
-	//
-	
-	public void setMaxPktSize(int size_) { maxPktSize = size_; }
-	public int getMaxPktSize() { return maxPktSize; }
-	
-	public void setMinPktSize(int size_) { minPktSize = size_; }
-	public int getMinPktSize() { return minPktSize; }
-	
-	public void setMaxIntArrivalTime(double time_) {maxIntArrivalTime = time_; }
-	public double getMaxIntArrivalTime() { return maxIntArrivalTime; }
-	
-	public void setMinIntArrivalTime(double time_) { minIntArrivalTime = time_; }
-	public double getMinIntArrivalTime() { return minIntArrivalTime; }
-	
-	public int getMTU() { return maxPktSize; }
+  public traffic_PeakRate(int min_, int max_, double miniat_, double maxiat_)
+  { set(min_, max_, miniat_, maxiat_); }
+    
+  public void set(int min_, int max_, double miniat_, double maxiat_)
+  {
+    minPktSize = min_;
+    maxPktSize = max_;
+    minIntArrivalTime = miniat_;
+    maxIntArrivalTime = maxiat_;
+  }
+    
+  public double getPeriod() 
+  { return (maxIntArrivalTime + minIntArrivalTime) / 2.0; }
+  
+  public double getLoad() 
+  { return ((maxPktSize + minPktSize) << 3) / (maxIntArrivalTime
+            + minIntArrivalTime); }
+  
+  public int getBurst() { return maxPktSize; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_PeakRate)) return null;
+    traffic_PeakRate thatTraffic_ = (traffic_PeakRate) that_;
+    if (maxPktSize < thatTraffic_.maxPktSize)  maxPktSize = thatTraffic_.maxPktSize;
+    if (minPktSize > thatTraffic_.minPktSize)  minPktSize = thatTraffic_.minPktSize;
+    if (maxIntArrivalTime < thatTraffic_.maxIntArrivalTime)  maxIntArrivalTime = thatTraffic_.maxIntArrivalTime;
+    if (minIntArrivalTime > thatTraffic_.minIntArrivalTime)  minIntArrivalTime = thatTraffic_.minIntArrivalTime;
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    traffic_PeakRate that_ = (traffic_PeakRate) source_;
+    maxPktSize = that_.maxPktSize;
+    minPktSize = that_.minPktSize;
+    maxIntArrivalTime = that_.maxIntArrivalTime;
+    minIntArrivalTime = that_.minIntArrivalTime;
+  }
+    
+  public String oneline()
+  {
+    return  getClass().getName() + ":packetSize=" + minPktSize
+      + "-" + maxPktSize + ", interArrivalTime=" + minIntArrivalTime
+      + "-" + maxIntArrivalTime;
+  }
+  
+  //
+  private void ___PROPERTY___() {}
+  //
+  
+  public void setMaxPktSize(int size_) { maxPktSize = size_; }
+  public int getMaxPktSize() { return maxPktSize; }
+  
+  public void setMinPktSize(int size_) { minPktSize = size_; }
+  public int getMinPktSize() { return minPktSize; }
+  
+  public void setMaxIntArrivalTime(double time_) {maxIntArrivalTime = time_; }
+  public double getMaxIntArrivalTime() { return maxIntArrivalTime; }
+  
+  public void setMinIntArrivalTime(double time_) { minIntArrivalTime = time_; }
+  public double getMinIntArrivalTime() { return minIntArrivalTime; }
+  
+  public int getMTU() { return maxPktSize; }
 }

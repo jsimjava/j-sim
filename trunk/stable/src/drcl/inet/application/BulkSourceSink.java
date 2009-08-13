@@ -37,87 +37,87 @@ has sufficient buffers.  This component does not receive bytes.
 @see drcl.comp.lib.bytestream.ByteStreamContract
 */
 public class BulkSourceSink extends Component 
-	implements ActiveComponent, ByteStreamConstants
+  implements ActiveComponent, ByteStreamConstants
 {
-	Port downPort = addPort("down", false);
+  Port downPort = addPort("down", false);
 
-	int dataUnit = 512;
-	long progress, rcvprogress;
+  int dataUnit = 512;
+  long progress, rcvprogress;
 
-	public BulkSourceSink ()
-	{ super(); }
+  public BulkSourceSink ()
+  { super(); }
 
-	public BulkSourceSink (String id_)
-	{ super(id_); }
+  public BulkSourceSink (String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		progress = rcvprogress = 0;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		dataUnit = ((BulkSourceSink)source_).dataUnit;
-	}
-	
-	/**
-	 * The source sends a byte array of size <code>dataUnit_</code> indefinitely.
-	 * @param dataUnit_ size of the byte array; default is 512.
-	 */
-	public void setDataUnit(int dataUnit_)
-	{ dataUnit = dataUnit_; }
+  public void reset()
+  {
+    super.reset();
+    progress = rcvprogress = 0;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    dataUnit = ((BulkSourceSink)source_).dataUnit;
+  }
+  
+  /**
+   * The source sends a byte array of size <code>dataUnit_</code> indefinitely.
+   * @param dataUnit_ size of the byte array; default is 512.
+   */
+  public void setDataUnit(int dataUnit_)
+  { dataUnit = dataUnit_; }
 
-	public int getDataUnit()
-	{ return dataUnit; }
-	
-	protected void _start()
-	{
-		progress = rcvprogress = 0;
-		downPort.doLastSending(new ByteStreamContract.Message(QUERY));
-	}
+  public int getDataUnit()
+  { return dataUnit; }
+  
+  protected void _start()
+  {
+    progress = rcvprogress = 0;
+    downPort.doLastSending(new ByteStreamContract.Message(QUERY));
+  }
 
-	protected void _resume()
-	{
-		downPort.doLastSending(new ByteStreamContract.Message(QUERY));
-	}
-	
-	public String info()
-	{
-		return "Snd Progress: " + (progress/dataUnit) + "/" + progress + "\n"
-			+ "Rcv Progress: " + (rcvprogress/dataUnit) + "/" + rcvprogress + "\n";
-	}
+  protected void _resume()
+  {
+    downPort.doLastSending(new ByteStreamContract.Message(QUERY));
+  }
+  
+  public String info()
+  {
+    return "Snd Progress: " + (progress/dataUnit) + "/" + progress + "\n"
+      + "Rcv Progress: " + (rcvprogress/dataUnit) + "/" + rcvprogress + "\n";
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		int len_ = 0;
-		if (data_ instanceof Integer)
-			len_ = ((Integer)data_).intValue();
-		else if (data_ instanceof ByteStreamContract.Message) {
-			ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
-			if (msg_.isReport())
-				len_ = msg_.getLength();
-			else {
-				// receiving
-				if (msg_.isQuery())
-					inPort_.doLastSending(new Integer(dataUnit));
-				else if (msg_.isSend()) {
-					rcvprogress += msg_.getLength();
-					inPort_.doLastSending(new Integer(dataUnit));
-				}
-				return;
-			}
-		}
+  protected void process(Object data_, Port inPort_)
+  {
+    int len_ = 0;
+    if (data_ instanceof Integer)
+      len_ = ((Integer)data_).intValue();
+    else if (data_ instanceof ByteStreamContract.Message) {
+      ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
+      if (msg_.isReport())
+        len_ = msg_.getLength();
+      else {
+        // receiving
+        if (msg_.isQuery())
+          inPort_.doLastSending(new Integer(dataUnit));
+        else if (msg_.isSend()) {
+          rcvprogress += msg_.getLength();
+          inPort_.doLastSending(new Integer(dataUnit));
+        }
+        return;
+      }
+    }
 
-		// sending
-		if (isStopped()) return;
+    // sending
+    if (isStopped()) return;
 
-		if (len_ > 0) {
-			progress += len_;
-			downPort.doLastSending(new ByteStreamContract.Message(SEND, null, 0, len_));
-		}
-		else if (len_ < 0) // peer's buffer is shrinked compared to last report
-			progress += len_;
-	}
+    if (len_ > 0) {
+      progress += len_;
+      downPort.doLastSending(new ByteStreamContract.Message(SEND, null, 0, len_));
+    }
+    else if (len_ < 0) // peer's buffer is shrinked compared to last report
+      progress += len_;
+  }
 }

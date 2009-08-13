@@ -49,7 +49,7 @@ the <code>pktcount@</code> port.
 <p>The first exported event is in the following format (<code>drcl.comp.contract.EventMsg</code>):
 <ul>
 <li> Event name: "Throughput" ("byte" mode, see {@link #BYTE_COUNT_EVENT}) or
-		"Throughput (packet count)" ("packet" mode, see {@link #PKT_COUNT_EVENT}).
+    "Throughput (packet count)" ("packet" mode, see {@link #PKT_COUNT_EVENT}).
 <li> Event object: the calculated throughput in <code>Double</code>.
 <li> Event description: <code>null</code>.
 </ul>
@@ -57,24 +57,24 @@ while the subsequent events are in <code>Double</code>.
  */
 public class TrafficMonitor extends CountMonitor
 {
-	/** ID of the port to export the packet-mode events.*/
-	public static final String PKT_COUNT_PORT_ID = "pktcount";
-	/** ID of the port to export the byte-mode events.*/
-	public static final String BYTE_COUNT_PORT_ID = "bytecount";
-	/** Name of the packet-mode events.*/
-	public static final String PKT_COUNT_EVENT = "Throughput (packet count)";
-	/** Name of the byte-mode events.*/
-	public static final String BYTE_COUNT_EVENT = "Throughput";
-	
-	{
-		setEventNames(PKT_COUNT_EVENT, BYTE_COUNT_EVENT);
-		objcountPort.setID(PKT_COUNT_PORT_ID);
-		sizecountPort.setID(BYTE_COUNT_PORT_ID);
-	}
-	
-	public TrafficMonitor() 
-	{ super(); }
-	
-	public TrafficMonitor(String id_)
-	{ super(id_); }
+  /** ID of the port to export the packet-mode events.*/
+  public static final String PKT_COUNT_PORT_ID = "pktcount";
+  /** ID of the port to export the byte-mode events.*/
+  public static final String BYTE_COUNT_PORT_ID = "bytecount";
+  /** Name of the packet-mode events.*/
+  public static final String PKT_COUNT_EVENT = "Throughput (packet count)";
+  /** Name of the byte-mode events.*/
+  public static final String BYTE_COUNT_EVENT = "Throughput";
+  
+  {
+    setEventNames(PKT_COUNT_EVENT, BYTE_COUNT_EVENT);
+    objcountPort.setID(PKT_COUNT_PORT_ID);
+    sizecountPort.setID(BYTE_COUNT_PORT_ID);
+  }
+  
+  public TrafficMonitor() 
+  { super(); }
+  
+  public TrafficMonitor(String id_)
+  { super(id_); }
 }

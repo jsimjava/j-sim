@@ -48,74 +48,74 @@ package drcl.net.traffic;
  */
 public class traffic_OnOff extends TrafficModel implements TrafficPeriodic
 {
-	public int packetSize;
-	public int rate;       // avg sending rate
-	public double OnTime;  // average length of ON time [sec]
-	public double OffTime; // average length of OFF time [sec]
-	
-	public traffic_OnOff()
-	{}
+  public int packetSize;
+  public int rate;       // avg sending rate
+  public double OnTime;  // average length of ON time [sec]
+  public double OffTime; // average length of OFF time [sec]
+  
+  public traffic_OnOff()
+  {}
 
-	public traffic_OnOff(int mtu_, int rate_, double ontime_, double offtime_)
-	{ set(mtu_, rate_, ontime_, offtime_); }
+  public traffic_OnOff(int mtu_, int rate_, double ontime_, double offtime_)
+  { set(mtu_, rate_, ontime_, offtime_); }
 
-	public void set(int mtu_, int rate_, double ontime_, double offtime_)
-	{
-		packetSize = mtu_;
-		rate = rate_;
-		OnTime = ontime_;
-		OffTime = offtime_;		
-	}
-	
-	public double getPeriod() 
-	{ return OnTime + OffTime; }
-	
-	public double getLoad() { return rate; }
-	
-	public int getBurst() { return (int)Math.ceil(rate * (OnTime + OffTime)); }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_OnOff)) return null;
-		traffic_OnOff thatTraffic_ = (traffic_OnOff) that_;
-		packetSize = Math.max(packetSize, thatTraffic_.packetSize);
-		if (thatTraffic_.rate > rate) rate = thatTraffic_.rate;
-		OnTime = Math.min(OnTime, thatTraffic_.OnTime);
-		OffTime = Math.min(OffTime, thatTraffic_.OffTime);	
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_OnOff)) return;
-		traffic_OnOff that_ = (traffic_OnOff) source_;
-		packetSize = that_.packetSize;
-		rate = that_.rate;
-		OnTime = that_.OnTime;
-		OffTime = that_.OffTime;
-	}
-		
-	public String oneline()
-	{
-		return getClass().getName() + ":packetSize=" + packetSize + ", rate="
-			+ rate + ", OnTime=" + OnTime + ", OffTime=" + OffTime;
-	}
-	
-	//
-	private void ___PROPERTY___() {}
-	//	
-	
-	public void setPacketSize(int size_) { packetSize = size_; }
-	public int getPacketSize() { return packetSize; }
-	
-	public void setAvgRate(int rate_) {rate = rate_; }
-	public int getAvgRate() { return rate; }
-	
-	public void setOnTime(double ontime_) {OnTime = ontime_; }
-	public double getOnTime() { return OnTime; }
-	
-	public void setOffTime(double offtime_) {OffTime = offtime_; }
-	public double getOffTime() { return OffTime; }
+  public void set(int mtu_, int rate_, double ontime_, double offtime_)
+  {
+    packetSize = mtu_;
+    rate = rate_;
+    OnTime = ontime_;
+    OffTime = offtime_;    
+  }
+  
+  public double getPeriod() 
+  { return OnTime + OffTime; }
+  
+  public double getLoad() { return rate; }
+  
+  public int getBurst() { return (int)Math.ceil(rate * (OnTime + OffTime)); }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_OnOff)) return null;
+    traffic_OnOff thatTraffic_ = (traffic_OnOff) that_;
+    packetSize = Math.max(packetSize, thatTraffic_.packetSize);
+    if (thatTraffic_.rate > rate) rate = thatTraffic_.rate;
+    OnTime = Math.min(OnTime, thatTraffic_.OnTime);
+    OffTime = Math.min(OffTime, thatTraffic_.OffTime);  
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_OnOff)) return;
+    traffic_OnOff that_ = (traffic_OnOff) source_;
+    packetSize = that_.packetSize;
+    rate = that_.rate;
+    OnTime = that_.OnTime;
+    OffTime = that_.OffTime;
+  }
+    
+  public String oneline()
+  {
+    return getClass().getName() + ":packetSize=" + packetSize + ", rate="
+      + rate + ", OnTime=" + OnTime + ", OffTime=" + OffTime;
+  }
+  
+  //
+  private void ___PROPERTY___() {}
+  //  
+  
+  public void setPacketSize(int size_) { packetSize = size_; }
+  public int getPacketSize() { return packetSize; }
+  
+  public void setAvgRate(int rate_) {rate = rate_; }
+  public int getAvgRate() { return rate; }
+  
+  public void setOnTime(double ontime_) {OnTime = ontime_; }
+  public double getOnTime() { return OnTime; }
+  
+  public void setOffTime(double offtime_) {OffTime = offtime_; }
+  public double getOffTime() { return OffTime; }
 
-	public int getMTU() { return packetSize; }
+  public int getMTU() { return packetSize; }
 }

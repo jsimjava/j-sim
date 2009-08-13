@@ -31,12 +31,12 @@ package drcl.data;
 /** Interface for couting objects in an "object stream". */
 public interface Countable
 {
-	/** Returns the "size" of the object. */
-	public int getSize();
+  /** Returns the "size" of the object. */
+  public int getSize();
 
-	/** Returns the "sequence" of the object. */
-	public int getNumberCount();
+  /** Returns the "sequence" of the object. */
+  public int getNumberCount();
 
-	/** Returns the size "sequence" of the object. */
-	public long getSizeCount();
+  /** Returns the size "sequence" of the object. */
+  public long getSizeCount();
 }

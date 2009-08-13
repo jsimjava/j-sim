@@ -34,6 +34,6 @@ This interface extends <code>Cloneable</code> by making
  */
 public interface ObjectCloneable extends java.lang.Cloneable
 {
-	/** Returns a clone of this object. */
-	public Object clone();
+  /** Returns a clone of this object. */
+  public Object clone();
 }

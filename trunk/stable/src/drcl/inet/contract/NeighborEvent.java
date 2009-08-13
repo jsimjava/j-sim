@@ -49,61 +49,61 @@ The event object is a message consisting of
 */
 public class NeighborEvent extends Contract
 {
-	public static final NeighborEvent INSTANCE = new NeighborEvent();
+  public static final NeighborEvent INSTANCE = new NeighborEvent();
 
-	public NeighborEvent()
-	{ super(); }
-	
-	public NeighborEvent(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "NeighborEvent Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	public static class Message extends drcl.comp.Message
-	{
-		int ifindex;
-		NetAddress neighbor;
-		
-		public Message ()
-		{}
+  public NeighborEvent()
+  { super(); }
+  
+  public NeighborEvent(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "NeighborEvent Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  public static class Message extends drcl.comp.Message
+  {
+    int ifindex;
+    NetAddress neighbor;
+    
+    public Message ()
+    {}
 
-		public Message (int ifindex_, NetAddress neighbor_)
-		{
-			ifindex = ifindex_;
-			neighbor = neighbor_;
-		}
-		
-		/** Returns the interface index in the event object. */
-		public int getIfIndex()
-		{ return ifindex; }
-	
-		/** Returns the neighbor address in the event struct. */
-		public NetAddress getNeighbor()
-		{ return neighbor; }
-	
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			ifindex = that_.ifindex;
-			neighbor = that_.neighbor == null?
-				null: (NetAddress)that_.neighbor.clone();
-		}
-		*/
-	
-		public Object clone()
-		{
-			return new Message(ifindex, neighbor);
-		}
+    public Message (int ifindex_, NetAddress neighbor_)
+    {
+      ifindex = ifindex_;
+      neighbor = neighbor_;
+    }
+    
+    /** Returns the interface index in the event object. */
+    public int getIfIndex()
+    { return ifindex; }
+  
+    /** Returns the neighbor address in the event struct. */
+    public NetAddress getNeighbor()
+    { return neighbor; }
+  
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      ifindex = that_.ifindex;
+      neighbor = that_.neighbor == null?
+        null: (NetAddress)that_.neighbor.clone();
+    }
+    */
+  
+    public Object clone()
+    {
+      return new Message(ifindex, neighbor);
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{ return "NEIGHBOR:" + neighbor + separator_ + "if:" + ifindex; }
-	}
+    public String toString(String separator_)
+    { return "NEIGHBOR:" + neighbor + separator_ + "if:" + ifindex; }
+  }
 }

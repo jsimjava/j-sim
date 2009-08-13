@@ -34,15 +34,15 @@ package drcl.ruv;
  */
 class DummyTerm extends Term
 {
-	public DummyTerm()
-	{ super(); }
+  public DummyTerm()
+  { super(); }
 
-	public DummyTerm(String id_)
-	{ super(id_); }
+  public DummyTerm(String id_)
+  { super(id_); }
 
-	protected void _write(String msg_) {}
-	public void show(){}
-	public void hide(){}
-	public boolean isFocused() { return true; }
-	protected void setCommand(String newCmd_, int pos_){}
+  protected void _write(String msg_) {}
+  public void show(){}
+  public void hide(){}
+  public boolean isFocused() { return true; }
+  protected void setCommand(String newCmd_, int pos_){}
 }

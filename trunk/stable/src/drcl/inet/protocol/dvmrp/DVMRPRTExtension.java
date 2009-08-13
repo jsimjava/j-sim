@@ -35,108 +35,108 @@ Specifically, it keeps the interfaces and the addresses of the downstream depend
 the metric of the routing entry, and the "changed" flag. */
 public class DVMRPRTExtension extends drcl.DrclObj
 {
-	boolean changed = false;
-	int metric = 0;
-	drcl.data.BitSet dependentIfs;
-	long[] dependents;
-	
-	public DVMRPRTExtension ()
-	{}
+  boolean changed = false;
+  int metric = 0;
+  drcl.data.BitSet dependentIfs;
+  long[] dependents;
+  
+  public DVMRPRTExtension ()
+  {}
 
-	public DVMRPRTExtension (int metric_)
-	{
-		metric = metric_;
-	}
-	
-	public DVMRPRTExtension (int metric_, drcl.data.BitSet dependentIfs_,
-									  long[] dependents_, boolean changed_)
-	{
-		metric = metric_;
-		dependentIfs = dependentIfs_;
-		dependents = dependents_;
-		changed = changed_;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		metric = ((DVMRPRTExtension)source_).metric;
-		changed = ((DVMRPRTExtension)source_).changed;
-		dependentIfs = ((DVMRPRTExtension)source_).dependentIfs;
-		dependents = ((DVMRPRTExtension)source_).dependents;
-	}
-	
-	// when upstream changes
-	public void resetDependents(drcl.data.BitSet dependentIfs_)
-	{
-		dependentIfs = dependentIfs_;
-		resetDependents();
-	}
-	
-	// when upstream changes
-	public void resetDependents()
-	{
-		dependentIfs.clear();
-		dependents = new long[dependentIfs.getSize()];
-		for (int j=0; j<dependents.length; j++)
-			dependents[j] = Address.NULL_ADDR;
-	}
-	
-	/**
-	 * @return a valid (>=0) interface index if <code>target_</code> is one of the dependents
-	 */
-	public int getDependentIndex(long target_)
-	{
-		if (dependents == null) return -1;
-		for (int i=0; i<dependents.length; i++)
-			if (dependents[i] == target_) return i;
-		return -1;
-	}
-	
-	public void setDependent(int index_, long dependent_)
-	{
-		// let ArrayOutOfBound exception take place
-		if (dependent_ == Address.NULL_ADDR) {
-			dependentIfs.clear(index_);
-		}
-		else {
-			dependentIfs.set(index_);
-		}
-		if (index_ >= dependents.length) {
-			long[] tmp_ = new long[index_ + 1];
-			System.arraycopy(dependents, 0, tmp_, 0, dependents.length);
-			for (int i=dependents.length; i<tmp_.length; i++)
-				tmp_[i] = Address.NULL_ADDR;
-			dependents = tmp_;
-		}
-		dependents[index_] = dependent_;
-	}
-	
-	public String toString()
-	{
-		String sMetric_ = metric == DVMRP.INFINITY? 
-						  "INF": 
-						  (metric > DVMRP.INFINITY? 
-						   "INF+" + (metric-DVMRP.INFINITY): String.valueOf(metric));
-		StringBuffer sb_ = new StringBuffer("metric:" + sMetric_
-											+ (changed? "(changed)": "")
-											+ "--dependents:");
-		if (dependentIfs != null) {
-			int[] indices_ = dependentIfs.getSetBitIndices();
-			if (indices_.length > 0) {
-				sb_.append("(" + dependents[indices_[0]]);
-				for (int i=1; i<indices_.length; i++)
-					sb_.append("," + dependents[indices_[i]]);
-				sb_.append(")");
-				sb_.append("{" + dependentIfs + "}");
-			}
-			else
-				sb_.append("(){}");
-		}
-		else
-			sb_.append("(){}");
-		return sb_.toString();
-	}
-	
-	public static String getTitle()
-	{ return "metric--dependents(dependent_ifs)"; }
+  public DVMRPRTExtension (int metric_)
+  {
+    metric = metric_;
+  }
+  
+  public DVMRPRTExtension (int metric_, drcl.data.BitSet dependentIfs_,
+                    long[] dependents_, boolean changed_)
+  {
+    metric = metric_;
+    dependentIfs = dependentIfs_;
+    dependents = dependents_;
+    changed = changed_;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    metric = ((DVMRPRTExtension)source_).metric;
+    changed = ((DVMRPRTExtension)source_).changed;
+    dependentIfs = ((DVMRPRTExtension)source_).dependentIfs;
+    dependents = ((DVMRPRTExtension)source_).dependents;
+  }
+  
+  // when upstream changes
+  public void resetDependents(drcl.data.BitSet dependentIfs_)
+  {
+    dependentIfs = dependentIfs_;
+    resetDependents();
+  }
+  
+  // when upstream changes
+  public void resetDependents()
+  {
+    dependentIfs.clear();
+    dependents = new long[dependentIfs.getSize()];
+    for (int j=0; j<dependents.length; j++)
+      dependents[j] = Address.NULL_ADDR;
+  }
+  
+  /**
+   * @return a valid (>=0) interface index if <code>target_</code> is one of the dependents
+   */
+  public int getDependentIndex(long target_)
+  {
+    if (dependents == null) return -1;
+    for (int i=0; i<dependents.length; i++)
+      if (dependents[i] == target_) return i;
+    return -1;
+  }
+  
+  public void setDependent(int index_, long dependent_)
+  {
+    // let ArrayOutOfBound exception take place
+    if (dependent_ == Address.NULL_ADDR) {
+      dependentIfs.clear(index_);
+    }
+    else {
+      dependentIfs.set(index_);
+    }
+    if (index_ >= dependents.length) {
+      long[] tmp_ = new long[index_ + 1];
+      System.arraycopy(dependents, 0, tmp_, 0, dependents.length);
+      for (int i=dependents.length; i<tmp_.length; i++)
+        tmp_[i] = Address.NULL_ADDR;
+      dependents = tmp_;
+    }
+    dependents[index_] = dependent_;
+  }
+  
+  public String toString()
+  {
+    String sMetric_ = metric == DVMRP.INFINITY? 
+              "INF": 
+              (metric > DVMRP.INFINITY? 
+               "INF+" + (metric-DVMRP.INFINITY): String.valueOf(metric));
+    StringBuffer sb_ = new StringBuffer("metric:" + sMetric_
+                      + (changed? "(changed)": "")
+                      + "--dependents:");
+    if (dependentIfs != null) {
+      int[] indices_ = dependentIfs.getSetBitIndices();
+      if (indices_.length > 0) {
+        sb_.append("(" + dependents[indices_[0]]);
+        for (int i=1; i<indices_.length; i++)
+          sb_.append("," + dependents[indices_[i]]);
+        sb_.append(")");
+        sb_.append("{" + dependentIfs + "}");
+      }
+      else
+        sb_.append("(){}");
+    }
+    else
+      sb_.append("(){}");
+    return sb_.toString();
+  }
+  
+  public static String getTitle()
+  { return "metric--dependents(dependent_ifs)"; }
 }

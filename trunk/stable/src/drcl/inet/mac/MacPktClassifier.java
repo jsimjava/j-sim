@@ -37,8 +37,8 @@ import drcl.inet.mac.LLPacket;
   */
 public class MacPktClassifier implements drcl.net.PktClassifier
 {
-	public int classify(Packet p_)
-	{ return 1 - (int) ((InetPacket)((LLPacket)p_).getBody()).getTOS() & 01; }
+  public int classify(Packet p_)
+  { return 1 - (int) ((InetPacket)((LLPacket)p_).getBody()).getTOS() & 01; }
 }
 
 

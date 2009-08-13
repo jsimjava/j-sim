@@ -30,27 +30,27 @@ package drcl.comp;
 
 class ForkChild extends ForkEvent
 {
-	public ForkChild (ForkManager evt_, double time_)
-	{
-		data = evt_;
-		time = time_;
-	}
+  public ForkChild (ForkManager evt_, double time_)
+  {
+    data = evt_;
+    time = time_;
+  }
 
-	public final String toString()
-	{
-		return "CHILD:" + data + (sent()? "\t\tsent_up": "");
-	}
-	
-	/** Doesn't compare action. */
-	public final boolean equals(Object thatobj_) 
-	{
-		if (this == thatobj_) return true;
-		if (!(thatobj_ instanceof ForkChild)) return false;
-		ForkChild that_ = (ForkChild)thatobj_;
-		return data == that_.data;
-	}
+  public final String toString()
+  {
+    return "CHILD:" + data + (sent()? "\t\tsent_up": "");
+  }
+  
+  /** Doesn't compare action. */
+  public final boolean equals(Object thatobj_) 
+  {
+    if (this == thatobj_) return true;
+    if (!(thatobj_ instanceof ForkChild)) return false;
+    ForkChild that_ = (ForkChild)thatobj_;
+    return data == that_.data;
+  }
 
-	// must be in WorkerThread
-	public void execute(WorkerThread thread_)
-	{ drcl.Debug.error("Wrong end"); }
+  // must be in WorkerThread
+  public void execute(WorkerThread thread_)
+  { drcl.Debug.error("Wrong end"); }
 }

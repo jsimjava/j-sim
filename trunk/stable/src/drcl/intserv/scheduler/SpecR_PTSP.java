@@ -36,84 +36,84 @@ import drcl.util.scalar.DoubleVector;
  */
 public class SpecR_PTSP extends SpecR implements SpecR_SP, SpecR_Direct
 {
-	public SpecR_PTSP ()
-	{}
+  public SpecR_PTSP ()
+  {}
 
-	public SpecR_PTSP (int c_, double p_, double d_)
-	{
-		C = c_;
-		P = p_;
-		D = d_;
-	}
-	
-	public int C; // max # of bits in a period
-	public double P;
-	public double D; // maximum allowable delay
-	public double priority; // determined at each hop
-	
-	public double CC; // the actual "computation time" = (C << 3) / scheduler capacity
+  public SpecR_PTSP (int c_, double p_, double d_)
+  {
+    C = c_;
+    P = p_;
+    D = d_;
+  }
+  
+  public int C; // max # of bits in a period
+  public double P;
+  public double D; // maximum allowable delay
+  public double priority; // determined at each hop
+  
+  public double CC; // the actual "computation time" = (C << 3) / scheduler capacity
 
-	public void setPeriod(double p_) { P = p_; }
-	public double getPeriod() { return P; }
-	
-	public void setC(int c_) { C = c_; }
-	public int getC() { return C; }
-		
-	public void setMaxAllowableDelay(double d_) { D = d_; }
-	public double getMaxAllowableDelay() { return D; }
-	
-	public void setPriority(double p_) { priority = p_; }
-	public double getPriority() { return priority; }
-	
-	public int getBuffer() { return C; }
-	public int getBW() { return (int)Math.ceil((C << 3) / P); } 
-	
-	public void setBuffer(int buffer_)
-	{ P = buffer_ / (C / P); C = buffer_; }
+  public void setPeriod(double p_) { P = p_; }
+  public double getPeriod() { return P; }
+  
+  public void setC(int c_) { C = c_; }
+  public int getC() { return C; }
+    
+  public void setMaxAllowableDelay(double d_) { D = d_; }
+  public double getMaxAllowableDelay() { return D; }
+  
+  public void setPriority(double p_) { priority = p_; }
+  public double getPriority() { return priority; }
+  
+  public int getBuffer() { return C; }
+  public int getBW() { return (int)Math.ceil((C << 3) / P); } 
+  
+  public void setBuffer(int buffer_)
+  { P = buffer_ / (C / P); C = buffer_; }
 
-	public void setBW(int bw_)
-	{ P = C / bw_; }
+  public void setBW(int bw_)
+  { P = C / bw_; }
 
-	// superclass
-	public SpecR merge(SpecR rspec_)
-	{	
-		if (!(rspec_ instanceof SpecR_PTSP)) return null;
-		
-		SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
-		P = Math.min(P, that_.P);
-		C = (int)(P * Math.max(getBW(), that_.getBW()) / 8.0);
-		D = Math.min(D, that_.D);
-		return  this;
-	}
+  // superclass
+  public SpecR merge(SpecR rspec_)
+  {  
+    if (!(rspec_ instanceof SpecR_PTSP)) return null;
+    
+    SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
+    P = Math.min(P, that_.P);
+    C = (int)(P * Math.max(getBW(), that_.getBW()) / 8.0);
+    D = Math.min(D, that_.D);
+    return  this;
+  }
 
-	// superclass
-	public int compareWith(SpecR rspec_)
-	{
-		if (!(rspec_ instanceof SpecR_PTSP)) return UNCOMPARABLE;
-		
-		SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
-		if (C == that_.C && D == that_.D && P == that_.P) return 0;
-		if (C >= that_.C && getBW() >= that_.getBW() && D <= that_.D) return TIGHT;
-		if (C <= that_.C && getBW() <= that_.getBW() && D >= that_.D) return LOOSE;
-		else return UNCOMPARABLE;
-	}
-		
-	public void duplicate(Object source_) 
-	{
-		SpecR_PTSP that_ = (SpecR_PTSP)source_;
-		C = that_.C;
-		D = that_.D;
-		P = that_.P;
-	}
-	
-	// superclass
-	public void perHopAdjust()
-	{}
-	
-	public String toString()
-	{
-		return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
-			   + ",C=" + C + ",P=" + P + ",D=" + D + ",priority=" + priority 
-			   + ",activated=" + activated;
-	}
+  // superclass
+  public int compareWith(SpecR rspec_)
+  {
+    if (!(rspec_ instanceof SpecR_PTSP)) return UNCOMPARABLE;
+    
+    SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
+    if (C == that_.C && D == that_.D && P == that_.P) return 0;
+    if (C >= that_.C && getBW() >= that_.getBW() && D <= that_.D) return TIGHT;
+    if (C <= that_.C && getBW() <= that_.getBW() && D >= that_.D) return LOOSE;
+    else return UNCOMPARABLE;
+  }
+    
+  public void duplicate(Object source_) 
+  {
+    SpecR_PTSP that_ = (SpecR_PTSP)source_;
+    C = that_.C;
+    D = that_.D;
+    P = that_.P;
+  }
+  
+  // superclass
+  public void perHopAdjust()
+  {}
+  
+  public String toString()
+  {
+    return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
+         + ",C=" + C + ",P=" + P + ",D=" + D + ",priority=" + priority 
+         + ",activated=" + activated;
+  }
 }

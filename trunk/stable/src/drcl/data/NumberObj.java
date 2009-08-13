@@ -33,10 +33,10 @@ package drcl.data;
  */
 public abstract class NumberObj extends drcl.DrclObj
 {
-	public abstract byte byteValue();
-	public abstract float floatValue();
-	public abstract double doubleValue();
-	public abstract int intValue();
-	public abstract long longValue();
-	public abstract short shortValue();
+  public abstract byte byteValue();
+  public abstract float floatValue();
+  public abstract double doubleValue();
+  public abstract int intValue();
+  public abstract long longValue();
+  public abstract short shortValue();
 }

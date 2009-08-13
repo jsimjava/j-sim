@@ -41,26 +41,26 @@ import drcl.util.StringUtil;
  */
 public class MacPhyContract extends Contract
 {
-	public static final MacPhyContract INSTANCE = new MacPhyContract();
+  public static final MacPhyContract INSTANCE = new MacPhyContract();
 
-	public MacPhyContract()
-	{ super(); }
-	
-	public MacPhyContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "MAC WirelessPhy Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
+  public MacPhyContract()
+  { super(); }
+  
+  public MacPhyContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "MAC WirelessPhy Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
     /**
      * This class defines the data structure of the message between Mac and Phy components.
      */
     public static class Message extends drcl.comp.Message
-					implements drcl.data.Countable
-	{
+          implements drcl.data.Countable
+  {
         /** The flag indicating whether this frame is corrupted or not.  */
         boolean error;
         
@@ -71,7 +71,7 @@ public class MacPhyContract extends Contract
         double  CPThresh;  
         
         /** Receiving threshold. */
-    	double  RXThresh;
+      double  RXThresh;
         
         /** Carrier Sensing Threshold. */
         double  CSThresh;
@@ -79,14 +79,14 @@ public class MacPhyContract extends Contract
         /** The data packet.  */
         Object  pkt;        
         
-        public Message ()	{ }
+        public Message ()  { }
 
-   		/** Construct a Mac-Phy Message 
-		  * @param error_ - indicating if the frame is corrupted
-		  * @param RxPr_ - received power
-		  * @param CPThresh_ - capture threshold
-		  * @param pkt_ - data packet
-		  */
+       /** Construct a Mac-Phy Message 
+      * @param error_ - indicating if the frame is corrupted
+      * @param RxPr_ - received power
+      * @param CPThresh_ - capture threshold
+      * @param pkt_ - data packet
+      */
         public Message (boolean error_, double RxPr_, double CPThresh_, Object pkt_)
         {
             error    = error_;
@@ -95,14 +95,14 @@ public class MacPhyContract extends Contract
             pkt      = pkt_;
         }
 
-		/** Construct a Mac-Phy Message 
-		  * @param error_ - indicating if the frame is corrupted
-		  * @param RxPr_ - received power
-		  * @param CPThresh_ - capture threshold
-		  * @param CSThresh_ - carrier sensing threshold
-		  * @param RXThresh_ - receiving threshold
-		  * @param pkt_ - data packet
-		  */
+    /** Construct a Mac-Phy Message 
+      * @param error_ - indicating if the frame is corrupted
+      * @param RxPr_ - received power
+      * @param CPThresh_ - capture threshold
+      * @param CSThresh_ - carrier sensing threshold
+      * @param RXThresh_ - receiving threshold
+      * @param pkt_ - data packet
+      */
         public Message (boolean error_, double RxPr_, double CPThresh_, double CSThresh_, double RXThresh_, Object pkt_)
         {
             error    = error_;
@@ -113,27 +113,27 @@ public class MacPhyContract extends Contract
             pkt      = pkt_;
         }
 
-		/** Get the error flag */
+    /** Get the error flag */
         public boolean getError()     { return error; }
-		/** Get the transmission power */
+    /** Get the transmission power */
         public double  getRxPr()      { return RxPr; }
-		/** Get the capture threshold */
+    /** Get the capture threshold */
         public double  getCPThresh()  { return CPThresh; }
-		/** Get the receiving threshold */
+    /** Get the receiving threshold */
         public double  getRXThresh()  { return RXThresh; }
-		/** Get the carrier sense threshold */
+    /** Get the carrier sense threshold */
         public double  getCSThresh()  { return CSThresh; }
-		/** Get the data packet */
+    /** Get the data packet */
         public Object  getPkt()       { return pkt; }
 
-		public int getSize()
-		{ return ((Packet)pkt).getSize(); }
+    public int getSize()
+    { return ((Packet)pkt).getSize(); }
 
-		public int getNumberCount()
-		{ return ((Packet)pkt).getNumberCount(); }
+    public int getNumberCount()
+    { return ((Packet)pkt).getNumberCount(); }
 
-		public long getSizeCount()
-		{ return ((Packet)pkt).getSizeCount(); }
+    public long getSizeCount()
+    { return ((Packet)pkt).getSizeCount(); }
 
         /**
          * Sets the error flag.
@@ -142,9 +142,9 @@ public class MacPhyContract extends Contract
 
         public Object clone() 
         {
-			// the contract is between two components; don't clone pkt
-			return new Message(error, RxPr, CPThresh, CSThresh, RXThresh, pkt);
-		}
+      // the contract is between two components; don't clone pkt
+      return new Message(error, RxPr, CPThresh, CSThresh, RXThresh, pkt);
+    }
 
         public Contract getContract()
         { return INSTANCE; }

@@ -44,57 +44,57 @@ by installing a packet wrapper using {@link #setPacketWrapper(drcl.net.PacketWra
  */
 public abstract class TrafficComponent extends Component
 {
-	PacketWrapper enclosingPacket;
-	protected Port downPort = addPort("down", false);
-	{ downPort.setType(Port.PortType_OUT); }
-	protected Port timerPort = addForkPort(".timer");
+  PacketWrapper enclosingPacket;
+  protected Port downPort = addPort("down", false);
+  { downPort.setType(Port.PortType_OUT); }
+  protected Port timerPort = addForkPort(".timer");
 
-	public TrafficComponent()
-	{ super(); }
+  public TrafficComponent()
+  { super(); }
 
-	public TrafficComponent(String id_)
-	{ super(id_); }
+  public TrafficComponent(String id_)
+  { super(id_); }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		TrafficComponent that_ = (TrafficComponent) source_;
-		if (getTrafficModel() == null) {
-			if (that_.getTrafficModel() != null)
-				setTrafficModel((TrafficModel)that_.getTrafficModel().clone());
-		}
-		else if (that_.getTrafficModel() != null)
-			getTrafficModel().duplicate(that_.getTrafficModel());
-		else
-			setTrafficModel(null);
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    TrafficComponent that_ = (TrafficComponent) source_;
+    if (getTrafficModel() == null) {
+      if (that_.getTrafficModel() != null)
+        setTrafficModel((TrafficModel)that_.getTrafficModel().clone());
+    }
+    else if (that_.getTrafficModel() != null)
+      getTrafficModel().duplicate(that_.getTrafficModel());
+    else
+      setTrafficModel(null);
 
-		if (that_.enclosingPacket != null)
-			enclosingPacket = (PacketWrapper)that_.enclosingPacket.clone();
-		else
-			enclosingPacket = null;
-	}
+    if (that_.enclosingPacket != null)
+      enclosingPacket = (PacketWrapper)that_.enclosingPacket.clone();
+    else
+      enclosingPacket = null;
+  }
 
-	public String info()
-	{ return info(""); }
+  public String info()
+  { return info(""); }
 
-	public String info(String prefix_)
-	{
-		return prefix_ + "TrafficModel: "
-			+ (getTrafficModel() == null? "<null>": getTrafficModel().oneline()) + "\n"
-			+ (enclosingPacket == null? "": prefix_ + "EnclosingPkt: " + (Object)enclosingPacket + "\n");
-	}
+  public String info(String prefix_)
+  {
+    return prefix_ + "TrafficModel: "
+      + (getTrafficModel() == null? "<null>": getTrafficModel().oneline()) + "\n"
+      + (enclosingPacket == null? "": prefix_ + "EnclosingPkt: " + (Object)enclosingPacket + "\n");
+  }
 
-	/** Returns the associated traffic model. */
-	public abstract TrafficModel getTrafficModel();
+  /** Returns the associated traffic model. */
+  public abstract TrafficModel getTrafficModel();
 
-	/** Sets the associated traffic model. */
-	public abstract void setTrafficModel(TrafficModel traffic_);
-	
-	/** Installs a packet wrapper to this traffic component. */
-	public void setPacketWrapper(PacketWrapper pkt_)
-	{ enclosingPacket = pkt_; }
+  /** Sets the associated traffic model. */
+  public abstract void setTrafficModel(TrafficModel traffic_);
+  
+  /** Installs a packet wrapper to this traffic component. */
+  public void setPacketWrapper(PacketWrapper pkt_)
+  { enclosingPacket = pkt_; }
 
-	/** Returns the installed packet wrapper. */
-	public PacketWrapper getPacketWrapper()
-	{ return enclosingPacket; }
+  /** Returns the installed packet wrapper. */
+  public PacketWrapper getPacketWrapper()
+  { return enclosingPacket; }
 }

@@ -40,103 +40,103 @@ import drcl.util.queue.*;
  */
 public class tsCDSmooth extends TrafficShaper
 {
-	Queue qrestrict = QueueAssistant.getBest();
-	// time -> LongObj (# of bits allowed at the time)
-	double nextTime;
-	traffic_CDSmooth traffic = null;
-	
-	public tsCDSmooth()
-	{ this(new traffic_CDSmooth()); }
+  Queue qrestrict = QueueAssistant.getBest();
+  // time -> LongObj (# of bits allowed at the time)
+  double nextTime;
+  traffic_CDSmooth traffic = null;
+  
+  public tsCDSmooth()
+  { this(new traffic_CDSmooth()); }
 
-	public tsCDSmooth(traffic_CDSmooth traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsCDSmooth(traffic_CDSmooth traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void reset()
-	{
-		super.reset();
-		if (qrestrict != null) qrestrict.reset();
-		nextTime = 0.0;
-	}
+  public void reset()
+  {
+    super.reset();
+    if (qrestrict != null) qrestrict.reset();
+    nextTime = 0.0;
+  }
 
-	public String info(String prefix_)
-	{
-		StringBuffer sb_ = new StringBuffer(super.info(prefix_) + prefix_
-				+ "State: nextTime=" + nextTime + ", restrictions:");
-		if (qrestrict == null || qrestrict.isEmpty())
-			sb_.append("none\n");
-		else {
-			double[] times_ = qrestrict.keys();
-			Object[] restricts_ = qrestrict.retrieveAll();
-			for (int i=0; i<times_.length; i++)
-				sb_.append("(" + times_[i] + "," + restricts_[i] + ")");
-			sb_.append("\n");
-		}
-		return sb_.toString();
-	}
+  public String info(String prefix_)
+  {
+    StringBuffer sb_ = new StringBuffer(super.info(prefix_) + prefix_
+        + "State: nextTime=" + nextTime + ", restrictions:");
+    if (qrestrict == null || qrestrict.isEmpty())
+      sb_.append("none\n");
+    else {
+      double[] times_ = qrestrict.keys();
+      Object[] restricts_ = qrestrict.retrieveAll();
+      for (int i=0; i<times_.length; i++)
+        sb_.append("(" + times_[i] + "," + restricts_[i] + ")");
+      sb_.append("\n");
+    }
+    return sb_.toString();
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_CDSmooth)traffic_; reset(); }
-	
-	protected double adjust(double now_, int size_) 
-	{
-		int C_ = traffic.C;
-		double D_ = traffic.D;
-		if (size_ > C_) return Double.NaN;
-		
-		nextTime = Math.max(now_, nextTime);
-		
-		if (qrestrict == null) qrestrict = QueueAssistant.getBest();
-		
-		if (!qrestrict.isEmpty()) {
-			Enumeration times_ = qrestrict.getKeyEnumerator();
-			Enumeration restricts_ = qrestrict.getElementEnumerator();
-			for (; times_.hasMoreElements(); ) {
-				DoubleObj timeObj_ = (DoubleObj)times_.nextElement();
-				LongObj restrictObj_ = (LongObj) restricts_.nextElement();
-				if (timeObj_.value <= nextTime) {
-					// remove it
-					qrestrict.remove(restrictObj_);
-				}
-				else if (restrictObj_.value < size_) {
-					nextTime = timeObj_.value;
-					// remove it
-					qrestrict.remove(restrictObj_);
-				}
-				else {
-					restrictObj_.value -= size_;
-				}
-			}
-		}
-			
-		// add restriction
-		if (qrestrict.isEmpty() || 
-			Math.abs(nextTime + D_ - qrestrict.lastKey()) > 1e-6) // rouding error
-			qrestrict.enqueue(nextTime + D_, new LongObj(C_ - size_));
-		
-		return nextTime - now_;
-	}
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_CDSmooth)traffic_; reset(); }
+  
+  protected double adjust(double now_, int size_) 
+  {
+    int C_ = traffic.C;
+    double D_ = traffic.D;
+    if (size_ > C_) return Double.NaN;
+    
+    nextTime = Math.max(now_, nextTime);
+    
+    if (qrestrict == null) qrestrict = QueueAssistant.getBest();
+    
+    if (!qrestrict.isEmpty()) {
+      Enumeration times_ = qrestrict.getKeyEnumerator();
+      Enumeration restricts_ = qrestrict.getElementEnumerator();
+      for (; times_.hasMoreElements(); ) {
+        DoubleObj timeObj_ = (DoubleObj)times_.nextElement();
+        LongObj restrictObj_ = (LongObj) restricts_.nextElement();
+        if (timeObj_.value <= nextTime) {
+          // remove it
+          qrestrict.remove(restrictObj_);
+        }
+        else if (restrictObj_.value < size_) {
+          nextTime = timeObj_.value;
+          // remove it
+          qrestrict.remove(restrictObj_);
+        }
+        else {
+          restrictObj_.value -= size_;
+        }
+      }
+    }
+      
+    // add restriction
+    if (qrestrict.isEmpty() || 
+      Math.abs(nextTime + D_ - qrestrict.lastKey()) > 1e-6) // rouding error
+      qrestrict.enqueue(nextTime + D_, new LongObj(C_ - size_));
+    
+    return nextTime - now_;
+  }
 
-	public void setMaxPacketSize(int size_)
-	{ traffic.maxPacketSize = size_; }
+  public void setMaxPacketSize(int size_)
+  { traffic.maxPacketSize = size_; }
 
-	public int getMaxPacketSize()
-	{ return traffic.maxPacketSize; }
-	
-	public void setC(int c_)
-	{ traffic.C = c_; }
+  public int getMaxPacketSize()
+  { return traffic.maxPacketSize; }
+  
+  public void setC(int c_)
+  { traffic.C = c_; }
 
-	public int getC()
-	{ return traffic.C; }
-	
-	public void setD(double d_)
-	{ traffic.D = d_; }
+  public int getC()
+  { return traffic.C; }
+  
+  public void setD(double d_)
+  { traffic.D = d_; }
 
-	public double getD()
-	{ return traffic.D; }
+  public double getD()
+  { return traffic.D; }
 
-	public void set(int c_, double d_, int mtu_)
-	{ traffic.set(c_, d_, mtu_); reset(); }
+  public void set(int c_, double d_, int mtu_)
+  { traffic.set(c_, d_, mtu_); reset(); }
 }

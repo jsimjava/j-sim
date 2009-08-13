@@ -59,109 +59,109 @@ needs to override {@link #duplicate(Object)}, {@link #info(String)} and {@link #
  */
 public abstract class TrafficShaper extends drcl.DrclObj
 {
-	VSFIFOQueue qBuffer = new VSFIFOQueue();
-	int maxsize = Integer.MAX_VALUE;
-	double startTime = Double.NaN;
-	
-	/**
-	Returns the time adjustment (relative to the current time <code>now_</code>)
-	for outputing the packet.
-	This is the main method a subclass must override to regulate the incoming packets.
-	The current time passed to this method is maintained relatively to the time
-	when this component starts.
-	@param now_ current time, relative to the start time of the shaper.
-	@param size_ the packet size.
-	 */
-	protected abstract double adjust(double now_, int size_);
+  VSFIFOQueue qBuffer = new VSFIFOQueue();
+  int maxsize = Integer.MAX_VALUE;
+  double startTime = Double.NaN;
+  
+  /**
+  Returns the time adjustment (relative to the current time <code>now_</code>)
+  for outputing the packet.
+  This is the main method a subclass must override to regulate the incoming packets.
+  The current time passed to this method is maintained relatively to the time
+  when this component starts.
+  @param now_ current time, relative to the start time of the shaper.
+  @param size_ the packet size.
+   */
+  protected abstract double adjust(double now_, int size_);
 
-	public void reset()
-	{
-		qBuffer.reset();
-		startTime = Double.NEGATIVE_INFINITY;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		TrafficShaper that_ = (TrafficShaper) source_;
-		maxsize = that_.maxsize;
+  public void reset()
+  {
+    qBuffer.reset();
+    startTime = Double.NEGATIVE_INFINITY;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    TrafficShaper that_ = (TrafficShaper) source_;
+    maxsize = that_.maxsize;
 
-		if (getTrafficModel() == null) {
-			if (that_.getTrafficModel() != null)
-				setTrafficModel((TrafficModel)that_.getTrafficModel().clone());
-		}
-		else if (that_.getTrafficModel() != null)
-			getTrafficModel().duplicate(that_.getTrafficModel());
-		else
-			setTrafficModel(null);
-	}
+    if (getTrafficModel() == null) {
+      if (that_.getTrafficModel() != null)
+        setTrafficModel((TrafficModel)that_.getTrafficModel().clone());
+    }
+    else if (that_.getTrafficModel() != null)
+      getTrafficModel().duplicate(that_.getTrafficModel());
+    else
+      setTrafficModel(null);
+  }
 
-	/** Prints out the content of this traffic shaper instance.
-	This class prints out the associated traffic model and the buffer.
-	A subclass only needs to call <code>super.info(prefix_)</code> and
-	then supply the content of the parameters defined in the subclass.
-	@param prefix_ prefix_ that should be prepended at each line.
-	*/
-	public String info(String prefix_)
-	{
-		return "TrafficModel: "
-			+ (getTrafficModel() == null? "<null>":
-							getTrafficModel().oneline()) + "\n"
-			+ prefix_ + "Buffer: capacity=" + maxsize + ", " + qBuffer.info();
-	}
-	
-	/**
-	Returns the time adjustment (relative to the current time <code>now_</code>)
-	for outputing the packet.
-	@return a negative value if the caller should drop the packet.
-	 */
-	public final synchronized double adjust(Packet p_, double now_)
-	{
-		// initialize startTime
-		if (startTime == Double.NEGATIVE_INFINITY)
-			startTime = now_;
-			
-		int size_ = p_.getPacketSize();
-		if (size_ > getTrafficModel().getMTU()) return -1.0;
-		if (qBuffer.getSize() + size_ <= maxsize) {
-			double deltaT_ = adjust(now_ - startTime, size_);
+  /** Prints out the content of this traffic shaper instance.
+  This class prints out the associated traffic model and the buffer.
+  A subclass only needs to call <code>super.info(prefix_)</code> and
+  then supply the content of the parameters defined in the subclass.
+  @param prefix_ prefix_ that should be prepended at each line.
+  */
+  public String info(String prefix_)
+  {
+    return "TrafficModel: "
+      + (getTrafficModel() == null? "<null>":
+              getTrafficModel().oneline()) + "\n"
+      + prefix_ + "Buffer: capacity=" + maxsize + ", " + qBuffer.info();
+  }
+  
+  /**
+  Returns the time adjustment (relative to the current time <code>now_</code>)
+  for outputing the packet.
+  @return a negative value if the caller should drop the packet.
+   */
+  public final synchronized double adjust(Packet p_, double now_)
+  {
+    // initialize startTime
+    if (startTime == Double.NEGATIVE_INFINITY)
+      startTime = now_;
+      
+    int size_ = p_.getPacketSize();
+    if (size_ > getTrafficModel().getMTU()) return -1.0;
+    if (qBuffer.getSize() + size_ <= maxsize) {
+      double deltaT_ = adjust(now_ - startTime, size_);
 
-			if (deltaT_ <= 0.0)
-				return 0.0;
-			// enqueue with key = time to output the packet
-			qBuffer.enqueue(now_ + deltaT_, p_, size_);
-			return deltaT_;
-		}
-		else
-			return -1.0;
-	}
+      if (deltaT_ <= 0.0)
+        return 0.0;
+      // enqueue with key = time to output the packet
+      qBuffer.enqueue(now_ + deltaT_, p_, size_);
+      return deltaT_;
+    }
+    else
+      return -1.0;
+  }
 
-	/** Releases and returns the first packet being held in the buffer.*/
-	public synchronized Packet dequeue()
-	{ return (Packet)qBuffer.dequeue(); }
-		
-	/** Returns the associated traffic model. */
-	public abstract TrafficModel getTrafficModel();
+  /** Releases and returns the first packet being held in the buffer.*/
+  public synchronized Packet dequeue()
+  { return (Packet)qBuffer.dequeue(); }
+    
+  /** Returns the associated traffic model. */
+  public abstract TrafficModel getTrafficModel();
 
-	/** Sets the associated traffic model. */
-	public abstract void setTrafficModel(TrafficModel traffic_);
+  /** Sets the associated traffic model. */
+  public abstract void setTrafficModel(TrafficModel traffic_);
 
-	/** Sets the (maximum) buffer size of this traffic shaper (byte). */
-	public void setBufferSize(int size_)
-	{ maxsize = size_; }
+  /** Sets the (maximum) buffer size of this traffic shaper (byte). */
+  public void setBufferSize(int size_)
+  { maxsize = size_; }
 
-	/** Returns the (maximum) buffer size of this traffic shaper (byte). */
-	public int getBufferSize()
-	{ return maxsize; }
+  /** Returns the (maximum) buffer size of this traffic shaper (byte). */
+  public int getBufferSize()
+  { return maxsize; }
 
-	/** Returns the current buffer length of this traffic shaper (# of packets). */
-	public int getBufferLength()
-	{ return qBuffer.getLength(); }
+  /** Returns the current buffer length of this traffic shaper (# of packets). */
+  public int getBufferLength()
+  { return qBuffer.getLength(); }
 
-	/** Returns the output time of next packet. */
-	public double nextOutputTime()
-	{ return qBuffer.firstKey(); }
+  /** Returns the output time of next packet. */
+  public double nextOutputTime()
+  { return qBuffer.firstKey(); }
 
-	/** Returns the available buffer size of this traffic shaper (byte). */
-	public int getAvailableBufferSize()
-	{ return maxsize - qBuffer.getSize(); }
+  /** Returns the available buffer size of this traffic shaper (byte). */
+  public int getAvailableBufferSize()
+  { return maxsize - qBuffer.getSize(); }
 }

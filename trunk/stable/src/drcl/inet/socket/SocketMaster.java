@@ -50,237 +50,237 @@ import drcl.comp.lib.bytestream.ByteStreamContract;
  * @see SocketContract */
 public class SocketMaster 
 {
-	Hashtable htSockets = new Hashtable();
-	Port controlPort;
-	int socketCount = 0;
-	Component masterComp;
-	boolean multiSession = true;
+  Hashtable htSockets = new Hashtable();
+  Port controlPort;
+  int socketCount = 0;
+  Component masterComp;
+  boolean multiSession = true;
 
-	public SocketMaster(Port controlPort_, Component masterComp_)
-	{
-		super();
-		controlPort = controlPort_;
-		masterComp = masterComp_;
-	}
+  public SocketMaster(Port controlPort_, Component masterComp_)
+  {
+    super();
+    controlPort = controlPort_;
+    masterComp = masterComp_;
+  }
 
-	public void reset()
-	{
-		socketCount = 0;
-	}
+  public void reset()
+  {
+    socketCount = 0;
+  }
 
-	public String info()
-	{
-		return "sockets created so far = " + socketCount + "\n"
-			+ "active sockets: " + htSockets + "\n"
-			+ "multi-session? " + multiSession + "\n";
-	}
+  public String info()
+  {
+    return "sockets created so far = " + socketCount + "\n"
+      + "active sockets: " + htSockets + "\n"
+      + "multi-session? " + multiSession + "\n";
+  }
 
-	/** Creates and installs a new server/client {@link InetSocket} in this
-	 * application. */
-	public InetSocket newSocket()
-	{
-		Port p_ = multiSession? masterComp.addPort(".tcp" + (socketCount++)):
-				controlPort;
-		InetSocket s_ = new InetSocket(p_, controlPort);
-		htSockets.put(p_, s_);
-		return s_;
-	}
+  /** Creates and installs a new server/client {@link InetSocket} in this
+   * application. */
+  public InetSocket newSocket()
+  {
+    Port p_ = multiSession? masterComp.addPort(".tcp" + (socketCount++)):
+        controlPort;
+    InetSocket s_ = new InetSocket(p_, controlPort);
+    htSockets.put(p_, s_);
+    return s_;
+  }
 
-	public void listen(InetSocket serverSocket_, int backlog_)
-	{
-		serverSocket_.listen(backlog_);
-	}
+  public void listen(InetSocket serverSocket_, int backlog_)
+  {
+    serverSocket_.listen(backlog_);
+  }
 
-	/** Accepting a new connection at the server socket.  
-	 * It returns the client socket that handles the new connection. */
-	public InetSocket accept(InetSocket serverSocket_)
-		throws java.io.IOException
-	{
-		Port p_ = multiSession? masterComp.addPort(".tcp" + (socketCount++)):
-				controlPort;
-		InetSocket s_ = new InetSocket(serverSocket_.localAddress, p_, 
-						serverSocket_.controlPort);
-		htSockets.put(p_, s_);
+  /** Accepting a new connection at the server socket.  
+   * It returns the client socket that handles the new connection. */
+  public InetSocket accept(InetSocket serverSocket_)
+    throws java.io.IOException
+  {
+    Port p_ = multiSession? masterComp.addPort(".tcp" + (socketCount++)):
+        controlPort;
+    InetSocket s_ = new InetSocket(serverSocket_.localAddress, p_, 
+            serverSocket_.controlPort);
+    htSockets.put(p_, s_);
 
-		// 2006/07/05
-		// cannot call serverSocket_.accept() directly
-		// because of a race between peer and htSockets.put()
-		try {
-			if (serverSocket_._accept(p_, s_)) return s_;
-			else {
-				htSockets.remove(p_);
-				return null;
-			}
-		}
-		catch (java.io.IOException e) {
-			htSockets.remove(p_);
-			throw e;
-		}
-	}
+    // 2006/07/05
+    // cannot call serverSocket_.accept() directly
+    // because of a race between peer and htSockets.put()
+    try {
+      if (serverSocket_._accept(p_, s_)) return s_;
+      else {
+        htSockets.remove(p_);
+        return null;
+      }
+    }
+    catch (java.io.IOException e) {
+      htSockets.remove(p_);
+      throw e;
+    }
+  }
 
-	/** Accepting a new connection at the server socket.  
-	 * This call is nonblocking.  
-	 * The handler (<code>h_</code>) is called back when a new connection
-	 * is established from the server socket.
-	 */
-	public void aAccept(InetSocket serverSocket_, 
-					NonblockingSocketHandler h_) throws java.io.IOException
-	{
-		if (h_ == null)
-			throw new java.net.SocketException("No handler to handle the event" 
-							+ " when a new connection is established");
-		htSockets.put(serverSocket_, h_);
-		serverSocket_.aAccept(serverSocket_);
-	}
+  /** Accepting a new connection at the server socket.  
+   * This call is nonblocking.  
+   * The handler (<code>h_</code>) is called back when a new connection
+   * is established from the server socket.
+   */
+  public void aAccept(InetSocket serverSocket_, 
+          NonblockingSocketHandler h_) throws java.io.IOException
+  {
+    if (h_ == null)
+      throw new java.net.SocketException("No handler to handle the event" 
+              + " when a new connection is established");
+    htSockets.put(serverSocket_, h_);
+    serverSocket_.aAccept(serverSocket_);
+  }
 
 
-	// Finishes a nonblocking accept()/connect.
-	private void nonblockingFinished(SocketContract.Message msg_)
-	{
-		try {
-			if (msg_.isAcceptReply()) {
-				InetSocket serverSocket_ =
-						(InetSocket)msg_.getMessageID();
-				Port p_ = multiSession?
-						masterComp.addPort(".tcp" + (socketCount++)):
-						controlPort;
-				NonblockingSocketHandler h_ = (NonblockingSocketHandler)
-						htSockets.remove(serverSocket_);
+  // Finishes a nonblocking accept()/connect.
+  private void nonblockingFinished(SocketContract.Message msg_)
+  {
+    try {
+      if (msg_.isAcceptReply()) {
+        InetSocket serverSocket_ =
+            (InetSocket)msg_.getMessageID();
+        Port p_ = multiSession?
+            masterComp.addPort(".tcp" + (socketCount++)):
+            controlPort;
+        NonblockingSocketHandler h_ = (NonblockingSocketHandler)
+            htSockets.remove(serverSocket_);
 
-				// 2006/07/05
-				// cannot call serverSocket_.aAcceptFinished() directly
-				// because of a race between peer and htSockets.put()
-				InetSocket s_ = new InetSocket(serverSocket_.localAddress, p_,
-								serverSocket_.controlPort);
-				htSockets.put(p_, s_);
-				try {
-					if (serverSocket_._aAcceptFinished(msg_, p_, s_))
-						h_.acceptFinished(serverSocket_, s_);
-					else
-						htSockets.remove(p_);
-				}
-				catch (IOException ioe_) {
-					htSockets.remove(p_);
-					h_.error(serverSocket_, ioe_);
-				}
-			}
-			else if (msg_.isConnectReply()) {
-				InetSocket socket_ = (InetSocket)msg_.getMessageID();
-				NonblockingSocketHandler h_ = (NonblockingSocketHandler)
-						htSockets.remove(socket_);
-				try {
-					socket_.aConnectFinished(msg_);
-					h_.connectFinished(socket_);
-				}
-				catch (IOException ioe_) {
-					h_.error(socket_, ioe_);
-				}
-			}
-			else if (msg_.isCloseReply()) {
-				InetSocket socket_ = (InetSocket)msg_.getMessageID();
-				htSockets.remove(socket_.dataPort);
-				masterComp.removePort(socket_.dataPort);
-				socket_.aCloseFinished(msg_);
-				NonblockingSocketHandler h_ = (NonblockingSocketHandler)
-						htSockets.remove(socket_);
-				h_.closeFinished(socket_);
-			}
-			else if (msg_.isError()) {
-				InetSocket socket_ = (InetSocket)msg_.getMessageID();
-				NonblockingSocketHandler h_ = (NonblockingSocketHandler)
-						htSockets.remove(socket_);
-				h_.error(socket_, new SocketException(msg_.getError()));
-			}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+        // 2006/07/05
+        // cannot call serverSocket_.aAcceptFinished() directly
+        // because of a race between peer and htSockets.put()
+        InetSocket s_ = new InetSocket(serverSocket_.localAddress, p_,
+                serverSocket_.controlPort);
+        htSockets.put(p_, s_);
+        try {
+          if (serverSocket_._aAcceptFinished(msg_, p_, s_))
+            h_.acceptFinished(serverSocket_, s_);
+          else
+            htSockets.remove(p_);
+        }
+        catch (IOException ioe_) {
+          htSockets.remove(p_);
+          h_.error(serverSocket_, ioe_);
+        }
+      }
+      else if (msg_.isConnectReply()) {
+        InetSocket socket_ = (InetSocket)msg_.getMessageID();
+        NonblockingSocketHandler h_ = (NonblockingSocketHandler)
+            htSockets.remove(socket_);
+        try {
+          socket_.aConnectFinished(msg_);
+          h_.connectFinished(socket_);
+        }
+        catch (IOException ioe_) {
+          h_.error(socket_, ioe_);
+        }
+      }
+      else if (msg_.isCloseReply()) {
+        InetSocket socket_ = (InetSocket)msg_.getMessageID();
+        htSockets.remove(socket_.dataPort);
+        masterComp.removePort(socket_.dataPort);
+        socket_.aCloseFinished(msg_);
+        NonblockingSocketHandler h_ = (NonblockingSocketHandler)
+            htSockets.remove(socket_);
+        h_.closeFinished(socket_);
+      }
+      else if (msg_.isError()) {
+        InetSocket socket_ = (InetSocket)msg_.getMessageID();
+        NonblockingSocketHandler h_ = (NonblockingSocketHandler)
+            htSockets.remove(socket_);
+        h_.error(socket_, new SocketException(msg_.getError()));
+      }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	/** Connecting to a remote node at the client socket. */
-	public void connect(InetSocket clientSocket_, long remoteAddress_,
-					int remotePort_) throws java.io.IOException
-	{
-		clientSocket_.connect(remoteAddress_, remotePort_);
-	}
+  /** Connecting to a remote node at the client socket. */
+  public void connect(InetSocket clientSocket_, long remoteAddress_,
+          int remotePort_) throws java.io.IOException
+  {
+    clientSocket_.connect(remoteAddress_, remotePort_);
+  }
 
-	/** Connecting to a remote node at the client socket.
-	 * This call is nonblocking.  
-	 * The handler (<code>h_</code>) is called back when the connection
-	 * is established.
-	 */
-	public void aConnect(InetSocket clientSocket_, long remoteAddress_,
-					int remotePort_, NonblockingSocketHandler h_)
-		throws java.io.IOException
-	{
-		if (h_ == null)
-			throw new java.net.SocketException("No handler to handle the event" 
-							+ " when a new connection is established");
-		htSockets.put(clientSocket_, h_);
-		clientSocket_.aConnect(remoteAddress_, remotePort_, clientSocket_);
-	}
+  /** Connecting to a remote node at the client socket.
+   * This call is nonblocking.  
+   * The handler (<code>h_</code>) is called back when the connection
+   * is established.
+   */
+  public void aConnect(InetSocket clientSocket_, long remoteAddress_,
+          int remotePort_, NonblockingSocketHandler h_)
+    throws java.io.IOException
+  {
+    if (h_ == null)
+      throw new java.net.SocketException("No handler to handle the event" 
+              + " when a new connection is established");
+    htSockets.put(clientSocket_, h_);
+    clientSocket_.aConnect(remoteAddress_, remotePort_, clientSocket_);
+  }
 
-	/** Closes the server/client socket. */
-	public void close(InetSocket socket_) throws java.io.IOException
-	{
-		socket_.close();
-		htSockets.remove(socket_.dataPort);
-		masterComp.removePort(socket_.dataPort);
-	}
+  /** Closes the server/client socket. */
+  public void close(InetSocket socket_) throws java.io.IOException
+  {
+    socket_.close();
+    htSockets.remove(socket_.dataPort);
+    masterComp.removePort(socket_.dataPort);
+  }
 
-	/** Closes the server/client socket.
-	 * This call is nonblocking.  
-	 * The handler (<code>h_</code>) is called back when the connection
-	 * is closed.
-	 */
-	public void aClose(InetSocket socket_, NonblockingSocketHandler h_)
-			throws java.io.IOException
-	{
-		if (h_ == null)
-			throw new java.net.SocketException("No handler to handle the event" 
-							+ " when the connection is closed");
-		htSockets.put(socket_, h_);
-		socket_.aClose(socket_);
-	}
+  /** Closes the server/client socket.
+   * This call is nonblocking.  
+   * The handler (<code>h_</code>) is called back when the connection
+   * is closed.
+   */
+  public void aClose(InetSocket socket_, NonblockingSocketHandler h_)
+      throws java.io.IOException
+  {
+    if (h_ == null)
+      throw new java.net.SocketException("No handler to handle the event" 
+              + " when the connection is closed");
+    htSockets.put(socket_, h_);
+    socket_.aClose(socket_);
+  }
 
-	/** Binds the server/client socket to a specific (address, port). */
-	public void bind(InetSocket socket_, long localAddress_, int localPort_)
-	{
-		socket_.bind(localAddress_, localPort_);
-	}
+  /** Binds the server/client socket to a specific (address, port). */
+  public void bind(InetSocket socket_, long localAddress_, int localPort_)
+  {
+    socket_.bind(localAddress_, localPort_);
+  }
 
-	public boolean isMultiSessionEnabled()
-	{ return multiSession; }
+  public boolean isMultiSessionEnabled()
+  { return multiSession; }
 
-	public void setMultiSessionEnabled(boolean enabled_)
-	{ multiSession = enabled_; }
+  public void setMultiSessionEnabled(boolean enabled_)
+  { multiSession = enabled_; }
 
-	/** Processes the socket contract related messages for the master
-	 * component.
-	 * Returns true if the socket master consumes the data. */
-	public boolean processSocket(Object data_, Port inPort_)
-	{
-		if (data_ instanceof SocketContract.Message) {
-			nonblockingFinished((SocketContract.Message)data_);
-			return true;
-		}
-		else if (htSockets.containsKey(inPort_)) {
-			InetSocket s_ = (InetSocket)htSockets.get(inPort_);
-			if (s_ == null) {
-				masterComp.error("SocketMaster.processSocket()",
-								"no socket for " + inPort_);
-				return false;
-			}
-			else {
-				ByteStreamContract.Message m =
-						(ByteStreamContract.Message)data_;
-				s_.helper.handle(m);
-				if (m.isSend() && s_.listener != null)
-					s_.listener.dataAvailable(s_, m.getLength());
+  /** Processes the socket contract related messages for the master
+   * component.
+   * Returns true if the socket master consumes the data. */
+  public boolean processSocket(Object data_, Port inPort_)
+  {
+    if (data_ instanceof SocketContract.Message) {
+      nonblockingFinished((SocketContract.Message)data_);
+      return true;
+    }
+    else if (htSockets.containsKey(inPort_)) {
+      InetSocket s_ = (InetSocket)htSockets.get(inPort_);
+      if (s_ == null) {
+        masterComp.error("SocketMaster.processSocket()",
+                "no socket for " + inPort_);
+        return false;
+      }
+      else {
+        ByteStreamContract.Message m =
+            (ByteStreamContract.Message)data_;
+        s_.helper.handle(m);
+        if (m.isSend() && s_.listener != null)
+          s_.listener.dataAvailable(s_, m.getLength());
 
-				return true;
-			}
-		}
-		return false;
-	}
+        return true;
+      }
+    }
+    return false;
+  }
 }

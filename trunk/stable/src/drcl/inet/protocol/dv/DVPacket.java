@@ -36,132 +36,132 @@ The format is simplified from what is defined in RFC2453.
 */
 public class DVPacket implements drcl.ObjectCloneable
 { 
-	// commands
-	public static final int REQUEST = 1;
-	public static final int UPDATE = 2;
-	
-	int cmd, version;
-	Vector rte;
+  // commands
+  public static final int REQUEST = 1;
+  public static final int UPDATE = 2;
+  
+  int cmd, version;
+  Vector rte;
 
-	public DVPacket()
-	{ super(); }
-	
-	public DVPacket (int cmd_, int version_)
-	{
-		cmd = cmd_;
-		version = version_;
-	}
+  public DVPacket()
+  { super(); }
+  
+  public DVPacket (int cmd_, int version_)
+  {
+    cmd = cmd_;
+    version = version_;
+  }
 
-	private DVPacket (int cmd_, int version_, Vector rte_)
-	{
-		cmd = cmd_;
-		version = version_;
-		rte = rte_;
-	}
-	
-	/** Returns the command of this packet. */
-	public int getCommand()
-	{	return cmd; }
-	
-	/** Returns the version of this packet. */
-	public int getVersion()
-	{	return version;	}
+  private DVPacket (int cmd_, int version_, Vector rte_)
+  {
+    cmd = cmd_;
+    version = version_;
+    rte = rte_;
+  }
+  
+  /** Returns the command of this packet. */
+  public int getCommand()
+  {  return cmd; }
+  
+  /** Returns the version of this packet. */
+  public int getVersion()
+  {  return version;  }
 
-	public void addRTE(long dest_, long mask_, long nexthop_, int metric_)
-	{
-		RTE rte_ = new RTE(dest_, mask_, nexthop_, metric_);
-		if (rte == null) rte = new Vector();
-		rte.addElement(rte_);
-	}
-	
-	public void setCommand(int value_)
-	{ cmd = value_; }
-	
-	public void setVersion(int value_)
-	{ version = value_; }
-	
-	public int getNumRTEs()
-	{ return rte == null? 0: rte.size(); }
-	
-	public RTE getRTE(int index_)
-	{ return (RTE)rte.elementAt(index_); }
-	
-	public RTE[] getRTEs()
-	{
-		RTE[] ss_ = new RTE[rte.size()];
-		rte.copyInto(ss_);
-		return ss_;
-	}
+  public void addRTE(long dest_, long mask_, long nexthop_, int metric_)
+  {
+    RTE rte_ = new RTE(dest_, mask_, nexthop_, metric_);
+    if (rte == null) rte = new Vector();
+    rte.addElement(rte_);
+  }
+  
+  public void setCommand(int value_)
+  { cmd = value_; }
+  
+  public void setVersion(int value_)
+  { version = value_; }
+  
+  public int getNumRTEs()
+  { return rte == null? 0: rte.size(); }
+  
+  public RTE getRTE(int index_)
+  { return (RTE)rte.elementAt(index_); }
+  
+  public RTE[] getRTEs()
+  {
+    RTE[] ss_ = new RTE[rte.size()];
+    rte.copyInto(ss_);
+    return ss_;
+  }
 
-	/*
-	public void duplicate(Object source_)
-	{
-		DVPacket that_ = (DVPacket)source_;
-		cmd = that_.cmd;
-		version = that_.version;
-		rte = (Vector)drcl.util.ObjectUtil.clone(that_.rte);
-	}
-	*/
+  /*
+  public void duplicate(Object source_)
+  {
+    DVPacket that_ = (DVPacket)source_;
+    cmd = that_.cmd;
+    version = that_.version;
+    rte = (Vector)drcl.util.ObjectUtil.clone(that_.rte);
+  }
+  */
 
-	public Object clone()
-	{ return new DVPacket(cmd, version, (Vector)rte.clone()); }
+  public Object clone()
+  { return new DVPacket(cmd, version, (Vector)rte.clone()); }
 
-	public String toString()
-	{
-		if (cmd == REQUEST)
-			return "DVv" + version + "_REQUEST";
-		else
-			return "DVv" + version + "_UPDATE,rte:" + rte;
-	}
+  public String toString()
+  {
+    if (cmd == REQUEST)
+      return "DVv" + version + "_REQUEST";
+    else
+      return "DVv" + version + "_UPDATE,rte:" + rte;
+  }
 
-	static class RTE implements drcl.ObjectCloneable//extends drcl.DrclObj
-	{
-		long dest, mask, nexthop;
-		int metric;
-		
-		public RTE ()
-		{}
+  static class RTE implements drcl.ObjectCloneable//extends drcl.DrclObj
+  {
+    long dest, mask, nexthop;
+    int metric;
+    
+    public RTE ()
+    {}
 
-		public RTE (long dest_, long mask_, long nexthop_, int metric_)
-		{
-			dest = dest_;
-			mask = mask_;
-			nexthop = nexthop_;
-			metric = metric_;
-		}
-		
-		/*
-		public void duplicate(Object source_)
-		{
-			super.duplicate(source_);
-			RTE that_ = (RTE)source_;
-			dest = that_.dest;
-			mask = that_.mask;
-			nexthop = that_.nexthop;
-			metric = that_.metric;
-		}
-		*/
+    public RTE (long dest_, long mask_, long nexthop_, int metric_)
+    {
+      dest = dest_;
+      mask = mask_;
+      nexthop = nexthop_;
+      metric = metric_;
+    }
+    
+    /*
+    public void duplicate(Object source_)
+    {
+      super.duplicate(source_);
+      RTE that_ = (RTE)source_;
+      dest = that_.dest;
+      mask = that_.mask;
+      nexthop = that_.nexthop;
+      metric = that_.metric;
+    }
+    */
 
-		public Object clone()
-		{ return new RTE(dest, mask, nexthop, metric); }
+    public Object clone()
+    { return new RTE(dest, mask, nexthop, metric); }
 
-		/** Retrieves the destination field from an RTE.  */
-		public long getDestination()
-		{ return dest; }
-	
-		/** Retrieves the mask field from an RTE. */
-		public long getMask()
-		{ return mask; }
-	
-		/** Retrieves the next-hop field from an RTE. */
-		public long getNextHop()
-		{ return nexthop; }
-	
-		/** Retrieves the metric field from an RTE. */
-		public int getMetric()
-		{ return metric; }
+    /** Retrieves the destination field from an RTE.  */
+    public long getDestination()
+    { return dest; }
+  
+    /** Retrieves the mask field from an RTE. */
+    public long getMask()
+    { return mask; }
+  
+    /** Retrieves the next-hop field from an RTE. */
+    public long getNextHop()
+    { return nexthop; }
+  
+    /** Retrieves the metric field from an RTE. */
+    public int getMetric()
+    { return metric; }
 
-		public String toString()
-		{ return dest + "/" + mask +":" + nexthop + ":" + metric; }
-	}
+    public String toString()
+    { return dest + "/" + mask +":" + nexthop + ":" + metric; }
+  }
 }

@@ -39,53 +39,53 @@ import drcl.net.*;
  */ 
 public class AODV_RREP  
 { 
-	public final static int INTEGER_SIZE    = 4;
+  public final static int INTEGER_SIZE    = 4;
 
-	/** Packet Type */	
-	public int	rp_type;       
-	/** Hop Count */
-	public int	rp_hop_count;
-	/** Destination IP Address */
-	public long	rp_dst; 
-	/** Destination Sequence Number */
-	public int	rp_dst_seqno;   
-	/** Source IP Address */
-	public long	rp_src; 
-	/** Lifetime */
-	public double	rp_lifetime; 
-	/** when corresponding REQ sent; used to compute route discovery latency */
-	public double   rp_timestamp; 
-				
-	/** return the size of the payload in the RREP packet */		
-	public int size() { 
-		int sz = 5 * INTEGER_SIZE; //based on AODV draft version 13 
-		return sz;
-	}
+  /** Packet Type */  
+  public int  rp_type;       
+  /** Hop Count */
+  public int  rp_hop_count;
+  /** Destination IP Address */
+  public long  rp_dst; 
+  /** Destination Sequence Number */
+  public int  rp_dst_seqno;   
+  /** Source IP Address */
+  public long  rp_src; 
+  /** Lifetime */
+  public double  rp_lifetime; 
+  /** when corresponding REQ sent; used to compute route discovery latency */
+  public double   rp_timestamp; 
+        
+  /** return the size of the payload in the RREP packet */    
+  public int size() { 
+    int sz = 5 * INTEGER_SIZE; //based on AODV draft version 13 
+    return sz;
+  }
 
-	public AODV_RREP() 
-	{} 
+  public AODV_RREP() 
+  {} 
  
-	public Object clone() 
-	{ 
-		AODV_RREP new_ = new AODV_RREP(); 
-		new_.duplicate(this); 
-		return new_; 
-	} 
+  public Object clone() 
+  { 
+    AODV_RREP new_ = new AODV_RREP(); 
+    new_.duplicate(this); 
+    return new_; 
+  } 
  
-	public void duplicate(Object source_) 
-	{ 
-		AODV_RREP that_ = (AODV_RREP)source_; 
-	        rp_type = that_.rp_type;
+  public void duplicate(Object source_) 
+  { 
+    AODV_RREP that_ = (AODV_RREP)source_; 
+          rp_type = that_.rp_type;
                 rp_hop_count = that_.rp_hop_count;
                 rp_dst = that_.rp_dst;
                 rp_dst_seqno = that_.rp_dst_seqno;
                 rp_src = that_.rp_src;
                 rp_lifetime = that_.rp_lifetime;
                 rp_timestamp = that_.rp_timestamp;
-	} 
+  } 
  
-	public String toString() 
-	{ 
-		return "type: " + rp_type + " dst: " + rp_dst + " dst_seq: " + rp_dst_seqno + " src: " + rp_src + " time: " + rp_timestamp + " life: " + rp_lifetime + " hops: " + rp_hop_count;	
-	} 
+  public String toString() 
+  { 
+    return "type: " + rp_type + " dst: " + rp_dst + " dst_seq: " + rp_dst_seqno + " src: " + rp_src + " time: " + rp_timestamp + " life: " + rp_lifetime + " hops: " + rp_hop_count;  
+  } 
 } 

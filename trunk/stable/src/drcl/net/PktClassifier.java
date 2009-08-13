@@ -32,6 +32,6 @@ package drcl.net;
 The classifier classifies packets into classes represented by unique integers. */
 public interface PktClassifier
 {
-	/** Returns the class the packet belongs to. */
-	public int classify(Packet pkt_);
+  /** Returns the class the packet belongs to. */
+  public int classify(Packet pkt_);
 }

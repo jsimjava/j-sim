@@ -30,78 +30,78 @@ package drcl.net.traffic;
 
 public class tsRTSmooth extends TrafficShaper
 {
-	int amountServed;	// amount of bits served in the current frame
-	double fbegin;		// Begin time of current frame
-	double fend;		// Ending time of current frame
-	traffic_RTSmooth traffic = null;
+  int amountServed;  // amount of bits served in the current frame
+  double fbegin;    // Begin time of current frame
+  double fend;    // Ending time of current frame
+  traffic_RTSmooth traffic = null;
 
-	public tsRTSmooth()
-	{ this(new traffic_RTSmooth()); }
+  public tsRTSmooth()
+  { this(new traffic_RTSmooth()); }
 
-	public tsRTSmooth(traffic_RTSmooth traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsRTSmooth(traffic_RTSmooth traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void reset()
-	{
-		super.reset();
-		if (traffic != null) {
-			fbegin = traffic.origin;
-			fend = fbegin + traffic.frameLength;
-		}
-		amountServed = 0;
-	}
+  public void reset()
+  {
+    super.reset();
+    if (traffic != null) {
+      fbegin = traffic.origin;
+      fend = fbegin + traffic.frameLength;
+    }
+    amountServed = 0;
+  }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+ prefix_ + "State: amountServed/frame=" + amountServed
-			+ ", frameStart=" + fbegin + ", frameEnd=" + fend + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      + prefix_ + "State: amountServed/frame=" + amountServed
+      + ", frameStart=" + fbegin + ", frameEnd=" + fend + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_RTSmooth)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_RTSmooth)traffic_; reset(); }
 
-	protected double adjust(double now_, int size_) 
-	{
-		size_ = size_ << 3; // byte -> bits
-		
-		if (now_ >= fend) {
-			// start of a frame
-			amountServed = size_;
-			fbegin = (int)((now_ - traffic.origin) / traffic.frameLength)
-				* traffic.frameLength + traffic.origin;
-			fend = fbegin + traffic.frameLength;
-			return fbegin - now_;
-		}
-		else if (amountServed + size_ > traffic.nbits) {
-			// start of a frame
-			amountServed = size_;
-			fbegin = fend;
-			fend = fbegin + traffic.frameLength;
-			return fbegin - now_;
-		}
-		else {
-			amountServed += size_;
-			if (now_ < fbegin) return fbegin - now_;
-			else return 0.0;
-		}
-	}
+  protected double adjust(double now_, int size_) 
+  {
+    size_ = size_ << 3; // byte -> bits
+    
+    if (now_ >= fend) {
+      // start of a frame
+      amountServed = size_;
+      fbegin = (int)((now_ - traffic.origin) / traffic.frameLength)
+        * traffic.frameLength + traffic.origin;
+      fend = fbegin + traffic.frameLength;
+      return fbegin - now_;
+    }
+    else if (amountServed + size_ > traffic.nbits) {
+      // start of a frame
+      amountServed = size_;
+      fbegin = fend;
+      fend = fbegin + traffic.frameLength;
+      return fbegin - now_;
+    }
+    else {
+      amountServed += size_;
+      if (now_ < fbegin) return fbegin - now_;
+      else return 0.0;
+    }
+  }
 
-	public void setFrameLength(double time_) { traffic.frameLength = time_; }
-	public double getFrameLength() { return traffic.frameLength; }
-	
-	public void setNBitsPerFrame(int nbits_) { traffic.nbits = nbits_; }
-	public int getNBitsPerFrame() { return traffic.nbits; }
-	
-	public void setOrigin(double time_) { traffic.origin = time_; }
-	public double getOrigin() { return traffic.origin; }
-	
-	public int getMTU()	{ 	return traffic.mtu;	}
-	public void setMTU(int mtu_) 	{ traffic.mtu = mtu_; }
+  public void setFrameLength(double time_) { traffic.frameLength = time_; }
+  public double getFrameLength() { return traffic.frameLength; }
+  
+  public void setNBitsPerFrame(int nbits_) { traffic.nbits = nbits_; }
+  public int getNBitsPerFrame() { return traffic.nbits; }
+  
+  public void setOrigin(double time_) { traffic.origin = time_; }
+  public double getOrigin() { return traffic.origin; }
+  
+  public int getMTU()  {   return traffic.mtu;  }
+  public void setMTU(int mtu_)   { traffic.mtu = mtu_; }
 
-	public void set(int nbits_, double flen_, double forigin_, int mtu_)
-	{ traffic.set(nbits_, flen_, forigin_, mtu_); reset(); }
+  public void set(int nbits_, double flen_, double forigin_, int mtu_)
+  { traffic.set(nbits_, flen_, forigin_, mtu_); reset(); }
 }

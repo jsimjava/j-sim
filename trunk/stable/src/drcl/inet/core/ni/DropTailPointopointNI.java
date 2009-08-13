@@ -43,138 +43,138 @@ dependes on the propagation delay, bandwidth and packet size.
  */
 public class DropTailPointopointNI extends drcl.inet.core.QueueNI
 {
-	{ downPort.setType(Port.PortType_OUT); }
-	{ pullPort.setType(Port.PortType_IN); }
-	
-	/** Time ready to transmit next packet. */
-	protected int ready = 1;
-	
-	public static final String EVENT_QLEN = "Instant Q Length";
-	protected Port qLenPort = addEventPort(".q"); 
+  { downPort.setType(Port.PortType_OUT); }
+  { pullPort.setType(Port.PortType_IN); }
+  
+  /** Time ready to transmit next packet. */
+  protected int ready = 1;
+  
+  public static final String EVENT_QLEN = "Instant Q Length";
+  protected Port qLenPort = addEventPort(".q"); 
 
-	protected VSFIFOQueue q = null;
-	protected int capacity = DEFAULT_BUFFER_SIZE; // default in bytes
-	int maxLength = 0; // stats
+  protected VSFIFOQueue q = null;
+  protected int capacity = DEFAULT_BUFFER_SIZE; // default in bytes
+  int maxLength = 0; // stats
 
-	public DropTailPointopointNI()
-	{	super();	}
-	
-	public DropTailPointopointNI(String id_)
-	{	super(id_);	}
-	
-	protected synchronized void process(Object data_, Port inPort_)
-	{
-		if (data_ == null) return;
+  public DropTailPointopointNI()
+  {  super();  }
+  
+  public DropTailPointopointNI(String id_)
+  {  super(id_);  }
+  
+  protected synchronized void process(Object data_, Port inPort_)
+  {
+    if (data_ == null) return;
 
-		if (data_ == this) {
-			data_ = dequeue();
-			if (data_ == null) {
-				ready++;
-				return;
-			}
-		}
-		else if (ready == 0) {
-			enqueue((Packet)data_);
-			return;
-		}
+    if (data_ == this) {
+      data_ = dequeue();
+      if (data_ == null) {
+        ready++;
+        return;
+      }
+    }
+    else if (ready == 0) {
+      enqueue((Packet)data_);
+      return;
+    }
 
-		Packet pkt_ = (Packet)data_;
-		if (pkt_.size > mtu) {
-			if (isGarbageEnabled()) drop(data_, "pkt size > mtu(" + mtu + ")");
-			return;
-		}
-	
-		ready = 0;
-		transmit(pkt_);
-	}
-	
-	public void duplicate(Object source_) 
-	{
-		super.duplicate(source_);
-		DropTailPointopointNI that_ = (DropTailPointopointNI)source_;
-		capacity = that_.capacity;
-	}
-	
-	
-	public void reset()
-	{
-		super.reset();
-		ready = 1;
-		if (q != null) q.reset();
-		maxLength = 0;
-	}
-	
-	/** Returns true if the interface is ready to transmit more packets. */
-	public boolean isReady() 
-	{ return ready > 0; }
+    Packet pkt_ = (Packet)data_;
+    if (pkt_.size > mtu) {
+      if (isGarbageEnabled()) drop(data_, "pkt size > mtu(" + mtu + ")");
+      return;
+    }
+  
+    ready = 0;
+    transmit(pkt_);
+  }
+  
+  public void duplicate(Object source_) 
+  {
+    super.duplicate(source_);
+    DropTailPointopointNI that_ = (DropTailPointopointNI)source_;
+    capacity = that_.capacity;
+  }
+  
+  
+  public void reset()
+  {
+    super.reset();
+    ready = 1;
+    if (q != null) q.reset();
+    maxLength = 0;
+  }
+  
+  /** Returns true if the interface is ready to transmit more packets. */
+  public boolean isReady() 
+  { return ready > 0; }
 
-	public String info()
-	{
-		return super.info()
-			+ (q == null? "": "Content:" + q.info("   "));
-	}
+  public String info()
+  {
+    return super.info()
+      + (q == null? "": "Content:" + q.info("   "));
+  }
 
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	Packet enqueue(Packet p_)
-	{
-		int psize_ = byteMode? p_.size: 1;
-		
-		if (psize_ > capacity) {
-			if (isGarbageEnabled()) {
-				if (isDebugEnabled()) drop(p_, "pkt too large: " + psize_
-					+ ">" + capacity);
-				else drop(p_, "pkt too large");
-			}
-			return null;
-		}
-		
-		if (q == null) q = new VSFIFOQueue();
-		if (q.getSize() + psize_ > capacity) {
-			if (isGarbageEnabled()) {
-				if (isDebugEnabled()) drop(p_, "exceeds capacity: " + psize_
-					+ "+" + q.getSize() + ">" + capacity);
-				else drop(p_, "exceeds capacity");
-			}
-		}
-		else {
-			q.enqueue(p_, psize_);
-			//if (isDebugEnabled())
-			//	debug("qsize=" + q.getSize() + ", enqueue " + p_);
-			if (qLenPort._isEventExportEnabled())
-				qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
-			if (maxLength < q.getLength()) maxLength++;
-		}
-		return null;
-	}
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  Packet enqueue(Packet p_)
+  {
+    int psize_ = byteMode? p_.size: 1;
+    
+    if (psize_ > capacity) {
+      if (isGarbageEnabled()) {
+        if (isDebugEnabled()) drop(p_, "pkt too large: " + psize_
+          + ">" + capacity);
+        else drop(p_, "pkt too large");
+      }
+      return null;
+    }
+    
+    if (q == null) q = new VSFIFOQueue();
+    if (q.getSize() + psize_ > capacity) {
+      if (isGarbageEnabled()) {
+        if (isDebugEnabled()) drop(p_, "exceeds capacity: " + psize_
+          + "+" + q.getSize() + ">" + capacity);
+        else drop(p_, "exceeds capacity");
+      }
+    }
+    else {
+      q.enqueue(p_, psize_);
+      //if (isDebugEnabled())
+      //  debug("qsize=" + q.getSize() + ", enqueue " + p_);
+      if (qLenPort._isEventExportEnabled())
+        qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
+      if (maxLength < q.getLength()) maxLength++;
+    }
+    return null;
+  }
 
-	/**
-	 * Dequeues and returns the first object in the queue.
-	 * @return the object dequeued; null if queue is empty.
-	 */
-	Packet dequeue()
-	{
-		if (q == null || q.isEmpty()) return null;
-		Packet p_ = (Packet) q.dequeue();
-		if (qLenPort._isEventExportEnabled())
-			qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
-		return p_;
-	}
+  /**
+   * Dequeues and returns the first object in the queue.
+   * @return the object dequeued; null if queue is empty.
+   */
+  Packet dequeue()
+  {
+    if (q == null || q.isEmpty()) return null;
+    Packet p_ = (Packet) q.dequeue();
+    if (qLenPort._isEventExportEnabled())
+      qLenPort.exportEvent(EVENT_QLEN, (double)q.getSize(), null);
+    return p_;
+  }
 
-	/** Sets the capacity of the queue. */
-	public void setCapacity(int capacity_)
-	{ capacity = capacity_; }
-	
-	/** Returns the capacity of the queue. */
-	public int getCapacity()
-	{ return capacity; }
-	
-	/** Returns the current size of the queue. */
-	public int getSize()
-	{ return q == null? 0: q.getSize(); }
+  /** Sets the capacity of the queue. */
+  public void setCapacity(int capacity_)
+  { capacity = capacity_; }
+  
+  /** Returns the capacity of the queue. */
+  public int getCapacity()
+  { return capacity; }
+  
+  /** Returns the current size of the queue. */
+  public int getSize()
+  { return q == null? 0: q.getSize(); }
 
-	public int getMaxLength()
-	{ return maxLength; }
+  public int getMaxLength()
+  { return maxLength; }
 }

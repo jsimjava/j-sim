@@ -35,100 +35,100 @@ import drcl.util.queue.FIFOQueue;
 
 public class QueueFIFO extends ActiveQueue
 {
-	FIFOQueue q = null;
-	int capacity = Integer.MAX_VALUE;
-										
-	public QueueFIFO() { super(); }
-	
-	public QueueFIFO(String id_) { super(id_); }
-	
-	public void reset()
-	{
-		super.reset();
-		if (q != null) q.reset();
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		QueueFIFO that_ = (QueueFIFO)source_;
-	}
-	
-	public String info(String prefix_)
-	{ return prefix_ + "FIFO: " + super.info() + (q != null? q.info(): "Queue is empty.\n"); }
-	
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueue(Object obj_)
-	{
-		if (q == null) q = new FIFOQueue();
-		if (isFull()) return obj_;
-		q.enqueue(obj_); 
-		return null;
-	}
-	
-	/**
-	 * Enqueues the object at the position specified.
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueueAt(Object obj_, int pos_)
-	{
-		if (q == null) q = new FIFOQueue();
-		return q.enqueueAt(pos_, 0.0/*dont care*/, obj_)? null: obj_;
-	}
-	
-	/**
-	 * Dequeues and returns the first object in the queue.
-	 * @return the object dequeued; null if position is not valid.
-	 */
-	public Object dequeue()
-	{
-		if (q == null) return null;
-		return q.dequeue();
-	}
-	
-	/**
-	 * Dequeues the object at the position specified.
-	 * @return the object dequeued; null if position is not valid.
-	 */
-	public Object retrieveAt(int pos_)
-	{
-		if (q == null) return null;
-		Object o_ = q.retrieveAt(pos_);
-		q.remove(pos_);
-		return o_;
-	}
-	
-	/**
-	 * Retrieves but not dequeue the object at the position specified.
-	 * @return the object; null if position is not valid.
-	 */
-	public Object peekAt(int pos_)
-	{ return  q == null? null: q.retrieveAt(pos_); }
-	
-	/** Return true if the queue is full.  */
-	public boolean isFull()
-	{ return q == null? false: q.getLength() == capacity; }
-	
-	/** Return true if the queue is empty.  */
-	public boolean isEmpty()
-	{ return q == null? false: q.isEmpty(); }
-	
-	/**
-	 * Sets the capacity of the queue.
-	 * @param capacity_ the new capacity.
-	 * @param truncate_ set true to drop objects that are outside the new capacity.
-	 */
-	public void setCapacity(int capacity_)
-	{ capacity = capacity_; }
-	
-	/** Returns the capacity of the queue. */
-	public int getCapacity()
-	{ return capacity; }
-	
-	/** Returns the current size of the queue. */
-	public int getSize()
-	{ return q == null? 0: q.getLength(); }
+  FIFOQueue q = null;
+  int capacity = Integer.MAX_VALUE;
+                    
+  public QueueFIFO() { super(); }
+  
+  public QueueFIFO(String id_) { super(id_); }
+  
+  public void reset()
+  {
+    super.reset();
+    if (q != null) q.reset();
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    QueueFIFO that_ = (QueueFIFO)source_;
+  }
+  
+  public String info(String prefix_)
+  { return prefix_ + "FIFO: " + super.info() + (q != null? q.info(): "Queue is empty.\n"); }
+  
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueue(Object obj_)
+  {
+    if (q == null) q = new FIFOQueue();
+    if (isFull()) return obj_;
+    q.enqueue(obj_); 
+    return null;
+  }
+  
+  /**
+   * Enqueues the object at the position specified.
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueueAt(Object obj_, int pos_)
+  {
+    if (q == null) q = new FIFOQueue();
+    return q.enqueueAt(pos_, 0.0/*dont care*/, obj_)? null: obj_;
+  }
+  
+  /**
+   * Dequeues and returns the first object in the queue.
+   * @return the object dequeued; null if position is not valid.
+   */
+  public Object dequeue()
+  {
+    if (q == null) return null;
+    return q.dequeue();
+  }
+  
+  /**
+   * Dequeues the object at the position specified.
+   * @return the object dequeued; null if position is not valid.
+   */
+  public Object retrieveAt(int pos_)
+  {
+    if (q == null) return null;
+    Object o_ = q.retrieveAt(pos_);
+    q.remove(pos_);
+    return o_;
+  }
+  
+  /**
+   * Retrieves but not dequeue the object at the position specified.
+   * @return the object; null if position is not valid.
+   */
+  public Object peekAt(int pos_)
+  { return  q == null? null: q.retrieveAt(pos_); }
+  
+  /** Return true if the queue is full.  */
+  public boolean isFull()
+  { return q == null? false: q.getLength() == capacity; }
+  
+  /** Return true if the queue is empty.  */
+  public boolean isEmpty()
+  { return q == null? false: q.isEmpty(); }
+  
+  /**
+   * Sets the capacity of the queue.
+   * @param capacity_ the new capacity.
+   * @param truncate_ set true to drop objects that are outside the new capacity.
+   */
+  public void setCapacity(int capacity_)
+  { capacity = capacity_; }
+  
+  /** Returns the capacity of the queue. */
+  public int getCapacity()
+  { return capacity; }
+  
+  /** Returns the current size of the queue. */
+  public int getSize()
+  { return q == null? 0: q.getLength(); }
 }

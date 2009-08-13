@@ -33,39 +33,39 @@ import drcl.inet.*;
 import drcl.net.*;
 
 /**
- * This class defines MAC timeout event types.		 
+ * This class defines MAC timeout event types.     
  * @author Ye Ge
  */
 public class MacTimeoutEvt  {
-	int evt_type;
-	static final int Nav_timeout      = 0;
-	static final int IF_timeout       = 1;    // timeout while transmission is finished
-	static final int Rx_timeout       = 2;    
-	static final int Tx_timeout       = 3;    // timeout while no response received
-	static final int Defer_timeout    = 4;
-	static final int Backoff_timeout  = 5; 
-	static final int ATIMEnd_timeout  = 6; 
-	static final int Beacon_timeout   = 7; 
-	static final int TBTT_timeout     = 8; 
-	static final int Testing_timeout  = -1;
-	static final String[] TYPES = {
-			"NAV", "IF", "RX", "TX", "DEFER", "BACKOFF",
-			"ATIM-End", "BEACON", "TBTT"
-	};
-	
-	public MacTimeoutEvt(int evt_type_) {
-		evt_type = evt_type_;
-	}
-	
-	public void setType(int evt_type_) {
-		evt_type = evt_type_;
-	}
+  int evt_type;
+  static final int Nav_timeout      = 0;
+  static final int IF_timeout       = 1;    // timeout while transmission is finished
+  static final int Rx_timeout       = 2;    
+  static final int Tx_timeout       = 3;    // timeout while no response received
+  static final int Defer_timeout    = 4;
+  static final int Backoff_timeout  = 5; 
+  static final int ATIMEnd_timeout  = 6; 
+  static final int Beacon_timeout   = 7; 
+  static final int TBTT_timeout     = 8; 
+  static final int Testing_timeout  = -1;
+  static final String[] TYPES = {
+      "NAV", "IF", "RX", "TX", "DEFER", "BACKOFF",
+      "ATIM-End", "BEACON", "TBTT"
+  };
+  
+  public MacTimeoutEvt(int evt_type_) {
+    evt_type = evt_type_;
+  }
+  
+  public void setType(int evt_type_) {
+    evt_type = evt_type_;
+  }
 
-	public String toString()
-	{
-		if (evt_type == 0) return "MAC_TIMEOUT:TESTING";
-		else return "MAC_TIMEOUT:" + TYPES[evt_type];
-	}
-}	
+  public String toString()
+  {
+    if (evt_type == 0) return "MAC_TIMEOUT:TESTING";
+    else return "MAC_TIMEOUT:" + TYPES[evt_type];
+  }
+}  
 
 

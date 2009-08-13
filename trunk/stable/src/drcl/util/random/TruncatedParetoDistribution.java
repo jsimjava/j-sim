@@ -38,93 +38,93 @@ import java.util.*;
 
 public class TruncatedParetoDistribution extends RandomNumberGenerator
 {
-	public String   getName()           { return "Pareto Distribution"; }
+  public String   getName()           { return "Pareto Distribution"; }
 
-	public TruncatedParetoDistribution (double scale_, double upper_bound_,
-					double shape_)
-	{ this(scale_, upper_bound_, shape_, 0L); }
+  public TruncatedParetoDistribution (double scale_, double upper_bound_,
+          double shape_)
+  { this(scale_, upper_bound_, shape_, 0L); }
 
-	public TruncatedParetoDistribution (double scale_, double upper_bound_,
-					double shape_, long seed_)
-	{
-		this(seed_);
-		scale = scale_;
-		shape = -1.0 / shape_;
-		upper_bound =1.0 - Math.pow(upper_bound_/scale, 1.0 / shape);
-	}
-	
-	double upper_bound = 1.0;
-	double scale = 1.0;
-	double shape = - 1.0;
-	
-	public TruncatedParetoDistribution()
-	{ super(); }
+  public TruncatedParetoDistribution (double scale_, double upper_bound_,
+          double shape_, long seed_)
+  {
+    this(seed_);
+    scale = scale_;
+    shape = -1.0 / shape_;
+    upper_bound =1.0 - Math.pow(upper_bound_/scale, 1.0 / shape);
+  }
+  
+  double upper_bound = 1.0;
+  double scale = 1.0;
+  double shape = - 1.0;
+  
+  public TruncatedParetoDistribution()
+  { super(); }
 
-	public TruncatedParetoDistribution(long seed_)
-	{ super(seed_); }
+  public TruncatedParetoDistribution(long seed_)
+  { super(seed_); }
 
-	public double getMean()
-	{
-		return scale / (1 + shape) 
-				* (1 - Math.pow(getUpperBound()/scale, 1+1/shape));
-	}
-	
-	public double nextDouble()
-	{
-		double x;
-		
-		do { x= r.nextDouble(); } while (x == 0.0 || x > upper_bound);
+  public double getMean()
+  {
+    return scale / (1 + shape) 
+        * (1 - Math.pow(getUpperBound()/scale, 1+1/shape));
+  }
+  
+  public double nextDouble()
+  {
+    double x;
+    
+    do { x= r.nextDouble(); } while (x == 0.0 || x > upper_bound);
 
-		// Mapping from Uniform to Pareto
-		return scale * Math.pow(x, shape); 
-	}
+    // Mapping from Uniform to Pareto
+    return scale * Math.pow(x, shape); 
+  }
 
-	public int  nextInt()
-	{	return (int) nextDouble();	}
+  public int  nextInt()
+  {  return (int) nextDouble();  }
 
-	public long nextLong()
-	{	return (long) nextDouble();	}
+  public long nextLong()
+  {  return (long) nextDouble();  }
 
-	public void setScale(double scale_)
-	{
-		upper_bound = getUpperBound();
-		scale = scale_;
-		setUpperBound(upper_bound);
-	}
+  public void setScale(double scale_)
+  {
+    upper_bound = getUpperBound();
+    scale = scale_;
+    setUpperBound(upper_bound);
+  }
 
-	public double getScale()
-	{ return scale; }
-	
-	public void setShape(double shape_)
-	{
-		upper_bound = getUpperBound();
-		shape = -1.0 / shape_;
-		setUpperBound(upper_bound);
-	}
+  public double getScale()
+  { return scale; }
+  
+  public void setShape(double shape_)
+  {
+    upper_bound = getUpperBound();
+    shape = -1.0 / shape_;
+    setUpperBound(upper_bound);
+  }
 
-	public double getShape()
-	{ return -1.0 / shape; }
+  public double getShape()
+  { return -1.0 / shape; }
 
-	public void setUpperBound(double upper_bound_)
-	{upper_bound = 1.0 - Math.pow(upper_bound_/scale, 1.0 / shape);}
+  public void setUpperBound(double upper_bound_)
+  {upper_bound = 1.0 - Math.pow(upper_bound_/scale, 1.0 / shape);}
 
-	public double getUpperBound()
-	{ return scale * Math.pow(1.0 - upper_bound, shape); }
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Scale = " + scale + "\n"
-			+  prefix_ + "Shape = " + getShape() + "\n"
-			+  prefix_ + "Upper_bound = " + getUpperBound() + "\n";
-	}
+  public double getUpperBound()
+  { return scale * Math.pow(1.0 - upper_bound, shape); }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Scale = " + scale + "\n"
+      +  prefix_ + "Shape = " + getShape() + "\n"
+      +  prefix_ + "Upper_bound = " + getUpperBound() + "\n";
+  }
 
-	public String oneline()
-	{
-		return super.oneline()
-			+ ", scale=" + scale
-			+ ", shape=" + getShape()
-			+ ", upperBound=" + getUpperBound();
-	}
+  public String oneline()
+  {
+    return super.oneline()
+      + ", scale=" + scale
+      + ", shape=" + getShape()
+      + ", upperBound=" + getUpperBound();
+  }
 }
 

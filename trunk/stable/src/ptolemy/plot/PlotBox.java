@@ -205,8 +205,8 @@ it can only be viewed by a browser that supports JDK 1.2, or a plugin.
  */
 public class PlotBox extends JPanel implements Printable {
 
-	// DRCL:
-	public KeyListener myKeyListener = new CommandListener();
+  // DRCL:
+  public KeyListener myKeyListener = new CommandListener();
 
     ///////////////////////////////////////////////////////////////////
     ////                         constructor                       ////
@@ -222,7 +222,7 @@ public class PlotBox extends JPanel implements Printable {
         // Create a right-justified layout with spacing of 2 pixels.
         setLayout(new FlowLayout(FlowLayout.RIGHT, 2, 2));
         addMouseListener(new ZoomListener());
-		//DRCL:
+    //DRCL:
         addKeyListener(myKeyListener); //new CommandListener());
         addMouseMotionListener(new DragListener());
         // This is something we want to do only once...
@@ -248,17 +248,17 @@ public class PlotBox extends JPanel implements Printable {
         _legendDatasets.addElement(new Integer(dataset));
     }
 
- 	//DRCL:
+   //DRCL:
     public synchronized void setLegend(int dataset, String legend) {
         if (legend == null || legend.equals("")) return;
-		Integer set_ = new Integer(dataset);
-		int index_ = _legendDatasets.indexOf(set_);
-		if (index_ < 0) {
-	        _legendStrings.addElement(legend);
-		    _legendDatasets.addElement(new Integer(dataset));
-		}
-		else
-			_legendStrings.setElementAt(legend, index_);
+    Integer set_ = new Integer(dataset);
+    int index_ = _legendDatasets.indexOf(set_);
+    if (index_ < 0) {
+          _legendStrings.addElement(legend);
+        _legendDatasets.addElement(new Integer(dataset));
+    }
+    else
+      _legendStrings.setElementAt(legend, index_);
     }
 
    /** Specify a tick mark for the X axis.  The label given is placed
@@ -382,8 +382,8 @@ public class PlotBox extends JPanel implements Printable {
         // EAL, 6/12/00.
         setXRange(_xBottom, _xTop);
         setYRange(_yBottom, _yTop);
-		//DRCL: enables auto-ranging
-		_xRangeGiven = _yRangeGiven = false;
+    //DRCL: enables auto-ranging
+    _xRangeGiven = _yRangeGiven = false;
         repaint();
         // Reacquire the focus so that key bindings work.
         // NOTE: no longer needed?
@@ -858,10 +858,10 @@ public class PlotBox extends JPanel implements Printable {
 
         if (_printButton == null) {
             // Load the image by using the absolute path to the gif.
-	    // Using a relative location should work, but it does not.
+      // Using a relative location should work, but it does not.
             // Use the resource locator of the class.
-	    // For more information, see
-	    // file:///C|/jdk1.3/docs/guide/resources/resources.html
+      // For more information, see
+      // file:///C|/jdk1.3/docs/guide/resources/resources.html
             URL img = getClass().getResource("/ptolemy/plot/img/print.gif");
             if (img != null) {
                 ImageIcon printIcon = new ImageIcon(img);
@@ -872,8 +872,8 @@ public class PlotBox extends JPanel implements Printable {
                 // class loader.
                 _printButton = new JButton("P");
             }
-	    // FIXME: If we failed to get an image, then the letter "P"
-	    // Is not likely to fit into a 20x20 button.
+      // FIXME: If we failed to get an image, then the letter "P"
+      // Is not likely to fit into a 20x20 button.
             _printButton.setPreferredSize(new Dimension(20,20));
             _printButton.setToolTipText("Print the plot.");
             _printButton.addActionListener(new ButtonListener());
@@ -883,10 +883,10 @@ public class PlotBox extends JPanel implements Printable {
 
         if (_resetButton == null) {
             // Load the image by using the absolute path to the gif.
-	    // Using a relative location should work, but it does not.
+      // Using a relative location should work, but it does not.
             // Use the resource locator of the class.
-	    // For more information, see
-	    // file:///C|/jdk1.3/docs/guide/resources/resources.html
+      // For more information, see
+      // file:///C|/jdk1.3/docs/guide/resources/resources.html
             URL img = getClass().getResource("/ptolemy/plot/img/reset.gif");
             if (img != null) {
                 ImageIcon resetIcon = new ImageIcon(img);
@@ -897,8 +897,8 @@ public class PlotBox extends JPanel implements Printable {
                 // class loader.
                 _resetButton = new JButton("R");
             }
-	    // FIXME: If we failed to get an image, then the letter "R"
-	    // Is not likely to fit into a 20x20 button.
+      // FIXME: If we failed to get an image, then the letter "R"
+      // Is not likely to fit into a 20x20 button.
             _resetButton.setPreferredSize(new Dimension(20,20));
             _resetButton.setToolTipText(
                     "Reset X and Y ranges to their original values");
@@ -909,10 +909,10 @@ public class PlotBox extends JPanel implements Printable {
 
         if (_formatButton == null) {
             // Load the image by using the absolute path to the gif.
-	    // Using a relative location should work, but it does not.
+      // Using a relative location should work, but it does not.
             // Use the resource locator of the class.
-	    // For more information, see
-	    // file:///C|/jdk1.3/docs/guide/resources/resources.html
+      // For more information, see
+      // file:///C|/jdk1.3/docs/guide/resources/resources.html
             URL img = getClass().getResource("/ptolemy/plot/img/format.gif");
             if (img != null) {
                 ImageIcon formatIcon = new ImageIcon(img);
@@ -923,8 +923,8 @@ public class PlotBox extends JPanel implements Printable {
                 // class loader.
                 _formatButton = new JButton("S");
             }
-	    // FIXME: If we failed to get an image, then the letter "S"
-	    // Is not likely to fit into a 20x20 button.
+      // FIXME: If we failed to get an image, then the letter "S"
+      // Is not likely to fit into a 20x20 button.
             _formatButton.setPreferredSize(new Dimension(20,20));
             _formatButton.setToolTipText(
                     "Set the plot format");
@@ -933,13 +933,13 @@ public class PlotBox extends JPanel implements Printable {
         }
         _formatButton.setVisible(visible);
 
-		// DRCL:
+    // DRCL:
         if (_formatButton2 == null) {
             // Load the image by using the absolute path to the gif.
-	    // Using a relative location should work, but it does not.
+      // Using a relative location should work, but it does not.
             // Use the resource locator of the class.
-	    // For more information, see
-	    // file:///C|/jdk1.3/docs/guide/resources/resources.html
+      // For more information, see
+      // file:///C|/jdk1.3/docs/guide/resources/resources.html
             URL img = getClass().getResource("/ptolemy/plot/img/format2.gif");
             if (img != null) {
                 ImageIcon formatIcon = new ImageIcon(img);
@@ -950,8 +950,8 @@ public class PlotBox extends JPanel implements Printable {
                 // class loader.
                 _formatButton2 = new JButton("S");
             }
-	    // FIXME: If we failed to get an image, then the letter "S"
-	    // Is not likely to fit into a 20x20 button.
+      // FIXME: If we failed to get an image, then the letter "S"
+      // Is not likely to fit into a 20x20 button.
             _formatButton2.setPreferredSize(new Dimension(20,20));
             _formatButton2.setToolTipText(
                     "Set dataset format");
@@ -962,10 +962,10 @@ public class PlotBox extends JPanel implements Printable {
 
         if (_fillButton == null) {
             // Load the image by using the absolute path to the gif.
-	    // Using a relative location should work, but it does not.
+      // Using a relative location should work, but it does not.
             // Use the resource locator of the class.
-	    // For more information, see
-	    // file:///C|/jdk1.3/docs/guide/resources/resources.html
+      // For more information, see
+      // file:///C|/jdk1.3/docs/guide/resources/resources.html
             URL img = getClass().getResource("/ptolemy/plot/img/fill.gif");
             if (img != null) {
                 ImageIcon fillIcon = new ImageIcon(img);
@@ -976,8 +976,8 @@ public class PlotBox extends JPanel implements Printable {
                 // class loader.
                 _fillButton = new JButton("F");
             }
-	    // FIXME: If we failed to get an image, then the letter "F"
-	    // Is not likely to fit into a 20x20 button.
+      // FIXME: If we failed to get an image, then the letter "F"
+      // Is not likely to fit into a 20x20 button.
             _fillButton.setPreferredSize(new Dimension(20,20));
             _fillButton.setToolTipText(
                     "Rescale the plot to fit the data");
@@ -1098,7 +1098,7 @@ public class PlotBox extends JPanel implements Printable {
         _wrapHigh = _xhighgiven;
     }
 
-	// DRCL: copied from setWrap()
+  // DRCL: copied from setWrap()
     /** Specify whether the X axis is wrapped.
      *  If it is, then X values that are out of range are remapped
      *  to be in range using modulo arithmetic. The X range is determined
@@ -1109,30 +1109,30 @@ public class PlotBox extends JPanel implements Printable {
      */
     public void setWrapY(boolean wrap) {
         _wrapY = wrap;
-		if (wrap) {
-			if (_yRangeGiven) {
-				_yBottom = _ylowgiven;
-				_yTop = _yhighgiven;
-			}
-			else {
-				if (_yBottom > _yTop) {
-					// have nothing to go on.
-					setYRange(0, 0);
-				} else {
-					setYRange(_yBottom, _yTop);
-				}
-			}
-        	_wrapYLow = _ylowgiven;
-        	_wrapYHigh = _yhighgiven;
-		}
-		else {
-			// should be done in subclass
-		}
+    if (wrap) {
+      if (_yRangeGiven) {
+        _yBottom = _ylowgiven;
+        _yTop = _yhighgiven;
+      }
+      else {
+        if (_yBottom > _yTop) {
+          // have nothing to go on.
+          setYRange(0, 0);
+        } else {
+          setYRange(_yBottom, _yTop);
+        }
+      }
+          _wrapYLow = _ylowgiven;
+          _wrapYHigh = _yhighgiven;
+    }
+    else {
+      // should be done in subclass
+    }
     }
 
-	// DRCL:
+  // DRCL:
     public boolean getWrapY()
-	{ return _wrapY; }
+  { return _wrapY; }
 
     /** Set the label for the X (horizontal) axis.
      *  @param label The label.
@@ -1391,7 +1391,7 @@ public class PlotBox extends JPanel implements Printable {
         // In swing, updates to showing graphics must be done in the
         // event thread.  If we are in the event thread, then proceed.
         // Otherwise, queue a request or add to a pending request.
-		//System.out.println("DEFER...");
+    //System.out.println("DEFER...");
         if(EventQueue.isDispatchThread()) {
             action.run();
         } else {
@@ -2125,7 +2125,7 @@ public class PlotBox extends JPanel implements Printable {
                 _wrap = true;
             }
             return true;
-		//DRCL: wrapY
+    //DRCL: wrapY
         } else if (lcLine.startsWith("wrapY:")) {
             if (lcLine.indexOf("off",5) >= 0) {
                 _wrapY = false;
@@ -2152,7 +2152,7 @@ public class PlotBox extends JPanel implements Printable {
         _printButton.setVisible(vis);
         _fillButton.setVisible(vis);
         _formatButton.setVisible(vis);
-		// DRCL:
+    // DRCL:
         _formatButton2.setVisible(vis);
         _resetButton.setVisible(vis);
     }
@@ -2165,7 +2165,7 @@ public class PlotBox extends JPanel implements Printable {
      *  @param padding The padding multiple.
      */
     protected void _setPadding(double padding) {
-	_padding = padding;
+  _padding = padding;
     }
 
     /** Write plot information to the specified output stream in the
@@ -2214,9 +2214,9 @@ public class PlotBox extends JPanel implements Printable {
         if (!_usecolor) output.println("Color: off");
     }
 
-	// DRCL:
+  // DRCL:
     public void info() {
-		PrintStream output = System.out;
+    PrintStream output = System.out;
         output.println("# Ptolemy plot, version 2.0");
         if (_title != null) output.println("TitleText: " + _title);
         if (_xlabel != null) output.println("XLabel: " + _xlabel);
@@ -2250,7 +2250,7 @@ public class PlotBox extends JPanel implements Printable {
         if (!_grid) output.println("Grid: off");
         if (_wrap) output.println("Wrap: on");
         if (_wrapY) output.println("WrapY: on"); // DRCL
-		output.println("(_yBottom, _yTop) = (" + _yBottom + "," + _yTop + ")");
+    output.println("(_yBottom, _yTop) = (" + _yBottom + "," + _yTop + ")");
         if (!_usecolor) output.println("Color: off");
     }
 
@@ -2308,7 +2308,7 @@ public class PlotBox extends JPanel implements Printable {
     /** @serial The low range of the X axis for wrapping. */
     protected double _wrapLow;
 
-	// DRCL: wrap Y
+  // DRCL: wrap Y
     /** @serial Whether to wrap the Y axis. */
     protected boolean _wrapY = false;
 
@@ -2868,15 +2868,15 @@ public class PlotBox extends JPanel implements Printable {
             max += 1.0;
         }
 
-	//if (_xRangeGiven) {
+  //if (_xRangeGiven) {
         // The user specified the range, so don't pad.
-	//    _xMin = min;
-	//    _xMax = max;
-	//} else {
+  //    _xMin = min;
+  //    _xMax = max;
+  //} else {
         // Pad slightly so that we don't plot points on the axes.
         _xMin = min - ((max - min) * _padding);
         _xMax = max + ((max - min) * _padding);
-	//}
+  //}
 
         // Find the exponent.
         double largest = Math.max(Math.abs(_xMin), Math.abs(_xMax));
@@ -2906,15 +2906,15 @@ public class PlotBox extends JPanel implements Printable {
             min -= 0.1;
             max += 0.1;
         }
-	//if (_yRangeGiven) {
+  //if (_yRangeGiven) {
         // The user specified the range, so don't pad.
-	//    _yMin = min;
-	//    _yMax = max;
-	//} else {
+  //    _yMin = min;
+  //    _yMax = max;
+  //} else {
         // Pad slightly so that we don't plot points on the axes.
         _yMin = min - ((max - min) * _padding);
         _yMax = max + ((max - min) * _padding);
-	//}
+  //}
 
         // Find the exponent.
         double largest = Math.max(Math.abs(_yMin), Math.abs(_yMax));
@@ -3207,7 +3207,7 @@ public class PlotBox extends JPanel implements Printable {
     // A button for formatting the plot
     private transient JButton _formatButton = null;
 
-	// DRCL:
+  // DRCL:
     // A button for formatting dataset
     private transient JButton _formatButton2 = null;
 
@@ -3244,7 +3244,7 @@ public class PlotBox extends JPanel implements Printable {
     "<!-- PlotML DTD, created by Edward A. Lee, eal@eecs.berkeley.edu.\n"
     + "   See http://ptolemy.eecs.berkeley.edu/java/ptplot -->\n"
     + "<!ELEMENT plot (barGraph | bin | dataset | default | noColor | \n"
-    + "	noGrid | title | wrap | xLabel | xLog | xRange | xTicks | yLabel | \n"
+    + "  noGrid | title | wrap | xLabel | xLog | xRange | xTicks | yLabel | \n"
     + " yLog | yRange | yTicks)*>\n"
     + "  <!ELEMENT barGraph EMPTY>\n"
     + "    <!ATTLIST barGraph width CDATA #IMPLIED>\n"
@@ -3327,7 +3327,7 @@ public class PlotBox extends JPanel implements Printable {
             } else if (event.getSource() == _formatButton) {
                 PlotFormatter fmt = new PlotFormatter(PlotBox.this);
                 fmt.openModal();
-			// DRCL:
+      // DRCL:
             } else if (event.getSource() == _formatButton2) {
                 DatasetFormatter fmt = new DatasetFormatter(PlotBox.this);
                 fmt.openModal();

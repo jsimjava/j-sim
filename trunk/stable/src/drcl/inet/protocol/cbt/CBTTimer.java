@@ -31,12 +31,12 @@ package drcl.inet.protocol.cbt;
 /** Timer base class.  */
 public class CBTTimer
 { 
-	/** Timer type. */
-	public int type;
+  /** Timer type. */
+  public int type;
 
-	public CBTTimer()
-	{}
+  public CBTTimer()
+  {}
 
-	public int hashCode()
-	{ return type; }
+  public int hashCode()
+  { return type; }
 }

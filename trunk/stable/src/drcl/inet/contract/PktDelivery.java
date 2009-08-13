@@ -40,17 +40,17 @@ interface where the packet arrives.
 */
 public class PktDelivery extends drcl.comp.Contract
 {
-	public static final PktDelivery INSTANCE = new PktDelivery();
+  public static final PktDelivery INSTANCE = new PktDelivery();
 
-	public PktDelivery()
-	{ super(); }
-	
-	public PktDelivery(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "PacketDelivery Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
+  public PktDelivery()
+  { super(); }
+  
+  public PktDelivery(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "PacketDelivery Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
 }

@@ -45,36 +45,36 @@ public class TraceRTPkt extends drcl.inet.InetPacket
 
     int iType;
     LinkedList listIP = new LinkedList();
-	
+  
     public TraceRTPkt(int iType, long destAddr_, int pktSize_)
     {
-		super(drcl.net.Address.NULL_ADDR, // source
-				destAddr_,
-				0, // protocol ID
-				255, // TTL
-				0, // hops
-				iType == RT_REQUEST, // router alert
-				CONTROL, // ToS
-				0, // ID
-				0, // flag
-				0, // fragment
-				null, // body
-				pktSize_);
-		this.iType= iType;
+    super(drcl.net.Address.NULL_ADDR, // source
+        destAddr_,
+        0, // protocol ID
+        255, // TTL
+        0, // hops
+        iType == RT_REQUEST, // router alert
+        CONTROL, // ToS
+        0, // ID
+        0, // flag
+        0, // fragment
+        null, // body
+        pktSize_);
+    this.iType= iType;
     }
     
     /**
      * This method adds the given ip address at
      * the end of the list
      *
-     * @param ip 	The ip address
+     * @param ip   The ip address
      */
     
     
     public void addHop(double now_, long ip, int incomingIf_)
     {
-	listIP.addLast(new Double(now_));
-	listIP.addLast(ip + "/" + incomingIf_ + "@");//new Long(ip));
+  listIP.addLast(new Double(now_));
+  listIP.addLast(ip + "/" + incomingIf_ + "@");//new Long(ip));
     }
     
     /**
@@ -85,7 +85,7 @@ public class TraceRTPkt extends drcl.inet.InetPacket
     
     public Object[] getList()
     {
-	return listIP.toArray();
+  return listIP.toArray();
     }
 
     // ----- getType ------------------------------------------------
@@ -96,16 +96,16 @@ public class TraceRTPkt extends drcl.inet.InetPacket
      */
     public int getType()
     {
-	return iType;
+  return iType;
     }
 
-	public void setType(int type_)
-	{ iType = type_; }
+  public void setType(int type_)
+  { iType = type_; }
 
-	public String _toString(String separator_)
-	{
-		return super._toString(separator_) + separator_
-				+ (iType == RT_REQUEST? "RT_REQUEST:": "RT_RESPONSE:")
-				+ listIP;
-	}
+  public String _toString(String separator_)
+  {
+    return super._toString(separator_) + separator_
+        + (iType == RT_REQUEST? "RT_REQUEST:": "RT_RESPONSE:")
+        + listIP;
+  }
 } 

@@ -34,72 +34,72 @@ import drcl.inet.InetPacket;
 
 public class IntServToS
 {
-	public static String interpretType(InetPacket h_) 
-	{
-		try {
-			switch((int)h_.getTOS() & TYPE_MASK)	{
-			case QoS_DATA:			return "QoS";
-			case CONTROL:			return "CTL";
-			case BEST_EFFORTS_DATA:	return "BE";
-			default:				return "unknown " + h_.getTOS();
-			}
-		} catch (Exception e_) {
-			return "No ToS: " + e_ + "| packet:" + h_;
-		}
-	}
-	
-	public static String interpretType(int type_) 
-	{
-		switch(type_)	{
-		case QoS_DATA:			return "QoS";
-		case CONTROL:			return "CTL";
-		case BEST_EFFORTS_DATA:	return "BE";
-		default:				return "unknow " + type_; 
-		}
-	}
-	
-	//
-	static void ___ToS___() {}
-	//
-	
-	// For IntServ, ToS and connection id is one-to-one mapping.
-	// ToS:
-	// 63-48: source
-	// 47-32: dest
-	// 31-20: src port#
-	// 19-8:  dest port#
-	// 1-0:  packet type
-	static final int SRC_START		= 48;
-	static final int SRC_LENGTH		= 16; // 16 bits
-	static final int DEST_START		= 32;
-	static final int DEST_LENGTH	= 16; // 16 bits
-	static final int SPORT_START	= 20;
-	static final int SPORT_LENGTH	= 12; // 12 bits
-	static final int DPORT_START	= 8;
-	static final int DPORT_LENGTH	= 12; // 12 bits
-									
-	public static final int	QoS_DATA			= 0x3;
-	public static final int	CONTROL				= 0x1;
-	public static final int	BEST_EFFORTS_DATA	= 0x0;
-	
-	public static final int TYPE_MASK		= 0x3;
-	public static final long SRC_MASK		= (1 << SRC_LENGTH   - 1) << SRC_START;
-	public static final long DEST_MASK		= (1 << DEST_LENGTH  - 1) << DEST_START;
-	public static final long SRCULP_MASK	= (1 << SPORT_LENGTH - 1) << SPORT_START;
-	public static final long DESTULP_MASK	= (1 << DPORT_LENGTH - 1) << DPORT_START;
-	
-	public static long getToS(long src_, int srcUlp_, long dest_, int destUlp_, int type_)
-	{
-		return (src_  << SRC_START) | 
-			   ((dest_ << DEST_START) & DEST_MASK) |
-			   (((long)srcUlp_  << SPORT_START) & SRCULP_MASK) |
-			   (((long)destUlp_ << DPORT_START) & DESTULP_MASK) |
-			   (long)type_;
-	}
-	
-	public static long getSource(long tos_) { return (tos_ & SRC_MASK) >> SRC_START; }
-	public static long getDest(long tos_) { return (tos_ & DEST_MASK) >> DEST_START; }
-	public static int getSrcUlp(long tos_) { return (int)((tos_ & SRCULP_MASK) >> SPORT_START); }
-	public static int getDestUlp(long tos_) { return (int)((tos_ & DESTULP_MASK) >> DPORT_START); }
-	public static int getType(long tos_) { return (int)(tos_ & TYPE_MASK); }
+  public static String interpretType(InetPacket h_) 
+  {
+    try {
+      switch((int)h_.getTOS() & TYPE_MASK)  {
+      case QoS_DATA:      return "QoS";
+      case CONTROL:      return "CTL";
+      case BEST_EFFORTS_DATA:  return "BE";
+      default:        return "unknown " + h_.getTOS();
+      }
+    } catch (Exception e_) {
+      return "No ToS: " + e_ + "| packet:" + h_;
+    }
+  }
+  
+  public static String interpretType(int type_) 
+  {
+    switch(type_)  {
+    case QoS_DATA:      return "QoS";
+    case CONTROL:      return "CTL";
+    case BEST_EFFORTS_DATA:  return "BE";
+    default:        return "unknow " + type_; 
+    }
+  }
+  
+  //
+  static void ___ToS___() {}
+  //
+  
+  // For IntServ, ToS and connection id is one-to-one mapping.
+  // ToS:
+  // 63-48: source
+  // 47-32: dest
+  // 31-20: src port#
+  // 19-8:  dest port#
+  // 1-0:  packet type
+  static final int SRC_START    = 48;
+  static final int SRC_LENGTH    = 16; // 16 bits
+  static final int DEST_START    = 32;
+  static final int DEST_LENGTH  = 16; // 16 bits
+  static final int SPORT_START  = 20;
+  static final int SPORT_LENGTH  = 12; // 12 bits
+  static final int DPORT_START  = 8;
+  static final int DPORT_LENGTH  = 12; // 12 bits
+                  
+  public static final int  QoS_DATA      = 0x3;
+  public static final int  CONTROL        = 0x1;
+  public static final int  BEST_EFFORTS_DATA  = 0x0;
+  
+  public static final int TYPE_MASK    = 0x3;
+  public static final long SRC_MASK    = (1 << SRC_LENGTH   - 1) << SRC_START;
+  public static final long DEST_MASK    = (1 << DEST_LENGTH  - 1) << DEST_START;
+  public static final long SRCULP_MASK  = (1 << SPORT_LENGTH - 1) << SPORT_START;
+  public static final long DESTULP_MASK  = (1 << DPORT_LENGTH - 1) << DPORT_START;
+  
+  public static long getToS(long src_, int srcUlp_, long dest_, int destUlp_, int type_)
+  {
+    return (src_  << SRC_START) | 
+         ((dest_ << DEST_START) & DEST_MASK) |
+         (((long)srcUlp_  << SPORT_START) & SRCULP_MASK) |
+         (((long)destUlp_ << DPORT_START) & DESTULP_MASK) |
+         (long)type_;
+  }
+  
+  public static long getSource(long tos_) { return (tos_ & SRC_MASK) >> SRC_START; }
+  public static long getDest(long tos_) { return (tos_ & DEST_MASK) >> DEST_START; }
+  public static int getSrcUlp(long tos_) { return (int)((tos_ & SRCULP_MASK) >> SPORT_START); }
+  public static int getDestUlp(long tos_) { return (int)((tos_ & DESTULP_MASK) >> DPORT_START); }
+  public static int getType(long tos_) { return (int)(tos_ & TYPE_MASK); }
 }

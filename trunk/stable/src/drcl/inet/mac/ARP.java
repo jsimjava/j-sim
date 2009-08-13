@@ -113,23 +113,23 @@ public class ARP extends drcl.net.Module
      */
     Vector ARPTable = new Vector(); 
     
-	public ARP()
-	{ 
+  public ARP()
+  { 
         super(); 
         ARPTable = new Vector();
     }
-	
-	public ARP(String id_)
+  
+  public ARP(String id_)
     {
         super(id_);
         ARPTable = new Vector();
     }
-	
-	public String info()
-	{
+  
+  public String info()
+  {
         return ARPTable.toString();
     }      
-	
+  
     public String toString() {
        String str;
        str = "";
@@ -143,16 +143,16 @@ public class ARP extends drcl.net.Module
     
     public String getName() { return "arp"; }
     
-	public void duplicate(Object source_)
-	{ 
-		super.duplicate(source_);
-		ARP that_ = (ARP)source_;
-		ARPTable = new Vector();
+  public void duplicate(Object source_)
+  { 
+    super.duplicate(source_);
+    ARP that_ = (ARP)source_;
+    ARPTable = new Vector();
         for ( int i = 0; i < that_.ARPTable.size(); i++ ) {
             Object o_ = that_.ARPTable.elementAt(i);
             ARPTable.addElement(o_ instanceof drcl.ObjectCloneable? ((drcl.ObjectCloneable)o_).clone() : o_);
         }    
-	}
+  }
    
     /** 
      * This class implements the ARP table entry in the <code>ARP</code> component.
@@ -211,11 +211,11 @@ public class ARP extends drcl.net.Module
      * Processes the packet coming from arpPort and configPort.
      */
     protected synchronized void processOther(Object data_, Port inPort_)
-	{
-		String portid_ = inPort_.getID();
+  {
+    String portid_ = inPort_.getID();
         
         if (portid_.equals(ARP_PORT_ID)) {
-    		if (!(data_ instanceof ARPContract.Message)) {
+        if (!(data_ instanceof ARPContract.Message)) {
                 error(data_, "processOther()", inPort_, "unknown object");
                 return;
             }
@@ -231,7 +231,7 @@ public class ARP extends drcl.net.Module
             }    
             else 
                 super.processOther(data_, inPort_);
-	}  
+  }  
         
     /**
      * Processes the ARP resolve, request or reply packets.
@@ -284,7 +284,7 @@ public class ARP extends drcl.net.Module
         }    
         
         ARPEntry llinfo = null;
-	
+  
         for (int i = 0; i < ARPTable.size(); i++) {
             ARPEntry t = (ARPEntry) ARPTable.elementAt(i);
             if ( t.ipaddr == dst_ ) 
@@ -300,7 +300,7 @@ public class ARP extends drcl.net.Module
             arpPort.doSending(msg);                     // send the LLPacket back;
             return;
         }    
-	
+  
         if(llinfo ==  null) {
             //  Create a new ARP entry
             llinfo = new ARPEntry(dst_ /*dst ip addr */, -1 /* macAddr */, false /* isup */, null /* hold */, 0 /* count */);
@@ -320,7 +320,7 @@ public class ARP extends drcl.net.Module
             return;
         }
 
-	    llinfo.increaseCount();
+      llinfo.increaseCount();
         
         // only one LLpacket is buffered here 
         if (llinfo.getHold() != null)
@@ -372,7 +372,7 @@ public class ARP extends drcl.net.Module
         ARPPacket pkt = (ARPPacket) pkt_;
         
         ARPEntry llinfo = null;
-	
+  
         // look up the ARP table
         for (int i = 0; i < ARPTable.size(); i++) {
             ARPEntry t = (ARPEntry) ARPTable.elementAt(i);
@@ -385,7 +385,7 @@ public class ARP extends drcl.net.Module
             llinfo = new ARPEntry(pkt.arp_spa, -1, false, null, 0);
             ARPTable.insertElementAt(llinfo,0);
             debug("ARP Entry is added.  " + llinfo.toString());
-    	}
+      }
         
         llinfo.setMacAddr(pkt.arp_sha);
         llinfo.setIsUp(true);

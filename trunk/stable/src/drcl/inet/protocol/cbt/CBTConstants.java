@@ -30,46 +30,46 @@ package drcl.inet.protocol.cbt;
 
 public interface CBTConstants
 { 
-	// msg type
-	public final static int 
-		JOIN_REQUEST				= 0,
-		JOIN_ACK					= 1,
-		QUIT_NOTIFICATION			= 2,
-		ECHO_REQUEST				= 3,	//
-		ECHO_REPLY					= 4,	//
-		FLUSH_TREE					= 5;	//
+  // msg type
+  public final static int 
+    JOIN_REQUEST        = 0,
+    JOIN_ACK          = 1,
+    QUIT_NOTIFICATION      = 2,
+    ECHO_REQUEST        = 3,  //
+    ECHO_REPLY          = 4,  //
+    FLUSH_TREE          = 5;  //
 
-	public static String[] TYPES = {
-		"JOIN_REQUEST",
-		"JOIN_ACK",
-		"QUIT_NOTIFICATION",
-		"ECHO_REQUEST",
-		"ECHO_REPLY",
-		"FLUSH_TREE",
-		null, null, null, null, null, null, null, null, null, null
-	};
+  public static String[] TYPES = {
+    "JOIN_REQUEST",
+    "JOIN_ACK",
+    "QUIT_NOTIFICATION",
+    "ECHO_REQUEST",
+    "ECHO_REPLY",
+    "FLUSH_TREE",
+    null, null, null, null, null, null, null, null, null, null
+  };
 
-	// states
-	public final static int INIT = 0;
-	public final static int TRANSIENT = 1;
-	public final static int CONFIRMED = 2;
-	public final static int QUITTING = 3;
+  // states
+  public final static int INIT = 0;
+  public final static int TRANSIENT = 1;
+  public final static int CONFIRMED = 2;
+  public final static int QUITTING = 3;
 
-	public static final String[] STATES = {
-		"INIT", "TRANSIENT", "CONFIRMED", "QUITTING"
-	};
+  public static final String[] STATES = {
+    "INIT", "TRANSIENT", "CONFIRMED", "QUITTING"
+  };
 
-	// timer types
-	public final static int JOIN_RTX = 0;
-	public final static int JOIN_TIMEOUT = 1;
-	public final static int QUIT_RTX = 2;
-	public final static int ECHO = 3;
-	public final static int ECHO_RTX = 4;
-	public final static int UPSTREAM_EXPIRE = 5;
-	public final static int DOWNSTREAM_EXPIRE = 6;
-	public static final String[] TIMER_TYPES = {
-		"join-rtx", "join/transient-timeout", "quit-rtx",
-		"echo-request-timer", "echo-request-rtx",
-		"upstream-expire-timer", "downstream-expire-timer"
-	};
+  // timer types
+  public final static int JOIN_RTX = 0;
+  public final static int JOIN_TIMEOUT = 1;
+  public final static int QUIT_RTX = 2;
+  public final static int ECHO = 3;
+  public final static int ECHO_RTX = 4;
+  public final static int UPSTREAM_EXPIRE = 5;
+  public final static int DOWNSTREAM_EXPIRE = 6;
+  public static final String[] TIMER_TYPES = {
+    "join-rtx", "join/transient-timeout", "quit-rtx",
+    "echo-request-timer", "echo-request-rtx",
+    "upstream-expire-timer", "downstream-expire-timer"
+  };
 }

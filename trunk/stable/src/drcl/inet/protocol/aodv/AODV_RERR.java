@@ -39,60 +39,60 @@ import drcl.net.*;
  */ 
 public class AODV_RERR 
 { 
-	public final static int AODV_MAX_ERRORS = 100;
-	public final static int INTEGER_SIZE    = 4;
+  public final static int AODV_MAX_ERRORS = 100;
+  public final static int INTEGER_SIZE    = 4;
 
- 	/** Packet Type */
-	public int		re_type;        	
-	/** Hop Count */
-	public int		re_hop_count;           
-	/** Destination IP Address */
-	public long		re_dst;                 
-	/** Destination Sequence Number */
-	public int		re_dst_seqno;           
-	/** Source IP Address */
-	public long		re_src;                 
-	/** Lifetime */
-	public double		re_lifetime;            
-	/** when corresponding REQ sent; used to compute route discovery latency */
-	public double   	re_timestamp;           
+   /** Packet Type */
+  public int    re_type;          
+  /** Hop Count */
+  public int    re_hop_count;           
+  /** Destination IP Address */
+  public long    re_dst;                 
+  /** Destination Sequence Number */
+  public int    re_dst_seqno;           
+  /** Source IP Address */
+  public long    re_src;                 
+  /** Lifetime */
+  public double    re_lifetime;            
+  /** when corresponding REQ sent; used to compute route discovery latency */
+  public double     re_timestamp;           
 
-	/** DestCount */
-	public int		DestCount;		 	
+  /** DestCount */
+  public int    DestCount;       
 
-	/** List of Unreachable destination IP addresses and sequence numbers */
-	public long[]	unreachable_dst = null;
+  /** List of Unreachable destination IP addresses and sequence numbers */
+  public long[]  unreachable_dst = null;
 
-	public int[]	unreachable_dst_seqno = null;
+  public int[]  unreachable_dst_seqno = null;
 
-	public int size() {  		
-		int sz = 0;
-		sz = (DestCount*2 + 1) * INTEGER_SIZE;
-        	return sz;
-	}
+  public int size() {      
+    int sz = 0;
+    sz = (DestCount*2 + 1) * INTEGER_SIZE;
+          return sz;
+  }
 
-	public AODV_RERR() 
-	{ 
-		unreachable_dst = new long [AODV_MAX_ERRORS]; 
-		unreachable_dst_seqno = new int [AODV_MAX_ERRORS]; 
-	} 
+  public AODV_RERR() 
+  { 
+    unreachable_dst = new long [AODV_MAX_ERRORS]; 
+    unreachable_dst_seqno = new int [AODV_MAX_ERRORS]; 
+  } 
  
-	public Object clone() 
-	{ 
-		AODV_RERR new_ = new AODV_RERR(); 
-		new_.duplicate(this); 
-		return new_; 
-	} 
+  public Object clone() 
+  { 
+    AODV_RERR new_ = new AODV_RERR(); 
+    new_.duplicate(this); 
+    return new_; 
+  } 
  
-	public void duplicate(Object source_) 
-	{ 
-		AODV_RERR that_ = (AODV_RERR)source_; 
-	} 
+  public void duplicate(Object source_) 
+  { 
+    AODV_RERR that_ = (AODV_RERR)source_; 
+  } 
  
-	public String toString() 
-	{ 
-		return "type: " + re_type + " dst: " + re_dst + " dst_seq: " + re_dst_seqno + " src: " + re_src + " count: " + DestCount + returnUnreachDest() ; 
-	} 
+  public String toString() 
+  { 
+    return "type: " + re_type + " dst: " + re_dst + " dst_seq: " + re_dst_seqno + " src: " + re_src + " count: " + DestCount + returnUnreachDest() ; 
+  } 
     
     private String returnUnreachDest() {
         String tmp = new String(" unreach dst #: ");

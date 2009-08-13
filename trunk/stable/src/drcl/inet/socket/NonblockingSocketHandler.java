@@ -35,35 +35,35 @@ import drcl.comp.Port;
 /** Interface defining callbacks for nonblocking socket calls. */
 public interface NonblockingSocketHandler
 {
-	/**
-	 * Called back when accepting a new connection is finished.
-	 * @param serverSocket_ where the accepting occurred.
-	 * @param new_ socket for the new connection.
-	 */
-	public void acceptFinished(InetSocket serverSocket_, InetSocket new_);
+  /**
+   * Called back when accepting a new connection is finished.
+   * @param serverSocket_ where the accepting occurred.
+   * @param new_ socket for the new connection.
+   */
+  public void acceptFinished(InetSocket serverSocket_, InetSocket new_);
 
-	/**
-	 * Called back when a connection is established.
-	 * @param socket_ where the connection is established.
-	 */
-	public void connectFinished(InetSocket socket_);
+  /**
+   * Called back when a connection is established.
+   * @param socket_ where the connection is established.
+   */
+  public void connectFinished(InetSocket socket_);
 
-	/**
-	 * Called back when a connection is closed.
-	 * @param socket_ where the connection is closed.
-	 */
-	public void closeFinished(InetSocket socket_);
+  /**
+   * Called back when a connection is closed.
+   * @param socket_ where the connection is closed.
+   */
+  public void closeFinished(InetSocket socket_);
 
-	/**
-	 * Called back when an error occurs during "accept" or "connect".
-	 * @param socket_ to which the error is related.
-	 * @param error_ the error message.
-	 */
-	public void error(InetSocket socket_, IOException error_);
+  /**
+   * Called back when an error occurs during "accept" or "connect".
+   * @param socket_ to which the error is related.
+   * @param error_ the error message.
+   */
+  public void error(InetSocket socket_, IOException error_);
 
-	/**
-	 * Called back when a sending is finished.
-	 * @param socket_ where the sending is done.
-	public void sendFinished(InetSocket socket_);
-	 */
+  /**
+   * Called back when a sending is finished.
+   * @param socket_ where the sending is done.
+  public void sendFinished(InetSocket socket_);
+   */
 }

@@ -40,54 +40,54 @@ It is simply a container of a {@link Meter} and a {@link Marker}.
  */
 public class DFProfile extends drcl.DrclObj
 {
-	Marker marker = null;
-	Meter meter = null;
-	
-	public DFProfile()
-	{ super(); }
-	
-	/** Resets the installed marker and meter. */
-	public void reset()
-	{
-		if (marker != null) marker.reset();
-		if (meter != null) meter.reset();
-	}
+  Marker marker = null;
+  Meter meter = null;
+  
+  public DFProfile()
+  { super(); }
+  
+  /** Resets the installed marker and meter. */
+  public void reset()
+  {
+    if (marker != null) marker.reset();
+    if (meter != null) meter.reset();
+  }
 
-	/** Prints out the content of the installed marker and meter. */
-	public String info(String prefix_) 
-	{
-		return prefix_ + "Marker: " + (marker == null? "<null>\n": marker.info())
-			 + prefix_ + "Meter: " + (meter == null? "<null>\n": meter.info());
-	}
-	
-	/** Duplicates the marker and meter from <code>source_</code>.*/
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		DFProfile that_ = (DFProfile)source_;
-		if (that_.marker == null) marker = null;
-		else marker = (Marker)that_.marker.clone();
-		if (that_.meter == null) meter = null;
-		else meter = (Meter)that_.meter.clone();
-	}
+  /** Prints out the content of the installed marker and meter. */
+  public String info(String prefix_) 
+  {
+    return prefix_ + "Marker: " + (marker == null? "<null>\n": marker.info())
+       + prefix_ + "Meter: " + (meter == null? "<null>\n": meter.info());
+  }
+  
+  /** Duplicates the marker and meter from <code>source_</code>.*/
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    DFProfile that_ = (DFProfile)source_;
+    if (that_.marker == null) marker = null;
+    else marker = (Marker)that_.marker.clone();
+    if (that_.meter == null) meter = null;
+    else meter = (Meter)that_.meter.clone();
+  }
 
-	/** Intalls the marker and meter to this profile. */
-	public void set(Marker marker_, Meter meter_)
-	{ marker = marker_; meter = meter_; }
-	
-	/** Intalls the marker to this profile. */
-	public void setMarker(Marker m_)
-	{ marker = m_; }
+  /** Intalls the marker and meter to this profile. */
+  public void set(Marker marker_, Meter meter_)
+  { marker = marker_; meter = meter_; }
+  
+  /** Intalls the marker to this profile. */
+  public void setMarker(Marker m_)
+  { marker = m_; }
 
-	/** Intalls the meter to this profile. */
-	public void setMeter(Meter m_)
-	{ meter = m_; }
+  /** Intalls the meter to this profile. */
+  public void setMeter(Meter m_)
+  { meter = m_; }
 
-	/** Returns the installed meter. */
-	public Meter getMeter()
-	{ return meter; }
-	
-	/** Returns the installed marker. */
-	public Marker getMarker()
-	{ return marker; }
+  /** Returns the installed meter. */
+  public Meter getMeter()
+  { return meter; }
+  
+  /** Returns the installed marker. */
+  public Marker getMarker()
+  { return marker; }
 }

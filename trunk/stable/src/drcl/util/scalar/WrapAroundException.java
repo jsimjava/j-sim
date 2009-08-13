@@ -30,9 +30,9 @@ package drcl.util.scalar;
 
 public class WrapAroundException extends RuntimeException
 {
-	public WrapAroundException()
-	{ super(); }
-	
-	public WrapAroundException(String msg_)
-	{ super(msg_); }
+  public WrapAroundException()
+  { super(); }
+  
+  public WrapAroundException(String msg_)
+  { super(msg_); }
 }

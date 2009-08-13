@@ -32,5 +32,5 @@ import java.beans.*;
 
 public interface InetPacketInterface
 {
-	public long getToS();
+  public long getToS();
 }

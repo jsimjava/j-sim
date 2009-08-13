@@ -38,15 +38,15 @@ import java.util.*;
  * Ref: table 18
  * <table border=1>
  * <tr>
- * <td>type	<td>description					<td>link id								<td>link data
+ * <td>type  <td>description          <td>link id                <td>link data
  * <tr>
- * <td>1	<td>point-to-point				<td>neighbor's router id				<td>(1) (numbered)
+ * <td>1  <td>point-to-point        <td>neighbor's router id        <td>(1) (numbered)
  * <tr>
- * <td>2	<td>link to transit network		<td>interface addr of designated router	<td>(1)
+ * <td>2  <td>link to transit network    <td>interface addr of designated router  <td>(1)
  * <tr>
- * <td>3	<td>link to stub network		<td>IP network number					<td>(2)
+ * <td>3  <td>link to stub network    <td>IP network number          <td>(2)
  * <tr>
- * <td>4	<td>virtual link				<td>neighbor's router id				<td>(1)
+ * <td>4  <td>virtual link        <td>neighbor's router id        <td>(1)
  * </table>
  * (1) IP interface addr of the associated router interface.
  * (2) stub's network's IP addr mask.
@@ -57,61 +57,61 @@ import java.util.*;
  */
 class Router_LSA_Link
 {
-	protected int link_id;
-	protected long link_data;
-	protected int type;
-	protected int metric;
-	
-	/* the basic size, not including tos length */
-	private final int ROUTER_LSA_LINK_BASE_LEN		= 4;
+  protected int link_id;
+  protected long link_data;
+  protected int type;
+  protected int metric;
+  
+  /* the basic size, not including tos length */
+  private final int ROUTER_LSA_LINK_BASE_LEN    = 4;
 
-	/**
-	 *  Maps tos (int) to metric value (int)
-	 */
-	protected HashMap tos_metric_map;
-	
-	/** Constructor */
-	protected Router_LSA_Link( )
-	{}
+  /**
+   *  Maps tos (int) to metric value (int)
+   */
+  protected HashMap tos_metric_map;
+  
+  /** Constructor */
+  protected Router_LSA_Link( )
+  {}
 
-	/**
-	 * return the size of one link data
-	 */
-	protected int size() 
-	{
-		/* one tos occupies one byte */
-		return ROUTER_LSA_LINK_BASE_LEN
-			+ (tos_metric_map == null? 0:
-							tos_metric_map.size());
-	}
-	
-	/**
-	 *  add one tos metric info.
-	 */
-	protected void add_tos_metric( int tos, int tos_metric )
-	{
-		if (tos_metric_map == null) tos_metric_map = new HashMap();
-		tos_metric_map.put(new Integer(tos), new Integer(tos_metric) );
-	}
+  /**
+   * return the size of one link data
+   */
+  protected int size() 
+  {
+    /* one tos occupies one byte */
+    return ROUTER_LSA_LINK_BASE_LEN
+      + (tos_metric_map == null? 0:
+              tos_metric_map.size());
+  }
+  
+  /**
+   *  add one tos metric info.
+   */
+  protected void add_tos_metric( int tos, int tos_metric )
+  {
+    if (tos_metric_map == null) tos_metric_map = new HashMap();
+    tos_metric_map.put(new Integer(tos), new Integer(tos_metric) );
+  }
 
-	/**
-	 *  given the tos type, return the tos metric value.
-	 */
-	protected int get_tos_metric( int tos )
-	{
-		return ((Integer) tos_metric_map.get(new Integer(tos))).intValue();
-	}
+  /**
+   *  given the tos type, return the tos metric value.
+   */
+  protected int get_tos_metric( int tos )
+  {
+    return ((Integer) tos_metric_map.get(new Integer(tos))).intValue();
+  }
 
-	public boolean equals(Object that_)
-	{
-		Router_LSA_Link lsd = (Router_LSA_Link) that_;
-		return link_id == lsd.link_id && link_data == lsd.link_data;
-	}
+  public boolean equals(Object that_)
+  {
+    Router_LSA_Link lsd = (Router_LSA_Link) that_;
+    return link_id == lsd.link_id && link_data == lsd.link_data;
+  }
 
-	public String toString()
-	{
-		return "<neighbor:" + link_id + ",metric:" + metric
-				+ (tos_metric_map == null? "": ",tos->metric:" + tos_metric_map)
-				+ ">";
-	}
+  public String toString()
+  {
+    return "<neighbor:" + link_id + ",metric:" + metric
+        + (tos_metric_map == null? "": ",tos->metric:" + tos_metric_map)
+        + ">";
+  }
 }

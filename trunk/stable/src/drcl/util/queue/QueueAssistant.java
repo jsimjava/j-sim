@@ -30,12 +30,12 @@ package drcl.util.queue;
 
 public class QueueAssistant
 {
-	public static Queue getBest()
-	{ return new TreeMapQueue(); }
-	
-	public static VariableSizeQueue getBestVS()
-	{ return new VSTreeMapQueue(); }
-	
-	public static FiniteVSQueue getBestFiniteVS()
-	{ return new FiniteVSSimpleQueue(); }
+  public static Queue getBest()
+  { return new TreeMapQueue(); }
+  
+  public static VariableSizeQueue getBestVS()
+  { return new VSTreeMapQueue(); }
+  
+  public static FiniteVSQueue getBestFiniteVS()
+  { return new FiniteVSSimpleQueue(); }
 }

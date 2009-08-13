@@ -42,19 +42,19 @@ import java.text.*;   //for NumberFormat
                    stored in a binary format and unix systems must byte swap
                    the data.  PCs do not.  The code can be found in subroutine
                    getGlobeData.  Follow instructions in the comments.
-				   This implementation has been tested on PCs with both Linux and Windows
-				   operating systems.  If you are not sure if it extracts the right data
-				   on your computer system, use GlobeTest in this package to test it.
+           This implementation has been tested on PCs with both Linux and Windows
+           operating systems.  If you are not sure if it extracts the right data
+           on your computer system, use GlobeTest in this package to test it.
  * @author Honghai Zhang 
  * @see drcl.inet.mac.GlobeTest 
  */
 
 public class Globe {
 
-	/**
-	  * Constructs a Globe with transmitter and receiver's locations, number of sampling points 
-	  * and path containing the globe database.
-	 */ 
+  /**
+    * Constructs a Globe with transmitter and receiver's locations, number of sampling points 
+    * and path containing the globe database.
+   */ 
     public Globe(double tx_lat, double tx_lon, double rx_lat, double rx_lon,
            int nPts, String globepath) {
         txLat = tx_lat;
@@ -69,9 +69,9 @@ public class Globe {
         globeFile = null;
     }
 
-	/**
-	  * Constructs a Globe with the path containing the globe database.
-	  */
+  /**
+    * Constructs a Globe with the path containing the globe database.
+    */
 
     public Globe(String globepath) {
         txLat = 0;
@@ -86,9 +86,9 @@ public class Globe {
         
     }
 
-	/**
-	  * Reset transmitter and receiver's locations and number of sampling points.
-	  */
+  /**
+    * Reset transmitter and receiver's locations and number of sampling points.
+    */
     
     public void resetPosition(double tx_lat, double tx_lon, double rx_lat, double rx_lon, int nPts)
     {
@@ -106,12 +106,12 @@ public class Globe {
            in the range [-180 to +180 degrees], with +lon=East. <br>
            pfl = array to fill (result will be in meters)
           <blockquote>     
-				 pfl(0) = number of points to get between Tx and Rx<br>
+         pfl(0) = number of points to get between Tx and Rx<br>
                  pfl(1) = distance between points (meters)
                           thus, (pfl(0)-1)*pfl(1)=distance between Tx and Rx <br>
                  pfl(2) = Tx elevation in meters <br>
                  pfl(npoints+1) = Rx elevation in meters.  
-			</blockquote>
+      </blockquote>
            Return positive if no GLOBE data exists or error in Globe data file. <br>
            Written for the NOAA's Globe Version 1.0 elevation data. 
 */
@@ -544,7 +544,7 @@ public class Globe {
     }
 
 /**  
-	Given: (ix,iy) - the Globe cell location
+  Given: (ix,iy) - the Globe cell location
     Find:  fpos(tile - tile index containing (x,y)
                 record  - record number within itile containing elevation
  */
@@ -636,12 +636,12 @@ public class Globe {
         if (globeFile != null) globeFile.close();
         }
         catch (IOException e) {
-        	System.err.println("globeFile close error " + e.getMessage());
+          System.err.println("globeFile close error " + e.getMessage());
         
         }
     }
     
-	//careful when use this function because it modifies the sender and receiver's location,
+  //careful when use this function because it modifies the sender and receiver's location,
     //should only be used for calculating altitude.
     double distance(double tLat, double tLon, double rLat, double rLon)
     {

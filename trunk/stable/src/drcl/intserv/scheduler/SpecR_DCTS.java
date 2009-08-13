@@ -32,76 +32,76 @@ import drcl.intserv.*;
 
 public class SpecR_DCTS extends SpecR implements SpecR_SP, SpecR_Direct
 {
-	public SpecR_DCTS ()
-	{}
+  public SpecR_DCTS ()
+  {}
 
-	public SpecR_DCTS (int c_, double d_)
-	{
-		C = c_;
-		D = d_;
-	}
-	
-	public int C; // max # of bits in a period
-	public double D; // maximum allowable delay
-	
-	public double CC; // the actual "computation time" = C / scheduler capacity
-	
-	public void setC(int c_) { C = c_; }
-	public int getC() { return C; }
-		
-	public void setD(double d_) { D = d_; }
-	public double getD() { return D; }
-	
-	public double getPriority() { return D; }
-	
-	public int getBuffer() { return C; }
-	public int getBW() { return (int)Math.ceil((C << 3) / D); } 
+  public SpecR_DCTS (int c_, double d_)
+  {
+    C = c_;
+    D = d_;
+  }
+  
+  public int C; // max # of bits in a period
+  public double D; // maximum allowable delay
+  
+  public double CC; // the actual "computation time" = C / scheduler capacity
+  
+  public void setC(int c_) { C = c_; }
+  public int getC() { return C; }
+    
+  public void setD(double d_) { D = d_; }
+  public double getD() { return D; }
+  
+  public double getPriority() { return D; }
+  
+  public int getBuffer() { return C; }
+  public int getBW() { return (int)Math.ceil((C << 3) / D); } 
 
-	public void setBW(int bw_) 
-	{ D = C / bw_; } 
-	
-	public void setBuffer(int buffer_)
-	{ D = buffer_ / (C / D); C = (int)buffer_; }
+  public void setBW(int bw_) 
+  { D = C / bw_; } 
+  
+  public void setBuffer(int buffer_)
+  { D = buffer_ / (C / D); C = (int)buffer_; }
 
-	// see superclass
-	public SpecR merge(SpecR rspec_)
-	{	
-		if (!(rspec_ instanceof SpecR_DCTS)) return null;
-		
-		SpecR_DCTS that_ = (SpecR_DCTS)rspec_;
-		D = Math.min(D, that_.D);
-		C = (int)(D * Math.max(getBW(), that_.getBW()) / 8.0);
-		return  this;
-	}
+  // see superclass
+  public SpecR merge(SpecR rspec_)
+  {  
+    if (!(rspec_ instanceof SpecR_DCTS)) return null;
+    
+    SpecR_DCTS that_ = (SpecR_DCTS)rspec_;
+    D = Math.min(D, that_.D);
+    C = (int)(D * Math.max(getBW(), that_.getBW()) / 8.0);
+    return  this;
+  }
 
-	// see superclass
-	public int compareWith(SpecR rspec_)
-	{
-		if (!(rspec_ instanceof SpecR_PTSP)) return UNCOMPARABLE;
-		
-		SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
-		if (C == that_.C && D == that_.D) return 0;
-		if (C >= that_.C && getBW() >= that_.getBW() && D <= that_.D) return TIGHT;
-		if (C <= that_.C && getBW() <= that_.getBW() && D >= that_.D) return LOOSE;
-		else return UNCOMPARABLE;
-	}
-		
-	public void duplicate(Object source_) 
-	{
-		if (!(source_ instanceof SpecR_DCTS)) return;
-		
-		SpecR_DCTS that_ = (SpecR_DCTS)source_;
-		C = that_.C;
-		D = that_.D;
-	}
-	
-	// see superclass
-	public void perHopAdjust()
-	{}
+  // see superclass
+  public int compareWith(SpecR rspec_)
+  {
+    if (!(rspec_ instanceof SpecR_PTSP)) return UNCOMPARABLE;
+    
+    SpecR_PTSP that_ = (SpecR_PTSP)rspec_;
+    if (C == that_.C && D == that_.D) return 0;
+    if (C >= that_.C && getBW() >= that_.getBW() && D <= that_.D) return TIGHT;
+    if (C <= that_.C && getBW() <= that_.getBW() && D >= that_.D) return LOOSE;
+    else return UNCOMPARABLE;
+  }
+    
+  public void duplicate(Object source_) 
+  {
+    if (!(source_ instanceof SpecR_DCTS)) return;
+    
+    SpecR_DCTS that_ = (SpecR_DCTS)source_;
+    C = that_.C;
+    D = that_.D;
+  }
+  
+  // see superclass
+  public void perHopAdjust()
+  {}
 
-	public String toString()
-	{
-		return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
-			   + ",C=" + C + ",D=" + D + ",activated=" + activated;
-	}
+  public String toString()
+  {
+    return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
+         + ",C=" + C + ",D=" + D + ",activated=" + activated;
+  }
 }

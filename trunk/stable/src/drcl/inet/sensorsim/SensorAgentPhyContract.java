@@ -41,66 +41,66 @@ import drcl.util.StringUtil;
 */
 public class SensorAgentPhyContract extends Contract
 {
-	public static final SensorAgentPhyContract INSTANCE = new SensorAgentPhyContract();
+  public static final SensorAgentPhyContract INSTANCE = new SensorAgentPhyContract();
 
-	public SensorAgentPhyContract()
-	{ super(); }
-	
-	public SensorAgentPhyContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Sensor Agent Phy Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	/** This class implements the underlying message of the contract. */
-	public static class Message extends drcl.comp.Message
-		{
-		double lastNoisePower;	    // last noise power calculated at the sensor physical layer
+  public SensorAgentPhyContract()
+  { super(); }
+  
+  public SensorAgentPhyContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Sensor Agent Phy Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  /** This class implements the underlying message of the contract. */
+  public static class Message extends drcl.comp.Message
+    {
+    double lastNoisePower;      // last noise power calculated at the sensor physical layer
         
-        	Object pkt;         // the packet
+          Object pkt;         // the packet
 
-		long target_nid; // the ID of the target node generating this packet
+    long target_nid; // the ID of the target node generating this packet
         
-        	public Message ()	{ }
+          public Message ()  { }
 
-		public Message (double lastNoisePower_, Object pkt_, long target_nid_)
-		{
-			lastNoisePower = lastNoisePower_;
-			target_nid = target_nid_;
-			pkt = pkt_;
-		}
+    public Message (double lastNoisePower_, Object pkt_, long target_nid_)
+    {
+      lastNoisePower = lastNoisePower_;
+      target_nid = target_nid_;
+      pkt = pkt_;
+    }
 
- 		public double getlastNoisePower() { return lastNoisePower; }
-        	public Object getPkt() { return pkt; }
-		public long getTargetNid() {return target_nid; }
-		
-		/*
+     public double getlastNoisePower() { return lastNoisePower; }
+          public Object getPkt() { return pkt; }
+    public long getTargetNid() {return target_nid; }
+    
+    /*
         public void duplicate(Object source_)
-		{
-		    Message that_ = (Message)source_;
-		    lastNoisePower = that_.lastNoisePower;
-		    target_nid = that_.target_nid;
-			pkt = that_.pkt;
-		}
-		*/
-	
-		public Object clone()
-		{ 
-			// the contract is between two components; don't clone pkt
-			return new Message(lastNoisePower, pkt, target_nid); 
-		}
+    {
+        Message that_ = (Message)source_;
+        lastNoisePower = that_.lastNoisePower;
+        target_nid = that_.target_nid;
+      pkt = that_.pkt;
+    }
+    */
+  
+    public Object clone()
+    { 
+      // the contract is between two components; don't clone pkt
+      return new Message(lastNoisePower, pkt, target_nid); 
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-	            String str;
-        	    str = "Sensor-Agent-Phy Message:" + separator_ + "lastNoisePower=" + lastNoisePower + separator_ + "Pkt=" + pkt.toString() + separator_ + "target_nid=" + separator_ + target_nid; 
-		    return str;
-		}
-	}
+    public String toString(String separator_)
+    {
+              String str;
+              str = "Sensor-Agent-Phy Message:" + separator_ + "lastNoisePower=" + lastNoisePower + separator_ + "Pkt=" + pkt.toString() + separator_ + "target_nid=" + separator_ + target_nid; 
+        return str;
+    }
+  }
 }

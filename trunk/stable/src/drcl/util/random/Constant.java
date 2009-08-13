@@ -34,44 +34,44 @@ import java.util.*;
 
 public class Constant extends RandomNumberGenerator
 {
-	public String   getName()           { return "Constant"; }
+  public String   getName()           { return "Constant"; }
 
-	public Constant (double value_)
-	{
-		super();
-		value = value_;
-	}
+  public Constant (double value_)
+  {
+    super();
+    value = value_;
+  }
 
-	double value;
-	
-	public Constant()
-	{ super(); }
+  double value;
+  
+  public Constant()
+  { super(); }
 
-	public Constant(long seed_)
-	{ super(seed_); }
-	
-	public double nextDouble()
-	{ return value;	}
+  public Constant(long seed_)
+  { super(seed_); }
+  
+  public double nextDouble()
+  { return value;  }
 
-	public int    nextInt()
-	{ return (int) value;	}
-	
-	public long nextLong() 
-	{ return (long) value; }
+  public int    nextInt()
+  { return (int) value;  }
+  
+  public long nextLong() 
+  { return (long) value; }
 
-	public double getMean()
-	{ return value; }
+  public double getMean()
+  { return value; }
 
-	public double getStd()
-	{ return 0.0; }
-	
-	public void setValue(double v_) { value = v_; }
-	public double getValue() { return value; }
+  public double getStd()
+  { return 0.0; }
+  
+  public void setValue(double v_) { value = v_; }
+  public double getValue() { return value; }
 
-	public String info(String prefix_)
-	{ return super.info(prefix_) + prefix_ +  "Value = " + value + "\n"; }
+  public String info(String prefix_)
+  { return super.info(prefix_) + prefix_ +  "Value = " + value + "\n"; }
 
-	public String oneline()
-	{ return super.oneline() + ", value=" + value; }
+  public String oneline()
+  { return super.oneline() + ", value=" + value; }
 }
 

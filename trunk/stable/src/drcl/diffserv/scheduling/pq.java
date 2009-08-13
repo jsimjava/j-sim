@@ -46,63 +46,63 @@ import java.util.Enumeration;
 
 public class pq extends drcl.diffserv.HQS
 {
-	SimpleQueue qq;
+  SimpleQueue qq;
 
-	public pq()
-	{ super(); }
+  public pq()
+  { super(); }
 
-	public pq(String id)
-	{ super(id); }
-			
-	protected Queue pickEligibleQueue(boolean dequeue_)
-	{
-		if (qq == null) return null;
+  public pq(String id)
+  { super(id); }
+      
+  protected Queue pickEligibleQueue(boolean dequeue_)
+  {
+    if (qq == null) return null;
 
-		for (Enumeration e_ = qq.getElementEnumerator(); e_.hasMoreElements(); ) {
-			Queue q_ = (Queue) e_.nextElement();
-			if (!q_.isEmpty()) return q_;
-		}
-		
-		return null;
-	}
+    for (Enumeration e_ = qq.getElementEnumerator(); e_.hasMoreElements(); ) {
+      Queue q_ = (Queue) e_.nextElement();
+      if (!q_.isEmpty()) return q_;
+    }
+    
+    return null;
+  }
 
-	/**
-	 * Adds the child queue with the same priority as (the currently lowest priority 
-	 * in this HQS + 1).
-	 */
-	public void addQueueSet(Queue child_, long classMask_, long classId_) 
-	{
-		super.addQueueSet(child_, classMask_, classId_);
-		if (qq == null) qq = new SimpleQueue();
-		double lastKey_ = qq.lastKey();
-		if (Double.isNaN(lastKey_)) lastKey_ = 0.0;
-		qq.enqueue(lastKey_ + 1.0, child_);
-	}
+  /**
+   * Adds the child queue with the same priority as (the currently lowest priority 
+   * in this HQS + 1).
+   */
+  public void addQueueSet(Queue child_, long classMask_, long classId_) 
+  {
+    super.addQueueSet(child_, classMask_, classId_);
+    if (qq == null) qq = new SimpleQueue();
+    double lastKey_ = qq.lastKey();
+    if (Double.isNaN(lastKey_)) lastKey_ = 0.0;
+    qq.enqueue(lastKey_ + 1.0, child_);
+  }
 
-	/**
-	 * Adds the child queue with the specified priority.
-	 * The smaller value of <code>priority_</code> corresponds to higher priority.
-	 */
-	public void addQueueSet(Queue child_, long classMask_, long classId_, int priority_) 
-	{
-		super.addQueueSet(child_, classMask_, classId_);
-		if (qq == null) qq = new SimpleQueue();
-		qq.enqueue((double)priority_, child_);
-	}
-	
-	public void removeQueueSet(Queue child_)
-	{
-		super.removeQueueSet(child_);
-		if (qq != null) qq.remove(child_);
-	}
+  /**
+   * Adds the child queue with the specified priority.
+   * The smaller value of <code>priority_</code> corresponds to higher priority.
+   */
+  public void addQueueSet(Queue child_, long classMask_, long classId_, int priority_) 
+  {
+    super.addQueueSet(child_, classMask_, classId_);
+    if (qq == null) qq = new SimpleQueue();
+    qq.enqueue((double)priority_, child_);
+  }
+  
+  public void removeQueueSet(Queue child_)
+  {
+    super.removeQueueSet(child_);
+    if (qq != null) qq.remove(child_);
+  }
 
-	protected String configInfo(String prefix_, Queue q_)
-	{
-		if (qq == null) return "";
-		double priority_ = qq.retrieveKey(q_);
-		if (Double.isNaN(priority_))
-			return prefix_ + "priority: NaN";
-		else
-			return prefix_ + "priority: " + ((int)priority_);
-	}
+  protected String configInfo(String prefix_, Queue q_)
+  {
+    if (qq == null) return "";
+    double priority_ = qq.retrieveKey(q_);
+    if (Double.isNaN(priority_))
+      return prefix_ + "priority: NaN";
+    else
+      return prefix_ + "priority: " + ((int)priority_);
+  }
 }

@@ -34,9 +34,9 @@ package drcl.inet.mac;
  */
 public class EnergyModel extends drcl.DrclObj {
     /** Creates a new instance of EnergyInfo */
-    double Pt = 0.2818;		        // transmitter signal power (W)
-    double Pt_consume = 0.660;	    // power consumption for transmission (W)
-    double Pr_consume = 0.395;	    // power consumption for reception (W)
+    double Pt = 0.2818;            // transmitter signal power (W)
+    double Pt_consume = 0.660;      // power consumption for transmission (W)
+    double Pr_consume = 0.395;      // power consumption for reception (W)
     double P_idle  = 0.0;          // idle power consumption (W)
     double P_off = 0.043;
     double P_sleep = 0.130;
@@ -48,13 +48,13 @@ public class EnergyModel extends drcl.DrclObj {
     public EnergyModel() {
     }
     
-	/** Set energy consumption 
-	  * @param Pt_ signal power
-	  * @param Pt_consume_ power consumption of transmission
-	  * @param Pr_consume_ power consumption for reception
-	  * @param P_idle_ idle power consumption
-	  * @param P_off_  shutdown energy consumption
-	  */
+  /** Set energy consumption 
+    * @param Pt_ signal power
+    * @param Pt_consume_ power consumption of transmission
+    * @param Pr_consume_ power consumption for reception
+    * @param P_idle_ idle power consumption
+    * @param P_off_  shutdown energy consumption
+    */
     public void setEnergyConsumption(double Pt_, double Pt_consume_, double Pr_consume_, double P_idle_, double P_off_) {
         Pt = Pt_;
         Pt_consume = Pt_consume_;
@@ -63,10 +63,10 @@ public class EnergyModel extends drcl.DrclObj {
         P_off = P_off_;
     }
 
-	public String toString()
-	{
-		return "EnergyModel:t_signal_power=" + Pt + ",t_consume=" + Pt_consume + ",r_consume=" + Pr_consume + ",idle_consume=" + P_idle + ",P_off=" + P_off;
-	}
+  public String toString()
+  {
+    return "EnergyModel:t_signal_power=" + Pt + ",t_consume=" + Pt_consume + ",r_consume=" + Pr_consume + ",idle_consume=" + P_idle + ",P_off=" + P_off;
+  }
     
     protected void setOn(boolean is_on) {
         isOn = is_on;

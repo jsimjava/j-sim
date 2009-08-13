@@ -34,8 +34,8 @@ package drcl.intserv.scheduler;
  */
 public interface SpecR_Direct
 {
-	public void setBW(int bw_);
-	public void setBuffer(int buffer_);
-	public int getBW();
-	public int getBuffer();
+  public void setBW(int bw_);
+  public void setBuffer(int buffer_);
+  public int getBW();
+  public int getBuffer();
 }

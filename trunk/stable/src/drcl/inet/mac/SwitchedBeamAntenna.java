@@ -114,7 +114,7 @@ public class SwitchedBeamAntenna extends drcl.inet.mac.Antenna {
         return pattern;        
     } //end of getPattern_withMaxGain
     
- 	/** Lock an incoming signal from direction */
+   /** Lock an incoming signal from direction */
     public boolean lockAtSignal (Orientation orient_)
     {
         if (super.lockAtSignal() == true) {
@@ -126,7 +126,7 @@ public class SwitchedBeamAntenna extends drcl.inet.mac.Antenna {
     } //end of lockAtSignal
 
     
-	/** Process incoming data */
+  /** Process incoming data */
     public void process(Object data_, drcl.comp.Port inPort_)
     {
         String args = ((String)data_).toLowerCase(), value;

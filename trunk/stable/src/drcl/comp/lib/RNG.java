@@ -37,88 +37,88 @@ import drcl.util.random.RandomNumberGenerator;
  */
 public class RNG extends Component implements ActiveComponent
 {
-	RandomNumberGenerator rng = null;
-	double delay = 0.0;
-	long seed;
-	int ttl = -1;
-	int TTL = -1;
-	Port out = addPort("out", false);
-	
-	public RNG()
-	{ super(); }
+  RandomNumberGenerator rng = null;
+  double delay = 0.0;
+  long seed;
+  int ttl = -1;
+  int TTL = -1;
+  Port out = addPort("out", false);
+  
+  public RNG()
+  { super(); }
 
-	public RNG(String id_)
-	{ super(id_); }
+  public RNG(String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		rng.setSeed(seed);
-		ttl = TTL;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		RNG that_ = (RNG) source_;
-		seed = that_.seed;
-		delay = that_.delay;
-		if (that_.rng != null) 
-			rng = (RandomNumberGenerator)that_.rng.clone();
-	}
+  public void reset()
+  {
+    super.reset();
+    rng.setSeed(seed);
+    ttl = TTL;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    RNG that_ = (RNG) source_;
+    seed = that_.seed;
+    delay = that_.delay;
+    if (that_.rng != null) 
+      rng = (RandomNumberGenerator)that_.rng.clone();
+  }
 
-	public String info()
-	{
-		if (rng == null)
-			return "delay=" + delay + ", TTL=" + ttl + "\n";
-		else
-			return  rng.oneline() + ", delay=" + delay + ", TTL=" + ttl + "\n";
-	}
-	
-	protected void _start()
-	{
-		process(null, null);
-	}
+  public String info()
+  {
+    if (rng == null)
+      return "delay=" + delay + ", TTL=" + ttl + "\n";
+    else
+      return  rng.oneline() + ", delay=" + delay + ", TTL=" + ttl + "\n";
+  }
+  
+  protected void _start()
+  {
+    process(null, null);
+  }
 
-	public synchronized void _resume()
-	{
-		if (ttl != 0)
-			process(null, null);
-	}
+  public synchronized void _resume()
+  {
+    if (ttl != 0)
+      process(null, null);
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		if (isStopped()) return;
-		if (ttl != 0) {
-			if (rng != null)
-				out.doSending(new Double(rng.nextDouble()));
-			if (ttl > 0) ttl--;
-			if (ttl != 0) fork(out, null, delay);
-		}
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    if (isStopped()) return;
+    if (ttl != 0) {
+      if (rng != null)
+        out.doSending(new Double(rng.nextDouble()));
+      if (ttl > 0) ttl--;
+      if (ttl != 0) fork(out, null, delay);
+    }
+  }
 
-	public long getSeed()
-	{ return seed; }
+  public long getSeed()
+  { return seed; }
 
-	public void setSeed(long seed_)
-	{ seed = seed_; }
+  public void setSeed(long seed_)
+  { seed = seed_; }
 
-	public double getDelay()
-	{ return delay; }
+  public double getDelay()
+  { return delay; }
 
-	public void setDelay(double d)
-	{ delay = d; }
+  public void setDelay(double d)
+  { delay = d; }
 
-	public int getTTL()
-	{ return TTL; }
+  public int getTTL()
+  { return TTL; }
 
-	/** Sets the time-to-live value; -1 to generate numbers forever. */
-	public void setTTL(int ttl_)
-	{ ttl = TTL = ttl_; }
+  /** Sets the time-to-live value; -1 to generate numbers forever. */
+  public void setTTL(int ttl_)
+  { ttl = TTL = ttl_; }
 
-	public RandomNumberGenerator getRNG()
-	{ return rng; }
+  public RandomNumberGenerator getRNG()
+  { return rng; }
 
-	public void setRNG(RandomNumberGenerator rng_)
-	{ rng = rng_; }
+  public void setRNG(RandomNumberGenerator rng_)
+  { rng = rng_; }
 }

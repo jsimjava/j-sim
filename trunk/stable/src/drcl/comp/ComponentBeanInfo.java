@@ -34,21 +34,21 @@ import java.beans.*;
 public class ComponentBeanInfo extends SimpleBeanInfo {  
 
     public PropertyDescriptor[] getPropertyDescriptors() {
-		PropertyDescriptor pds[] = null;
-		try {
-		    pds = new PropertyDescriptor[] {
-				new PropertyDescriptor("Enabled", Component.class),
-				new PropertyDescriptor("TraceEnabled", Component.class),
-				new PropertyDescriptor("GarbageEnabled", Component.class),
-				new PropertyDescriptor("GarbageDisplayEnabled", Component.class),
-				new PropertyDescriptor("DebugEnabled", Component.class),
-				new PropertyDescriptor("EventExportEnabled", Component.class),
-				new PropertyDescriptor("ErrorNoticeEnabled", Component.class),
-				new PropertyDescriptor("ID", Component.class),
-			    };
-		} catch (IntrospectionException e) { 
-		    e.printStackTrace();
-		}
-		return pds;
+    PropertyDescriptor pds[] = null;
+    try {
+        pds = new PropertyDescriptor[] {
+        new PropertyDescriptor("Enabled", Component.class),
+        new PropertyDescriptor("TraceEnabled", Component.class),
+        new PropertyDescriptor("GarbageEnabled", Component.class),
+        new PropertyDescriptor("GarbageDisplayEnabled", Component.class),
+        new PropertyDescriptor("DebugEnabled", Component.class),
+        new PropertyDescriptor("EventExportEnabled", Component.class),
+        new PropertyDescriptor("ErrorNoticeEnabled", Component.class),
+        new PropertyDescriptor("ID", Component.class),
+          };
+    } catch (IntrospectionException e) { 
+        e.printStackTrace();
+    }
+    return pds;
     }
 }

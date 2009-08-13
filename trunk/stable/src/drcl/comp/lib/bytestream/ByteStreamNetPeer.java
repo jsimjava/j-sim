@@ -44,46 +44,46 @@ to keep the initiator sending data.
 bulks of size <code>dataUnit</code>.
 */
 public class ByteStreamNetPeer extends Component
-		implements ByteStreamConstants, ActiveComponent
+    implements ByteStreamConstants, ActiveComponent
 {
-	Socket socket;
-	Port upPort = addPort("up", false);
-	ByteStreamPeer helper = new ByteStreamPeer(upPort);
-	int dataUnit = 10240;
-	//String state = null; // for debug
-	
-	public ByteStreamNetPeer() { super(); }
-	
-	public ByteStreamNetPeer(String id_) { super(id_); }
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		ByteStreamNetPeer that_ = (ByteStreamNetPeer)source_;
-	}
-	
-	public String info()
-	{
-		return "Socket: " + socket + "\n"
-				+ "Helper: " + helper + "\n";
-				//+ "state = " + state + "\n";
-	}
-	
-	public void reset()
-	{
-		super.reset();
-		if (socket != null) {
-			try { socket.close(); } catch (Exception e_) {}
-			socket = null;
-		}
-		helper.reset();
-		socketReady = false;
-	}
-	
-	ServerSocket ssocket;
-	boolean socketReady = false;
+  Socket socket;
+  Port upPort = addPort("up", false);
+  ByteStreamPeer helper = new ByteStreamPeer(upPort);
+  int dataUnit = 10240;
+  //String state = null; // for debug
+  
+  public ByteStreamNetPeer() { super(); }
+  
+  public ByteStreamNetPeer(String id_) { super(id_); }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    ByteStreamNetPeer that_ = (ByteStreamNetPeer)source_;
+  }
+  
+  public String info()
+  {
+    return "Socket: " + socket + "\n"
+        + "Helper: " + helper + "\n";
+        //+ "state = " + state + "\n";
+  }
+  
+  public void reset()
+  {
+    super.reset();
+    if (socket != null) {
+      try { socket.close(); } catch (Exception e_) {}
+      socket = null;
+    }
+    helper.reset();
+    socketReady = false;
+  }
+  
+  ServerSocket ssocket;
+  boolean socketReady = false;
 
-	/** Sets up a real socket and makes the component listens to the socket. */
+  /** Sets up a real socket and makes the component listens to the socket. */
     public void accept(int serverPort_)
     {
         try {
@@ -99,19 +99,19 @@ public class ByteStreamNetPeer extends Component
             {
                 if (isStarted()) {
                     drcl.Debug.error(this, "connect(): already started, "
-							+ "need to reset() to start again.");
+              + "need to reset() to start again.");
                     return;
                 }
  
                 try {
-					synchronized (ByteStreamNetPeer.this) {
-                    	socket = ssocket.accept();
-						System.out.println(ByteStreamNetPeer.this
-								+ ": socket is ready.");
-						socketReady = true;
-						ByteStreamNetPeer.this.notify();
-					}
-					System.out.println("Server connected");
+          synchronized (ByteStreamNetPeer.this) {
+                      socket = ssocket.accept();
+            System.out.println(ByteStreamNetPeer.this
+                + ": socket is ready.");
+            socketReady = true;
+            ByteStreamNetPeer.this.notify();
+          }
+          System.out.println("Server connected");
                     ByteStreamNetPeer.this.run();
                 }
                 catch (Exception e_) {
@@ -121,121 +121,121 @@ public class ByteStreamNetPeer extends Component
         }).start();
     }
 
-	/** Sets up a real socket and makes the component connects to the real
-	 * remote socket. */
-	public void connect(String serverAddress_, int serverPort_)
-	{
-		if (isStarted()) {
-			drcl.Debug.error(this, "connect(): already started, "
-							+ "need to reset() to start again.");
-			return;
-		}
-		
-		try {
-			InetAddress serverAddr_ = InetAddress.getByName(serverAddress_);
-			socket = new Socket(serverAddress_, serverPort_);
-			System.out.println("Client connected");
-			synchronized (this) {
-				socketReady = true;
-				this.notify();
-			}
-			run();
-		}
-		catch (Exception e_) {
-			drcl.Debug.error(this, "connect(): " + e_);
-		}
-	}
+  /** Sets up a real socket and makes the component connects to the real
+   * remote socket. */
+  public void connect(String serverAddress_, int serverPort_)
+  {
+    if (isStarted()) {
+      drcl.Debug.error(this, "connect(): already started, "
+              + "need to reset() to start again.");
+      return;
+    }
+    
+    try {
+      InetAddress serverAddr_ = InetAddress.getByName(serverAddress_);
+      socket = new Socket(serverAddress_, serverPort_);
+      System.out.println("Client connected");
+      synchronized (this) {
+        socketReady = true;
+        this.notify();
+      }
+      run();
+    }
+    catch (Exception e_) {
+      drcl.Debug.error(this, "connect(): " + e_);
+    }
+  }
 
-	public void setDataUnit(int dataUnit_)
-	{ dataUnit = dataUnit_; }
+  public void setDataUnit(int dataUnit_)
+  { dataUnit = dataUnit_; }
 
-	public int getDataUnit()
-	{ return dataUnit; }
-	
-	protected void _start()
-	{
-		if (socket == null) {
-			error("_start()", "no socket, should use connect() or accept() "
-							+ "to start");
-			return;
-		}
-		if (helper == null) {
-			error("_start()", "no helper");
-			return;
-		}
-		
-		byte[] buffer_ = new byte[dataUnit];
-		
-		// all we need to do is
-		// keep transfering what is from network to the helper buffer
-		if (ssocket == null)
-			debug("Net client started.");
-		else
-			debug("Net server started.");
-		try {
-			while (true) {
-				int size_ = socket.getInputStream().read(buffer_);
-				if (isDebugEnabled())
-					debug("read " + size_ + ": "
-									+ drcl.util.StringUtil.toString(buffer_));
-				if (size_ < 0) {
-					// XXX: close helper
-					reset();
-					break;
-				}
-				helper.send(buffer_, 0, size_);
-			}
-		}
-		catch (IOException e_) {
-			error("_start()", e_);
-		}
-	}
-	
-	protected void process(Object data_, Port inPort_) 
-	{
-		ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
+  public int getDataUnit()
+  { return dataUnit; }
+  
+  protected void _start()
+  {
+    if (socket == null) {
+      error("_start()", "no socket, should use connect() or accept() "
+              + "to start");
+      return;
+    }
+    if (helper == null) {
+      error("_start()", "no helper");
+      return;
+    }
+    
+    byte[] buffer_ = new byte[dataUnit];
+    
+    // all we need to do is
+    // keep transfering what is from network to the helper buffer
+    if (ssocket == null)
+      debug("Net client started.");
+    else
+      debug("Net server started.");
+    try {
+      while (true) {
+        int size_ = socket.getInputStream().read(buffer_);
+        if (isDebugEnabled())
+          debug("read " + size_ + ": "
+                  + drcl.util.StringUtil.toString(buffer_));
+        if (size_ < 0) {
+          // XXX: close helper
+          reset();
+          break;
+        }
+        helper.send(buffer_, 0, size_);
+      }
+    }
+    catch (IOException e_) {
+      error("_start()", e_);
+    }
+  }
+  
+  protected void process(Object data_, Port inPort_) 
+  {
+    ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
 
-		switch (msg_.getType()) {
-		case SEND:
-			//state = "SEND: synchronized on this";
-			synchronized (this) {
-				if (!socketReady) debug("socket not ready...");
-				while (!socketReady)
-					try {
-						this.wait();
-					}
-					catch (Exception e) {
-						e.printStackTrace();
-					}
-			}
+    switch (msg_.getType()) {
+    case SEND:
+      //state = "SEND: synchronized on this";
+      synchronized (this) {
+        if (!socketReady) debug("socket not ready...");
+        while (!socketReady)
+          try {
+            this.wait();
+          }
+          catch (Exception e) {
+            e.printStackTrace();
+          }
+      }
 
-			if (socket == null) {
-				error(data_, "process()", inPort_,
-								"no socket is open to transmit the data");
-				inPort_.doLastSending(new Integer(ERROR));
-					// notify end of sending
-			}
-			//state = "SEND: write to socket";
-			try {
-				if (msg_.buffer == null)
-					msg_.buffer = new byte[msg_.offset + msg_.length];
-				socket.getOutputStream().write(msg_.buffer, msg_.offset,
-								msg_.length);
-				inPort_.doLastSending(new Integer(1));
-					// as long as it's positive...
-			}
-			catch (Exception e_) {
-				error(data_, "process()", inPort_, e_);
-				inPort_.doLastSending(new Integer(ERROR));
-			}
-			//state = "SEND: done";
-			break;
-		case QUERY: 
-			inPort_.doLastSending(new Integer(1));
-				// as long as it's positive...
-			break;
-		default:
-			helper.handle(msg_);
-		}
-	}
+      if (socket == null) {
+        error(data_, "process()", inPort_,
+                "no socket is open to transmit the data");
+        inPort_.doLastSending(new Integer(ERROR));
+          // notify end of sending
+      }
+      //state = "SEND: write to socket";
+      try {
+        if (msg_.buffer == null)
+          msg_.buffer = new byte[msg_.offset + msg_.length];
+        socket.getOutputStream().write(msg_.buffer, msg_.offset,
+                msg_.length);
+        inPort_.doLastSending(new Integer(1));
+          // as long as it's positive...
+      }
+      catch (Exception e_) {
+        error(data_, "process()", inPort_, e_);
+        inPort_.doLastSending(new Integer(ERROR));
+      }
+      //state = "SEND: done";
+      break;
+    case QUERY: 
+      inPort_.doLastSending(new Integer(1));
+        // as long as it's positive...
+      break;
+    default:
+      helper.handle(msg_);
+    }
+  }
 }

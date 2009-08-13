@@ -61,85 +61,85 @@ import tcl.lang.*;
  */
 public class TclComponent extends Protocol
 {
-	Interp interp;
-	Object lock; // lock for accessing the interpreter
-	String compID;
+  Interp interp;
+  Object lock; // lock for accessing the interpreter
+  String compID;
 
-	public TclComponent()
-	{ super(); }
+  public TclComponent()
+  { super(); }
 
-	public TclComponent(String id_)
-	{ super(id_); }
+  public TclComponent(String id_)
+  { super(id_); }
 
-	/**
-	 * Initializes the component. 
-	 * Usually, lock_ is the drcl.ruv.Shell object that contains the
-	 * interpreter if the Shell has its own thread to accept commands from
-	 * a terminal.  If the interpreter is dedicated to this purpose,
-	 * then lock_ can be the interpreter itself.
-	 *
-	 * @param interp_ the Jacl interpreter instance.
-	 * @param lock_ to make sure only one thread is accessing interp_ at a time.
-	 * @param id_ ID assigned to this TclComponent; will be passed to the
-	 * 				defined Tcl procedures.
-	 */
-	public void init(Interp interp_, Object lock_, String id_)
-	{
-		interp = interp_;
-		lock = lock_;
-		compID = id_;
-		try {
-			interp.eval("global " + compID + "_comp");
-			interp.setVar(compID + "_comp", ReflectObject.newInstance(interp,
-									TclComponent.class, this), 0/*flag?*/);
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+  /**
+   * Initializes the component. 
+   * Usually, lock_ is the drcl.ruv.Shell object that contains the
+   * interpreter if the Shell has its own thread to accept commands from
+   * a terminal.  If the interpreter is dedicated to this purpose,
+   * then lock_ can be the interpreter itself.
+   *
+   * @param interp_ the Jacl interpreter instance.
+   * @param lock_ to make sure only one thread is accessing interp_ at a time.
+   * @param id_ ID assigned to this TclComponent; will be passed to the
+   *         defined Tcl procedures.
+   */
+  public void init(Interp interp_, Object lock_, String id_)
+  {
+    interp = interp_;
+    lock = lock_;
+    compID = id_;
+    try {
+      interp.eval("global " + compID + "_comp");
+      interp.setVar(compID + "_comp", ReflectObject.newInstance(interp,
+                  TclComponent.class, this), 0/*flag?*/);
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	protected void dataArriveAtDownPort(Object data_, Port inPort_)
-	{
-		synchronized (lock) {
-			try {
-				interp.setVar("arg1_", ReflectObject.newInstance(interp,
-									Object.class, data_), 0/*flag?*/);
-				interp.setVar("arg2_", ReflectObject.newInstance(interp,
-									Port.class, inPort_), 0/*flag?*/);
-				interp.eval("tclcomp_process " + compID
-						   	+ " $" + compID + "_comp $arg1_ $arg2_");
-			}
-			catch (Exception e_) {
-				e_.printStackTrace();
-			}
-		}
-	}
+  protected void dataArriveAtDownPort(Object data_, Port inPort_)
+  {
+    synchronized (lock) {
+      try {
+        interp.setVar("arg1_", ReflectObject.newInstance(interp,
+                  Object.class, data_), 0/*flag?*/);
+        interp.setVar("arg2_", ReflectObject.newInstance(interp,
+                  Port.class, inPort_), 0/*flag?*/);
+        interp.eval("tclcomp_process " + compID
+                 + " $" + compID + "_comp $arg1_ $arg2_");
+      }
+      catch (Exception e_) {
+        e_.printStackTrace();
+      }
+    }
+  }
 
-	/** Hook to execute a Tcl command implemented in "tclcomp_cmd". */
-	public void exec(String cmd_)
-	{
-		if (cmd_ == null || cmd_.trim().length() == 0) return;
-		synchronized (lock) {
-			try {
-				interp.eval("global " + compID + "_comp;"
-								+ "tclcomp_cmd " + compID + " $" + compID
-								+ "_comp " + cmd_);
-			}
-			catch (Exception e_) {
-				e_.printStackTrace();
-			}
-		}
-	}
+  /** Hook to execute a Tcl command implemented in "tclcomp_cmd". */
+  public void exec(String cmd_)
+  {
+    if (cmd_ == null || cmd_.trim().length() == 0) return;
+    synchronized (lock) {
+      try {
+        interp.eval("global " + compID + "_comp;"
+                + "tclcomp_cmd " + compID + " $" + compID
+                + "_comp " + cmd_);
+      }
+      catch (Exception e_) {
+        e_.printStackTrace();
+      }
+    }
+  }
 
-	/**
-	 * Sends data to the network.  Data is wrapped in drcl.inet.InetPacket.
-	 * @param pkt_ packet body.
-	 * @param size_ packet size. 
-	 * @param dest_ destination address. 
-	 */
-	public void forward(Object pkt_, int size_, long dest_)
-	{
-		super.forward(pkt_, size_, drcl.net.Address.NULL_ADDR, dest_, 
-						false/*router alert*/, 255/*ttl*/, 0/*tos*/);
-	}
+  /**
+   * Sends data to the network.  Data is wrapped in drcl.inet.InetPacket.
+   * @param pkt_ packet body.
+   * @param size_ packet size. 
+   * @param dest_ destination address. 
+   */
+  public void forward(Object pkt_, int size_, long dest_)
+  {
+    super.forward(pkt_, size_, drcl.net.Address.NULL_ADDR, dest_, 
+            false/*router alert*/, 255/*ttl*/, 0/*tos*/);
+  }
 }

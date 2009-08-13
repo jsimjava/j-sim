@@ -38,13 +38,13 @@ This contract defines the following service at the reactor:
 <dl>
 <dt> <code>PacketFilterConfiguration</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> the filter bank ID (<code>int</code>),
-	<li> the filter ID in the bank (<code>int</code>), and 
-	<li> the request (<code>Object</code>).
-	</ol>
-	The reactor will dispatch the request to the corresponding packet filter
-	in the {@link drcl.inet.CoreServiceLayer core service layer}.
+  <ol>
+  <li> the filter bank ID (<code>int</code>),
+  <li> the filter ID in the bank (<code>int</code>), and 
+  <li> the request (<code>Object</code>).
+  </ol>
+  The reactor will dispatch the request to the corresponding packet filter
+  in the {@link drcl.inet.CoreServiceLayer core service layer}.
 </dl>
 This class also provides a static method
 ({@link #configure(int, int, Object, drcl.comp.Port) configure(...)})
@@ -59,77 +59,77 @@ in the core service layer.
 */
 public class ConfigSwitch extends Contract
 {
-	public static final ConfigSwitch INSTANCE = new ConfigSwitch();
+  public static final ConfigSwitch INSTANCE = new ConfigSwitch();
 
-	/**
-	 * Sends a configuration request through the configuration switch service of
-	 * the CoreServiceLayer.
-	 * @return the result.  The format of the result depends on the PktFilter
-	 * that has been interacted with.
-	 */
-	public static Object configure(int bankID_, int filterID_, Object req_, Port out_)
-	{
-		return out_.sendReceive(new Message(bankID_, filterID_, req_));
-	}
-	
-	public ConfigSwitch()
-	{ super(); }
-	
-	public ConfigSwitch(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "ConfigurationSwitch Contract"; }
+  /**
+   * Sends a configuration request through the configuration switch service of
+   * the CoreServiceLayer.
+   * @return the result.  The format of the result depends on the PktFilter
+   * that has been interacted with.
+   */
+  public static Object configure(int bankID_, int filterID_, Object req_, Port out_)
+  {
+    return out_.sendReceive(new Message(bankID_, filterID_, req_));
+  }
+  
+  public ConfigSwitch()
+  { super(); }
+  
+  public ConfigSwitch(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "ConfigurationSwitch Contract"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	// no setter functions are needed for this class
-	public static class Message extends drcl.comp.Message
-	{
-		int bankID, filterID;
-		Object request;
-		
-		public Message ()
-		{}
+  // no setter functions are needed for this class
+  public static class Message extends drcl.comp.Message
+  {
+    int bankID, filterID;
+    Object request;
+    
+    public Message ()
+    {}
 
-		// for ADD
-		public Message (int bankID_, int filterID_, Object request_)
-		{
-			bankID = bankID_;
-			filterID = filterID_;
-			request = request_;
-		}
+    // for ADD
+    public Message (int bankID_, int filterID_, Object request_)
+    {
+      bankID = bankID_;
+      filterID = filterID_;
+      request = request_;
+    }
 
-		public int getBankID()
-		{ return bankID; }
+    public int getBankID()
+    { return bankID; }
 
-		public int getFilterID()
-		{ return filterID; }
+    public int getFilterID()
+    { return filterID; }
 
-		public Object getRequest()
-		{ return request; }
-		
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			bankID = that_.bankID;
-			filterID = that_.filterID;
-			request = drcl.util.ObjectUtil.clone(that_.request);
-		}
-		*/
-	
-		public Object clone()
-		{ return new Message(bankID, filterID, request); }
+    public Object getRequest()
+    { return request; }
+    
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      bankID = that_.bankID;
+      filterID = that_.filterID;
+      request = drcl.util.ObjectUtil.clone(that_.request);
+    }
+    */
+  
+    public Object clone()
+    { return new Message(bankID, filterID, request); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			return "CONFIG_SWITCH_REQ" + separator_ + "(" + bankID + "," + filterID + ")"
-				+ separator_ + drcl.util.StringUtil.toString(request);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "CONFIG_SWITCH_REQ" + separator_ + "(" + bankID + "," + filterID + ")"
+        + separator_ + drcl.util.StringUtil.toString(request);
+    }
+  }
 }

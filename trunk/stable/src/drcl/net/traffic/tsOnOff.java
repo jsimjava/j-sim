@@ -37,91 +37,91 @@ import drcl.net.FooPacket;
  */
 public class tsOnOff extends TrafficSourceComponent
 {
-	double nextTime;
-	int rem; // number of remaining packets in current burst
-		
-	// interArrivalTime: packet inter-arrival time during ON time (burst)
-	// burstLength:      average number of packets in a burst
-	double interArrivalTime;
-	double burstLength;
-	
-	traffic_OnOff traffic = null;
+  double nextTime;
+  int rem; // number of remaining packets in current burst
+    
+  // interArrivalTime: packet inter-arrival time during ON time (burst)
+  // burstLength:      average number of packets in a burst
+  double interArrivalTime;
+  double burstLength;
+  
+  traffic_OnOff traffic = null;
 
-	public tsOnOff()
-	{ this(new traffic_OnOff()); }
+  public tsOnOff()
+  { this(new traffic_OnOff()); }
 
-	public tsOnOff(String id_)
-	{ super(id_); traffic = new traffic_OnOff(); reset(); }
+  public tsOnOff(String id_)
+  { super(id_); traffic = new traffic_OnOff(); reset(); }
 
-	public tsOnOff(traffic_OnOff traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsOnOff(traffic_OnOff traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void reset()
-	{
-		super.reset();
-		rem = 0;
-		
-		if (traffic != null) {
-			interArrivalTime = (double)(traffic.packetSize << 3)
-				/ traffic.rate * (traffic.OnTime / traffic.getPeriod());
-			nextTime = -interArrivalTime;
-				// so the 1st pkt is created at time 0.0
-			burstLength = traffic.OnTime / interArrivalTime;
-			rem = (int)burstLength;
-			if (rem == 0) rem = 1;
-		}
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_) + prefix_
-				+ "State: nextTime=" + nextTime
-				+ ", interArrivalTime(on)=" + interArrivalTime
-				+ ", burstLength=" + burstLength
-				+ ", remaining_in_this_on=" + rem
-			+ "\n";
-	}
+  public void reset()
+  {
+    super.reset();
+    rem = 0;
+    
+    if (traffic != null) {
+      interArrivalTime = (double)(traffic.packetSize << 3)
+        / traffic.rate * (traffic.OnTime / traffic.getPeriod());
+      nextTime = -interArrivalTime;
+        // so the 1st pkt is created at time 0.0
+      burstLength = traffic.OnTime / interArrivalTime;
+      rem = (int)burstLength;
+      if (rem == 0) rem = 1;
+    }
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_) + prefix_
+        + "State: nextTime=" + nextTime
+        + ", interArrivalTime(on)=" + interArrivalTime
+        + ", burstLength=" + burstLength
+        + ", remaining_in_this_on=" + rem
+      + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_OnOff)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_OnOff)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_) 
-	{ 
-		double delta_ = interArrivalTime;
-		
-		if (rem == 0) { 
-			rem = (int)burstLength;
-			if (rem == 0) rem = 1; // to make sure we got at least one
-			delta_ += traffic.OffTime;
-		}
-		rem--;
-		
-		nextTime += delta_;
-		nextpkt_.setPacketSize(traffic.packetSize);
-		return nextTime;
-	}
+  protected double setNextPacket(FooPacket nextpkt_) 
+  { 
+    double delta_ = interArrivalTime;
+    
+    if (rem == 0) { 
+      rem = (int)burstLength;
+      if (rem == 0) rem = 1; // to make sure we got at least one
+      delta_ += traffic.OffTime;
+    }
+    rem--;
+    
+    nextTime += delta_;
+    nextpkt_.setPacketSize(traffic.packetSize);
+    return nextTime;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime = newTime_;
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime = newTime_;
+    super.reschedule(newTime_);
+  }
 
-	public void setPacketSize(int size_) { traffic.packetSize = size_; }
-	public int getPacketSize() { return traffic.packetSize; }
-	
-	public void setAvgRate(int rate_) {traffic.rate = rate_; }
-	public int getAvgRate() { return traffic.rate; }
-	
-	public void setOnTime(double ontime_) {traffic.OnTime = ontime_; }
-	public double getOnTime() { return traffic.OnTime; }
-	
-	public void setOffTime(double offtime_) {traffic.OffTime = offtime_; }
-	public double getOffTime() { return traffic.OffTime; }
+  public void setPacketSize(int size_) { traffic.packetSize = size_; }
+  public int getPacketSize() { return traffic.packetSize; }
+  
+  public void setAvgRate(int rate_) {traffic.rate = rate_; }
+  public int getAvgRate() { return traffic.rate; }
+  
+  public void setOnTime(double ontime_) {traffic.OnTime = ontime_; }
+  public double getOnTime() { return traffic.OnTime; }
+  
+  public void setOffTime(double offtime_) {traffic.OffTime = offtime_; }
+  public double getOffTime() { return traffic.OffTime; }
 
-	public void set(int mtu_, int rate_, double ontime_, double offtime_)
-	{ traffic.set(mtu_, rate_, ontime_, offtime_); reset(); }
+  public void set(int mtu_, int rate_, double ontime_, double offtime_)
+  { traffic.set(mtu_, rate_, ontime_, offtime_); reset(); }
 }

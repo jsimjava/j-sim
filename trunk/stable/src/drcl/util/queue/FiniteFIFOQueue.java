@@ -36,72 +36,72 @@ import java.util.*;
  */
 public class FiniteFIFOQueue extends FIFOQueue implements FiniteQueue
 {
-	//public static RecycleCan elementCan =new RecycleCan(_Element.class, 5, 5);
-	int capacity = Integer.MAX_VALUE;
+  //public static RecycleCan elementCan =new RecycleCan(_Element.class, 5, 5);
+  int capacity = Integer.MAX_VALUE;
 
-	public FiniteFIFOQueue()
-	{}
-												  
-	public FiniteFIFOQueue(int capacity_)
-	{ capacity = capacity_; }
-												  
-	public void enqueue(double key_, Object element_)
-	{
-		if (isFull()) return;
-		super.enqueue(key_, element_);
-	}
-	
-	public boolean enqueueAfter(Object previousElement_, Object element_)
-	{
-		if (isFull()) return false;
-		return enqueueAfter(previousElement_, element_);
-	}
-	
-	public boolean enqueueAt(int pos_, double key_, Object element_)
-	{
-		if (isFull()) return false;
-		return enqueueAt(pos_, key_, element_);
-	}
-	
-	
-	public void enqueue(Object element_)
-	{
-		if (isFull()) return;
-		super.enqueue(element_);
-	}
-	
-	public String oneline()
-	{
-		StringBuffer sb_ = new StringBuffer(
-						super.toString() + "," + getLength() + "/" + capacity);
-		
-		for (_Element e_ = head.next; e_ != null; e_ = e_.next)
-			sb_.append("-----" + e_.key + ":" + e_.obj);
-		
-		return sb_.toString();
-	}
+  public FiniteFIFOQueue()
+  {}
+                          
+  public FiniteFIFOQueue(int capacity_)
+  { capacity = capacity_; }
+                          
+  public void enqueue(double key_, Object element_)
+  {
+    if (isFull()) return;
+    super.enqueue(key_, element_);
+  }
+  
+  public boolean enqueueAfter(Object previousElement_, Object element_)
+  {
+    if (isFull()) return false;
+    return enqueueAfter(previousElement_, element_);
+  }
+  
+  public boolean enqueueAt(int pos_, double key_, Object element_)
+  {
+    if (isFull()) return false;
+    return enqueueAt(pos_, key_, element_);
+  }
+  
+  
+  public void enqueue(Object element_)
+  {
+    if (isFull()) return;
+    super.enqueue(element_);
+  }
+  
+  public String oneline()
+  {
+    StringBuffer sb_ = new StringBuffer(
+            super.toString() + "," + getLength() + "/" + capacity);
+    
+    for (_Element e_ = head.next; e_ != null; e_ = e_.next)
+      sb_.append("-----" + e_.key + ":" + e_.obj);
+    
+    return sb_.toString();
+  }
 
-	public int getCapacity()
-	{ return capacity; }
+  public int getCapacity()
+  { return capacity; }
 
-	public void setCapacity(int cap_)
-	{
-		capacity = cap_;
-		if (capacity <= 0) {
-			capacity = 0;
-			head.next = tail = null;
-			length = 0;
-		}
-		else if (getLength() > capacity) {
-			_Element e_= head;
-			for (int i=0; i<capacity; i++, e_ = e_.next);
-		
-			e_.next = null;
-			length = capacity;
-			tail = e_;
-		}
-	}
+  public void setCapacity(int cap_)
+  {
+    capacity = cap_;
+    if (capacity <= 0) {
+      capacity = 0;
+      head.next = tail = null;
+      length = 0;
+    }
+    else if (getLength() > capacity) {
+      _Element e_= head;
+      for (int i=0; i<capacity; i++, e_ = e_.next);
+    
+      e_.next = null;
+      length = capacity;
+      tail = e_;
+    }
+  }
 
-	public boolean isFull()
-	{ return getLength() == capacity; }
+  public boolean isFull()
+  { return getLength() == capacity; }
 }

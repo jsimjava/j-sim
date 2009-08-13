@@ -32,36 +32,36 @@ package drcl.net.graph;
  * Subclasses are implemented according to different formats. */
 public abstract class TopologyReader
 {
-	public Node[] nodes;
-	public Link[] links;
+  public Node[] nodes;
+  public Link[] links;
 
-	public void reset()
-	{
-		nodes = null;
-		links = null;
-	}
+  public void reset()
+  {
+    nodes = null;
+    links = null;
+  }
 
-	public Graph getGraph()
-	{ return new Graph(nodes, links); }
+  public Graph getGraph()
+  { return new Graph(nodes, links); }
 
-	public abstract void parse(java.io.Reader r_) throws Exception;
+  public abstract void parse(java.io.Reader r_) throws Exception;
 
-	public abstract String parameter();
+  public abstract String parameter();
 
-	public String info()
-	{
-		if (nodes == null || nodes.length == 0)
-			return "Nothing is read.\n";
-		if (links == null) links = new Link[0];
-		StringBuffer sb_ = new StringBuffer(nodes.length + " nodes, "
-						+ links.length + " links\n");
-		sb_.append("parameters: " + parameter() + "\n");
-		sb_.append("\nNodes: " + nodes.length + "\n");
-		for (int i=0; i<nodes.length; i++)
-			sb_.append(nodes[i] + "\n");
-		sb_.append("\nLinks: " + links.length + "\n");
-		for (int i=0; i<links.length; i++)
-			sb_.append(links[i] + "\n");
-		return sb_.toString();
-	}
+  public String info()
+  {
+    if (nodes == null || nodes.length == 0)
+      return "Nothing is read.\n";
+    if (links == null) links = new Link[0];
+    StringBuffer sb_ = new StringBuffer(nodes.length + " nodes, "
+            + links.length + " links\n");
+    sb_.append("parameters: " + parameter() + "\n");
+    sb_.append("\nNodes: " + nodes.length + "\n");
+    for (int i=0; i<nodes.length; i++)
+      sb_.append(nodes[i] + "\n");
+    sb_.append("\nLinks: " + links.length + "\n");
+    for (int i=0; i<links.length; i++)
+      sb_.append(links[i] + "\n");
+    return sb_.toString();
+  }
 }

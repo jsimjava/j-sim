@@ -55,7 +55,7 @@ public class PlotPoint implements Serializable {
     /** Original value of x before wrapping. */
     public double originalx;
 
-	// DRCL:
+  // DRCL:
     /** Original value of y before wrapping. */
     public double originaly;
 
@@ -71,7 +71,7 @@ public class PlotPoint implements Serializable {
     /** Error bar Y low value. */
     public double yHighEB;
 
-	// DRCL:
-	public String toString()
-	{ return "(" + x + "," + y + ")---(" + originalx + "," + originaly + ")"; }
+  // DRCL:
+  public String toString()
+  { return "(" + x + "," + y + ")---(" + originalx + "," + originaly + ")"; }
 }

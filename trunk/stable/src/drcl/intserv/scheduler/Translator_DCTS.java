@@ -44,23 +44,23 @@ import drcl.net.traffic.*;
  */
 public class Translator_DCTS extends drcl.intserv.RspecTranslator
 {
-	/**
-	 */
-	public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
-	{
-		if (adspec_ == null || !(adspec_.tspec instanceof TrafficPeriodic) || 
-			qos_ == null) return null;
-		
-		// check e2e properties
-		if (!adspec_.check(qos_)) return null;
+  /**
+   */
+  public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
+  {
+    if (adspec_ == null || !(adspec_.tspec instanceof TrafficPeriodic) || 
+      qos_ == null) return null;
+    
+    // check e2e properties
+    if (!adspec_.check(qos_)) return null;
 
-		int hop = adspec_.hop;
-		TrafficModel tspec_ = adspec_.tspec;
-		double D_ = ((TrafficPeriodic)tspec_).getPeriod();
-		int C_ = (int)(tspec_.getLoad() * D_ / 8.0);
-		if (D_ * hop + adspec_.minPropDelay > qos_.maxE2eDelay) 
-			D_ = (qos_.maxE2eDelay - adspec_.minPropDelay) / hop;
-			
-		return new SpecR_DCTS(C_, D_);
-	}
+    int hop = adspec_.hop;
+    TrafficModel tspec_ = adspec_.tspec;
+    double D_ = ((TrafficPeriodic)tspec_).getPeriod();
+    int C_ = (int)(tspec_.getLoad() * D_ / 8.0);
+    if (D_ * hop + adspec_.minPropDelay > qos_.maxE2eDelay) 
+      D_ = (qos_.maxE2eDelay - adspec_.minPropDelay) / hop;
+      
+    return new SpecR_DCTS(C_, D_);
+  }
 }

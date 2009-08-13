@@ -68,26 +68,26 @@ public class SensorChannel extends drcl.net.Module
     
     public SensorChannel() {
         super();
-	propDelay = 0.0;
+  propDelay = 0.0;
     }
 
-	/** Sets the propagation delay of the sensor channel  */
-    	public void setPropDelay(double propDelay_) { propDelay = propDelay_; }
-	/** Gets the propagation delay of the sensor channel  */
-    	public double getPropDelay() { return propDelay; }
+  /** Sets the propagation delay of the sensor channel  */
+      public void setPropDelay(double propDelay_) { propDelay = propDelay_; }
+  /** Gets the propagation delay of the sensor channel  */
+      public double getPropDelay() { return propDelay; }
     
-    	/** Sets the number of nodes in the sensor network  */
-    	public void setCapacity(int n) {
-        	vp = new Vector(n);
-        	vp_flag = new boolean[n];
-        	for ( int i = 0; i < n; i ++ ) {
-            		Port p_ = addPort(".toNode" + i);
-            		vp.insertElementAt(p_, i);
-            		vp_flag[i] = false;
-        	}
-    	}    
+      /** Sets the number of nodes in the sensor network  */
+      public void setCapacity(int n) {
+          vp = new Vector(n);
+          vp_flag = new boolean[n];
+          for ( int i = 0; i < n; i ++ ) {
+                Port p_ = addPort(".toNode" + i);
+                vp.insertElementAt(p_, i);
+                vp_flag[i] = false;
+          }
+      }    
     
-	/** Attaches a node to a port  */
+  /** Attaches a node to a port  */
     public void attachPort(int nid, Port port_) {
         Port p_ = (Port) vp.elementAt(nid);
         p_.connectTo(port_); 
@@ -96,20 +96,20 @@ public class SensorChannel extends drcl.net.Module
     
     public String getName() { return "SensorChannel"; }
     
-	public void duplicate(Object source_)
-	{ 
-		super.duplicate(source_);
-	        SensorChannel that_ = (SensorChannel) source_;		
-		propDelay = that_.propDelay ;
-	}    
+  public void duplicate(Object source_)
+  { 
+    super.duplicate(source_);
+          SensorChannel that_ = (SensorChannel) source_;    
+    propDelay = that_.propDelay ;
+  }    
     
-  	protected synchronized void processOther(Object data_, Port inPort_)
-	{
+    protected synchronized void processOther(Object data_, Port inPort_)
+  {
         
-	  String portid_ = inPort_.getID();
+    String portid_ = inPort_.getID();
     
         if (portid_.equals(NODE_PORT_ID)) {
-    		if (!(data_ instanceof SensorNodeChannelContract.Message)) {
+        if (!(data_ instanceof SensorNodeChannelContract.Message)) {
                 error(data_, "processOther()", inPort_, "unknown object");
                 return;
             }
@@ -117,9 +117,9 @@ public class SensorChannel extends drcl.net.Module
             return;
         }
         super.processOther(data_, inPort_);
-	}  
+  }  
 
-	/** Receives a packet and forwards it to sensors  */
+  /** Receives a packet and forwards it to sensors  */
     protected synchronized void processPacket(Object data_) {
 
         int i;
@@ -129,12 +129,12 @@ public class SensorChannel extends drcl.net.Module
        
         double X, Y, Z;
         long   nid;
-	  double Radius ;
+    double Radius ;
         X = msg.getX();
         Y = msg.getY();
         Z = msg.getZ();
         nid = msg.getNid();
-	  Radius = msg.getRadius();
+    Radius = msg.getRadius();
         
         SensorNeighborQueryContract.Message msg2 = (SensorNeighborQueryContract.Message) trackerPort.sendReceive(new SensorNeighborQueryContract.Message(nid, X, Y, Z, Radius));
         
@@ -145,10 +145,10 @@ public class SensorChannel extends drcl.net.Module
             if ( nid != nodeList[i] && vp_flag[(int) nodeList[i]] == true ) {
                 p_ = (Port) vp.elementAt((int) nodeList[i]);
 
-		sendAt(p_, msg.clone(), propDelay);  
-		/* to send immediately, comment out above line and add the following one
-		// p_.doSending(msg.clone());  
-		*/
+    sendAt(p_, msg.clone(), propDelay);  
+    /* to send immediately, comment out above line and add the following one
+    // p_.doSending(msg.clone());  
+    */
             }
         }
     }

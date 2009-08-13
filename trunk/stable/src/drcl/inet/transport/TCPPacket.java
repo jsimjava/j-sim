@@ -51,315 +51,315 @@ References:
  */
 public class TCPPacket extends Packet
 {
-	/** Size of maximum transmission unit, used to set/calculate packet count from sequence number.*/
-	public static long MSS = 512;
-	public static final int FLAG_ACK = 1;
-	public static final int FLAG_SYN = 2;
-	public static final int FLAG_FIN = 4;
-	public static final int FLAG_SACK = 8;
-	public static final int FLAG_RST = 16;
+  /** Size of maximum transmission unit, used to set/calculate packet count from sequence number.*/
+  public static long MSS = 512;
+  public static final int FLAG_ACK = 1;
+  public static final int FLAG_SYN = 2;
+  public static final int FLAG_FIN = 4;
+  public static final int FLAG_SACK = 8;
+  public static final int FLAG_RST = 16;
 
-	// standard fields
-	private int sport;
-	private int dport;
-	private	long SeqNo;		/* sequence number */
-	private	long AckNo;		/* ACK number for FullTcp */
-	private	int AdvWin;	/* Advertised Window */
-	
-	// flags
-	int flag;
+  // standard fields
+  private int sport;
+  private int dport;
+  private  long SeqNo;    /* sequence number */
+  private  long AckNo;    /* ACK number for FullTcp */
+  private  int AdvWin;  /* Advertised Window */
+  
+  // flags
+  int flag;
 
-	// options
-	private	double TS;		/* time packet generated (at source) */
-	private double aTS;		/* time packet generated (at sink) */
-	private int sackLen;
-	private long[] LEblk, REblk; // Left and right edge of blocks
+  // options
+  private  double TS;    /* time packet generated (at source) */
+  private double aTS;    /* time packet generated (at sink) */
+  private int sackLen;
+  private long[] LEblk, REblk; // Left and right edge of blocks
 
-	public String getName()
-	{ return "TCP"; }
+  public String getName()
+  { return "TCP"; }
 
-	public TCPPacket()
-	{ super(20); }
+  public TCPPacket()
+  { super(20); }
 
-	/**
-	 * Constructor for TCPPacket without SACK option.
-	 *
-	 * @param Seqno_ Sequence number of data
-	 * @param AckNo_ Acknowledge sequence number
-	 * @param AdvWin_ Advertised window
-	 * @param Ack_ flag ACK 
-	 * @param SYN_ flag SYN
-	 * @param FIN_ flag FIN
-	 * @param ts_ Timestamp
-	 * @param ats_ Ackknowledge Timestamp
-	 * @param hsize_ header size, calculated by caller
-	 * @param bsize_ body size
-	 * @param body_ body 
-	 */
-	public TCPPacket (int sport_, int dport_, long Seqno_, long AckNo_,
-			int AdvWin_, boolean Ack_, boolean SYN_, boolean FIN_,
-			double ts_, double ats_, int hsize_, int bsize_, Object body_)
-	{
-		super(hsize_, bsize_, body_);
-		sport = sport_;
-		dport = dport_;
-		SeqNo = Seqno_;
-		AckNo = AckNo_;
-		AdvWin = AdvWin_;
-		if (Ack_) setACK(Ack_);
-		if (SYN_) setSYN(SYN_);
-		if (FIN_) setFIN(FIN_);
-		setSACK(false);
-		TS = ts_;
-		aTS = ats_;
-	}
+  /**
+   * Constructor for TCPPacket without SACK option.
+   *
+   * @param Seqno_ Sequence number of data
+   * @param AckNo_ Acknowledge sequence number
+   * @param AdvWin_ Advertised window
+   * @param Ack_ flag ACK 
+   * @param SYN_ flag SYN
+   * @param FIN_ flag FIN
+   * @param ts_ Timestamp
+   * @param ats_ Ackknowledge Timestamp
+   * @param hsize_ header size, calculated by caller
+   * @param bsize_ body size
+   * @param body_ body 
+   */
+  public TCPPacket (int sport_, int dport_, long Seqno_, long AckNo_,
+      int AdvWin_, boolean Ack_, boolean SYN_, boolean FIN_,
+      double ts_, double ats_, int hsize_, int bsize_, Object body_)
+  {
+    super(hsize_, bsize_, body_);
+    sport = sport_;
+    dport = dport_;
+    SeqNo = Seqno_;
+    AckNo = AckNo_;
+    AdvWin = AdvWin_;
+    if (Ack_) setACK(Ack_);
+    if (SYN_) setSYN(SYN_);
+    if (FIN_) setFIN(FIN_);
+    setSACK(false);
+    TS = ts_;
+    aTS = ats_;
+  }
 
-	/**
-	 * Constructor for TCPPacket with SACK option.
-	 * @param Seqno_ Sequence number of data
-	 * @param AckNo_ Acknowledge sequence number
-	 * @param AdvWin_ Advertised window
-	 * @param Ack_ flag ACK 
-	 * @param SYN_ flag SYN
-	 * @param FIN_ flag FIN
-	 * @param ts_ Timestamp
-	 * @param ats_ Ackknowledge Timestamp
-	 * @param sack_ flag SACK 
-	 * @param sackLen_ # of SACK blocks 
-	 * @param hsize_ header size, calculated by caller
-	 * @param bsize_ body size
-	 * @param body_ body 
-	 */
-	public TCPPacket (int sport_, int dport_, long Seqno_, long AckNo_,
-		int AdvWin_,
-		boolean Ack_, boolean SYN_, boolean FIN_, double ts_, double ats_,
-		boolean sack_, int sackLen_, int hsize_, int bsize_, Object body_)
-	{
-		super(hsize_);
-		sport = sport_;
-		dport = dport_;
-		SeqNo = Seqno_;
-		AckNo = AckNo_;
-		AdvWin = AdvWin_;
-		if (Ack_) setACK(Ack_);
-		if (SYN_) setSYN(SYN_);
-		if (FIN_) setFIN(FIN_);
-		if (sack_) setSACK(sack_);
-		TS = ts_;
-		aTS = ats_;
-		if (sack_) {
-			sackLen = sackLen_;
-			REblk = new long[sackLen_];
-			LEblk = new long[sackLen_];
-		}
-	}
+  /**
+   * Constructor for TCPPacket with SACK option.
+   * @param Seqno_ Sequence number of data
+   * @param AckNo_ Acknowledge sequence number
+   * @param AdvWin_ Advertised window
+   * @param Ack_ flag ACK 
+   * @param SYN_ flag SYN
+   * @param FIN_ flag FIN
+   * @param ts_ Timestamp
+   * @param ats_ Ackknowledge Timestamp
+   * @param sack_ flag SACK 
+   * @param sackLen_ # of SACK blocks 
+   * @param hsize_ header size, calculated by caller
+   * @param bsize_ body size
+   * @param body_ body 
+   */
+  public TCPPacket (int sport_, int dport_, long Seqno_, long AckNo_,
+    int AdvWin_,
+    boolean Ack_, boolean SYN_, boolean FIN_, double ts_, double ats_,
+    boolean sack_, int sackLen_, int hsize_, int bsize_, Object body_)
+  {
+    super(hsize_);
+    sport = sport_;
+    dport = dport_;
+    SeqNo = Seqno_;
+    AckNo = AckNo_;
+    AdvWin = AdvWin_;
+    if (Ack_) setACK(Ack_);
+    if (SYN_) setSYN(SYN_);
+    if (FIN_) setFIN(FIN_);
+    if (sack_) setSACK(sack_);
+    TS = ts_;
+    aTS = ats_;
+    if (sack_) {
+      sackLen = sackLen_;
+      REblk = new long[sackLen_];
+      LEblk = new long[sackLen_];
+    }
+  }
 
-	private TCPPacket (int sport_, int dport_, long Seqno_, int AdvWin_,
-		int flag_, long AckNo_, double ts_, double ats_,
-		int sackLen_, long[] LEblk_, long[] REblk_,
-		int hsize_, int bsize_, Object body_)
-	{
-		super(hsize_, bsize_, body_);
-		sport = sport_;
-		dport = dport_;
-		SeqNo = Seqno_;
-		AckNo = AckNo_;
-		AdvWin = AdvWin_;
-		flag = flag_;
-		TS = ts_;
-		aTS = ats_;
-		sackLen = sackLen_;
-		LEblk = LEblk_;
-		REblk = REblk_;
-	}
+  private TCPPacket (int sport_, int dport_, long Seqno_, int AdvWin_,
+    int flag_, long AckNo_, double ts_, double ats_,
+    int sackLen_, long[] LEblk_, long[] REblk_,
+    int hsize_, int bsize_, Object body_)
+  {
+    super(hsize_, bsize_, body_);
+    sport = sport_;
+    dport = dport_;
+    SeqNo = Seqno_;
+    AckNo = AckNo_;
+    AdvWin = AdvWin_;
+    flag = flag_;
+    TS = ts_;
+    aTS = ats_;
+    sackLen = sackLen_;
+    LEblk = LEblk_;
+    REblk = REblk_;
+  }
 
-	public static TCPPacket createRST(int sport_, int dport_, int hsize_)
-	{
-		TCPPacket p = new TCPPacket(sport_, dport_, -1L, -1L, 0, false, false,
-						false, 0.0, 0.0, hsize_, 0, null);
-		p.setRST(true);
-		return p;
-	}
+  public static TCPPacket createRST(int sport_, int dport_, int hsize_)
+  {
+    TCPPacket p = new TCPPacket(sport_, dport_, -1L, -1L, 0, false, false,
+            false, 0.0, 0.0, hsize_, 0, null);
+    p.setRST(true);
+    return p;
+  }
 
-	public int getPacketCount()
-	{
-		if (body instanceof Packet)
-			return ((Packet)body).getPacketCount();
-		else
-			return (int)(SeqNo/MSS);
-	}
-	
-	public long getByteCount()
-	{
-		if (body instanceof Packet)
-			return ((Packet)body).getByteCount();
-		else
-			return SeqNo;
-	}
+  public int getPacketCount()
+  {
+    if (body instanceof Packet)
+      return ((Packet)body).getPacketCount();
+    else
+      return (int)(SeqNo/MSS);
+  }
+  
+  public long getByteCount()
+  {
+    if (body instanceof Packet)
+      return ((Packet)body).getByteCount();
+    else
+      return SeqNo;
+  }
 
-	public int getDPort()
-	{ return dport; }
+  public int getDPort()
+  { return dport; }
 
-	public int getSPort()
-	{ return sport; }
-	
-	public double getTS()
-	{ return TS; }
+  public int getSPort()
+  { return sport; }
+  
+  public double getTS()
+  { return TS; }
 
-	public void setTS(double ts_)
-	{TS = ts_; }
+  public void setTS(double ts_)
+  {TS = ts_; }
 
-	public double getaTS()
-	{ return (aTS); }
+  public double getaTS()
+  { return (aTS); }
 
-	public void setaTS(double aTS_)
-	{ aTS=aTS_; }
+  public void setaTS(double aTS_)
+  { aTS=aTS_; }
 
-	public void setSeqNo(long seqno_)
-	{ SeqNo = seqno_; }
+  public void setSeqNo(long seqno_)
+  { SeqNo = seqno_; }
 
-	public long getSeqNo()
-	{ return SeqNo; }
+  public long getSeqNo()
+  { return SeqNo; }
 
-	public long getAckNo()
-	{ return AckNo; }
-	
-	public int getAdvWin()
-	{ return AdvWin; }
+  public long getAckNo()
+  { return AckNo; }
+  
+  public int getAdvWin()
+  { return AdvWin; }
 
-	public void setACK(boolean enabled_)
-	{
-		if (enabled_) flag |= FLAG_ACK;
-		else flag &= ~FLAG_ACK;
-	}
+  public void setACK(boolean enabled_)
+  {
+    if (enabled_) flag |= FLAG_ACK;
+    else flag &= ~FLAG_ACK;
+  }
 
-	public boolean isACK()
-	{ return (flag & FLAG_ACK) != 0;}
+  public boolean isACK()
+  { return (flag & FLAG_ACK) != 0;}
 
-	public void setFlag(int flag_, boolean enabled_)
-	{
-		if (enabled_) flag |= flag_;
-		else flag &= ~flag_;
-	}
+  public void setFlag(int flag_, boolean enabled_)
+  {
+    if (enabled_) flag |= flag_;
+    else flag &= ~flag_;
+  }
 
-	public void setSYN(boolean enabled_)
-	{
-		if (enabled_) flag |= FLAG_SYN;
-		else flag &= ~FLAG_SYN;
-	}
+  public void setSYN(boolean enabled_)
+  {
+    if (enabled_) flag |= FLAG_SYN;
+    else flag &= ~FLAG_SYN;
+  }
 
-	public boolean isSYN()
-	{ return (flag & FLAG_SYN) != 0;}
+  public boolean isSYN()
+  { return (flag & FLAG_SYN) != 0;}
 
-	public void setFIN(boolean enabled_)
-	{
-		if (enabled_) flag |= FLAG_FIN;
-		else flag &= ~FLAG_FIN;
-	}
+  public void setFIN(boolean enabled_)
+  {
+    if (enabled_) flag |= FLAG_FIN;
+    else flag &= ~FLAG_FIN;
+  }
 
-	public boolean isFIN()
-	{ return (flag & FLAG_FIN) != 0;}
+  public boolean isFIN()
+  { return (flag & FLAG_FIN) != 0;}
 
-	public void setSACK(boolean enabled_)
-	{
-		if (enabled_) flag |= FLAG_SACK;
-		else flag &= ~FLAG_SACK;
-	}
+  public void setSACK(boolean enabled_)
+  {
+    if (enabled_) flag |= FLAG_SACK;
+    else flag &= ~FLAG_SACK;
+  }
 
-	public boolean isSACK()
-	{ return (flag & FLAG_SACK) != 0;}
+  public boolean isSACK()
+  { return (flag & FLAG_SACK) != 0;}
 
-	public void setRST(boolean enabled_)
-	{
-		if (enabled_) flag |= FLAG_RST;
-		else flag &= ~FLAG_RST;
-	}
+  public void setRST(boolean enabled_)
+  {
+    if (enabled_) flag |= FLAG_RST;
+    else flag &= ~FLAG_RST;
+  }
 
-	public boolean isRST()
-	{ return (flag & FLAG_RST) != 0;}
+  public boolean isRST()
+  { return (flag & FLAG_RST) != 0;}
 
-	public int getSACKLen()
-	{ return sackLen; }
+  public int getSACKLen()
+  { return sackLen; }
 
-	public void setSACKLen (int len_)
-	{ sackLen = len_; }
+  public void setSACKLen (int len_)
+  { sackLen = len_; }
 
-	public long[] getLEblk ()
-	{ return LEblk; }
+  public long[] getLEblk ()
+  { return LEblk; }
 
-	public void setLEblk (long[] LEblk_)
-	{ LEblk = LEblk_; }
+  public void setLEblk (long[] LEblk_)
+  { LEblk = LEblk_; }
 
-	public long[] getREblk ()
-	{ return REblk; }
+  public long[] getREblk ()
+  { return REblk; }
 
-	public void setREblk (long[] REblk_)
-	{ REblk = REblk_; }
+  public void setREblk (long[] REblk_)
+  { REblk = REblk_; }
 
-	public void setSACKBlocks (long[] LEblk_, long[] REblk_)
-	{
-		LEblk = LEblk_;
-		REblk = REblk_;
-	}
+  public void setSACKBlocks (long[] LEblk_, long[] REblk_)
+  {
+    LEblk = LEblk_;
+    REblk = REblk_;
+  }
 
-	public Object clone()
-	{
-		return new TCPPacket(sport, dport, SeqNo, AdvWin, flag, AckNo, TS, aTS,
-			sackLen, LEblk, REblk, headerSize, size-headerSize,
-			(body instanceof drcl.ObjectCloneable?
-			 	((drcl.ObjectCloneable)body).clone(): body));
-	}
+  public Object clone()
+  {
+    return new TCPPacket(sport, dport, SeqNo, AdvWin, flag, AckNo, TS, aTS,
+      sackLen, LEblk, REblk, headerSize, size-headerSize,
+      (body instanceof drcl.ObjectCloneable?
+         ((drcl.ObjectCloneable)body).clone(): body));
+  }
 
-	/*
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		TCPPacket that_ = (TCPPacket)source_;
-		sport = that_.sport;
-		dport = that_.dport;
-		TS = that_.TS;
-		aTS = that_.aTS;
-		SeqNo = that_.SeqNo;
-		AckNo = that_.AckNo;
-		AdvWin = that_.AdvWin;
-		flag = that_.flag;
-		sackLen = that_.sackLen;
-		LEblk = that_.LEblk;
-		REblk = that_.REblk;
-	}
-	*/
+  /*
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    TCPPacket that_ = (TCPPacket)source_;
+    sport = that_.sport;
+    dport = that_.dport;
+    TS = that_.TS;
+    aTS = that_.aTS;
+    SeqNo = that_.SeqNo;
+    AckNo = that_.AckNo;
+    AdvWin = that_.AdvWin;
+    flag = that_.flag;
+    sackLen = that_.sackLen;
+    LEblk = that_.LEblk;
+    REblk = that_.REblk;
+  }
+  */
 
-	public String getPacketType()
-	{
-		if (flag == 0)
-			return "TCP";
-		else if (isRST())
-			return "TCP-RST";
-		else if (isSYN())
-			return isACK()? "TCP-SYN-ACK": "TCP-SYN";
-		else if (isFIN())
-			return isACK()? "TCP-FIN-ACK": "TCP-FIN";
-		else if (size == headerSize)
-			return isSACK()? "TCP-SACK": "TCP-ACK";
-		else
-			return isSACK()? "TCP/SACK": "TCP/ACK";
-	}
+  public String getPacketType()
+  {
+    if (flag == 0)
+      return "TCP";
+    else if (isRST())
+      return "TCP-RST";
+    else if (isSYN())
+      return isACK()? "TCP-SYN-ACK": "TCP-SYN";
+    else if (isFIN())
+      return isACK()? "TCP-FIN-ACK": "TCP-FIN";
+    else if (size == headerSize)
+      return isSACK()? "TCP-SACK": "TCP-ACK";
+    else
+      return isSACK()? "TCP/SACK": "TCP/ACK";
+  }
 
-	public String _toString(String separator_)
-	{
-		if (isRST())
-			return "s:" + sport + separator_ + "d:" + dport
-					+ separator_ + "RST";
-		else
-			return "s:" + sport + separator_ + "d:" + dport
-				+ separator_ + "seq" + SeqNo
-				+ separator_ + "AWND:" + AdvWin
-				+ separator_ + "TS" + TS
-				+ (isSYN() || isFIN() || isACK()?
-					separator_ + (isSYN()? "Syn": "") + (isFIN()? "Fin": "")
-				+ (isACK()? "Ack:" + AckNo + "," + aTS: ""): "")
-				+ (isSACK()? separator_ + "SACK" + sackLen + ","
-					+ StringUtil.toString(LEblk) + "-"
-					+ StringUtil.toString(REblk): "");
-	}
+  public String _toString(String separator_)
+  {
+    if (isRST())
+      return "s:" + sport + separator_ + "d:" + dport
+          + separator_ + "RST";
+    else
+      return "s:" + sport + separator_ + "d:" + dport
+        + separator_ + "seq" + SeqNo
+        + separator_ + "AWND:" + AdvWin
+        + separator_ + "TS" + TS
+        + (isSYN() || isFIN() || isACK()?
+          separator_ + (isSYN()? "Syn": "") + (isFIN()? "Fin": "")
+        + (isACK()? "Ack:" + AckNo + "," + aTS: ""): "")
+        + (isSACK()? separator_ + "SACK" + sackLen + ","
+          + StringUtil.toString(LEblk) + "-"
+          + StringUtil.toString(REblk): "");
+  }
 }

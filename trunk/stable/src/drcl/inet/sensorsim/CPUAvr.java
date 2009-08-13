@@ -37,52 +37,52 @@ import drcl.comp.*;
 */
 public class CPUAvr extends CPUBase
 {
-  	// Values for currents of different CPU modes
-	public static final double ACTIVE_CUR = 2.9e-3; // 2.9 mA
-	public static final double IDLE_CUR = 2.9e-3;  	// 2.9 mA
-	public static final double SLEEP_CUR = 1.9e-3;  // 1.9 mA
-	public static final double OFF_CUR = 1e-6;    	// 1 microA
+    // Values for currents of different CPU modes
+  public static final double ACTIVE_CUR = 2.9e-3; // 2.9 mA
+  public static final double IDLE_CUR = 2.9e-3;    // 2.9 mA
+  public static final double SLEEP_CUR = 1.9e-3;  // 1.9 mA
+  public static final double OFF_CUR = 1e-6;      // 1 microA
 
-	public CPUAvr()
-	{
-		super();
-		cpuMode=CPU_ACTIVE;
-		activeCur=ACTIVE_CUR;
-		idleCur=IDLE_CUR;
-		sleepCur = SLEEP_CUR;
-		offCur=OFF_CUR;
-		flag=false;
-	}
+  public CPUAvr()
+  {
+    super();
+    cpuMode=CPU_ACTIVE;
+    activeCur=ACTIVE_CUR;
+    idleCur=IDLE_CUR;
+    sleepCur = SLEEP_CUR;
+    offCur=OFF_CUR;
+    flag=false;
+  }
  
-	/** Reports the current to the battery model.  */
-	public void reportCurrent(double current)
-	{
-		BatteryContract.setConsumerCurrent(BatteryBase.CPU_MODEL, current, batteryPort);
-	}
+  /** Reports the current to the battery model.  */
+  public void reportCurrent(double current)
+  {
+    BatteryContract.setConsumerCurrent(BatteryBase.CPU_MODEL, current, batteryPort);
+  }
 
-	/** Sets the CPU mode and reports the current to the battery model. */
-	public int setCPUMode(int mode) 
-	{
-		switch (mode)
-		{
-			case CPU_ACTIVE:
-				reportCurrent(activeCur);
-				break;
-			case CPU_IDLE:
-				reportCurrent(idleCur);
-				break;
-			case CPU_SLEEP: 
-				if ( flag == false )
-					reportCurrent(sleepCur);
-				else  
-					reportCurrent(offCur);    
-				break;
-			case CPU_OFF:
-				reportCurrent(offCur);
-				break;
-		}
-		cpuMode = mode; 
-		reportCpuMode(mode);
-		return 1;
-	} 
+  /** Sets the CPU mode and reports the current to the battery model. */
+  public int setCPUMode(int mode) 
+  {
+    switch (mode)
+    {
+      case CPU_ACTIVE:
+        reportCurrent(activeCur);
+        break;
+      case CPU_IDLE:
+        reportCurrent(idleCur);
+        break;
+      case CPU_SLEEP: 
+        if ( flag == false )
+          reportCurrent(sleepCur);
+        else  
+          reportCurrent(offCur);    
+        break;
+      case CPU_OFF:
+        reportCurrent(offCur);
+        break;
+    }
+    cpuMode = mode; 
+    reportCpuMode(mode);
+    return 1;
+  } 
 }

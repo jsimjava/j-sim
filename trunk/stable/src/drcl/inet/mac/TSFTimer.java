@@ -43,19 +43,19 @@ public class TSFTimer extends Module{
     long offset_;
     Mac_802_11  host_;
 
-	/** Create an instance of TSFTimer. Set offset_ to 0 to simulate synchronized network from the very beginning */
+  /** Create an instance of TSFTimer. Set offset_ to 0 to simulate synchronized network from the very beginning */
     public TSFTimer(Mac_802_11 h, int index) {
-		host_ = h;
-		//offset_ = (long)(Math.random()*(1<<32) + Math.random()*(1<<16));
+    host_ = h;
+    //offset_ = (long)(Math.random()*(1<<32) + Math.random()*(1<<16));
         offset_ = 0;
-	}
+  }
 
     public long getTSF() {
-		return offset_ + (long)(host_.getTime() * 1e6);
-	}
+    return offset_ + (long)(host_.getTime() * 1e6);
+  }
 
     public void setTSF(long tsf) {
-		offset_ = tsf - (long)(host_.getTime() * 1e6); 
-	}
+    offset_ = tsf - (long)(host_.getTime() * 1e6); 
+  }
  
 };

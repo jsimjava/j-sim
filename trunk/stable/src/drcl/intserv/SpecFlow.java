@@ -34,66 +34,66 @@ import drcl.net.traffic.TrafficModel;
 
 public class SpecFlow extends drcl.DrclObj
 {
-	// individual or aggregate flow profile
-	public SpecR	rspec; 
-	public TrafficModel	tspec;
-	
-	public int     handle = -1;       // automatically set when installed
-	
-	public SpecFlow ()
-	{}
+  // individual or aggregate flow profile
+  public SpecR  rspec; 
+  public TrafficModel  tspec;
+  
+  public int     handle = -1;       // automatically set when installed
+  
+  public SpecFlow ()
+  {}
 
-	public SpecFlow (TrafficModel tspec_, SpecR rspec_)
-	{
-		rspec = rspec_;
-		tspec = tspec_;
-	}
+  public SpecFlow (TrafficModel tspec_, SpecR rspec_)
+  {
+    rspec = rspec_;
+    tspec = tspec_;
+  }
 
-	public void duplicate(Object source_)
-	{
-		SpecFlow that_ = (SpecFlow) source_;
-		
-		if (that_.rspec != null) rspec = (SpecR) that_.rspec.clone();
-		if (that_.tspec != null) tspec = (TrafficModel) that_.tspec.clone();
+  public void duplicate(Object source_)
+  {
+    SpecFlow that_ = (SpecFlow) source_;
+    
+    if (that_.rspec != null) rspec = (SpecR) that_.rspec.clone();
+    if (that_.tspec != null) tspec = (TrafficModel) that_.tspec.clone();
 
-		handle = that_.handle; // well...
-	}
-	
-	/** Merge <code>that_</code> into this flowspec. */
-	public void merge(SpecFlow that_)
-	{
-		if (that_ == null) return;
-		tspec = tspec == null? (TrafficModel)that_.tspec.clone(): tspec.merge(that_.tspec);
-		rspec = rspec == null? (SpecR)that_.rspec.clone(): rspec.merge(that_.rspec);
-	}
-	
-	/** Adjusts the rspec at a hop toward the sender.  */
-	public void perHopAdjust()
-	{ if (rspec != null) rspec.perHopAdjust(); }
-	
-	public String toString()
-	{
-		return "Handle:" + handle + ",rspec:" + rspec
-				   + ",tspec:" + tspec + ",activated:" 
-				   + isActivated();
-	}
-	
-	void setHandle(int h) 
-	{ 
-		handle = h; 
-		if (rspec != null) rspec.setHandle(h);
-	}
+    handle = that_.handle; // well...
+  }
+  
+  /** Merge <code>that_</code> into this flowspec. */
+  public void merge(SpecFlow that_)
+  {
+    if (that_ == null) return;
+    tspec = tspec == null? (TrafficModel)that_.tspec.clone(): tspec.merge(that_.tspec);
+    rspec = rspec == null? (SpecR)that_.rspec.clone(): rspec.merge(that_.rspec);
+  }
+  
+  /** Adjusts the rspec at a hop toward the sender.  */
+  public void perHopAdjust()
+  { if (rspec != null) rspec.perHopAdjust(); }
+  
+  public String toString()
+  {
+    return "Handle:" + handle + ",rspec:" + rspec
+           + ",tspec:" + tspec + ",activated:" 
+           + isActivated();
+  }
+  
+  void setHandle(int h) 
+  { 
+    handle = h; 
+    if (rspec != null) rspec.setHandle(h);
+  }
 
-	/** Returns the handle of this flowspec. */
-	public int  getHandle()
-	{ return handle; }
-	
-	/** Returns true if the flowspec is activated. */
-	public boolean isActivated()          
-	{ return rspec != null? rspec.activated: false; }
-	
-	public SpecR getRspec()
-	{ return rspec; }
-	public TrafficModel getTspec()
-	{ return tspec; }
+  /** Returns the handle of this flowspec. */
+  public int  getHandle()
+  { return handle; }
+  
+  /** Returns true if the flowspec is activated. */
+  public boolean isActivated()          
+  { return rspec != null? rspec.activated: false; }
+  
+  public SpecR getRspec()
+  { return rspec; }
+  public TrafficModel getTspec()
+  { return tspec; }
 }

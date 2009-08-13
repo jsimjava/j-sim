@@ -30,122 +30,122 @@ package drcl.inet.protocol.cbt;
 
 public class CBTState
 { 
-	public int state = 0; // INIT
-	public long group, core;
+  public int state = 0; // INIT
+  public long group, core;
 
-	public CBTInterface[] ifs;
-	public int upstreamIf = -1; // index of the upstream if
-	public int ntries = 0; // # of tries of sending a join/quit
+  public CBTInterface[] ifs;
+  public int upstreamIf = -1; // index of the upstream if
+  public int ntries = 0; // # of tries of sending a join/quit
 
-	public CBTState()
-	{}
+  public CBTState()
+  {}
 
-	public CBTState(long group_, long core_)
-	{
-		group = group_;
-		core = core_;
-	}
+  public CBTState(long group_, long core_)
+  {
+    group = group_;
+    core = core_;
+  }
 
-	public void reset()
-	{ 
-		state = CBTConstants.INIT;
-		removeAllIfs();
-		ntries = 0;
-	}
+  public void reset()
+  { 
+    state = CBTConstants.INIT;
+    removeAllIfs();
+    ntries = 0;
+  }
 
-	public void removeAllIfs()
-	{
-		ifs = null;
-		upstreamIf = -1;
-	}
+  public void removeAllIfs()
+  {
+    ifs = null;
+    upstreamIf = -1;
+  }
 
-	/** Adds an interface. */
-	public CBTInterface addIf(int if_, boolean upstream_, boolean broadcast_,
-					boolean hostIf_, boolean routerIf_, Object extension_)
-	{
-		assert !upstream_ || (upstream_ && upstreamIf < 0);
-		if (ifs == null)
-			ifs = new CBTInterface[if_ + 1];
-		else if (ifs.length <= if_) {
-			CBTInterface[] tmp_ = new CBTInterface[if_ + 1];
-			System.arraycopy(ifs, 0, tmp_, 0, ifs.length);
-			ifs = tmp_;
-		}
-		assert ifs[if_] == null;
-		ifs[if_] = new CBTInterface(upstream_, broadcast_, hostIf_, routerIf_,
-						extension_);
-		if (upstream_)
-			upstreamIf = if_;
-		return ifs[if_];
-	}
+  /** Adds an interface. */
+  public CBTInterface addIf(int if_, boolean upstream_, boolean broadcast_,
+          boolean hostIf_, boolean routerIf_, Object extension_)
+  {
+    assert !upstream_ || (upstream_ && upstreamIf < 0);
+    if (ifs == null)
+      ifs = new CBTInterface[if_ + 1];
+    else if (ifs.length <= if_) {
+      CBTInterface[] tmp_ = new CBTInterface[if_ + 1];
+      System.arraycopy(ifs, 0, tmp_, 0, ifs.length);
+      ifs = tmp_;
+    }
+    assert ifs[if_] == null;
+    ifs[if_] = new CBTInterface(upstream_, broadcast_, hostIf_, routerIf_,
+            extension_);
+    if (upstream_)
+      upstreamIf = if_;
+    return ifs[if_];
+  }
 
-	/** Removes an interface. */
-	public void removeIf(int if_)
-	{
-		if (if_ == upstreamIf)
-			upstreamIf = -1;
-		ifs[if_] = null;
-	}
+  /** Removes an interface. */
+  public void removeIf(int if_)
+  {
+    if (if_ == upstreamIf)
+      upstreamIf = -1;
+    ifs[if_] = null;
+  }
 
-	/** Retrieves an interface. */
-	public CBTInterface getIf(int if_)
-	{
-		if (ifs == null || ifs.length <= if_)
-			return null;
-		else
-			return ifs[if_];
-	}
+  /** Retrieves an interface. */
+  public CBTInterface getIf(int if_)
+  {
+    if (ifs == null || ifs.length <= if_)
+      return null;
+    else
+      return ifs[if_];
+  }
 
-	/** Retrieves the "upstream" interface. */
-	public CBTInterface getUpstreamIf()
-	{
-		if (upstreamIf < 0)
-			return null;
-		else
-			return ifs[upstreamIf];
-	}
+  /** Retrieves the "upstream" interface. */
+  public CBTInterface getUpstreamIf()
+  {
+    if (upstreamIf < 0)
+      return null;
+    else
+      return ifs[upstreamIf];
+  }
 
-	/** Returns true if the state includes at least one down stream interface.*/
-	public boolean anyDownstreamIf()
-	{
-		if (ifs == null) return false;
-		for (int i=0; i<ifs.length; i++) {
-			CBTInterface if_ = ifs[i];
-			if (if_ != null && !if_.isUpstream) return true;
-		}
-		return false;
-	}
+  /** Returns true if the state includes at least one down stream interface.*/
+  public boolean anyDownstreamIf()
+  {
+    if (ifs == null) return false;
+    for (int i=0; i<ifs.length; i++) {
+      CBTInterface if_ = ifs[i];
+      if (if_ != null && !if_.isUpstream) return true;
+    }
+    return false;
+  }
 
-	/** Returns true if the interface exists and is a downstream. */
-	public boolean isDownstreamIf(int if_)
-	{
-		if (ifs == null || ifs.length <= if_ || ifs[if_] == null)
-			return false;
-		else
-			return !ifs[if_].isUpstream;
-	}
+  /** Returns true if the interface exists and is a downstream. */
+  public boolean isDownstreamIf(int if_)
+  {
+    if (ifs == null || ifs.length <= if_ || ifs[if_] == null)
+      return false;
+    else
+      return !ifs[if_].isUpstream;
+  }
 
-	/** Returns true if the interface exists and is the upstream. */
-	public boolean isUptreamIf(int if_)
-	{ return !isDownstreamIf(if_); }
+  /** Returns true if the interface exists and is the upstream. */
+  public boolean isUptreamIf(int if_)
+  { return !isDownstreamIf(if_); }
 
-	public String toString()
-	{
-		StringBuffer sb_ = new StringBuffer(
-				CBTConstants.STATES[state]
-				+ (ntries > 0? ntries+"": "")
-				+ "," + group + "," + core
-				+ ",up=" + upstreamIf
-				+ ",ifs=");
-		boolean any_ = false;
-		if (ifs != null)
-			for (int i=0; i<ifs.length; i++) {
-				if (ifs[i] == null) continue;
-				any_ = true;
-				sb_.append("|" + i + ":" + ifs[i]);
-			}
-		if (!any_)
-			sb_.append("none");
-		return sb_.toString();
-	}
+  public String toString()
+  {
+    StringBuffer sb_ = new StringBuffer(
+        CBTConstants.STATES[state]
+        + (ntries > 0? ntries+"": "")
+        + "," + group + "," + core
+        + ",up=" + upstreamIf
+        + ",ifs=");
+    boolean any_ = false;
+    if (ifs != null)
+      for (int i=0; i<ifs.length; i++) {
+        if (ifs[i] == null) continue;
+        any_ = true;
+        sb_.append("|" + i + ":" + ifs[i]);
+      }
+    if (!any_)
+      sb_.append("none");
+    return sb_.toString();
+  }
 }

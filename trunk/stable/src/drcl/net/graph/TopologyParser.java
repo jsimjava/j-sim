@@ -33,56 +33,56 @@ package drcl.net.graph;
  */
 public class TopologyParser
 {
-	public Node[] nodes;
-	public Link[] links;
-	public int[][] adjMatrix; // adjacency matrix
+  public Node[] nodes;
+  public Link[] links;
+  public int[][] adjMatrix; // adjacency matrix
 
-	public void reset()
-	{
-		nodes = null;
-		links = null;
-	}
+  public void reset()
+  {
+    nodes = null;
+    links = null;
+  }
 
-	/** Assumes bidirectional links. */
-	public Graph parse(int[][] adjMatrix_)
-	{
-		adjMatrix = adjMatrix_;
-		nodes = new Node[adjMatrix.length];
-		int nlinks_ = 0;
-		for (int i=0; i<nodes.length; i++) {
-			nodes[i] = new Node(i, 0, 0);
-			nlinks_ += adjMatrix[i].length;
-		}
-		links = new Link[nlinks_/2]; // link symmetry
+  /** Assumes bidirectional links. */
+  public Graph parse(int[][] adjMatrix_)
+  {
+    adjMatrix = adjMatrix_;
+    nodes = new Node[adjMatrix.length];
+    int nlinks_ = 0;
+    for (int i=0; i<nodes.length; i++) {
+      nodes[i] = new Node(i, 0, 0);
+      nlinks_ += adjMatrix[i].length;
+    }
+    links = new Link[nlinks_/2]; // link symmetry
 
-		int k = 0;
-		for (int i=0; i<nodes.length; i++) {
-			for (int j=0; j<adjMatrix[i].length; j++) {
-				int to_ = adjMatrix[i][j];
-				if (i < to_)
-					links[k] = new Link(k++, nodes[i], nodes[to_]);
-			}
-		}
+    int k = 0;
+    for (int i=0; i<nodes.length; i++) {
+      for (int j=0; j<adjMatrix[i].length; j++) {
+        int to_ = adjMatrix[i][j];
+        if (i < to_)
+          links[k] = new Link(k++, nodes[i], nodes[to_]);
+      }
+    }
 
-		Graph g = new Graph(nodes, links);
-		return g;
-	}
+    Graph g = new Graph(nodes, links);
+    return g;
+  }
 
-	public String info()
-	{
-		if (nodes == null || nodes.length == 0)
-			return "Nothing is read.\n";
-		if (links == null) links = new Link[0];
-		StringBuffer sb_ = new StringBuffer(nodes.length + " nodes, "
-						+ links.length + " links\n");
-		sb_.append("\nNodes: " + nodes.length + "\n");
-		for (int i=0; i<nodes.length; i++)
-			sb_.append(nodes[i] + "\n");
-		sb_.append("\nLinks: " + links.length + "\n");
-		for (int i=0; i<links.length; i++)
-			sb_.append(links[i] + "\n");
-		sb_.append("Adjacency matrix: "
-					   	+ drcl.util.StringUtil.toString(adjMatrix) + "\n");
-		return sb_.toString();
-	}
+  public String info()
+  {
+    if (nodes == null || nodes.length == 0)
+      return "Nothing is read.\n";
+    if (links == null) links = new Link[0];
+    StringBuffer sb_ = new StringBuffer(nodes.length + " nodes, "
+            + links.length + " links\n");
+    sb_.append("\nNodes: " + nodes.length + "\n");
+    for (int i=0; i<nodes.length; i++)
+      sb_.append(nodes[i] + "\n");
+    sb_.append("\nLinks: " + links.length + "\n");
+    for (int i=0; i<links.length; i++)
+      sb_.append(links[i] + "\n");
+    sb_.append("Adjacency matrix: "
+               + drcl.util.StringUtil.toString(adjMatrix) + "\n");
+    return sb_.toString();
+  }
 }

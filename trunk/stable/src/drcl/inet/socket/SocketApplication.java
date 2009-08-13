@@ -33,79 +33,79 @@ import drcl.comp.Port;
  * Subclasses must call super.process(Object, Port) to delegate incoming
  * data to opened sockets. */
 public class SocketApplication extends drcl.comp.Component
-	implements NonblockingSocketHandler
+  implements NonblockingSocketHandler
 {
-	protected SocketMaster socketMaster =
-			new SocketMaster(addPort("down"), this);
+  protected SocketMaster socketMaster =
+      new SocketMaster(addPort("down"), this);
 
-	public SocketApplication()
-	{ super(); }
+  public SocketApplication()
+  { super(); }
 
-	public SocketApplication(String id_)
-	{ super(id_); }
+  public SocketApplication(String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		socketMaster.reset();
-	}
+  public void reset()
+  {
+    super.reset();
+    socketMaster.reset();
+  }
 
-	public String info()
-	{
-		return socketMaster.info();
-	}
+  public String info()
+  {
+    return socketMaster.info();
+  }
 
-	public boolean isMultiSessionEnabled()
-	{ return socketMaster.isMultiSessionEnabled(); }
+  public boolean isMultiSessionEnabled()
+  { return socketMaster.isMultiSessionEnabled(); }
 
-	public void setMultiSessionEnabled(boolean enabled_)
-	{ socketMaster.setMultiSessionEnabled(enabled_); }
+  public void setMultiSessionEnabled(boolean enabled_)
+  { socketMaster.setMultiSessionEnabled(enabled_); }
 
-	/**
-	 * Called back when accepting a new connection is finished.
-	 * Override this only when nonblocking "accept" is used.
-	 * @param serverSocket_ where the accepting occurred.
-	 * @param new_ socket for the new connection.
-	 */
-	public void acceptFinished(InetSocket serverSocket_, InetSocket new_)
-	{
-		error("nonblocking accept", "'accept' finished is not handled");
-	}
+  /**
+   * Called back when accepting a new connection is finished.
+   * Override this only when nonblocking "accept" is used.
+   * @param serverSocket_ where the accepting occurred.
+   * @param new_ socket for the new connection.
+   */
+  public void acceptFinished(InetSocket serverSocket_, InetSocket new_)
+  {
+    error("nonblocking accept", "'accept' finished is not handled");
+  }
 
-	/**
-	 * Called back when a connection is established.
-	 * Override this only when nonblocking "connect" is used.
-	 * @param socket_ where the connection is established.
-	 */
-	public void connectFinished(InetSocket socket_)
-	{
-		error("nonblocking connect", "'connect' finished is not handled");
-	}
+  /**
+   * Called back when a connection is established.
+   * Override this only when nonblocking "connect" is used.
+   * @param socket_ where the connection is established.
+   */
+  public void connectFinished(InetSocket socket_)
+  {
+    error("nonblocking connect", "'connect' finished is not handled");
+  }
 
-	/**
-	 * Called back when a connection is closed.
-	 * Override this only when nonblocking "close" is used.
-	 * @param socket_ where the connection is closed.
-	 */
-	public void closeFinished(InetSocket socket_)
-	{
-		error("nonblocking close", "'close' finished is not handled");
-	}
+  /**
+   * Called back when a connection is closed.
+   * Override this only when nonblocking "close" is used.
+   * @param socket_ where the connection is closed.
+   */
+  public void closeFinished(InetSocket socket_)
+  {
+    error("nonblocking close", "'close' finished is not handled");
+  }
 
-	/**
-	 * Called back when an error occurs during "accept" or "connect".
-	 * Override this only when nonblocking "accept"/"connect" is used.
-	 * @param socket_ to which the error is related.
-	 * @param error_ the error message.
-	 */
-	public void error(InetSocket socket_, java.io.IOException error_)
-	{
-		error("socket error", error_);
-	}
+  /**
+   * Called back when an error occurs during "accept" or "connect".
+   * Override this only when nonblocking "accept"/"connect" is used.
+   * @param socket_ to which the error is related.
+   * @param error_ the error message.
+   */
+  public void error(InetSocket socket_, java.io.IOException error_)
+  {
+    error("socket error", error_);
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		if (!socketMaster.processSocket(data_, inPort_))
-			super.process(data_, inPort_);
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    if (!socketMaster.processSocket(data_, inPort_))
+      super.process(data_, inPort_);
+  }
 }

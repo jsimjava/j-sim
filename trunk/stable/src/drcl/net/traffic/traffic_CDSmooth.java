@@ -44,73 +44,73 @@ package drcl.net.traffic;
  */
 public class traffic_CDSmooth extends TrafficModel implements TrafficPeriodic
 {
-	public int maxPacketSize;
-	public int C;
-	public double D;
+  public int maxPacketSize;
+  public int C;
+  public double D;
 
-	public traffic_CDSmooth()
-	{}
-	
-	public traffic_CDSmooth(int c_, double d_, int mtu_)
-	{
-		C = c_; D = d_;
-		maxPacketSize = mtu_;
-	}
-		
-	public void set(int c_, double d_, int mtu_)
-	{
-		C = c_; D = d_;
-		maxPacketSize = mtu_;
-	}
-		
-	public double getPeriod()
-	{ return D; }
-	
-	public double getLoad() 
-	{ return (double)(C << 3) / D; }
-	
-	public int getBurst()
-	{ return C; }
+  public traffic_CDSmooth()
+  {}
+  
+  public traffic_CDSmooth(int c_, double d_, int mtu_)
+  {
+    C = c_; D = d_;
+    maxPacketSize = mtu_;
+  }
+    
+  public void set(int c_, double d_, int mtu_)
+  {
+    C = c_; D = d_;
+    maxPacketSize = mtu_;
+  }
+    
+  public double getPeriod()
+  { return D; }
+  
+  public double getLoad() 
+  { return (double)(C << 3) / D; }
+  
+  public int getBurst()
+  { return C; }
 
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_CDSmooth)) return null;
-		
-		traffic_CDSmooth thatTraffic_ = (traffic_CDSmooth) that_;
-		if (C > thatTraffic_.C)	C = thatTraffic_.C;
-		if (D < thatTraffic_.D)	D = thatTraffic_.D;
-		if (maxPacketSize < thatTraffic_.maxPacketSize)
-			maxPacketSize = thatTraffic_.maxPacketSize;
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		traffic_CDSmooth that_ = (traffic_CDSmooth) source_;
-		C = that_.C;
-		D = that_.D;
-		maxPacketSize = that_.maxPacketSize;
-	}
-	
-	public String oneline()
-	{
-		return getClass().getName() + ":C=" + C + ", D=" + D
-			+ ", maxPacketSize=" + maxPacketSize;
-	}
-	
-	// 
-	private void ___PROPERTY___() {}
-	//
-	
-	public void setMaxPacketSize(int size_) { maxPacketSize = size_; }
-	public int getMaxPacketSize() { return maxPacketSize; }
-	
-	public void setC(int c_) { C = c_; }
-	public int getC() { return C; }
-	
-	public void setD(double d_) { D = d_; }
-	public double getD() { return D; }
-	
-	public int getMTU()
-	{ return maxPacketSize; }
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_CDSmooth)) return null;
+    
+    traffic_CDSmooth thatTraffic_ = (traffic_CDSmooth) that_;
+    if (C > thatTraffic_.C)  C = thatTraffic_.C;
+    if (D < thatTraffic_.D)  D = thatTraffic_.D;
+    if (maxPacketSize < thatTraffic_.maxPacketSize)
+      maxPacketSize = thatTraffic_.maxPacketSize;
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    traffic_CDSmooth that_ = (traffic_CDSmooth) source_;
+    C = that_.C;
+    D = that_.D;
+    maxPacketSize = that_.maxPacketSize;
+  }
+  
+  public String oneline()
+  {
+    return getClass().getName() + ":C=" + C + ", D=" + D
+      + ", maxPacketSize=" + maxPacketSize;
+  }
+  
+  // 
+  private void ___PROPERTY___() {}
+  //
+  
+  public void setMaxPacketSize(int size_) { maxPacketSize = size_; }
+  public int getMaxPacketSize() { return maxPacketSize; }
+  
+  public void setC(int c_) { C = c_; }
+  public int getC() { return C; }
+  
+  public void setD(double d_) { D = d_; }
+  public double getD() { return D; }
+  
+  public int getMTU()
+  { return maxPacketSize; }
 }

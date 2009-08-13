@@ -39,15 +39,15 @@ import drcl.comp.*;
  * @author Rong Zheng
  */
 public class ATIMEndTimer extends Mac_802_11_Timer {
-	public ATIMEndTimer(Mac_802_11 h) {	
-		super(h); 
-		o_.setType(MacTimeoutEvt.ATIMEnd_timeout); 
-	}
+  public ATIMEndTimer(Mac_802_11 h) {  
+    super(h); 
+    o_.setType(MacTimeoutEvt.ATIMEnd_timeout); 
+  }
 
-	public void handle( ) {
-		busy_ = false;
-	    paused_ = false;
-	    stime = 0.0;
-	    rtime = 0.0;
-	}
+  public void handle( ) {
+    busy_ = false;
+      paused_ = false;
+      stime = 0.0;
+      rtime = 0.0;
+  }
 }

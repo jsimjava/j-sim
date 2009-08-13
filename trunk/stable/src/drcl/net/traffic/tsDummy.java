@@ -34,15 +34,15 @@ package drcl.net.traffic;
  */
 class tsDummy extends TrafficShaper
 {
-	public tsDummy()
-	{ super(); }
+  public tsDummy()
+  { super(); }
 
-	public TrafficModel getTrafficModel()
-	{ return null; }
+  public TrafficModel getTrafficModel()
+  { return null; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{}
-	
-	protected double adjust(double now_, int size_) 
-	{ return 0.0; }
+  public void setTrafficModel(TrafficModel traffic_)
+  {}
+  
+  protected double adjust(double now_, int size_) 
+  { return 0.0; }
 }

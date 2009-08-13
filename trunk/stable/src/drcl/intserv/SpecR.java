@@ -33,49 +33,49 @@ package drcl.intserv;
 // Corresponding Admission class should recognize its format.
 public abstract class SpecR extends drcl.DrclObj
 {
-	// Used in compareWith function.
-	public static final int 
-		TIGHT = 0,
-		EQUAL = 1,
-		LOOSE = 2,
-		UNCOMPARABLE = 3,
-		WRONGCLASS = 4;		// Two rspecs are not objects of the same class
-		
-	transient public int handle = -1;     // automatically set when flowspec is installed
-	transient public boolean activated = true;
-	
-	public void    setHandle(int h) { handle = h; }
-	public int     getHandle()      { return handle; }
-	
-	/**
-	 * A flow must be activated before its packets can be scheduled by the 
-	 * scheduler as QoS packets.
-	 */
-	public void    setActivated(boolean v) { activated = v; }
-	public boolean getActivated()          { return activated; }
+  // Used in compareWith function.
+  public static final int 
+    TIGHT = 0,
+    EQUAL = 1,
+    LOOSE = 2,
+    UNCOMPARABLE = 3,
+    WRONGCLASS = 4;    // Two rspecs are not objects of the same class
+    
+  transient public int handle = -1;     // automatically set when flowspec is installed
+  transient public boolean activated = true;
+  
+  public void    setHandle(int h) { handle = h; }
+  public int     getHandle()      { return handle; }
+  
+  /**
+   * A flow must be activated before its packets can be scheduled by the 
+   * scheduler as QoS packets.
+   */
+  public void    setActivated(boolean v) { activated = v; }
+  public boolean getActivated()          { return activated; }
 
-	/** Returns the bandwidth requirement for this Rspec. */
-	public abstract int getBW();
-	
-	/** Returns the buffer requirement for this Rspec. */
-	public abstract int getBuffer();
-	
-	// merge this and the specified rspec, least-upper-bound
-	// return this.
-	public abstract SpecR merge(SpecR rspec_);
+  /** Returns the bandwidth requirement for this Rspec. */
+  public abstract int getBW();
+  
+  /** Returns the buffer requirement for this Rspec. */
+  public abstract int getBuffer();
+  
+  // merge this and the specified rspec, least-upper-bound
+  // return this.
+  public abstract SpecR merge(SpecR rspec_);
 
-	/**
-	 *  Returns 1 if this &gt; rspec; 0 if this == rspec
-	 *  and -1 if this &lt; rspec.
-	 */
-	public abstract int compareWith(SpecR rspec);
-	
-	/** Adjust the rspecs when backing off one hop. */
-	public abstract void perHopAdjust();
-	
-	public String toString()
-	{
-		return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
-			   + ",activated=" + activated;
-	}
+  /**
+   *  Returns 1 if this &gt; rspec; 0 if this == rspec
+   *  and -1 if this &lt; rspec.
+   */
+  public abstract int compareWith(SpecR rspec);
+  
+  /** Adjust the rspecs when backing off one hop. */
+  public abstract void perHopAdjust();
+  
+  public String toString()
+  {
+    return "handle=" + handle + ",bw=" + getBW() + ",buffer=" + getBuffer() 
+         + ",activated=" + activated;
+  }
 }

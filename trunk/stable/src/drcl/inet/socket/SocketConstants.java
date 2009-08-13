@@ -31,30 +31,30 @@ package drcl.inet.socket;
 /** A collection of constants related to {@link SocketContract}. */
 public interface SocketConstants
 {
-	public static final int ACCEPT = 0;
-	public static final int ACCEPT_REPLY = 1;
-	public static final int CONNECT = 2;
-	public static final int CONNECT_REPLY = 3;
-	public static final int CLOSE = 4;
-	public static final int CLOSE_REPLY = 5;
-	public static final int SEND_CLOSE = 6;
-	public static final int SEND_CLOSE_REPLY = 7;
-	/** Indicates the port connection is established between the peers
-	 * of the contract. */
-	public static final int ESTABLISHED = 8;
-	public static final int LISTEN = 9;
-	public static final int ERROR = 10;
-	public static final String[] TYPES = {
-		"accept",
-		"accept_reply",
-		"connect",
-		"connect_reply",
-		"close",
-		"close-reply",
-		"send-close",
-		"send-close-reply",
-		"established",
-		"listen",
-		"error"
-	};
+  public static final int ACCEPT = 0;
+  public static final int ACCEPT_REPLY = 1;
+  public static final int CONNECT = 2;
+  public static final int CONNECT_REPLY = 3;
+  public static final int CLOSE = 4;
+  public static final int CLOSE_REPLY = 5;
+  public static final int SEND_CLOSE = 6;
+  public static final int SEND_CLOSE_REPLY = 7;
+  /** Indicates the port connection is established between the peers
+   * of the contract. */
+  public static final int ESTABLISHED = 8;
+  public static final int LISTEN = 9;
+  public static final int ERROR = 10;
+  public static final String[] TYPES = {
+    "accept",
+    "accept_reply",
+    "connect",
+    "connect_reply",
+    "close",
+    "close-reply",
+    "send-close",
+    "send-close-reply",
+    "established",
+    "listen",
+    "error"
+  };
 }

@@ -33,68 +33,68 @@ import drcl.net.Packet;
 /** This class defines the UDP packet header used by {@link UDP}.  */
 public class UDPPacket extends Packet
 { 
-	public String getName()
-	{ return "UDP"; }
+  public String getName()
+  { return "UDP"; }
 
-	int sport, dport;
+  int sport, dport;
 
-	public UDPPacket()
-	{ super(8); }
+  public UDPPacket()
+  { super(8); }
 
-	/**
-	 * @param sport_ source port number
-	 * @param dport_ destination port number
-	 */
-	public UDPPacket (int sport_, int dport_, int hsize_)
-	{
-		super(hsize_);
-		sport = sport_;
-		dport = dport_;
-	}
-	
-	/**
-	 * @param sport_ source port number
-	 * @param dport_ destination port number
-	 */
-	public UDPPacket (int sport_, int dport_, int hsize_, int bsize_, Object body_)
-	{
-		super(hsize_, bsize_, body_);
-		sport = sport_;
-		dport = dport_;
-	}
-	
-	/** Returns the source port number of the UDP packet. */
-	public int getSPort()
-	{ return sport; }
-	
-	/** Returns the destination port number of the UDP packet. */
-	public int getDPort()
-	{ return dport; }
-	
-	public void setSPort(int value_)
-	{ sport = value_; }
-	
-	public void setDPort(int value_)
-	{ dport = value_; }
-	
-	/*
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		UDPPacket that_ = (UDPPacket)source_;
-		sport = that_.sport;
-		dport = that_.dport;
-		setHeaderSize(that_.headerSize);
-	}
-	*/
+  /**
+   * @param sport_ source port number
+   * @param dport_ destination port number
+   */
+  public UDPPacket (int sport_, int dport_, int hsize_)
+  {
+    super(hsize_);
+    sport = sport_;
+    dport = dport_;
+  }
+  
+  /**
+   * @param sport_ source port number
+   * @param dport_ destination port number
+   */
+  public UDPPacket (int sport_, int dport_, int hsize_, int bsize_, Object body_)
+  {
+    super(hsize_, bsize_, body_);
+    sport = sport_;
+    dport = dport_;
+  }
+  
+  /** Returns the source port number of the UDP packet. */
+  public int getSPort()
+  { return sport; }
+  
+  /** Returns the destination port number of the UDP packet. */
+  public int getDPort()
+  { return dport; }
+  
+  public void setSPort(int value_)
+  { sport = value_; }
+  
+  public void setDPort(int value_)
+  { dport = value_; }
+  
+  /*
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    UDPPacket that_ = (UDPPacket)source_;
+    sport = that_.sport;
+    dport = that_.dport;
+    setHeaderSize(that_.headerSize);
+  }
+  */
 
-	public Object clone()
-	{
-		return new UDPPacket(sport, dport, headerSize, size-headerSize,
-			body instanceof drcl.ObjectCloneable?
-				((drcl.ObjectCloneable)body).clone(): body);
-	}
+  public Object clone()
+  {
+    return new UDPPacket(sport, dport, headerSize, size-headerSize,
+      body instanceof drcl.ObjectCloneable?
+        ((drcl.ObjectCloneable)body).clone(): body);
+  }
 
-	public String _toString(String separator_)
-	{ return "s:" + sport + separator_ + "d:" + dport; }
+  public String _toString(String separator_)
+  { return "s:" + sport + separator_ + "d:" + dport; }
 }

@@ -30,12 +30,12 @@ package drcl.comp;
 
 public class AddComponentException extends Error
 {
-	public AddComponentException()
-	{ super(); }
+  public AddComponentException()
+  { super(); }
 
-	public AddComponentException(String msg_)
-	{ super(msg_); }
+  public AddComponentException(String msg_)
+  { super(msg_); }
 
-	public AddComponentException(Component parent_, String id_)
-	{ super("'" + id_ + "' has already existed in " + parent_); }
+  public AddComponentException(Component parent_, String id_)
+  { super("'" + id_ + "' has already existed in " + parent_); }
 }

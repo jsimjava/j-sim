@@ -33,5 +33,5 @@ package drcl.intserv.scheduler;
  */
 public interface SpecR_SP
 {
-	public double getPriority();
+  public double getPriority();
 }

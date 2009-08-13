@@ -30,28 +30,28 @@ package drcl.comp;
 
 class ForkSend extends ForkEvent
 {
-	public ForkSend (Object evt_, Port p_, double time_)
-	{
-		data = evt_;
-		port = p_;
-		time = time_;
-	}
+  public ForkSend (Object evt_, Port p_, double time_)
+  {
+    data = evt_;
+    port = p_;
+    time = time_;
+  }
 
-	public final String toString()
-	{
-		return "SEND:PORT=" + port + "--EVT=" + data + (sent()? "\t\tsent_up": "");
-	}
-	
-	/** Doesn't compare action. */
-	public final boolean equals(Object thatobj_) 
-	{
-		if (this == thatobj_) return true;
-		if (!(thatobj_ instanceof ForkSend)) return false;
-		ForkSend that_ = (ForkSend)thatobj_;
-		return port == that_.port && (data == that_.data || data != null && data.equals(that_.data));
-	}
+  public final String toString()
+  {
+    return "SEND:PORT=" + port + "--EVT=" + data + (sent()? "\t\tsent_up": "");
+  }
+  
+  /** Doesn't compare action. */
+  public final boolean equals(Object thatobj_) 
+  {
+    if (this == thatobj_) return true;
+    if (!(thatobj_ instanceof ForkSend)) return false;
+    ForkSend that_ = (ForkSend)thatobj_;
+    return port == that_.port && (data == that_.data || data != null && data.equals(that_.data));
+  }
 
-	// must be in WorkerThread
-	public void execute(WorkerThread thread_)
-	{ port.doSending(data); }
+  // must be in WorkerThread
+  public void execute(WorkerThread thread_)
+  { port.doSending(data); }
 }

@@ -125,7 +125,7 @@ public class BasicJApplet extends JApplet {
      *  @param message The message to report.
      */
     public void report(String message) {
-	showStatus(message);
+  showStatus(message);
     }
 
     /** Report an exception with an additional message.

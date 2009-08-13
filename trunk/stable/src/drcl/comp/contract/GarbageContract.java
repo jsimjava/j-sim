@@ -73,66 +73,66 @@ import drcl.comp.Contract;
  */
 public class GarbageContract extends Contract
 {
-	public static final GarbageContract INSTANCE = new GarbageContract();
+  public static final GarbageContract INSTANCE = new GarbageContract();
 
-	public String getName()
-	{ return "ACA Garbage Message Format"; }
+  public String getName()
+  { return "ACA Garbage Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static class Message extends ComponentMessage
-	{
-		double time;
-		String portPath;
-		Object data;
-		Object description;
-		boolean displayable;
-	
-		public Message (double time_, String portPath_, Object data_, boolean displayable_)
-		{
-			time = time_;
-			portPath = portPath_;
-			data = data_;
-			description = "";
-			displayable = displayable_;
-		}
-	
-		public Message (double time_, String portPath_, Object data_,
-			Object description_, boolean displayable_)
-		{
-			time = time_;
-			portPath = portPath_;
-			data = data_;
-			description = description_;
-			displayable = displayable_;
-		}
-	
-		public double getTime()
-		{ return time; }
-	
-		public String getPortPath()
-		{ return portPath; }
-	
-		public Object getData()
-		{ return data; }
-	
-		public Object getDescription()
-		{ return description; }
-	
-		public boolean isDisplayable()
-		{ return displayable; }
+  public static class Message extends ComponentMessage
+  {
+    double time;
+    String portPath;
+    Object data;
+    Object description;
+    boolean displayable;
+  
+    public Message (double time_, String portPath_, Object data_, boolean displayable_)
+    {
+      time = time_;
+      portPath = portPath_;
+      data = data_;
+      description = "";
+      displayable = displayable_;
+    }
+  
+    public Message (double time_, String portPath_, Object data_,
+      Object description_, boolean displayable_)
+    {
+      time = time_;
+      portPath = portPath_;
+      data = data_;
+      description = description_;
+      displayable = displayable_;
+    }
+  
+    public double getTime()
+    { return time; }
+  
+    public String getPortPath()
+    { return portPath; }
+  
+    public Object getData()
+    { return data; }
+  
+    public Object getDescription()
+    { return description; }
+  
+    public boolean isDisplayable()
+    { return displayable; }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{ return new Message(time, portPath, data, description, displayable); }
+    public Object clone()
+    { return new Message(time, portPath, data, description, displayable); }
 
-		public String toString(String separator_)
-		{
-			return "GARBAGE" + separator_ + time + separator_ + portPath + separator_
-				+ data + (description == null? "": separator_ + description);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "GARBAGE" + separator_ + time + separator_ + portPath + separator_
+        + data + (description == null? "": separator_ + description);
+    }
+  }
 }

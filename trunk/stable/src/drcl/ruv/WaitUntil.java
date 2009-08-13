@@ -37,108 +37,108 @@ import drcl.comp.WorkerThread;
  */
 public class WaitUntil implements Runnable
 {
-	ACARuntime runtime;
-	boolean stopHook = false;
-	Object lock = this;
+  ACARuntime runtime;
+  boolean stopHook = false;
+  Object lock = this;
 
-	/** The execution is blocked (on itself) until the runtime stops
-	 * (at the time specified).*/
-	public WaitUntil(ACARuntime r, double stopAt)
-		   	throws InterruptedException
-	{
-		runtime = r;
-		synchronized (lock) {
-			runtime.addRunnableAt(stopAt, this);
-			runtime.resume(); // suppose the runtime is stopped at the beginning
-			lock.wait(); // wait until the runtime stops
-		}
-	}
+  /** The execution is blocked (on itself) until the runtime stops
+   * (at the time specified).*/
+  public WaitUntil(ACARuntime r, double stopAt)
+         throws InterruptedException
+  {
+    runtime = r;
+    synchronized (lock) {
+      runtime.addRunnableAt(stopAt, this);
+      runtime.resume(); // suppose the runtime is stopped at the beginning
+      lock.wait(); // wait until the runtime stops
+    }
+  }
 
-	/** The execution is blocked (on lock) until the runtime stops
-	 * (at the time specified).*/
-	public WaitUntil(ACARuntime r, double stopAt, Object lock_)
-		   	throws InterruptedException
-	{
-		runtime = r;
-		lock = lock_;
-		synchronized (lock) {
-			runtime.addRunnableAt(stopAt, this);
-			runtime.resume(); // suppose the runtime is stopped at the beginning
-			lock.wait(); // wait until the runtime stops
-		}
-	}
+  /** The execution is blocked (on lock) until the runtime stops
+   * (at the time specified).*/
+  public WaitUntil(ACARuntime r, double stopAt, Object lock_)
+         throws InterruptedException
+  {
+    runtime = r;
+    lock = lock_;
+    synchronized (lock) {
+      runtime.addRunnableAt(stopAt, this);
+      runtime.resume(); // suppose the runtime is stopped at the beginning
+      lock.wait(); // wait until the runtime stops
+    }
+  }
 
-	/** The execution is blocked (on itself) until the runtime finishes
-	 * all the events. */
-	public WaitUntil(ACARuntime r) throws InterruptedException
-	{
-		runtime = r;
-		synchronized (lock) {
-			runtime.addStopHook(this);
-			stopHook = true;
-			runtime.resume(); // suppose the runtime is stopped at the beginning
-			lock.wait(); // wait until the runtime stops
-			runtime.removeStopHook(this);
-		}
-	}
+  /** The execution is blocked (on itself) until the runtime finishes
+   * all the events. */
+  public WaitUntil(ACARuntime r) throws InterruptedException
+  {
+    runtime = r;
+    synchronized (lock) {
+      runtime.addStopHook(this);
+      stopHook = true;
+      runtime.resume(); // suppose the runtime is stopped at the beginning
+      lock.wait(); // wait until the runtime stops
+      runtime.removeStopHook(this);
+    }
+  }
 
-	/** The execution is blocked (on lock) until the runtime finishes
-	 * all the events. */
-	public WaitUntil(ACARuntime r, Object lock_) throws InterruptedException
-	{
-		runtime = r;
-		lock = lock_;
-		synchronized (lock) {
-			runtime.addStopHook(this);
-			stopHook = true;
-			runtime.resume(); // suppose the runtime is stopped at the beginning
-			lock.wait(); // wait until the runtime stops
-			runtime.removeStopHook(this);
-		}
-	}
-	/** The execution is blocked (on the shell) until the command
-	 * (interpreted by the shell)
-	 * returns an affirmative result. */
-	public WaitUntil(Shell shell_, String cmd_) throws InterruptedException
-	{ this(shell_, cmd_, shell_); }
+  /** The execution is blocked (on lock) until the runtime finishes
+   * all the events. */
+  public WaitUntil(ACARuntime r, Object lock_) throws InterruptedException
+  {
+    runtime = r;
+    lock = lock_;
+    synchronized (lock) {
+      runtime.addStopHook(this);
+      stopHook = true;
+      runtime.resume(); // suppose the runtime is stopped at the beginning
+      lock.wait(); // wait until the runtime stops
+      runtime.removeStopHook(this);
+    }
+  }
+  /** The execution is blocked (on the shell) until the command
+   * (interpreted by the shell)
+   * returns an affirmative result. */
+  public WaitUntil(Shell shell_, String cmd_) throws InterruptedException
+  { this(shell_, cmd_, shell_); }
 
-	/** The execution is blocked (on lock) until the command
-	 * (interpreted by the shell)
-	 * returns an affirmative result. */
-	public WaitUntil(Shell shell_, String cmd_, Object lock_)
-			throws InterruptedException
-	{
-		if (shell_ == null) return;
-		//java.lang.System.out.println("Shell: " + shell_ 
-		//				+ "\nwAit uNtil: " + cmd_);
-		boolean done_ = false;
-		try {
-			synchronized (lock) {
-				while (!done_) {
-					lock.wait(200);
-					done_ = shell_.isResultAffirmative(shell_.eval(cmd_));
-				}
-			}
-		}
-		catch (Exception e_) {
-			if (e_ instanceof InterruptedException)
-				throw (InterruptedException)e_;
-			e_.printStackTrace();
-		}
-	}
+  /** The execution is blocked (on lock) until the command
+   * (interpreted by the shell)
+   * returns an affirmative result. */
+  public WaitUntil(Shell shell_, String cmd_, Object lock_)
+      throws InterruptedException
+  {
+    if (shell_ == null) return;
+    //java.lang.System.out.println("Shell: " + shell_ 
+    //        + "\nwAit uNtil: " + cmd_);
+    boolean done_ = false;
+    try {
+      synchronized (lock) {
+        while (!done_) {
+          lock.wait(200);
+          done_ = shell_.isResultAffirmative(shell_.eval(cmd_));
+        }
+      }
+    }
+    catch (Exception e_) {
+      if (e_ instanceof InterruptedException)
+        throw (InterruptedException)e_;
+      e_.printStackTrace();
+    }
+  }
 
-	public void run()
-	{
-		// we should be in a simulation thread
-		Thread thread = Thread.currentThread();
-		if (!(thread instanceof WorkerThread)
-			|| runtime != ((WorkerThread)thread).runtime) {
-			return;
-		}
+  public void run()
+  {
+    // we should be in a simulation thread
+    Thread thread = Thread.currentThread();
+    if (!(thread instanceof WorkerThread)
+      || runtime != ((WorkerThread)thread).runtime) {
+      return;
+    }
 
-		synchronized (lock) {
-			if (!stopHook) runtime.stop();
-			lock.notify(); // notify the main thread
-		}
-	}
+    synchronized (lock) {
+      if (!stopHook) runtime.stop();
+      lock.notify(); // notify the main thread
+    }
+  }
 }

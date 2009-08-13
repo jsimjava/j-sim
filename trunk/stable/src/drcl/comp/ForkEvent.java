@@ -30,13 +30,13 @@ package drcl.comp;
 
 abstract class ForkEvent extends Task
 {
-	static Port SENT = new Port();
+  static Port SENT = new Port();
 
-	public abstract void execute(WorkerThread thread_);
+  public abstract void execute(WorkerThread thread_);
 
-	public boolean sent()
-	{ return returnPort != null; }
+  public boolean sent()
+  { return returnPort != null; }
 
-	public void setSent()
-	{ returnPort = SENT; }
+  public void setSent()
+  { returnPort = SENT; }
 }

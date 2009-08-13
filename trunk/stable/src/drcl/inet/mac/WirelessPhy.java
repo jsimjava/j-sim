@@ -71,13 +71,13 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
     private String status;
     
     // Assume AT&T's Wavelan PCMCIA card -- Chalermek
-    //	Pt = 8.5872e-4; // For 40m transmission range.
+    //  Pt = 8.5872e-4; // For 40m transmission range.
     //  Pt = 7.214e-3;  // For 100m transmission range.
     //  Pt = 0.2818; // For 250m transmission range.
-    //	Pt = pow(10, 2.45) * 1e-3;         // 24.5 dbm, ~ 281.8mw
-    // 	Pt_consume = 0.660;  // 1.6 W drained power for transmission
+    //  Pt = pow(10, 2.45) * 1e-3;         // 24.5 dbm, ~ 281.8mw
+    //   Pt_consume = 0.660;  // 1.6 W drained power for transmission
     //  Pr_consume = 0.395;  // 1.2 W drained power for reception
-    //	P_idle     = 0.035;  // 1.15 W drained power for idle
+    //  P_idle     = 0.035;  // 1.15 W drained power for idle
     
     /** The energy model installed */
     EnergyModel em;
@@ -86,26 +86,26 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
     double Pt;
 
     /** The last time the node sends somthing.  */
-    double last_send_time;	                
+    double last_send_time;                  
     
     /** When the channel be idle again. */
-    double channel_become_idle_time;	  
+    double channel_become_idle_time;    
     /** The last time we update energy. */
-    double last_energy_update_time;	        
+    double last_energy_update_time;          
     
     /** Frequency. */
     double freq;            // frequency
     
     /** Wavelength  (m)     */
-    double Lambda;	        // wavelength (m)
-    // double L_ = 1.0;   	// system loss factor
+    double Lambda;          // wavelength (m)
+    // double L_ = 1.0;     // system loss factor
     
     /**  receive power threshold (W)   */
-    double RXThresh;	// receive power threshold (W)
+    double RXThresh;  // receive power threshold (W)
     /**  carrier sense threshold (W)   */
-    double CSThresh;	// carrier sense threshold (W)
+    double CSThresh;  // carrier sense threshold (W)
     /**  capture threshold (db)        */
-    double CPThresh;	// capture threshold (db)
+    double CPThresh;  // capture threshold (db)
     
     /* configurate the ports */
     public static final String CONFIG_PORT_ID      = ".config";
@@ -249,11 +249,11 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
         bandwidth  = SampleCard.bandwidth;
         Lambda = 300000000.0 / freq;   // wavelength (m)
         RXThresh   = SampleCard.RXThresh;
-        CSThresh   = SampleCard.CSThresh;	    // carrier sense threshold (W)  //
+        CSThresh   = SampleCard.CSThresh;      // carrier sense threshold (W)  //
         CPThresh   = SampleCard.CPThresh;       // capture threshold (db)
-        last_send_time = 0.0;	            // the last time the node sends somthing.
-        channel_become_idle_time = 0.0;	    // channel idle time.
-        last_energy_update_time = 0.0;	    // the last time we update energy.
+        last_send_time = 0.0;              // the last time the node sends somthing.
+        channel_become_idle_time = 0.0;      // channel idle time.
+        last_energy_update_time = 0.0;      // the last time we update energy.
         em = new EnergyModel();
     }
     
@@ -266,7 +266,7 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
             Pt         = Demo_TSCard.Pt;
             bandwidth  = Demo_TSCard.bandwidth;
             RXThresh   = Demo_TSCard.RXThresh;
-            CSThresh   = Demo_TSCard.CSThresh;	    // carrier sense threshold (W)  //
+            CSThresh   = Demo_TSCard.CSThresh;      // carrier sense threshold (W)  //
             CPThresh   = Demo_TSCard.CPThresh;       // capture threshold (db)
             Lambda     = 300000000.0 / freq;   // wavelength (m)
         }
@@ -275,7 +275,7 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
             Pt         = Demo_TTCard.Pt;
             bandwidth  = Demo_TTCard.bandwidth;
             RXThresh   = Demo_TTCard.RXThresh;
-            CSThresh   = Demo_TTCard.CSThresh;	    // carrier sense threshold (W)  //
+            CSThresh   = Demo_TTCard.CSThresh;      // carrier sense threshold (W)  //
             CPThresh   = Demo_TTCard.CPThresh;       // capture threshold (db)
             Lambda     = 300000000.0 / freq;   // wavelength (m)
         }
@@ -284,14 +284,14 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
             Pt         = Demo_TUCard.Pt;
             bandwidth  = Demo_TUCard.bandwidth;
             RXThresh   = Demo_TUCard.RXThresh;
-            CSThresh   = Demo_TUCard.CSThresh;	    // carrier sense threshold (W)  //
+            CSThresh   = Demo_TUCard.CSThresh;      // carrier sense threshold (W)  //
             CPThresh   = Demo_TUCard.CPThresh;       // capture threshold (db)
             Lambda     = 300000000.0 / freq;   // wavelength (m)
         }
     }
 
-	public EnergyModel getEnergyModel()
-	{ return em; }
+  public EnergyModel getEnergyModel()
+  { return em; }
     
     public String getName() { return "WirelessPhy"; }
     
@@ -334,7 +334,7 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
     /** Sets the frequency */
     public void setFreq(double freq_ ) { freq = freq_; Lambda = 300000000.0 / freq; }
 
-	public void setBandwidth(double bw_) { bandwidth = bw_; }
+  public void setBandwidth(double bw_) { bandwidth = bw_; }
     
     /**
      * Processes data frame coming from MAC component.
@@ -398,33 +398,33 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
         
         //Add by Honghai for debugging
         if (isDebugEnabled()  ) {
-        	if (t - tp > 1.0)  {
-         		printPktStat();
-        		tp = t;
-        	}
-        	String pktType = ((Packet)data_).getPacketType();
-        	if (pktType.equals("AODV") ) numAODV ++;
-        	else if (pktType.equals("MAC-802.11_ACK_Frame") ) numACK++;
-        	else if (pktType.equals("MAC-802.11_RTS_Frame") ) numRTS++;
-        	else if (pktType.equals("MAC-802.11_CTS_Frame") ) numCTS++;
-        	else if (pktType.equals("UDP") ) numUDP++;
-        	else {
-        		numOthers++;
-        		System.out.println("type <" + pktType + ">" );
-			}
-		}
+          if (t - tp > 1.0)  {
+             printPktStat();
+            tp = t;
+          }
+          String pktType = ((Packet)data_).getPacketType();
+          if (pktType.equals("AODV") ) numAODV ++;
+          else if (pktType.equals("MAC-802.11_ACK_Frame") ) numACK++;
+          else if (pktType.equals("MAC-802.11_RTS_Frame") ) numRTS++;
+          else if (pktType.equals("MAC-802.11_CTS_Frame") ) numCTS++;
+          else if (pktType.equals("UDP") ) numUDP++;
+          else {
+            numOthers++;
+            System.out.println("type <" + pktType + ">" );
+      }
+    }
     }
 
-	void printPktStat() {
-		StringBuffer sb_ = new StringBuffer(toString());
-		sb_.append("AODV packet: " + numAODV);
-		sb_.append("\tRTS packet: " + numRTS);
-		sb_.append("\tCTS packet: " + numCTS);
-		sb_.append("\tACK packet: " + numACK);
-		sb_.append("\tUDP packet: " + numUDP);
-		sb_.append("\tOther packet: " + numOthers);
-		debug(sb_.toString() );
-	}
+  void printPktStat() {
+    StringBuffer sb_ = new StringBuffer(toString());
+    sb_.append("AODV packet: " + numAODV);
+    sb_.append("\tRTS packet: " + numRTS);
+    sb_.append("\tCTS packet: " + numCTS);
+    sb_.append("\tACK packet: " + numACK);
+    sb_.append("\tUDP packet: " + numUDP);
+    sb_.append("\tOther packet: " + numOthers);
+    debug(sb_.toString() );
+  }
     
     void logEnergy() {
         ;//drcl.Debug.debug("At time: "+ getTime() + " Node" + nid + " remaining energy = " + em.getEnergy() + "\n");
@@ -480,27 +480,27 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
         
         if ( pathLossCache.containsKey(sid) ) {
             CachedPathLoss c = (CachedPathLoss) (pathLossCache.get(sid));
-	    	if (RadioPropagationModel.isCartesianCoordinates()) {
-				if (Math.abs(c.xs - Xs) <= xyz_tol &&
-					Math.abs(c.ys - Ys) <= xyz_tol &&
-					Math.abs(c.zs - Zs) <= xyz_tol && 
-					Math.abs(c.xr - Xc) <= xyz_tol &&
-					Math.abs(c.yr - Yc) <= xyz_tol &&
-					Math.abs(c.zr - Zc) <= xyz_tol )   {
-						cacheHit = true;
-						Loss = c.loss;  
-				}
-			} else {
-				if (Math.abs(c.xs - Xs) <= long_lat_tol &&
-					Math.abs(c.ys - Ys) <= long_lat_tol &&
-					Math.abs(c.zs - Zs) <= xyz_tol && 
-					Math.abs(c.xr - Xc) <= long_lat_tol &&
-					Math.abs(c.yr - Yc) <= long_lat_tol &&
-					Math.abs(c.zr - Zc) <= xyz_tol )  	{
-				 		cacheHit = true;
-                		Loss = c.loss;  
-				}	
-			}
+        if (RadioPropagationModel.isCartesianCoordinates()) {
+        if (Math.abs(c.xs - Xs) <= xyz_tol &&
+          Math.abs(c.ys - Ys) <= xyz_tol &&
+          Math.abs(c.zs - Zs) <= xyz_tol && 
+          Math.abs(c.xr - Xc) <= xyz_tol &&
+          Math.abs(c.yr - Yc) <= xyz_tol &&
+          Math.abs(c.zr - Zc) <= xyz_tol )   {
+            cacheHit = true;
+            Loss = c.loss;  
+        }
+      } else {
+        if (Math.abs(c.xs - Xs) <= long_lat_tol &&
+          Math.abs(c.ys - Ys) <= long_lat_tol &&
+          Math.abs(c.zs - Zs) <= xyz_tol && 
+          Math.abs(c.xr - Xc) <= long_lat_tol &&
+          Math.abs(c.yr - Yc) <= long_lat_tol &&
+          Math.abs(c.zr - Zc) <= xyz_tol )    {
+             cacheHit = true;
+                    Loss = c.loss;  
+        }  
+      }
         }
         
         if ( cacheHit == false ) {
@@ -576,10 +576,10 @@ public class WirelessPhy extends drcl.net.Module implements ActiveComponent {
          *  3. set a timer to unlock the antenna, which times out at end_time
          */
         if ( !type.equals("OMNIDIRECTIONAL ANTENNA") 
-	     && Pr >= RXThresh && !antenna.isLocked()) {
+       && Pr >= RXThresh && !antenna.isLocked()) {
              antenna.lockAtSignal (incomingOrient);
              Gr = Math.exp (0.1 * antenna.getGain_dBi (incomingOrient) );
-             //	incomingOrient.azimuth + ". Gr = " + Gr); //for debug             
+             //  incomingOrient.azimuth + ". Gr = " + Gr); //for debug             
              Pr = Pt_received * Gt_received * Gr * Loss;
              lockTimer = setTimeout ("AntennaLockSignal_TimeOut", end_time-getTime());
          } //endif

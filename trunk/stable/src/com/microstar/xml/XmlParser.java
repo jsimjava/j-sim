@@ -116,7 +116,7 @@ public class XmlParser {
     *            thrown by the parser itself.
     */
   public void parse (String systemId, String publicId,
-		     InputStream stream, String encoding)
+         InputStream stream, String encoding)
     throws java.lang.Exception
   {
     doParse(systemId, publicId, null, stream, encoding);
@@ -147,8 +147,8 @@ public class XmlParser {
 
 
   private synchronized void doParse (String systemId, String publicId,
-				     Reader reader, InputStream stream,
-				     String encoding)
+             Reader reader, InputStream stream,
+             String encoding)
     throws java.lang.Exception
   {
     basePublicId = publicId;
@@ -158,7 +158,7 @@ public class XmlParser {
 
     initializeVariables();
 
-				// Set the default entities here.
+        // Set the default entities here.
     setInternalEntity(intern("amp"), "&#38;");
     setInternalEntity(intern("lt"), "&#60;");
     setInternalEntity(intern("gt"), "&#62;");
@@ -170,7 +170,7 @@ public class XmlParser {
     }
 
     pushURL("[document]", basePublicId, baseURI, baseReader, baseInputStream,
-	    encoding);
+      encoding);
 
     parseDocument();
 
@@ -450,7 +450,7 @@ public class XmlParser {
       String uri = null;
 
       if (externalEntity != null) {
-	uri = externalEntity.getURL().toString();
+  uri = externalEntity.getURL().toString();
       }
       handler.error(message, uri, line, column);
     }
@@ -610,7 +610,7 @@ public class XmlParser {
     String encodingName = null;
     String standalone = null;
 
-				// Read the version.
+        // Read the version.
     require("version");
     parseEq();
     version = readLiteral(0);
@@ -618,7 +618,7 @@ public class XmlParser {
       error("unsupported XML version", version, "1.0");
     }
 
-				// Try reading an encoding declaration.
+        // Try reading an encoding declaration.
     skipWhitespace();
     if (tryRead("encoding")) {
       parseEq();
@@ -626,7 +626,7 @@ public class XmlParser {
       checkEncoding(encodingName, ignoreEncoding);
     }
 
-				// Try reading a standalone declaration
+        // Try reading a standalone declaration
     skipWhitespace();
     if (tryRead("standalone")) {
       parseEq();
@@ -656,19 +656,19 @@ public class XmlParser {
   {
     String encodingName = null;
     
-				// Read an optional version.
+        // Read an optional version.
     if (tryRead("version")) {
       String version;
       parseEq();
       version = readLiteral(0);
       if (!version.equals("1.0")) {
-	error("unsupported XML version", version, "1.0");
+  error("unsupported XML version", version, "1.0");
       }
       requireWhitespace();
     }
       
 
-				// Read the encoding.
+        // Read the encoding.
     require("encoding");
     parseEq();
     encodingName = readLiteral(0);
@@ -700,35 +700,35 @@ public class XmlParser {
     }
 
     switch (encoding) {
-				// 8-bit encodings
+        // 8-bit encodings
     case ENCODING_UTF_8:
       if (encodingName.equals("ISO-8859-1")) {
-	encoding = ENCODING_ISO_8859_1;
+  encoding = ENCODING_ISO_8859_1;
       } else if (!encodingName.equals("UTF-8")) {
-	error("unsupported 8-bit encoding",
-	      encodingName,
-	      "UTF-8 or ISO-8859-1");
+  error("unsupported 8-bit encoding",
+        encodingName,
+        "UTF-8 or ISO-8859-1");
       }
       break;
-				// 16-bit encodings
+        // 16-bit encodings
     case ENCODING_UCS_2_12:
     case ENCODING_UCS_2_21:
       if (!encodingName.equals("ISO-10646-UCS-2") &&
-	  !encodingName.equals("UTF-16")) {
-	error("unsupported 16-bit encoding",
-	      encodingName,
-	      "ISO-10646-UCS-2");
+    !encodingName.equals("UTF-16")) {
+  error("unsupported 16-bit encoding",
+        encodingName,
+        "ISO-10646-UCS-2");
       }
       break;
-				// 32-bit encodings
+        // 32-bit encodings
     case ENCODING_UCS_4_1234:
     case ENCODING_UCS_4_4321:
     case ENCODING_UCS_4_2143:
     case ENCODING_UCS_4_3412:
       if (!encodingName.equals("ISO-10646-UCS-4")) {
-	error("unsupported 32-bit encoding",
-	      encodingName,
-	      "ISO-10646-UCS-4");
+  error("unsupported 32-bit encoding",
+        encodingName,
+        "ISO-10646-UCS-4");
       }
     }
   }
@@ -771,52 +771,52 @@ public class XmlParser {
     char c;
     String doctypeName, ids[];
 
-				// Read the document type name.
+        // Read the document type name.
     requireWhitespace();
     doctypeName = readNmtoken(true);
 
-				// Read the ExternalIDs.
+        // Read the ExternalIDs.
     skipWhitespace();
     ids = readExternalIds(false);
 
-				// Look for a declaration subset.
+        // Look for a declaration subset.
     skipWhitespace();
     if (tryRead('[')) {
 
-				// loop until the subset ends
+        // loop until the subset ends
       while (true) {
-	context = CONTEXT_DTD;
-	skipWhitespace();
-	context = CONTEXT_NONE;
-	if (tryRead(']')) {
-	  break;		// end of subset
-	} else {
-	  context = CONTEXT_DTD;
-	  parseMarkupdecl();
-	  context = CONTEXT_NONE;
-	}
+  context = CONTEXT_DTD;
+  skipWhitespace();
+  context = CONTEXT_NONE;
+  if (tryRead(']')) {
+    break;    // end of subset
+  } else {
+    context = CONTEXT_DTD;
+    parseMarkupdecl();
+    context = CONTEXT_NONE;
+  }
       }
     }
 
-				// Read the external subset, if any
+        // Read the external subset, if any
     if (ids[1] != null) {
       pushURL("[external subset]", ids[0], ids[1], null, null, null);
 
-				// Loop until we end up back at '>'
+        // Loop until we end up back at '>'
       while (true) {
-	context = CONTEXT_DTD;
-	skipWhitespace();
-	context = CONTEXT_NONE;
-	if (tryRead('>')) {
-	  break;
-	} else {
-	  context = CONTEXT_DTD;
-	  parseMarkupdecl();
-	  context = CONTEXT_NONE;
-	}
+  context = CONTEXT_DTD;
+  skipWhitespace();
+  context = CONTEXT_NONE;
+  if (tryRead('>')) {
+    break;
+  } else {
+    context = CONTEXT_DTD;
+    parseMarkupdecl();
+    context = CONTEXT_NONE;
+  }
       }
     } else {
-				// No external subset.
+        // No external subset.
       skipWhitespace();
       require('>');
     }
@@ -825,10 +825,10 @@ public class XmlParser {
       handler.doctypeDecl(doctypeName, ids[0], ids[1]);
     }
 
-				// Expand general entities in
-				// default values of attributes.
-				// (Do this after the doctypeDecl
-				// event!).
+        // Expand general entities in
+        // default values of attributes.
+        // (Do this after the doctypeDecl
+        // event!).
     // expandAttributeDefaultValues();
   }
 
@@ -886,23 +886,23 @@ public class XmlParser {
     int oldElementContent = currentElementContent;
     String oldElement = currentElement;
 
-				// This is the (global) counter for the
-				// array of specified attributes.
+        // This is the (global) counter for the
+        // array of specified attributes.
     tagAttributePos = 0;
 
-				// Read the element type name.
+        // Read the element type name.
     gi = readNmtoken(true);
 
-				// Determine the current content type.
+        // Determine the current content type.
     currentElement = gi;
     currentElementContent = getElementContentType(gi);
     if (currentElementContent == CONTENT_UNDECLARED) {
       currentElementContent = CONTENT_ANY;
     }
 
-				// Read the attributes, if any.
-				// After this loop, we should be just
-				// in front of the closing delimiter.
+        // Read the attributes, if any.
+        // After this loop, we should be just
+        // in front of the closing delimiter.
     skipWhitespace();
     c = readCh();
     while (c != '/' && c != '>') {
@@ -913,48 +913,48 @@ public class XmlParser {
     }
     unread(c);
 
-				// Supply any defaulted attributes.
+        // Supply any defaulted attributes.
     Enumeration atts = declaredAttributes(gi);
     if (atts != null) {
       String aname;
     loop: while (atts.hasMoreElements()) {
       aname = (String)atts.nextElement();
-				// See if it was specified.
+        // See if it was specified.
       for (int i = 0; i < tagAttributePos; i++) {
-	if (tagAttributes[i] == aname) {
-	  continue loop;
-	}
+  if (tagAttributes[i] == aname) {
+    continue loop;
+  }
       }
-				// I guess not...
+        // I guess not...
       if (handler != null) {
-	handler.attribute(aname,
-			  getAttributeExpandedValue(gi, aname),
-			  false);
+  handler.attribute(aname,
+        getAttributeExpandedValue(gi, aname),
+        false);
       }
     }
     }
 
-				// Figure out if this is a start tag
-				// or an empty element, and dispatch an
-				// event accordingly.
+        // Figure out if this is a start tag
+        // or an empty element, and dispatch an
+        // event accordingly.
     c = readCh();
     switch (c) {
     case '>':
       if (handler != null) {
-	handler.startElement(gi);
+  handler.startElement(gi);
       }
       parseContent();
       break;
     case '/':
       require('>');
       if (handler != null) {
-	handler.startElement(gi);
-	handler.endElement(gi);
+  handler.startElement(gi);
+  handler.endElement(gi);
       }
       break;
     }
 
-				// Restore the previous state.
+        // Restore the previous state.
     currentElement = oldElement;
     currentElementContent = oldElementContent;
   }
@@ -975,30 +975,30 @@ public class XmlParser {
     int type;
     String value;
 
-				// Read the attribute name.
+        // Read the attribute name.
     aname = readNmtoken(true).intern();
     type = getAttributeDefaultValueType(name, aname);
 
-				// Parse '='
+        // Parse '='
     parseEq();
 
-				// Read the value, normalizing whitespace
-				// if it is not CDATA.
+        // Read the value, normalizing whitespace
+        // if it is not CDATA.
     if (type == ATTRIBUTE_CDATA || type == ATTRIBUTE_UNDECLARED) {
       value = readLiteral(LIT_CHAR_REF | LIT_ENTITY_REF);
     } else {
       value = readLiteral(LIT_CHAR_REF | LIT_ENTITY_REF | LIT_NORMALIZE);
     }
 
-				// Inform the handler about the
-				// attribute.
+        // Inform the handler about the
+        // attribute.
     if (handler != null) {
       handler.attribute(aname, value, true);
     }
     dataBufferPos = 0;
 
-				// Note that the attribute has been
-				// specified.
+        // Note that the attribute has been
+        // specified.
     if (tagAttributePos == tagAttributes.length) {
       String newAttrib[] = new String[tagAttributes.length * 2];
       System.arraycopy(tagAttributes, 0, newAttrib, 0, tagAttributePos);
@@ -1058,65 +1058,65 @@ public class XmlParser {
       switch (currentElementContent) {
       case CONTENT_ANY:
       case CONTENT_MIXED:
-	parsePCData();
-	break;
+  parsePCData();
+  break;
       case CONTENT_ELEMENTS:
-	parseWhitespace();
-	break;
+  parseWhitespace();
+  break;
       }
 
-				// Handle delimiters
+        // Handle delimiters
       c = readCh();
       switch (c) {
 
-      case '&':			// Found "&"
-	c = readCh();
-	if (c == '#') {
-	  parseCharRef();
-	} else {
-	  unread(c);
-	  parseEntityRef(true);
-	}
-	break;
+      case '&':      // Found "&"
+  c = readCh();
+  if (c == '#') {
+    parseCharRef();
+  } else {
+    unread(c);
+    parseEntityRef(true);
+  }
+  break;
 
-      case '<':			// Found "<"
+      case '<':      // Found "<"
 
-	c = readCh();
-	switch (c) {
+  c = readCh();
+  switch (c) {
 
-	case '!':		// Found "<!"
-	  c = readCh();
-	  switch (c) {
-	  case '-':		// Found "<!-"
-	    require('-');
-	    parseComment();
-	    break;
-	  case '[':		// Found "<!["
-	    require("CDATA[");
-	    parseCDSect();
-	    break;
-	  default:
-	    error("expected comment or CDATA section", c, null);
-	    break;
-	  }
-	  break;
+  case '!':    // Found "<!"
+    c = readCh();
+    switch (c) {
+    case '-':    // Found "<!-"
+      require('-');
+      parseComment();
+      break;
+    case '[':    // Found "<!["
+      require("CDATA[");
+      parseCDSect();
+      break;
+    default:
+      error("expected comment or CDATA section", c, null);
+      break;
+    }
+    break;
 
-	case '?':		// Found "<?"
-	  dataBufferFlush();
-	  parsePI();
-	  break;
+  case '?':    // Found "<?"
+    dataBufferFlush();
+    parsePI();
+    break;
 
-	case '/':		// Found "</"
-	  dataBufferFlush();
-	  parseETag();
-	  return;
+  case '/':    // Found "</"
+    dataBufferFlush();
+    parseETag();
+    return;
 
-	default:		// Found "<" followed by something else
-	  dataBufferFlush();
-	  unread(c);
-	  parseElement();
-	  break;
-	}
+  default:    // Found "<" followed by something else
+    dataBufferFlush();
+    unread(c);
+    parseElement();
+    break;
+  }
       }
     }
   }
@@ -1134,11 +1134,11 @@ public class XmlParser {
     String name;
 
     requireWhitespace();
-				// Read the element type name.
+        // Read the element type name.
     name = readNmtoken(true);
 
     requireWhitespace();
-				// Read the content model.
+        // Read the content model.
     parseContentspec(name);
 
     skipWhitespace();
@@ -1164,12 +1164,12 @@ public class XmlParser {
       dataBufferAppend('(');
       skipWhitespace();
       if (tryRead("#PCDATA")) {
-	dataBufferAppend("#PCDATA");
-	parseMixed();
-	setElement(name, CONTENT_MIXED, dataBufferToString(), null);
+  dataBufferAppend("#PCDATA");
+  parseMixed();
+  setElement(name, CONTENT_MIXED, dataBufferToString(), null);
       } else {
-	parseElements();
-	setElement(name, CONTENT_ELEMENTS, dataBufferToString(), null);
+  parseElements();
+  setElement(name, CONTENT_ELEMENTS, dataBufferToString(), null);
       }
     }
   }
@@ -1193,11 +1193,11 @@ public class XmlParser {
     char c;
     char sep;
 
-				// Parse the first content particle
+        // Parse the first content particle
     skipWhitespace();
     parseCp();
 
-				// Check for end or for a separator.
+        // Check for end or for a separator.
     skipWhitespace();
     c = readCh();
     switch (c) {
@@ -1208,13 +1208,13 @@ public class XmlParser {
       case '*':
       case '+':
       case '?':
-	dataBufferAppend(c);
-	break;
+  dataBufferAppend(c);
+  break;
       default:
-	unread(c);
+  unread(c);
       }
       return;
-    case ',':			// Register the separator.
+    case ',':      // Register the separator.
     case '|':
       sep = c;
       dataBufferAppend(c);
@@ -1224,24 +1224,24 @@ public class XmlParser {
       return;
     }
 
-				// Parse the rest of the content model.
+        // Parse the rest of the content model.
     while (true) {
       skipWhitespace();
       parseCp();
       skipWhitespace();
       c = readCh();
       if (c == ')') {
-	dataBufferAppend(')');
-	break;
+  dataBufferAppend(')');
+  break;
       } else if (c != sep) {
-	error("bad separator in content model", c, null);
-	return;
+  error("bad separator in content model", c, null);
+  return;
       } else {
-	dataBufferAppend(c);
+  dataBufferAppend(c);
       }
     }
 
-				// Check for the occurrence indicator.
+        // Check for the occurrence indicator.
     c = readCh();
     switch (c) {
     case '?':
@@ -1277,11 +1277,11 @@ public class XmlParser {
       case '?':
       case '*':
       case '+':
-	dataBufferAppend(c);
-	break;
+  dataBufferAppend(c);
+  break;
       default:
-	unread(c);
-	break;
+  unread(c);
+  break;
       }
     }
   }
@@ -1299,7 +1299,7 @@ public class XmlParser {
   {
     char c;
 
-				// Check for PCDATA alone.
+        // Check for PCDATA alone.
     skipWhitespace();
     if (tryRead(')')) {
       dataBufferAppend(")*");
@@ -1307,7 +1307,7 @@ public class XmlParser {
       return;
     }
 
-				// Parse mixed content.
+        // Parse mixed content.
     skipWhitespace();
     while (!tryRead(")*")) {
       require('|');
@@ -1351,20 +1351,20 @@ public class XmlParser {
     int type;
     String enum = null;
 
-				// Read the attribute name.
+        // Read the attribute name.
     name = readNmtoken(true);
 
-				// Read the attribute type.
+        // Read the attribute type.
     requireWhitespace();
     type = readAttType();
 
-				// Get the string of enumerated values
-				// if necessary.
+        // Get the string of enumerated values
+        // if necessary.
     if (type == ATTRIBUTE_ENUMERATED || type == ATTRIBUTE_NOTATION) {
       enum = dataBufferToString();
     }
 
-				// Read the default value.
+        // Read the default value.
     requireWhitespace();
     parseDefault(elementName, name, type, enum);
   }
@@ -1391,14 +1391,14 @@ public class XmlParser {
     } else {
       typeString = readNmtoken(true);
       if (typeString.equals("NOTATION")) {
-	parseNotationType();
+  parseNotationType();
       }
       type = (Integer)attributeTypeHash.get(typeString);
       if (type == null) {
-	error("illegal attribute type", typeString, null);
-	return ATTRIBUTE_UNDECLARED;
+  error("illegal attribute type", typeString, null);
+  return ATTRIBUTE_UNDECLARED;
       } else {
-	return type.intValue();
+  return type.intValue();
       }
     }
   }
@@ -1417,10 +1417,10 @@ public class XmlParser {
 
     dataBufferAppend('(');
 
-				// Read the first token.
+        // Read the first token.
     skipWhitespace();
     dataBufferAppend(readNmtoken(true));
-				// Read the remaining tokens.
+        // Read the remaining tokens.
     skipWhitespace();
     while (!tryRead(')')) {
       require('|');
@@ -1463,17 +1463,17 @@ public class XmlParser {
 
     if (tryRead('#')) {
       if (tryRead("FIXED")) {
-	valueType = ATTRIBUTE_DEFAULT_FIXED;
-	requireWhitespace();
-	context = CONTEXT_ATTRIBUTEVALUE;
-	value = readLiteral(LIT_CHAR_REF);
-	context = CONTEXT_DTD;
+  valueType = ATTRIBUTE_DEFAULT_FIXED;
+  requireWhitespace();
+  context = CONTEXT_ATTRIBUTEVALUE;
+  value = readLiteral(LIT_CHAR_REF);
+  context = CONTEXT_DTD;
       } else if (tryRead("REQUIRED")) {
-	valueType = ATTRIBUTE_DEFAULT_REQUIRED;
+  valueType = ATTRIBUTE_DEFAULT_REQUIRED;
       } else if (tryRead("IMPLIED")) {
-	valueType = ATTRIBUTE_DEFAULT_IMPLIED;
+  valueType = ATTRIBUTE_DEFAULT_IMPLIED;
       } else {
-	error("illegal keyword for attribute default value", null, null);
+  error("illegal keyword for attribute default value", null, null);
       }
     } else {
       context = CONTEXT_ATTRIBUTEVALUE;
@@ -1505,8 +1505,8 @@ public class XmlParser {
       require('[');
       skipWhitespace();
       while (!tryRead("]]>")) {
-	parseMarkupdecl();
-	skipWhitespace();
+  parseMarkupdecl();
+  skipWhitespace();
       }
     } else if (tryRead("IGNORE")) {
       skipWhitespace();
@@ -1514,21 +1514,21 @@ public class XmlParser {
       int nesting = 1;
       char c;
       for (int nest = 1; nest > 0; ) {
-	c = readCh();
-	switch (c) {
-	case '<':
-	  if (tryRead("![")) {
-	    nest++;
-	  }
-	case ']':
-	  if (tryRead("]>")) {
-	    nest--;
-	  }
-	}
+  c = readCh();
+  switch (c) {
+  case '<':
+    if (tryRead("![")) {
+      nest++;
+    }
+  case ']':
+    if (tryRead("]>")) {
+      nest--;
+    }
+  }
       }
     } else {
       error("conditional section must begin with INCLUDE or IGNORE",
-	    null, null);
+      null, null);
     }
   }
 
@@ -1546,79 +1546,79 @@ public class XmlParser {
 
     if (tryRead('x')) {
       loop1: while (true) {
-	c = readCh();
-	switch (c) {
-	case '0':
-	case '1':
-	case '2':
-	case '3':
-	case '4':
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-	case 'a':
-	case 'A':
-	case 'b':
-	case 'B':
-	case 'c':
-	case 'C':
-	case 'd':
-	case 'D':
-	case 'e':
-	case 'E':
-	case 'f':
-	case 'F':
-	  value *= 16;
-	  value += Integer.parseInt(new Character(c).toString(), 16);
-	  break;
-	case ';':
-	  break loop1;
-	default:
-	  error("illegal character in character reference", c, null);
-	  break loop1;
-	}
+  c = readCh();
+  switch (c) {
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+  case 'a':
+  case 'A':
+  case 'b':
+  case 'B':
+  case 'c':
+  case 'C':
+  case 'd':
+  case 'D':
+  case 'e':
+  case 'E':
+  case 'f':
+  case 'F':
+    value *= 16;
+    value += Integer.parseInt(new Character(c).toString(), 16);
+    break;
+  case ';':
+    break loop1;
+  default:
+    error("illegal character in character reference", c, null);
+    break loop1;
+  }
       }
     } else {
       loop2: while (true) {
-	c = readCh();
-	switch (c) {
-	case '0':
-	case '1':
-	case '2':
-	case '3':
-	case '4':
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-	  value *= 10;
-	  value += Integer.parseInt(new Character(c).toString(), 10);
-	  break;
-	case ';':
-	  break loop2;
-	default:
-	  error("illegal character in character reference", c, null);
-	  break loop2;
-	}
+  c = readCh();
+  switch (c) {
+  case '0':
+  case '1':
+  case '2':
+  case '3':
+  case '4':
+  case '5':
+  case '6':
+  case '7':
+  case '8':
+  case '9':
+    value *= 10;
+    value += Integer.parseInt(new Character(c).toString(), 10);
+    break;
+  case ';':
+    break loop2;
+  default:
+    error("illegal character in character reference", c, null);
+    break loop2;
+  }
       }
     }
 
     // Check for surrogates: 00000000 0000xxxx yyyyyyyy zzzzzzzz
     //  (1101|10xx|xxyy|yyyy + 1101|11yy|zzzz|zzzz: 
     if (value <= 0x0000ffff) {
-				// no surrogates needed
+        // no surrogates needed
       dataBufferAppend((char)value);
     } else if (value <= 0x000fffff) {
-				// > 16 bits, surrogate needed
+        // > 16 bits, surrogate needed
       dataBufferAppend((char)(0xd8 | ((value & 0x000ffc00) >> 10)));
       dataBufferAppend((char)(0xdc | (value & 0x0003ff)));
     } else {
-				// too big for surrogate
+        // too big for surrogate
       error("character reference " + value + " is too large for UTF-16",
-	    new Integer(value).toString(), null);
+      new Integer(value).toString(), null);
     }
   }
 
@@ -1645,18 +1645,18 @@ public class XmlParser {
       break;
     case ENTITY_TEXT:
       if (externalAllowed) {
-	pushURL(name, getEntityPublicId(name),
-		getEntitySystemId(name),
-		null, null, null);
+  pushURL(name, getEntityPublicId(name),
+    getEntitySystemId(name),
+    null, null, null);
       } else {
-	error("reference to external entity in attribute value.", name, null);
+  error("reference to external entity in attribute value.", name, null);
       }
       break;
     case ENTITY_NDATA:
       if (externalAllowed) {
-	error("data entity reference in content", name, null);
+  error("data entity reference in content", name, null);
       } else {
-	error("reference to external entity in attribute value.", name, null);
+  error("reference to external entity in attribute value.", name, null);
       }
       break;
     }
@@ -1681,20 +1681,20 @@ public class XmlParser {
       break;
     case ENTITY_INTERNAL:
       if (isEntityValue) {
-	pushString(name, getEntityValue(name));
+  pushString(name, getEntityValue(name));
       } else {
-	pushString(name, " " + getEntityValue(name) + ' ');
+  pushString(name, " " + getEntityValue(name) + ' ');
       }
       break;
     case ENTITY_TEXT:
       if (isEntityValue) {
-	pushString(null, " ");
+  pushString(null, " ");
       }
       pushURL(name, getEntityPublicId(name),
-	      getEntitySystemId(name),
-	      null, null, null);
+        getEntitySystemId(name),
+        null, null, null);
       if (isEntityValue) {
-	pushString(null, " ");
+  pushString(null, " ");
       }
       break;
     }
@@ -1719,49 +1719,49 @@ public class XmlParser {
     boolean peFlag = false;
     String name, value, notationName, ids[];
 
-				// Check for a parameter entity.
+        // Check for a parameter entity.
     requireWhitespace();
     if (tryRead('%')) {
       peFlag = true;
       requireWhitespace();
     }
 
-				// Read the entity name, and prepend
-				// '%' if necessary.
+        // Read the entity name, and prepend
+        // '%' if necessary.
     name = readNmtoken(true);
     if (peFlag) {
       name = "%" + name;
     }
 
-				// Read the entity value.
+        // Read the entity value.
     requireWhitespace();
     c = readCh();
     unread(c);
     if (c == '"' || c == '\'') {
-				// Internal entity.
+        // Internal entity.
       context = CONTEXT_ENTITYVALUE;
       value = readLiteral(LIT_CHAR_REF|LIT_PE_REF);
       context = CONTEXT_DTD;
       setInternalEntity(name,value);
     } else {
-				// Read the external IDs
+        // Read the external IDs
       ids = readExternalIds(false);
       if (ids[1] == null) {
-	error("system identifier missing", name, null);
+  error("system identifier missing", name, null);
       }
 
-				// Check for NDATA declaration.
+        // Check for NDATA declaration.
       skipWhitespace();
       if (tryRead("NDATA")) {
-	requireWhitespace();
-	notationName = readNmtoken(true);
-	setExternalDataEntity(name, ids[0], ids[1], notationName);
+  requireWhitespace();
+  notationName = readNmtoken(true);
+  setExternalDataEntity(name, ids[0], ids[1], notationName);
       } else {
-	setExternalTextEntity(name, ids[0], ids[1]);
+  setExternalTextEntity(name, ids[0], ids[1]);
       }
     }
 
-				// Finish the declaration.
+        // Finish the declaration.
     skipWhitespace();
     require('>');
   }
@@ -1783,13 +1783,13 @@ public class XmlParser {
 
     requireWhitespace();
 
-				// Read the external identifiers.
+        // Read the external identifiers.
     ids = readExternalIds(true);
     if (ids[0] == null && ids[1] == null) {
       error("external identifier missing", nname, null);
     }
 
-				// Register the notation.
+        // Register the notation.
     setNotation(nname, ids[0], ids[1]);
 
     skipWhitespace();
@@ -1810,52 +1810,52 @@ public class XmlParser {
   {
     char c;
 
-				// Start with a little cheat -- in most
-				// cases, the entire sequence of
-				// character data will already be in
-				// the readBuffer; if not, fall through to
-				// the normal approach.
+        // Start with a little cheat -- in most
+        // cases, the entire sequence of
+        // character data will already be in
+        // the readBuffer; if not, fall through to
+        // the normal approach.
     if (USE_CHEATS) {
       int lineAugment = 0;
       int columnAugment = 0;
 
       loop: for (int i = readBufferPos; i < readBufferLength; i++) {
-	switch (readBuffer[i]) {
-	case '\n':
-	  lineAugment++;
-	  columnAugment = 0;
-	  break;
-	case '&':
-	case '<':
-	  int start = readBufferPos;
-	  columnAugment++;
-	  readBufferPos = i;
-	  if (lineAugment > 0) {
-	    line += lineAugment;
-	    column = columnAugment;
-	  } else {
-	    column += columnAugment;
-	  }
-	  dataBufferAppend(readBuffer, start, i-start);
-	  return;
-	default:
-	  columnAugment++;
-	}
+  switch (readBuffer[i]) {
+  case '\n':
+    lineAugment++;
+    columnAugment = 0;
+    break;
+  case '&':
+  case '<':
+    int start = readBufferPos;
+    columnAugment++;
+    readBufferPos = i;
+    if (lineAugment > 0) {
+      line += lineAugment;
+      column = columnAugment;
+    } else {
+      column += columnAugment;
+    }
+    dataBufferAppend(readBuffer, start, i-start);
+    return;
+  default:
+    columnAugment++;
+  }
       }
     }
 
-				// OK, the cheat didn't work; start over
-				// and do it by the book.
+        // OK, the cheat didn't work; start over
+        // and do it by the book.
     while (true) {
       c = readCh();
       switch (c) {
       case '<':
       case '&':
-	unread(c);
-	return;
+  unread(c);
+  return;
       default:
-	dataBufferAppend(c);
-	break;
+  dataBufferAppend(c);
+  break;
       }
     }
   }
@@ -1904,43 +1904,43 @@ public class XmlParser {
   void skipWhitespace ()
     throws java.lang.Exception
   {
-				// Start with a little cheat.  Most of
-				// the time, the white space will fall
-				// within the current read buffer; if
-				// not, then fall through.
+        // Start with a little cheat.  Most of
+        // the time, the white space will fall
+        // within the current read buffer; if
+        // not, then fall through.
     if (USE_CHEATS) {
       int lineAugment = 0;
       int columnAugment = 0;
 
       loop: for (int i = readBufferPos; i < readBufferLength; i++) {
-	switch (readBuffer[i]) {
-	case ' ':
-	case '\t':
-	case '\r':
-	  columnAugment++;
-	  break;
-	case '\n':
-	  lineAugment++;
-	  columnAugment = 0;
-	  break;
-	case '%':
-	  if (context == CONTEXT_DTD || context == CONTEXT_ENTITYVALUE) {
-	    break loop;
-	  } // else fall through...
-	default:
-	  readBufferPos = i;
-	  if (lineAugment > 0) {
-	    line += lineAugment;
-	    column = columnAugment;
-	  } else {
-	    column += columnAugment;
-	  }
-	  return;
-	}
+  switch (readBuffer[i]) {
+  case ' ':
+  case '\t':
+  case '\r':
+    columnAugment++;
+    break;
+  case '\n':
+    lineAugment++;
+    columnAugment = 0;
+    break;
+  case '%':
+    if (context == CONTEXT_DTD || context == CONTEXT_ENTITYVALUE) {
+      break loop;
+    } // else fall through...
+  default:
+    readBufferPos = i;
+    if (lineAugment > 0) {
+      line += lineAugment;
+      column = columnAugment;
+    } else {
+      column += columnAugment;
+    }
+    return;
+  }
       }
     }
 
-				// OK, do it by the book.
+        // OK, do it by the book.
     char c = readCh();
     while (isWhitespace(c)) {
       c = readCh();
@@ -1962,44 +1962,44 @@ public class XmlParser {
 
     if (USE_CHEATS) {
       loop: for (int i = readBufferPos; i < readBufferLength; i++) {
-	switch (readBuffer[i]) {
-	case '%':
-	  if (context == CONTEXT_DTD || context == CONTEXT_ENTITYVALUE) {
-	    break loop;
-	  } // else fall through...
-	case '<':
-	case '>':
-	case '&':
-	case ',':
-	case '|':
-	case '*':
-	case '+':
-	case '?':
-	case ')':
-	case '=':
-	case '\'':
-	case '"':
-	case '[':
-	case ' ':
-	case '\t':
-	case '\r':
-	case '\n':
-	case ';':
-	case '/':
-	case '#':
-	  int start = readBufferPos;
-	  if (i == start) {
-	    error("name expected", readBuffer[i], null);
-	  }
-	  readBufferPos = i;
-	  return intern(readBuffer, start, i - start);
-	}
+  switch (readBuffer[i]) {
+  case '%':
+    if (context == CONTEXT_DTD || context == CONTEXT_ENTITYVALUE) {
+      break loop;
+    } // else fall through...
+  case '<':
+  case '>':
+  case '&':
+  case ',':
+  case '|':
+  case '*':
+  case '+':
+  case '?':
+  case ')':
+  case '=':
+  case '\'':
+  case '"':
+  case '[':
+  case ' ':
+  case '\t':
+  case '\r':
+  case '\n':
+  case ';':
+  case '/':
+  case '#':
+    int start = readBufferPos;
+    if (i == start) {
+      error("name expected", readBuffer[i], null);
+    }
+    readBufferPos = i;
+    return intern(readBuffer, start, i - start);
+  }
       }
     }
 
     nameBufferPos = 0;
 
-				// Read the first character.
+        // Read the first character.
     loop: while (true) {
       c = readCh();
       switch (c) {
@@ -2023,17 +2023,17 @@ public class XmlParser {
       case '\r':
       case ';':
       case '/':
-	unread(c);
-	if (nameBufferPos == 0) {
-	  error("name expected", null, null);
-	}
-	String s = intern(nameBuffer,0,nameBufferPos);
-	nameBufferPos = 0;
-	return s;
+  unread(c);
+  if (nameBufferPos == 0) {
+    error("name expected", null, null);
+  }
+  String s = intern(nameBuffer,0,nameBufferPos);
+  nameBufferPos = 0;
+  return s;
       default:
-	nameBuffer =
-	  (char[])extendArray(nameBuffer, nameBuffer.length, nameBufferPos);
-	nameBuffer[nameBufferPos++] = c;
+  nameBuffer =
+    (char[])extendArray(nameBuffer, nameBuffer.length, nameBufferPos);
+  nameBuffer[nameBufferPos++] = c;
       }
     }
   }
@@ -2054,60 +2054,60 @@ public class XmlParser {
     char delim, c;
     int startLine = line;
 
-				// Find the delimiter.
+        // Find the delimiter.
     delim = readCh();
     if (delim != '"' && delim != '\'' && delim != (char)0) {
       error("expected '\"' or \"'\"", delim, null);
       return null;
     }
 
-				// Read the literal.
+        // Read the literal.
     try {
       c = readCh();
 
     loop: while (c != delim) {
       switch (c) {
-				// Literals never have line ends
+        // Literals never have line ends
       case '\n':
       case '\r':
-	c = ' ';
-	break;
-				// References may be allowed
+  c = ' ';
+  break;
+        // References may be allowed
       case '&':
-	if ((flags & LIT_CHAR_REF) > 0) {
-	  c = readCh();
-	  if (c == '#') {
-	    parseCharRef();
-	    c = readCh();
-	    continue loop;		// check the next character
-	  } else if ((flags & LIT_ENTITY_REF) > 0) {
-	    unread(c);
-	    parseEntityRef(false);
-	    c = readCh();
-	    continue loop;
-	  } else {
-	    dataBufferAppend('&');
-	  }
-	}
-	break;
+  if ((flags & LIT_CHAR_REF) > 0) {
+    c = readCh();
+    if (c == '#') {
+      parseCharRef();
+      c = readCh();
+      continue loop;    // check the next character
+    } else if ((flags & LIT_ENTITY_REF) > 0) {
+      unread(c);
+      parseEntityRef(false);
+      c = readCh();
+      continue loop;
+    } else {
+      dataBufferAppend('&');
+    }
+  }
+  break;
 
       default:
-	break;
+  break;
       }
       dataBufferAppend(c);
       c = readCh();
     }
     } catch (EOFException e) {
       error("end of input while looking for delimiter (started on line "
-	    + startLine + ')', null, new Character(delim).toString());
+      + startLine + ')', null, new Character(delim).toString());
     }
 
-				// Normalise whitespace if necessary.
+        // Normalise whitespace if necessary.
     if ((flags & LIT_NORMALIZE) > 0) {
       dataBufferNormalize();
     }
 
-				// Return the value.
+        // Return the value.
     return dataBufferToString();
   }
 
@@ -2128,17 +2128,17 @@ public class XmlParser {
       requireWhitespace();
       ids[0] = readLiteral(LIT_NORMALIZE); // public id
       if (inNotation) {
-	skipWhitespace();
-	if (tryRead('"') || tryRead('\'')) {
-	  ids[1] = readLiteral(0);
-	}
+  skipWhitespace();
+  if (tryRead('"') || tryRead('\'')) {
+    ids[1] = readLiteral(0);
+  }
       } else {
-	requireWhitespace();
-	ids[1] = readLiteral(0); // system id
+  requireWhitespace();
+  ids[1] = readLiteral(0); // system id
       }
     } else if (tryRead("SYSTEM")) {
       requireWhitespace();
-      ids[1] = readLiteral(0);	// system id
+      ids[1] = readLiteral(0);  // system id
     }
 
     return ids;
@@ -2178,7 +2178,7 @@ public class XmlParser {
     */
   void dataBufferAppend (char c)
   {
-				// Expand buffer if necessary.
+        // Expand buffer if necessary.
     dataBuffer =
       (char[])extendArray(dataBuffer, dataBuffer.length, dataBufferPos);
     dataBuffer[dataBufferPos++] = c;
@@ -2201,10 +2201,10 @@ public class XmlParser {
   {
     dataBuffer =
       (char[])extendArray(dataBuffer, dataBuffer.length,
-			  dataBufferPos + length);
+        dataBufferPos + length);
     System.arraycopy((Object)ch, start,
-		     (Object)dataBuffer, dataBufferPos,
-		     length);
+         (Object)dataBuffer, dataBufferPos,
+         length);
     dataBufferPos += length;
   }
 
@@ -2218,34 +2218,34 @@ public class XmlParser {
     int j = 0;
     int end = dataBufferPos;
 
-				// Skip whitespace at the start.
+        // Skip whitespace at the start.
     while (j < end && isWhitespace(dataBuffer[j])) {
       j++;
     }
 
-				// Skip whitespace at the end.
+        // Skip whitespace at the end.
     while (end > j && isWhitespace(dataBuffer[end - 1])) {
       end --;
     }
 
-				// Start copying to the left.
+        // Start copying to the left.
     while (j < end) {
 
       char c = dataBuffer[j++];
 
-				// Normalise all other whitespace to
-				// a single space.
+        // Normalise all other whitespace to
+        // a single space.
       if (isWhitespace(c)) {
-	while (j < end && isWhitespace(dataBuffer[j++])) {
-	}
-	dataBuffer[i++] = ' ';
-	dataBuffer[i++] = dataBuffer[j-1];
+  while (j < end && isWhitespace(dataBuffer[j++])) {
+  }
+  dataBuffer[i++] = ' ';
+  dataBuffer[i++] = dataBuffer[j-1];
       } else {
-	dataBuffer[i++] = c;
+  dataBuffer[i++] = c;
       }
     }
 
-				// The new length is <= the old one.
+        // The new length is <= the old one.
     dataBufferPos = i;
   }
 
@@ -2274,19 +2274,19 @@ public class XmlParser {
       switch (currentElementContent) {
       case CONTENT_UNDECLARED:
       case CONTENT_EMPTY:
-	// do nothing
-	break;
+  // do nothing
+  break;
       case CONTENT_MIXED:
       case CONTENT_ANY:
-	if (handler != null) {
-	  handler.charData(dataBuffer, 0, dataBufferPos);
-	}
-	break;
+  if (handler != null) {
+    handler.charData(dataBuffer, 0, dataBufferPos);
+  }
+  break;
       case CONTENT_ELEMENTS:
-	if (handler != null) {
-	  handler.ignorableWhitespace(dataBuffer, 0, dataBufferPos);
-	}
-	break;
+  if (handler != null) {
+    handler.ignorableWhitespace(dataBuffer, 0, dataBufferPos);
+  }
+  break;
       }
       dataBufferPos = 0;
     }
@@ -2360,55 +2360,55 @@ public class XmlParser {
     int index;
     int hash = 0;
 
-				// Generate a hash code.
+        // Generate a hash code.
     for (int i = start; i < start + length; i++) {
       hash = ((hash << 1) & 0xffffff) + (int)ch[i];
     }
 
     hash = hash % SYMBOL_TABLE_LENGTH;
 
-				// Get the bucket.
+        // Get the bucket.
     Object bucket[] = (Object[])symbolTable[hash];
     if (bucket == null) {
       symbolTable[hash] = bucket = new Object[8];
     }
 
-				// Search for a matching tuple, and
-				// return the string if we find one.
+        // Search for a matching tuple, and
+        // return the string if we find one.
     for (index = 0; index < bucket.length; index += 2) {
       char chFound[] = (char[])bucket[index];
 
-				// Stop when we hit a null index.
+        // Stop when we hit a null index.
       if (chFound == null) {
-	break;
+  break;
       }
 
-				// If they're the same length,
-				// check for a match.
-				// If the loop finishes, 'index' will
-				// contain the current bucket
-				// position.
+        // If they're the same length,
+        // check for a match.
+        // If the loop finishes, 'index' will
+        // contain the current bucket
+        // position.
       if (chFound.length == length) {
-	for (int i = 0; i < chFound.length; i++) {
-				// Stop if there are no more tuples.
-	  if (ch[start+i] != chFound[i]) {
-	    break;
-	  } else if (i == length-1) {
-				// That's it, we have a match!
-	    return (String)bucket[index+1];
-	  }
-	}
+  for (int i = 0; i < chFound.length; i++) {
+        // Stop if there are no more tuples.
+    if (ch[start+i] != chFound[i]) {
+      break;
+    } else if (i == length-1) {
+        // That's it, we have a match!
+      return (String)bucket[index+1];
+    }
+  }
       }
     }
 
-				// Not found -- we'll have to add it.
+        // Not found -- we'll have to add it.
 
-				// Do we have to grow the bucket?
+        // Do we have to grow the bucket?
     bucket =
       (Object[])extendArray(bucket, bucket.length, index);
 
-				// OK, add it to the end of the
-				// bucket.
+        // OK, add it to the end of the
+        // bucket.
     String s = new String(ch, start, length);
     bucket[index] = s.toCharArray();
     bucket[index+1] = s;
@@ -2430,13 +2430,13 @@ public class XmlParser {
       int newSize = currentSize * 2;
 
       if (newSize <= requiredSize) {
-	newSize = requiredSize + 1;
+  newSize = requiredSize + 1;
       }
 
       if (array instanceof char[]) {
-	newArray = new char[currentSize * 2];
+  newArray = new char[currentSize * 2];
       } else if (array instanceof Object[]) {
-	newArray = new Object[currentSize * 2];
+  newArray = new Object[currentSize * 2];
       }
 
       System.arraycopy(array, 0, newArray, 0, currentSize);
@@ -2518,42 +2518,42 @@ public class XmlParser {
     *  attribute hash table
     */
   void setElement (String name, int contentType,
-		   String contentModel, Hashtable attributes)
+       String contentModel, Hashtable attributes)
     throws java.lang.Exception
   {
     Object element[];
 
-				// Try looking up the element
+        // Try looking up the element
     element = (Object[])elementInfo.get(name);
 
-				// Make a new one if necessary.
+        // Make a new one if necessary.
     if (element == null) {
       element = new Object[3];
       element[0] = new Integer(CONTENT_UNDECLARED);
       element[1] = null;
       element[2] = null;
     } else if (contentType != CONTENT_UNDECLARED &&
-	       ((Integer)element[0]).intValue() != CONTENT_UNDECLARED) {
+         ((Integer)element[0]).intValue() != CONTENT_UNDECLARED) {
       error("multiple declarations for element type", name, null);
       return;
     }
 
-				// Insert the content type, if any.
+        // Insert the content type, if any.
     if (contentType != CONTENT_UNDECLARED) {
       element[0] = new Integer(contentType);
     }
 
-				// Insert the content model, if any.
+        // Insert the content model, if any.
     if (contentModel != null) {
       element[1] = contentModel;
     }
 
-				// Insert the attributes, if any.
+        // Insert the attributes, if any.
     if (attributes != null) {
       element[2] =attributes;
     }
 
-				// Save the element info.
+        // Save the element info.
     elementInfo.put(name,element);
   }
 
@@ -2684,10 +2684,10 @@ public class XmlParser {
       return null;
     } else if (attribute[4] == null && attribute[1] != null) {
       try {
-	pushString(null, (char)0 + (String)attribute[1] + (char)0);
-	attribute[4] = readLiteral(LIT_NORMALIZE |
-				   LIT_CHAR_REF |
-				   LIT_ENTITY_REF);
+  pushString(null, (char)0 + (String)attribute[1] + (char)0);
+  attribute[4] = readLiteral(LIT_NORMALIZE |
+           LIT_CHAR_REF |
+           LIT_ENTITY_REF);
       } catch (Exception e) {}
     }
     return (String)attribute[4];
@@ -2721,20 +2721,20 @@ public class XmlParser {
     * *TODO: do something with attribute types.
     */
   void setAttribute (String elName, String name, int type, String enumeration,
-		     String value, int valueType)
+         String value, int valueType)
     throws java.lang.Exception
   {
     Hashtable attlist;
     Object attribute[];
 
-				// Create a new hashtable if necessary.
+        // Create a new hashtable if necessary.
     attlist = getElementAttributes(elName);
     if (attlist == null) {
       attlist = new Hashtable();
     }
 
-				// Check that the attribute doesn't
-				// already exist!
+        // Check that the attribute doesn't
+        // already exist!
     if (attlist.get(name) != null) {
       return;
     } else {
@@ -2746,8 +2746,8 @@ public class XmlParser {
       attribute[4] = null;
       attlist.put(name.intern(), attribute);
 
-				// Use CONTENT_UNDECLARED to avoid overwriting
-				// existing element declaration.
+        // Use CONTENT_UNDECLARED to avoid overwriting
+        // existing element declaration.
       setElement(elName,CONTENT_UNDECLARED, null, attlist);
     }
   }
@@ -2901,7 +2901,7 @@ public class XmlParser {
     * Register an external data entity.
     */
   void setExternalDataEntity (String eName, String pubid,
-			      String sysid, String nName)
+            String sysid, String nName)
   {
     setEntity(eName, ENTITY_NDATA, pubid, sysid, null, nName);
   }
@@ -2920,8 +2920,8 @@ public class XmlParser {
     * Register an entity declaration for later retrieval.
     */
   void setEntity (String eName, int eClass,
-		  String pubid, String sysid,
-		  String value, String nName)
+      String pubid, String sysid,
+      String value, String nName)
   {
     Object entity[];
 
@@ -3216,17 +3216,17 @@ public class XmlParser {
     * @see #readBuffer
     */
   void pushURL (String ename, String publicId, String systemId,
-		Reader reader, InputStream stream, String encoding)
+    Reader reader, InputStream stream, String encoding)
     throws java.lang.Exception
   {
     URL url;
     boolean ignoreEncoding = false;
 
-				// Push the existing status.
+        // Push the existing status.
     pushInput(ename);
 
-				// Create a new read buffer.
-				// (Note the four-character margin)
+        // Create a new read buffer.
+        // (Note the four-character margin)
     readBuffer = new char[READ_BUFFER_MAX+4];
     readBufferPos = 0;
     readBufferLength = 0;
@@ -3236,46 +3236,46 @@ public class XmlParser {
 
     currentByteCount = 0;
 
-				// Flush any remaining data.
+        // Flush any remaining data.
     dataBufferFlush();
 
-				// Make the URL absolute.
+        // Make the URL absolute.
     if (systemId != null && externalEntity != null) {
       systemId = new URL(externalEntity.getURL(), systemId).toString();
     } else if (baseURI != null) {
       try {
-	systemId = new URL(new URL(baseURI), systemId).toString();
+  systemId = new URL(new URL(baseURI), systemId).toString();
       } catch (Exception e) {}
     }
 
-				// See if the application wants to
-				// redirect the system ID and/or
-				// supply its own character stream.
+        // See if the application wants to
+        // redirect the system ID and/or
+        // supply its own character stream.
     if (systemId != null && handler != null) {
       Object input = handler.resolveEntity(publicId, systemId);
       if (input != null) {
-	if (input instanceof String) {
-	  systemId = (String)input;
-	} else if (input instanceof InputStream) {
-	  stream = (InputStream)input;
-	} else if (input instanceof Reader) {
-	  reader = (Reader)input;
-	}
+  if (input instanceof String) {
+    systemId = (String)input;
+  } else if (input instanceof InputStream) {
+    stream = (InputStream)input;
+  } else if (input instanceof Reader) {
+    reader = (Reader)input;
+  }
       }
     }
 
-				// Start the entity.
+        // Start the entity.
     if (handler != null) {
       if (systemId != null) {
-	handler.startExternalEntity(systemId);
+  handler.startExternalEntity(systemId);
       } else {
-	handler.startExternalEntity("[external stream]");
+  handler.startExternalEntity("[external stream]");
       }
     }
 
-				// Figure out what we're reading from.
+        // Figure out what we're reading from.
     if (reader != null) {
-				// There's an explicit character stream.
+        // There's an explicit character stream.
       sourceType = INPUT_READER;
       this.reader = reader;
       tryEncodingDecl(true);
@@ -3284,10 +3284,10 @@ public class XmlParser {
       sourceType = INPUT_STREAM;
       is = stream;
     } else {
-				// We have to open our own stream
-				// to the URL.
+        // We have to open our own stream
+        // to the URL.
 
-				// Set the new status
+        // Set the new status
       sourceType = INPUT_EXTERNAL;
       url = new URL(systemId);
 
@@ -3296,13 +3296,13 @@ public class XmlParser {
       is = externalEntity.getInputStream();
     }
 
-				// If we get to here, there must be
-				// an InputStream available.
+        // If we get to here, there must be
+        // an InputStream available.
     if (!is.markSupported()) {
       is = new BufferedInputStream(is);
     }
 
-				// Attempt to detect the encoding.
+        // Attempt to detect the encoding.
     if (encoding == null && externalEntity != null) {
       encoding = externalEntity.getContentEncoding();
     }
@@ -3315,7 +3315,7 @@ public class XmlParser {
       ignoreEncoding = false;
     }
 
-				// Read an XML or text declaration.
+        // Read an XML or text declaration.
     tryEncodingDecl(ignoreEncoding);
   }
 
@@ -3326,17 +3326,17 @@ public class XmlParser {
   void tryEncodingDecl (boolean ignoreEncoding)
     throws java.lang.Exception
   {
-				// Read the XML/Encoding declaration.
+        // Read the XML/Encoding declaration.
     if (tryRead("<?xml")) {
       if (tryWhitespace()) {
-	if (inputStack.size() > 0) {
-	  parseTextDecl(ignoreEncoding);
-	} else {
-	  parseXMLDecl(ignoreEncoding);
-	}
+  if (inputStack.size() > 0) {
+    parseTextDecl(ignoreEncoding);
+  } else {
+    parseXMLDecl(ignoreEncoding);
+  }
       } else {
-	unread("xml".toCharArray(), 3);
-	parsePI();
+  unread("xml".toCharArray(), 3);
+  parsePI();
       }
     }
   }
@@ -3366,30 +3366,30 @@ public class XmlParser {
   {
     byte signature[] = new byte[4];
 
-				// Read the first four bytes for
-				// autodetection.
+        // Read the first four bytes for
+        // autodetection.
     is.mark(4);
     is.read(signature);
     is.reset();
 
-				// Look for a known signature.
+        // Look for a known signature.
     if (tryEncoding(signature, (byte)0x00, (byte)0x00,
-		    (byte)0x00, (byte)0x3c)) {
+        (byte)0x00, (byte)0x3c)) {
       // UCS-4 must begin with "<!XML"
       // 0x00 0x00 0x00 0x3c: UCS-4, big-endian (1234)
       encoding = ENCODING_UCS_4_1234;
     } else if (tryEncoding(signature, (byte)0x3c, (byte)0x00,
-			   (byte)0x00, (byte)0x00)) {
+         (byte)0x00, (byte)0x00)) {
       // UCS-4 must begin with "<!XML"
       // 0x3c 0x00 0x00 0x00: UCS-4, little-endian (4321)
       encoding = ENCODING_UCS_4_4321;
     } else if (tryEncoding(signature, (byte)0x00, (byte)0x00,
-			   (byte)0x3c, (byte)0x00)) {
+         (byte)0x3c, (byte)0x00)) {
       // UCS-4 must begin with "<!XML"
       // 0x00 0x00 0x3c 0x00: UCS-4, unusual (2143)
       encoding = ENCODING_UCS_4_2143;
     } else if (tryEncoding(signature, (byte)0x00, (byte)0x3c,
-			   (byte)0x00, (byte)0x00)) {
+         (byte)0x00, (byte)0x00)) {
       // UCS-4 must begin with "<!XML"
       // 0x00 0x3c 0x00 0x00: UCS-4, unusual (3421)
       encoding = ENCODING_UCS_4_3412;
@@ -3404,19 +3404,19 @@ public class XmlParser {
       encoding = ENCODING_UCS_2_21;
       is.read(); is.read();
     } else if (tryEncoding(signature, (byte)0x00, (byte)0x3c,
-			   (byte)0x00, (byte)0x3f)) {
+         (byte)0x00, (byte)0x3f)) {
       // UCS-2 without a BOM must begin with "<?XML"
       // 0x00 0x3c 0x00 0x3f: UCS-2, big-endian, no byte-order mark
       encoding = ENCODING_UCS_2_12;
       error("no byte-order mark for UCS-2 entity", null, null);
     } else if (tryEncoding(signature, (byte)0x3c, (byte)0x00,
-			   (byte)0x3f, (byte)0x00)) {
+         (byte)0x3f, (byte)0x00)) {
       // UCS-2 without a BOM must begin with "<?XML"
       // 0x3c 0x00 0x3f 0x00: UCS-2, little-endian, no byte-order mark
       encoding = ENCODING_UCS_2_21;
       error("no byte-order mark for UCS-2 entity", null, null);
     } else if (tryEncoding(signature, (byte)0x3c, (byte)0x3f,
-			   (byte)0x78, (byte)0x6d)) {
+         (byte)0x78, (byte)0x6d)) {
       // Some kind of 8-bit encoding with "<?XML"
       // 0x3c 0x3f 0x78 0x6d: UTF-8 or other 8-bit markup (read ENCODING)
       encoding = ENCODING_UTF_8;
@@ -3496,7 +3496,7 @@ public class XmlParser {
   void pushCharArray (String ename, char ch[], int start, int length)
     throws java.lang.Exception
   {
-				// Push the existing status
+        // Push the existing status
     pushInput(ename);
     sourceType = INPUT_INTERNAL;
     readBuffer = ch;
@@ -3537,25 +3537,25 @@ public class XmlParser {
   {
     Object input[] = new Object[12];
 
-				// Check for entity recursion.
+        // Check for entity recursion.
     if (ename != null) {
       Enumeration entities = entityStack.elements();
       while (entities.hasMoreElements()) {
-	String e = (String)entities.nextElement();
-	if (e == ename) {
-	  error("recursive reference to entity", ename, null);
-	}
+  String e = (String)entities.nextElement();
+  if (e == ename) {
+    error("recursive reference to entity", ename, null);
+  }
       }
     }
     entityStack.push(ename);
 
-				// Don't bother if there is no input.
+        // Don't bother if there is no input.
     if (sourceType == INPUT_NONE) {
       return;
     }
 
-				// Set up a snapshot of the current
-				// input source.
+        // Set up a snapshot of the current
+        // input source.
     input[0] = new Integer(sourceType);
     input[1] = externalEntity;
     input[2] = readBuffer;
@@ -3569,7 +3569,7 @@ public class XmlParser {
     input[10] = new Integer(column);
     input[11] = reader;
 
-				// Push it onto the stack.
+        // Push it onto the stack.
     inputStack.push(input);
   }
 
@@ -3600,29 +3600,29 @@ public class XmlParser {
     case INPUT_EXTERNAL:
       dataBufferFlush();
       if (handler != null && externalEntity != null) {
-	handler.endExternalEntity(externalEntity.getURL().toString());
+  handler.endExternalEntity(externalEntity.getURL().toString());
       }
       break;
     case INPUT_STREAM:
       dataBufferFlush();
       if (baseURI != null) {
-	if (handler != null) {
-	  handler.endExternalEntity(baseURI);
-	}
+  if (handler != null) {
+    handler.endExternalEntity(baseURI);
+  }
       }
       break;
     case INPUT_READER:
       dataBufferFlush();
       if (baseURI != null) {
-	if (handler != null) {
-	  handler.endExternalEntity(baseURI);
-	}
+  if (handler != null) {
+    handler.endExternalEntity(baseURI);
+  }
       }
       break;
     }
 
-				// Throw an EOFException if there
-				// is nothing else to pop.
+        // Throw an EOFException if there
+        // is nothing else to pop.
     if (inputStack.isEmpty()) {
       throw new EOFException();
     } else {
@@ -3662,11 +3662,11 @@ public class XmlParser {
   {
     char c;
 
-				// Read the character
+        // Read the character
     c = readCh();
 
-				// Test for a match, and push the character
-				// back if the match fails.
+        // Test for a match, and push the character
+        // back if the match fails.
     if (c == delim) {
       return true;
     } else {
@@ -3755,12 +3755,12 @@ public class XmlParser {
 
     try {
       while (!tryRead(delim)) {
-	c = readCh();
-	dataBufferAppend(c);
+  c = readCh();
+  dataBufferAppend(c);
       }
     } catch (EOFException e) {
       error("end of input while looking for delimiter (started on line " +
-	    startLine + ')', null, delim);
+      startLine + ')', null, delim);
     }
   }
 
@@ -3850,14 +3850,14 @@ public class XmlParser {
       readBuffer[readBufferLength++] = (char)ch;
       switch (ch) {
       case (int)'>':
-	return;
+  return;
       case -1:
-	error("end of file before end of XML or encoding declaration.",
-	      null, "?>");
-	return;
+  error("end of file before end of XML or encoding declaration.",
+        null, "?>");
+  return;
       }
       if (readBuffer.length == readBufferLength) {
-	error("unfinished XML or encoding declaration", null, null);
+  error("unfinished XML or encoding declaration", null, null);
       }
     }
   }
@@ -4036,50 +4036,50 @@ public class XmlParser {
       b1 = rawReadBuffer[i++];
       isSurrogate = false;
 
-				// Determine whether we are dealing
-				// with a one-, two-, three-, or four-
-				// byte sequence.
+        // Determine whether we are dealing
+        // with a one-, two-, three-, or four-
+        // byte sequence.
       if ((b1 & 0x80) == 0) {
-	// 1-byte sequence: 000000000xxxxxxx = 0xxxxxxx
-	readBuffer[j++] = (char)b1;
+  // 1-byte sequence: 000000000xxxxxxx = 0xxxxxxx
+  readBuffer[j++] = (char)b1;
       } else if ((b1 & 0xe0) == 0xc0) {
-	// 2-byte sequence: 00000yyyyyxxxxxx = 110yyyyy 10xxxxxx
-	readBuffer[j++] =
-	  (char)(((b1 & 0x1f) << 6) |
-		 getNextUtf8Byte(i++, count));
+  // 2-byte sequence: 00000yyyyyxxxxxx = 110yyyyy 10xxxxxx
+  readBuffer[j++] =
+    (char)(((b1 & 0x1f) << 6) |
+     getNextUtf8Byte(i++, count));
       } else if ((b1 & 0xf0) == 0xe0) {
-	// 3-byte sequence: zzzzyyyyyyxxxxxx = 1110zzzz 10yyyyyy 10xxxxxx
-	readBuffer[j++] =
-	  (char)(((b1 & 0x0f) << 12) |
-		 (getNextUtf8Byte(i++, count) << 6) |
-		 getNextUtf8Byte(i++, count));
+  // 3-byte sequence: zzzzyyyyyyxxxxxx = 1110zzzz 10yyyyyy 10xxxxxx
+  readBuffer[j++] =
+    (char)(((b1 & 0x0f) << 12) |
+     (getNextUtf8Byte(i++, count) << 6) |
+     getNextUtf8Byte(i++, count));
       } else if ((b1 & 0xf8) == 0xf0) {
-	// 4-byte sequence: 11101110wwwwzzzzyy + 110111yyyyxxxxxx
-	//     = 11110uuu 10uuzzzz 10yyyyyy 10xxxxxx
-	// (uuuuu = wwww + 1)
-	isSurrogate = true;
-	int b2 = getNextUtf8Byte(i++, count);
-	int b3 = getNextUtf8Byte(i++, count);
-	int b4 = getNextUtf8Byte(i++, count);
-	readBuffer[j++] =
-	  (char)(0xd800 |
-		 ((((b1 & 0x07) << 2) | ((b2 & 0x30) >> 4) - 1) << 6) |
-		 ((b2 & 0x0f) << 2) |
-		 ((b3 & 0x30) >> 4));
-	readBuffer[j++] =
-	  (char)(0xdc |
-		 ((b3 & 0x0f) << 6) |
-		 b4);
-				// TODO: test that surrogate value is legal.
+  // 4-byte sequence: 11101110wwwwzzzzyy + 110111yyyyxxxxxx
+  //     = 11110uuu 10uuzzzz 10yyyyyy 10xxxxxx
+  // (uuuuu = wwww + 1)
+  isSurrogate = true;
+  int b2 = getNextUtf8Byte(i++, count);
+  int b3 = getNextUtf8Byte(i++, count);
+  int b4 = getNextUtf8Byte(i++, count);
+  readBuffer[j++] =
+    (char)(0xd800 |
+     ((((b1 & 0x07) << 2) | ((b2 & 0x30) >> 4) - 1) << 6) |
+     ((b2 & 0x0f) << 2) |
+     ((b3 & 0x30) >> 4));
+  readBuffer[j++] =
+    (char)(0xdc |
+     ((b3 & 0x0f) << 6) |
+     b4);
+        // TODO: test that surrogate value is legal.
       } else {
-	// Otherwise, the 8th bit may not be set in UTF-8
-	encodingError("bad start for UTF-8 multi-byte sequence", b1, i);
+  // Otherwise, the 8th bit may not be set in UTF-8
+  encodingError("bad start for UTF-8 multi-byte sequence", b1, i);
       }
       if (readBuffer[j-1] == '\r') {
-	sawCR = true;
+  sawCR = true;
       }
     }
-				// How many characters have we read?
+        // How many characters have we read?
     readBufferLength = j;
   }
 
@@ -4099,25 +4099,25 @@ public class XmlParser {
   {
     int val;
 
-				// Take a character from the buffer
-				// or from the actual input stream.
+        // Take a character from the buffer
+        // or from the actual input stream.
     if (pos < count) {
       val = rawReadBuffer[pos];
     } else {
       val = is.read();
       if (val == -1) {
-	encodingError("unfinished multi-byte UTF-8 sequence at EOF", -1, pos);
+  encodingError("unfinished multi-byte UTF-8 sequence at EOF", -1, pos);
       }
     }
 
-				// Check for the correct bits at the
-				// start.
+        // Check for the correct bits at the
+        // start.
     if ((val & 0xc0) != 0x80) {
       encodingError("bad continuation of multi-byte UTF-8 sequence", val,
-		    pos + 1);
+        pos + 1);
     }
 
-				// Return the significant bits.
+        // Return the significant bits.
     return (val & 0x3f);
   }
 
@@ -4139,7 +4139,7 @@ public class XmlParser {
     for (i = 0, j = readBufferPos; i < count; i++, j++) {
       readBuffer[j] = (char)(rawReadBuffer[i] & 0xff);
       if (readBuffer[j] == '\r') {
-	sawCR = true;
+  sawCR = true;
       }
     }
     readBufferLength = j;
@@ -4168,10 +4168,10 @@ public class XmlParser {
     }
     for (int i = 0; i < count; i+=2) {
       readBuffer[j++] =
-	(char)(((rawReadBuffer[i] & 0xff) << shift1) |
-	       ((rawReadBuffer[i+1] & 0xff) << shift2));
+  (char)(((rawReadBuffer[i] & 0xff) << shift1) |
+         ((rawReadBuffer[i+1] & 0xff) << shift2));
       if (readBuffer[j-1] == '\r') {
-	sawCR = true;
+  sawCR = true;
       }
     }
     readBufferLength = j;
@@ -4195,7 +4195,7 @@ public class XmlParser {
     * @see #readBuffer
     */
   void copyUcs4ReadBuffer (int count, int shift1, int shift2,
-			   int shift3, int shift4)
+         int shift3, int shift4)
     throws java.lang.Exception
   {
     int j = readBufferPos;
@@ -4203,24 +4203,24 @@ public class XmlParser {
 
     if (count > 0 && (count % 4) != 0) {
       encodingError("number of bytes in UCS-4 encoding not divisible by 4",
-		    -1, count);
+        -1, count);
     }
     for (int i = 0; i < count; i+=4) {
       value = (((rawReadBuffer[i] & 0xff) << shift1) |
-	       ((rawReadBuffer[i+1] & 0xff) << shift2) |
-	       ((rawReadBuffer[i+2] & 0xff) << shift3) |
-	       ((rawReadBuffer[i+3] & 0xff) << shift4));
+         ((rawReadBuffer[i+1] & 0xff) << shift2) |
+         ((rawReadBuffer[i+2] & 0xff) << shift3) |
+         ((rawReadBuffer[i+3] & 0xff) << shift4));
       if (value < 0x0000ffff) {
-	readBuffer[j++] = (char)value;
-	if (value == (int)'\r') {
-	  sawCR = true;
-	}
+  readBuffer[j++] = (char)value;
+  if (value == (int)'\r') {
+    sawCR = true;
+  }
       } else if (value < 0x000fffff) {
-	readBuffer[j++] = (char)(0xd8 | ((value & 0x000ffc00) >> 10));
-	readBuffer[j++] = (char)(0xdc | (value & 0x0003ff));
+  readBuffer[j++] = (char)(0xd8 | ((value & 0x000ffc00) >> 10));
+  readBuffer[j++] = (char)(0xdc | (value & 0x0003ff));
       } else {
-	encodingError("value cannot be represented in UTF-16",
-		      value, i);
+  encodingError("value cannot be represented in UTF-16",
+          value, i);
       }
     }
     readBufferLength = j;
@@ -4237,7 +4237,7 @@ public class XmlParser {
 
     if (value >= 0) {
       message = message + " (byte value: 0x" +
-	Integer.toHexString(value) + ')';
+  Integer.toHexString(value) + ')';
     }
     if (externalEntity != null) {
       uri = externalEntity.getURL().toString();
@@ -4258,28 +4258,28 @@ public class XmlParser {
     */
   void initializeVariables ()
   {
-				// No errors; first line
+        // No errors; first line
     errorCount = 0;
     line = 1;
     column = 0;
 
-				// Set up the buffers for data and names
+        // Set up the buffers for data and names
     dataBufferPos = 0;
     dataBuffer = new char[DATA_BUFFER_INITIAL];
     nameBufferPos = 0;
     nameBuffer = new char[NAME_BUFFER_INITIAL];
 
-				// Set up the DTD hash tables
+        // Set up the DTD hash tables
     elementInfo = new Hashtable();
     entityInfo = new Hashtable();
     notationInfo = new Hashtable();
 
-				// Set up the variables for the current
-				// element context.
+        // Set up the variables for the current
+        // element context.
     currentElement = null;
     currentElementContent = CONTENT_UNDECLARED;
 
-				// Set up the input variables
+        // Set up the input variables
     sourceType = INPUT_NONE;
     inputStack = new Stack();
     entityStack = new Stack();
@@ -4322,15 +4322,15 @@ public class XmlParser {
   //
   // I/O information.
   //
-  private Reader reader;	// current reader
-  private InputStream is;	// current input stream
-  private int line;		// current line number
-  private int column;		// current column number
-  private int sourceType;	// type of input source
-  private Stack inputStack;	// stack of input sources
-  private URLConnection externalEntity;	// current external entity
-  private int encoding;		// current character encoding.
-  private int currentByteCount;	// how many bytes read from current source.
+  private Reader reader;  // current reader
+  private InputStream is;  // current input stream
+  private int line;    // current line number
+  private int column;    // current column number
+  private int sourceType;  // type of input source
+  private Stack inputStack;  // stack of input sources
+  private URLConnection externalEntity;  // current external entity
+  private int encoding;    // current character encoding.
+  private int currentByteCount;  // how many bytes read from current source.
 
   //
   // Maintain a count of errors.

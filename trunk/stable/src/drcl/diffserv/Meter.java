@@ -40,22 +40,22 @@ version 1.0 07/16/00
   */ 
 public abstract class Meter extends drcl.DrclObj
 {
-	public Meter()
-	{ super(); }
-	
-	/** Returns the label for the packet based on the measurement and
-	the agreement of the connection the packet belongs to.  */
-	protected abstract int measure(Packet p, double now_);
-	
-	/** Resets this meter to be used anew. */
-	public abstract void reset();
+  public Meter()
+  { super(); }
+  
+  /** Returns the label for the packet based on the measurement and
+  the agreement of the connection the packet belongs to.  */
+  protected abstract int measure(Packet p, double now_);
+  
+  /** Resets this meter to be used anew. */
+  public abstract void reset();
 
-	public abstract void duplicate(Object source_);
-	
-	public String info()
-	{ return info(""); }
+  public abstract void duplicate(Object source_);
+  
+  public String info()
+  { return info(""); }
 
-	/** Prints out the content of this meter.
-	@param prefix_ prefix that should be prepended to each line of the result.*/
-	public abstract String info(String prefix_);
+  /** Prints out the content of this meter.
+  @param prefix_ prefix that should be prepended to each line of the result.*/
+  public abstract String info(String prefix_);
 }

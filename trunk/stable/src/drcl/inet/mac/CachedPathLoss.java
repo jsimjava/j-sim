@@ -42,7 +42,7 @@ import drcl.util.StringUtil;
  */
 public class CachedPathLoss 
 {
-	public double xr;
+  public double xr;
     public double yr;
     public double zr;
     public double xs;
@@ -51,7 +51,7 @@ public class CachedPathLoss
     public double loss;
     
     public CachedPathLoss(double xr_, double yr_, double zr_, double xs_, double ys_, double zs_, double loss_)
-	{ 
+  { 
         xr = xr_;
         yr = yr_;
         zr = zr_;
@@ -60,5 +60,5 @@ public class CachedPathLoss
         zs = zs_;
         loss = loss_;
     }
-	
+  
 }

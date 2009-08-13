@@ -38,47 +38,47 @@ This component does not send bytes.
 */
 public class BulkSink extends Component
 {
-	{ addPort("down"); }
-	int dataUnit = 512;
-	long progress;
+  { addPort("down"); }
+  int dataUnit = 512;
+  long progress;
 
-	public BulkSink ()
-	{ super(); }
+  public BulkSink ()
+  { super(); }
 
-	public BulkSink (String id_)
-	{ super(id_); }
+  public BulkSink (String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		progress = 0;
-	}
+  public void reset()
+  {
+    super.reset();
+    progress = 0;
+  }
 
-	public String info()
-	{
-	    return "Progress: " + (progress/dataUnit) + "/" + progress + "\n";
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		dataUnit = ((BulkSink)source_).dataUnit;
-	}
+  public String info()
+  {
+      return "Progress: " + (progress/dataUnit) + "/" + progress + "\n";
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    dataUnit = ((BulkSink)source_).dataUnit;
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
-		if (msg_.isQuery())
-			inPort_.doLastSending(new Integer(dataUnit));
-		else if (msg_.isSend()) {
-			progress += msg_.getLength();
-			inPort_.doLastSending(new Integer(dataUnit));
-		}
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    ByteStreamContract.Message msg_ = (ByteStreamContract.Message)data_;
+    if (msg_.isQuery())
+      inPort_.doLastSending(new Integer(dataUnit));
+    else if (msg_.isSend()) {
+      progress += msg_.getLength();
+      inPort_.doLastSending(new Integer(dataUnit));
+    }
+  }
 
-	public void setDataUnit(int dataUnit_)
-	{ dataUnit = dataUnit_; }
+  public void setDataUnit(int dataUnit_)
+  { dataUnit = dataUnit_; }
 
-	public int getDataUnit()
-	{ return dataUnit; }
+  public int getDataUnit()
+  { return dataUnit; }
 }

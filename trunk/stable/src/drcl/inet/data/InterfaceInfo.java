@@ -58,250 +58,250 @@ import drcl.net.Address;
  * @see drcl.inet.CoreServiceLayer
  */
 public class InterfaceInfo
-		implements drcl.inet.InetConstants, drcl.ObjectCloneable
+    implements drcl.inet.InetConstants, drcl.ObjectCloneable
 {
-	public NetAddress local;
-	public NetAddress[] peers;
-	double[] timeouts; // elements correspond to the ones in peers
-	int mtu = DEFAULT_MTU;
-	//int bufferSize = DEFAULT_BUFFER_SIZE;
-	//double bandwidth = DEFAULT_BANDWIDTH;
-	int bufferSize = -1;
-	double bandwidth = -1;
-	int type;
-	
-	public InterfaceInfo (long localAddr_, long mask_)
-	{
-		local = new NetAddress(localAddr_, mask_);
-	}
-	
-	public InterfaceInfo (NetAddress local_)
-	{
-		local = local_;
-	}
-	
-	public InterfaceInfo (int type_)
-	{
-		type = type_;
-	}
-	
-	public InterfaceInfo (NetAddress local_, NetAddress[] peer_,
-									   double[] timeout_)
-	{
-		local = local_;
-		peers = peer_;
-		timeouts = timeout_;
-	}
-	
-	public InterfaceInfo (NetAddress local_, NetAddress peer_,
-									   double timeout_)
-	{
-		local = local_;
-		peers = new NetAddress[]{peer_};
-		timeouts = new double[]{timeout_};
-	}
-	
-	/**
-	 * @param mtu_ set to the default value if a negative value is given.
-	 * @param bw_ set to the default value if a negative value is given.
-	 * @param bufferSize_ set to the default value if a negative value is given.
-	 * @see #DEFAULT_MTU
-	 * @see #DEFAULT_BUFFER_SIZE
-	 * @see #DEFAULT_BANDWIDTH
-	 */
-	public InterfaceInfo (int mtu_, double bw_, int bufferSize_)
-	{
-		mtu = mtu_ < 0? DEFAULT_MTU: mtu_;
-		bandwidth = bw_ < 0.0? DEFAULT_BANDWIDTH: bw_;
-		bufferSize = bufferSize_ < 0? DEFAULT_BUFFER_SIZE: bufferSize_;
-	}
+  public NetAddress local;
+  public NetAddress[] peers;
+  double[] timeouts; // elements correspond to the ones in peers
+  int mtu = DEFAULT_MTU;
+  //int bufferSize = DEFAULT_BUFFER_SIZE;
+  //double bandwidth = DEFAULT_BANDWIDTH;
+  int bufferSize = -1;
+  double bandwidth = -1;
+  int type;
+  
+  public InterfaceInfo (long localAddr_, long mask_)
+  {
+    local = new NetAddress(localAddr_, mask_);
+  }
+  
+  public InterfaceInfo (NetAddress local_)
+  {
+    local = local_;
+  }
+  
+  public InterfaceInfo (int type_)
+  {
+    type = type_;
+  }
+  
+  public InterfaceInfo (NetAddress local_, NetAddress[] peer_,
+                     double[] timeout_)
+  {
+    local = local_;
+    peers = peer_;
+    timeouts = timeout_;
+  }
+  
+  public InterfaceInfo (NetAddress local_, NetAddress peer_,
+                     double timeout_)
+  {
+    local = local_;
+    peers = new NetAddress[]{peer_};
+    timeouts = new double[]{timeout_};
+  }
+  
+  /**
+   * @param mtu_ set to the default value if a negative value is given.
+   * @param bw_ set to the default value if a negative value is given.
+   * @param bufferSize_ set to the default value if a negative value is given.
+   * @see #DEFAULT_MTU
+   * @see #DEFAULT_BUFFER_SIZE
+   * @see #DEFAULT_BANDWIDTH
+   */
+  public InterfaceInfo (int mtu_, double bw_, int bufferSize_)
+  {
+    mtu = mtu_ < 0? DEFAULT_MTU: mtu_;
+    bandwidth = bw_ < 0.0? DEFAULT_BANDWIDTH: bw_;
+    bufferSize = bufferSize_ < 0? DEFAULT_BUFFER_SIZE: bufferSize_;
+  }
 
-	/**
-	 * @param mtu_ set to the default value if a negative value is given.
-	 * @param bw_ set to the default value if a negative value is given.
-	 * @param bufferSize_ set to the default value if a negative value is given.
-	 * @see #DEFAULT_MTU
-	 * @see #DEFAULT_BUFFER_SIZE
-	 * @see #DEFAULT_BANDWIDTH
-	 */
-	public InterfaceInfo (long localAddress_, long localAddressMask_,
-									   int mtu_, double bw_, int bufferSize_)
-	{
-		this(mtu_, bw_, bufferSize_);
-		local = new NetAddress(localAddress_, localAddressMask_);
-	}
-	
-	/**
-	 * @param mtu_ set to the default value if a negative value is given.
-	 * @param bw_ set to the default value if a negative value is given.
-	 * @param bufferSize_ set to the default value if a negative value is given.
-	 * @see #DEFAULT_MTU
-	 * @see #DEFAULT_BUFFER_SIZE
-	 * @see #DEFAULT_BANDWIDTH
-	 */
-	public InterfaceInfo (int type_, long localAddress_, long localAddressMask_,
-									   int mtu_, double bw_, int bufferSize_)
-	{
-		this(mtu_, bw_, bufferSize_);
-		type = type_;
-		local = new NetAddress(localAddress_, localAddressMask_);
-	}
-	
-	public InterfaceInfo()
-	{ super(); }
-	
-	public Object clone()
-	{
-		InterfaceInfo new_ = new InterfaceInfo(mtu, bandwidth, bufferSize);
-		new_.local = (NetAddress)drcl.util.ObjectUtil.clone(local);
-		new_.peers = (NetAddress[])drcl.util.ObjectUtil.clone(peers);
-		new_.timeouts = (double[])drcl.util.ObjectUtil.clone(timeouts);
-		new_.type = type;
-		return new_;
-	}
-	
-	public NetAddress getLocalNetAddress()
-	{ return local; }
-	
-	public void setLocalNetAddress(NetAddress addr_)
-	{ local = addr_; }
-	
-	public NetAddress[] getPeerNetAddresses()
-	{ return peers; }
-	
-	public void addPeerNetAddress(NetAddress addr_, double timeout_)
-	{
-		NetAddress[] tmp_ = new NetAddress[peers == null? 1: peers.length+1];
-		double[] ttmp_ = new double[tmp_.length];
-		if (peers != null) {
-			System.arraycopy(peers, 0, tmp_, 0, peers.length);
-			System.arraycopy(timeouts, 0, ttmp_, 0, peers.length);
-		}
-		tmp_[tmp_.length-1] = addr_;
-		ttmp_[tmp_.length-1] = timeout_;
-		peers = tmp_;
-		timeouts = ttmp_;
-	}
-	
-	public void removePeerNetAddress(NetAddress addr_)
-	{
-		int where_ = findPeer(addr_);
-		if (where_ < 0) return;
-		NetAddress[] tmp_ = new NetAddress[peers.length-1];
-		double[] ttmp_ = new double[tmp_.length];
-		System.arraycopy(peers, 0, tmp_, 0, where_);
-		System.arraycopy(timeouts, 0, ttmp_, 0, where_);
-		if (where_ < peers.length-1) {
-			System.arraycopy(peers, where_+1, tmp_, where_, peers.length - where_ - 1);
-			System.arraycopy(timeouts, where_+1, ttmp_, where_, peers.length - where_ - 1);
-		}
-		peers = tmp_;
-		timeouts = ttmp_;
-	}
-	
-	int findPeer(NetAddress peer_)
-	{
-		if (peers == null) return -1;
-		for (int i=0; i<peers.length; i++) {
-			if (peers[i].equals(peer_)) return i;
-		}
-		return -1;
-	}
-	
-	public double[] getPeerTimeouts()
-	{ return timeouts; }
-	
-	public void setPeerNetAddresses(NetAddress[] addrs_)
-	{
-		peers = addrs_;
-		if (peers == null) {
-			timeouts = null;
-		}
-		else {
-			timeouts = new double[peers.length];
-			for (int i=0; i<timeouts.length; i++) timeouts[i] = Double.NaN;
-		}
-	}
-	
-	public boolean containsPeer(NetAddress addr_)
-	{
-		if (peers == null) return false;
-		for (int i=0; i<peers.length; i++)
-			if (peers[i] == null) System.out.println("OOPS...");
-			else if (peers[i].equals(addr_)) return true;
-		return false;
-	}
-	
-	public boolean containsPeer(long addr_)
-	{
-		if (peers == null) return false;
-		for (int i=0; i<peers.length; i++)
-			if (peers[i].getAddress() == addr_) return true;
-		return false;
-	}
-	
-	public void setTimeout(NetAddress addr_, double timeout_)
-	{
-		int where_ = findPeer(addr_);
-		if (where_ >= 0) timeouts[where_] = timeout_;
-	}
-	
-	public void resetTimeout()
-	{
-		if (timeouts != null)
-			for (int i=0; i<timeouts.length; i++)
-				timeouts[i] = Double.NaN;
-	}
-	
-	public int getMTU()
-	{ return mtu; }
-	
-	public void setMTU(int mtu_)
-	{ mtu = mtu_; }
-	
-	public double getBandwidth()
-	{ return bandwidth; }
-	
-	public void setBandwidth(double bw_)
-	{ bandwidth = bw_; }
-	
-	public int getBufferSize()
-	{ return bufferSize; }
-	
-	public void setBufferSize(int bs_)
-	{ bufferSize = bs_; }
+  /**
+   * @param mtu_ set to the default value if a negative value is given.
+   * @param bw_ set to the default value if a negative value is given.
+   * @param bufferSize_ set to the default value if a negative value is given.
+   * @see #DEFAULT_MTU
+   * @see #DEFAULT_BUFFER_SIZE
+   * @see #DEFAULT_BANDWIDTH
+   */
+  public InterfaceInfo (long localAddress_, long localAddressMask_,
+                     int mtu_, double bw_, int bufferSize_)
+  {
+    this(mtu_, bw_, bufferSize_);
+    local = new NetAddress(localAddress_, localAddressMask_);
+  }
+  
+  /**
+   * @param mtu_ set to the default value if a negative value is given.
+   * @param bw_ set to the default value if a negative value is given.
+   * @param bufferSize_ set to the default value if a negative value is given.
+   * @see #DEFAULT_MTU
+   * @see #DEFAULT_BUFFER_SIZE
+   * @see #DEFAULT_BANDWIDTH
+   */
+  public InterfaceInfo (int type_, long localAddress_, long localAddressMask_,
+                     int mtu_, double bw_, int bufferSize_)
+  {
+    this(mtu_, bw_, bufferSize_);
+    type = type_;
+    local = new NetAddress(localAddress_, localAddressMask_);
+  }
+  
+  public InterfaceInfo()
+  { super(); }
+  
+  public Object clone()
+  {
+    InterfaceInfo new_ = new InterfaceInfo(mtu, bandwidth, bufferSize);
+    new_.local = (NetAddress)drcl.util.ObjectUtil.clone(local);
+    new_.peers = (NetAddress[])drcl.util.ObjectUtil.clone(peers);
+    new_.timeouts = (double[])drcl.util.ObjectUtil.clone(timeouts);
+    new_.type = type;
+    return new_;
+  }
+  
+  public NetAddress getLocalNetAddress()
+  { return local; }
+  
+  public void setLocalNetAddress(NetAddress addr_)
+  { local = addr_; }
+  
+  public NetAddress[] getPeerNetAddresses()
+  { return peers; }
+  
+  public void addPeerNetAddress(NetAddress addr_, double timeout_)
+  {
+    NetAddress[] tmp_ = new NetAddress[peers == null? 1: peers.length+1];
+    double[] ttmp_ = new double[tmp_.length];
+    if (peers != null) {
+      System.arraycopy(peers, 0, tmp_, 0, peers.length);
+      System.arraycopy(timeouts, 0, ttmp_, 0, peers.length);
+    }
+    tmp_[tmp_.length-1] = addr_;
+    ttmp_[tmp_.length-1] = timeout_;
+    peers = tmp_;
+    timeouts = ttmp_;
+  }
+  
+  public void removePeerNetAddress(NetAddress addr_)
+  {
+    int where_ = findPeer(addr_);
+    if (where_ < 0) return;
+    NetAddress[] tmp_ = new NetAddress[peers.length-1];
+    double[] ttmp_ = new double[tmp_.length];
+    System.arraycopy(peers, 0, tmp_, 0, where_);
+    System.arraycopy(timeouts, 0, ttmp_, 0, where_);
+    if (where_ < peers.length-1) {
+      System.arraycopy(peers, where_+1, tmp_, where_, peers.length - where_ - 1);
+      System.arraycopy(timeouts, where_+1, ttmp_, where_, peers.length - where_ - 1);
+    }
+    peers = tmp_;
+    timeouts = ttmp_;
+  }
+  
+  int findPeer(NetAddress peer_)
+  {
+    if (peers == null) return -1;
+    for (int i=0; i<peers.length; i++) {
+      if (peers[i].equals(peer_)) return i;
+    }
+    return -1;
+  }
+  
+  public double[] getPeerTimeouts()
+  { return timeouts; }
+  
+  public void setPeerNetAddresses(NetAddress[] addrs_)
+  {
+    peers = addrs_;
+    if (peers == null) {
+      timeouts = null;
+    }
+    else {
+      timeouts = new double[peers.length];
+      for (int i=0; i<timeouts.length; i++) timeouts[i] = Double.NaN;
+    }
+  }
+  
+  public boolean containsPeer(NetAddress addr_)
+  {
+    if (peers == null) return false;
+    for (int i=0; i<peers.length; i++)
+      if (peers[i] == null) System.out.println("OOPS...");
+      else if (peers[i].equals(addr_)) return true;
+    return false;
+  }
+  
+  public boolean containsPeer(long addr_)
+  {
+    if (peers == null) return false;
+    for (int i=0; i<peers.length; i++)
+      if (peers[i].getAddress() == addr_) return true;
+    return false;
+  }
+  
+  public void setTimeout(NetAddress addr_, double timeout_)
+  {
+    int where_ = findPeer(addr_);
+    if (where_ >= 0) timeouts[where_] = timeout_;
+  }
+  
+  public void resetTimeout()
+  {
+    if (timeouts != null)
+      for (int i=0; i<timeouts.length; i++)
+        timeouts[i] = Double.NaN;
+  }
+  
+  public int getMTU()
+  { return mtu; }
+  
+  public void setMTU(int mtu_)
+  { mtu = mtu_; }
+  
+  public double getBandwidth()
+  { return bandwidth; }
+  
+  public void setBandwidth(double bw_)
+  { bandwidth = bw_; }
+  
+  public int getBufferSize()
+  { return bufferSize; }
+  
+  public void setBufferSize(int bs_)
+  { bufferSize = bs_; }
 
-	/** Returns the interface type. */
-	public int getType()
-	{ return type; }
+  /** Returns the interface type. */
+  public int getType()
+  { return type; }
 
-	/** Sets the interface type. */
-	public void setType(int type_)
-	{ type = type_; }
-	
-	public String toString()
-	{
-		return "type:" + type + ", local:" + local
-			   + ", peers:" + drcl.util.StringUtil.toString(peers)
-			   + ", timeouts:" + drcl.util.StringUtil.toString(timeouts)
-			   + ", MTU="+ mtu + ", BW=" + bandwidth + ", buffer=" + bufferSize;
-	}
+  /** Sets the interface type. */
+  public void setType(int type_)
+  { type = type_; }
+  
+  public String toString()
+  {
+    return "type:" + type + ", local:" + local
+         + ", peers:" + drcl.util.StringUtil.toString(peers)
+         + ", timeouts:" + drcl.util.StringUtil.toString(timeouts)
+         + ", MTU="+ mtu + ", BW=" + bandwidth + ", buffer=" + bufferSize;
+  }
 
-	public String print(Address addr_)
-	{
-		return "type:" + type
-			+ ", local:" + (local == null? "<null>": local.print(addr_))
-			+ ", peers:" + _printPeers(addr_)
-			+ ", timeouts:" + drcl.util.StringUtil.toString(timeouts)
-			+ ", MTU="+ mtu + ", BW=" + bandwidth + ", buffer=" + bufferSize;
-	}
+  public String print(Address addr_)
+  {
+    return "type:" + type
+      + ", local:" + (local == null? "<null>": local.print(addr_))
+      + ", peers:" + _printPeers(addr_)
+      + ", timeouts:" + drcl.util.StringUtil.toString(timeouts)
+      + ", MTU="+ mtu + ", BW=" + bandwidth + ", buffer=" + bufferSize;
+  }
 
-	String _printPeers(Address addr_)
-	{
-		if (peers == null || peers.length == 0) return "<null>";
-		StringBuffer sb = new StringBuffer(peers[0].print(addr_));
-		for (int i=1; i<peers.length; i++)
-			sb.append("," + peers[i].print(addr_));
-		return "(" + sb + ")";
-	}
+  String _printPeers(Address addr_)
+  {
+    if (peers == null || peers.length == 0) return "<null>";
+    StringBuffer sb = new StringBuffer(peers[0].print(addr_));
+    for (int i=1; i<peers.length; i++)
+      sb.append("," + peers[i].print(addr_));
+    return "(" + sb + ")";
+  }
 }

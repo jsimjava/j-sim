@@ -48,117 +48,117 @@ at http://diffserv.lcs.mit.edu/Papers/exp-alloc-ddc-wf.pdf
  */
 public class TSW_meter extends Meter implements DFConstants
 {
-	double target_rate;
-	double	win_length = 0.2;
-	boolean wait;
-	transient double	avg_rate = 0.0;
-	transient double	lasttime = Double.NaN;
-	transient int     count = 0;
-	
-	UniformDistribution ug = new UniformDistribution(0L);
-	
-	public TSW_meter()
-	{ super(); }
-	
-	public TSW_meter(double win_len_, double tgrate_, boolean wait_, long seed_)
-	{
-		this();
-		win_length = win_len_;
-		target_rate = tgrate_/8;
-		wait = wait_;
-		avg_rate = 0.0;
-		ug.setSeed(seed_);
-	}
-	
-	public void duplicate(Object source_)
-	{
-		TSW_meter that_ = (TSW_meter)source_;
-		win_length = that_.win_length;
-		target_rate = that_.target_rate;
-		wait = that_.wait;
-		ug.setSeed(that_.ug.getSeed());
-	}
-	
-	public void reset()
-	{
-		lasttime = Double.NaN;
-		count = 0;
-		avg_rate = 0.0;
-		ug.reset();
-	}
+  double target_rate;
+  double  win_length = 0.2;
+  boolean wait;
+  transient double  avg_rate = 0.0;
+  transient double  lasttime = Double.NaN;
+  transient int     count = 0;
+  
+  UniformDistribution ug = new UniformDistribution(0L);
+  
+  public TSW_meter()
+  { super(); }
+  
+  public TSW_meter(double win_len_, double tgrate_, boolean wait_, long seed_)
+  {
+    this();
+    win_length = win_len_;
+    target_rate = tgrate_/8;
+    wait = wait_;
+    avg_rate = 0.0;
+    ug.setSeed(seed_);
+  }
+  
+  public void duplicate(Object source_)
+  {
+    TSW_meter that_ = (TSW_meter)source_;
+    win_length = that_.win_length;
+    target_rate = that_.target_rate;
+    wait = that_.wait;
+    ug.setSeed(that_.ug.getSeed());
+  }
+  
+  public void reset()
+  {
+    lasttime = Double.NaN;
+    count = 0;
+    avg_rate = 0.0;
+    ug.reset();
+  }
 
-	public void setTargetRate(double v_)
-	{ target_rate = v_; }
-	
-	public double getTargetRate()
-	{ return target_rate; }
-	
-	public void setWinLength(double v_)
-	{ win_length = v_; }
-	
-	public double getWinLength()
-	{ return win_length; }
-	
-	public void setWait(boolean wait_)
-	{ wait = wait_; }
+  public void setTargetRate(double v_)
+  { target_rate = v_; }
+  
+  public double getTargetRate()
+  { return target_rate; }
+  
+  public void setWinLength(double v_)
+  { win_length = v_; }
+  
+  public double getWinLength()
+  { return win_length; }
+  
+  public void setWait(boolean wait_)
+  { wait = wait_; }
 
-	public boolean getWait()
-	{ return wait; }
+  public boolean getWait()
+  { return wait; }
 
-	protected int measure(Packet p_, double now_)
-	{
-		double bytes_in_tsw = avg_rate * win_length;
-		double new_bytes    = bytes_in_tsw + p_.size;
-		if (Double.isNaN(lasttime)) lasttime = now_;
-		avg_rate = new_bytes / (now_ - lasttime + win_length);
-		lasttime  = now_;
-				
-		boolean	inprofile_ = true;
-		if (avg_rate > target_rate) {
-			double prob = (avg_rate - target_rate) / avg_rate;
-			double countp = count * prob;
+  protected int measure(Packet p_, double now_)
+  {
+    double bytes_in_tsw = avg_rate * win_length;
+    double new_bytes    = bytes_in_tsw + p_.size;
+    if (Double.isNaN(lasttime)) lasttime = now_;
+    avg_rate = new_bytes / (now_ - lasttime + win_length);
+    lasttime  = now_;
+        
+    boolean  inprofile_ = true;
+    if (avg_rate > target_rate) {
+      double prob = (avg_rate - target_rate) / avg_rate;
+      double countp = count * prob;
 
-			// mark the IN prfile smoothly. 
-			if (wait) {
-				if (countp < 1) prob = 0;
-				else if (countp < 2) prob /= (2 - countp);
-				else prob = 1;
-			}
-			else {
-				if (countp < 1) prob /= (1 - countp);
-				else prob = 1;
-			}
-			if (ug.nextDouble() < prob) 
-			    inprofile_ = false;
-		}
+      // mark the IN prfile smoothly. 
+      if (wait) {
+        if (countp < 1) prob = 0;
+        else if (countp < 2) prob /= (2 - countp);
+        else prob = 1;
+      }
+      else {
+        if (countp < 1) prob /= (1 - countp);
+        else prob = 1;
+      }
+      if (ug.nextDouble() < prob) 
+          inprofile_ = false;
+    }
 
-		if (inprofile_){
-		    ++count;
-			return IN_PROFILE;
-		}
-		else {
-		    count = 0;
-			return OUT_PROFILE;
-		}
-	}
-	
-	public void config(double tgrate_, double win_, boolean wait_, long seed_)
-	{
-		target_rate = tgrate_/8; //in bytes
-		win_length = win_;
-		wait = wait_;
-		ug.setSeed(seed_);
-	}
-	
-	public String info(String prefix_)
-	{
-		return prefix_ + "TSW_Meter:\n" 
-			+ prefix_ + "  target_rate = " + target_rate + "\n"
-			+ prefix_ + "   win_length = " + win_length + "\n"
-			+ prefix_ + "         wait = " + wait + "\n"
-			+ prefix_ + "uniform dist. = " + ug + "\n"
-			+ prefix_ + "     avg_rate = " + avg_rate + "\n"
-			+ prefix_ + "     lasttime = " + lasttime + "\n"
-			+ prefix_ + "        count = " + count + "\n";
-	}
+    if (inprofile_){
+        ++count;
+      return IN_PROFILE;
+    }
+    else {
+        count = 0;
+      return OUT_PROFILE;
+    }
+  }
+  
+  public void config(double tgrate_, double win_, boolean wait_, long seed_)
+  {
+    target_rate = tgrate_/8; //in bytes
+    win_length = win_;
+    wait = wait_;
+    ug.setSeed(seed_);
+  }
+  
+  public String info(String prefix_)
+  {
+    return prefix_ + "TSW_Meter:\n" 
+      + prefix_ + "  target_rate = " + target_rate + "\n"
+      + prefix_ + "   win_length = " + win_length + "\n"
+      + prefix_ + "         wait = " + wait + "\n"
+      + prefix_ + "uniform dist. = " + ug + "\n"
+      + prefix_ + "     avg_rate = " + avg_rate + "\n"
+      + prefix_ + "     lasttime = " + lasttime + "\n"
+      + prefix_ + "        count = " + count + "\n";
+  }
 }

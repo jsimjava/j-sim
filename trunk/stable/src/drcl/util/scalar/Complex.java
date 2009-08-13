@@ -39,65 +39,65 @@ public class Complex {
     private double re;
     private double im;
 
-	/**
-	  * Constructs a Complex 0.
-	  */
+  /**
+    * Constructs a Complex 0.
+    */
     public Complex(){
         re=0;
         im=0;
     }
-	/** 
-	  * Constructs a Complex re + i * im.
-	  */
+  /** 
+    * Constructs a Complex re + i * im.
+    */
     public Complex(double re, double im){
         this.re=re;
         this.im=im;
     }
-	/**
-	  * Constructs a Comlex equal to z.
-	  */
+  /**
+    * Constructs a Comlex equal to z.
+    */
     public Complex(Complex z){
         this.re=z.real();
         this.im=z.imag();
     }
 
-	/** Sets the real part of the Complex number.  */
+  /** Sets the real part of the Complex number.  */
     public void setReal(double re){
         this.re=re;
     }
 
-	/** Sets the Imaginary part of the Complex number. */
+  /** Sets the Imaginary part of the Complex number. */
     public void setImag(double im){
         this.im=im;
     }
 
-	/** 
-	 *	Returns the absolute value (modulus) of a Complex, |z|. 
-	 */
-	public static double abs(Complex z)
-	{
-		if (z.re == 0) return Math.abs(z.im);
-		else if (z.im == 0) return Math.abs(z.re);
-		else return Math.sqrt(z.re * z.re + z.im * z.im);
-		
-	}
+  /** 
+   *  Returns the absolute value (modulus) of a Complex, |z|. 
+   */
+  public static double abs(Complex z)
+  {
+    if (z.re == 0) return Math.abs(z.im);
+    else if (z.im == 0) return Math.abs(z.re);
+    else return Math.sqrt(z.re * z.re + z.im * z.im);
+    
+  }
 
-	/** Returns the conjugate of this current Complex. */
+  /** Returns the conjugate of this current Complex. */
     public Complex conjugate(){
         Complex result = new Complex(this);
         result.setImag(-im);
         return result;
     }
-	/** Returns the real part of the Complex. */
+  /** Returns the real part of the Complex. */
     public double real(){
         return re;
     }
-	/** Returns the imaginary part of the Complex. */
+  /** Returns the imaginary part of the Complex. */
     public double imag(){
         return im;
     }
 
-	/** Returns the product of two complex number */
+  /** Returns the product of two complex number */
     public static Complex multiply (Complex y, Complex z){
         Complex result = new Complex(
         y.real() *z.real()- y.imag() *z.imag(),
@@ -105,79 +105,79 @@ public class Complex {
         return result;
     }
 
-	/** Returns the product of a complex z with a real number x.*/
+  /** Returns the product of a complex z with a real number x.*/
     public static Complex multiply(Complex z, double x){
         Complex result = new Complex(
         z.real() * x,
         z.imag() * x);
         return result;
     }
-	/** Returns the product of a real number x with a complex z.*/
+  /** Returns the product of a real number x with a complex z.*/
     public static Complex multiply( double x, Complex z){
-		return Complex.multiply(z,x);
-	}
+    return Complex.multiply(z,x);
+  }
 
-	/**  Returns the square root of a Complex number z.
-	    Its  real part is always nonegative and
-		imaginary part is nonnegative 
-		if it can be chosen. 
-		*/
-	public static Complex sqrt(Complex z)
-	{
-		double absz = Complex.abs(z);
-		double r, i;
-		r = Math.sqrt((z.re + absz) * 0.5); 
-		if (z.im >= 0) { i = Math.sqrt((absz -z.re) * 0.5); }
-		else { i = - Math.sqrt((absz -z.re) * 0.5); }
-		return  new Complex(r,i);
-	}
-	/**  Returns a Complex y/z for Complex y and Complex z.
-	  */
+  /**  Returns the square root of a Complex number z.
+      Its  real part is always nonegative and
+    imaginary part is nonnegative 
+    if it can be chosen. 
+    */
+  public static Complex sqrt(Complex z)
+  {
+    double absz = Complex.abs(z);
+    double r, i;
+    r = Math.sqrt((z.re + absz) * 0.5); 
+    if (z.im >= 0) { i = Math.sqrt((absz -z.re) * 0.5); }
+    else { i = - Math.sqrt((absz -z.re) * 0.5); }
+    return  new Complex(r,i);
+  }
+  /**  Returns a Complex y/z for Complex y and Complex z.
+    */
 
-	public static Complex divide(Complex y, Complex z)
-	{
-		double sqrz = z.re * z.re + z.im * z.im;
-		double r = y.re * z.re + y.im * z.im;
-		double i = y.im * z.re - y.re * z.im;
-		return new Complex(r/sqrz, i/sqrz);
-	}
+  public static Complex divide(Complex y, Complex z)
+  {
+    double sqrz = z.re * z.re + z.im * z.im;
+    double r = y.re * z.re + y.im * z.im;
+    double i = y.im * z.re - y.re * z.im;
+    return new Complex(r/sqrz, i/sqrz);
+  }
 
-	/** Returns the sum of Complex y and Complex z. */
+  /** Returns the sum of Complex y and Complex z. */
     public static Complex add(Complex y, Complex z){
         Complex result = new Complex(
         y.re + z.re, y.im + z.im);
         return result;
     }
-	/** Returns the sum of Complex y and double x. */
+  /** Returns the sum of Complex y and double x. */
     public static Complex add(Complex y, double x){
         Complex result = new Complex(
-				y.re + x, y.im);
+        y.re + x, y.im);
         return result;
     }
 
-	/** Returns the sum of double x and Complex y. */
+  /** Returns the sum of double x and Complex y. */
     public static Complex add(double x, Complex y){
         Complex result = new Complex(
-				y.re + x, y.im);
+        y.re + x, y.im);
         return result;
     }
 
-	/** Returns  y -z for Complex y and Complex z. */
+  /** Returns  y -z for Complex y and Complex z. */
     public static Complex subtract(Complex y, Complex z){
         Complex result = new Complex(
-				y.re - z.re, y.im - z.im);
+        y.re - z.re, y.im - z.im);
         return result;
     }
-	/** Returns y - x for Complex y and double x. */
+  /** Returns y - x for Complex y and double x. */
     public static Complex subtract (Complex y, double x){
         Complex result = new Complex(
-				y.re - x, y.im);
+        y.re - x, y.im);
         return result;
     }
-	/** Returns x - z for  double x and Complex z. */
+  /** Returns x - z for  double x and Complex z. */
     public static Complex subtract (double x, Complex z){
         Complex result = new Complex(
-				x - z.re, -z.im);
+        x - z.re, -z.im);
         return result;
     }
 }

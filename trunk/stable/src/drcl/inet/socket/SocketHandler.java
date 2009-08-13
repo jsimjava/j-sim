@@ -34,21 +34,21 @@ import drcl.comp.Port;
 /** For socket wrapping components to handle QUERY from TCP components. */
 class SocketHandler implements drcl.comp.Handler
 {
-	Vector vsocket;
+  Vector vsocket;
 
-	SocketHandler(Vector v_)
-	{
-		vsocket = v_;
-	}
+  SocketHandler(Vector v_)
+  {
+    vsocket = v_;
+  }
 
-	public void process(Object data_, Port inPort_)
-	{
-		for (int i=0; i<vsocket.size(); i++) {
-			JSimSocketImpl s_ = (JSimSocketImpl)vsocket.elementAt(i);
-			if (s_.dataPort == inPort_) {
-				s_.helper.handle((drcl.comp.lib.bytestream.ByteStreamContract.Message)data_);
-				return;
-			}
-		}
-	}
+  public void process(Object data_, Port inPort_)
+  {
+    for (int i=0; i<vsocket.size(); i++) {
+      JSimSocketImpl s_ = (JSimSocketImpl)vsocket.elementAt(i);
+      if (s_.dataPort == inPort_) {
+        s_.helper.handle((drcl.comp.lib.bytestream.ByteStreamContract.Message)data_);
+        return;
+      }
+    }
+  }
 }

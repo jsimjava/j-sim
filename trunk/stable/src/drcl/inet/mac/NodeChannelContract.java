@@ -44,27 +44,27 @@ import drcl.util.StringUtil;
  */
 public class NodeChannelContract extends Contract
 {
-	public static final NodeChannelContract INSTANCE = new NodeChannelContract();
+  public static final NodeChannelContract INSTANCE = new NodeChannelContract();
 
-	public NodeChannelContract()
-	{ super(); }
-	
-	public NodeChannelContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Node Channel Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
+  public NodeChannelContract()
+  { super(); }
+  
+  public NodeChannelContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Node Channel Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
     /** 
      * The message class which is defined for exchanging information between Node
      * and Channel components.
      */
     public static class Message extends drcl.comp.Message
-					implements drcl.data.Countable
-	{
+          implements drcl.data.Countable
+  {
         /** The sender's node id  */
         public  long   nid;         
         /** The x coordinate of the sender's position */
@@ -81,9 +81,9 @@ public class NodeChannelContract extends Contract
         /** The packet being transmitted*/
         Object pkt;         // the packet
         
-        public Message ()	{ }
+        public Message ()  { }
 
-		/** 
+    /** 
          * Constructs a message
          *
          *@param nid_ the id of the sender node.
@@ -91,59 +91,59 @@ public class NodeChannelContract extends Contract
          *@param Y_ the y coordinate of the sender node's current position.
          *@param Z_ the z coordinate of the sender node's current position.
          *@param Pt the transmission power
-	     *@param Gt_  the transmitting antenna gain
-	     *@param pkt_ the packet being transmitted
+       *@param Gt_  the transmitting antenna gain
+       *@param pkt_ the packet being transmitted
          *
-		 */
-		public Message (long nid_, double X_, double Y_, double Z_, double Pt_, double Gt_, Object pkt_)
-		{
+     */
+    public Message (long nid_, double X_, double Y_, double Z_, double Pt_, double Gt_, Object pkt_)
+    {
             nid = nid_;
-			X = X_;  Y = Y_;  Z = Z_;
+      X = X_;  Y = Y_;  Z = Z_;
             Pt = Pt_; Gt = Gt_; pkt = pkt_;
-		}
+    }
         
-		/** Gets the node id */
+    /** Gets the node id */
         public long   getNid()  { return nid; }
-		/** Gets the X coordinate */
-		public double getX()  { return X; }
-		/** Gets the Y coordinate */
-		public double getY()  { return Y; }
-		/** Gets the Z coordinate */
-		public double getZ()  { return Z; }
-		/** Gets the channel gain */
-		public double getGt()  { return Gt; }
-		/** Gets the transmission power */
-		public double getPt()  { return Pt; }
-		/** Gets the packet */
+    /** Gets the X coordinate */
+    public double getX()  { return X; }
+    /** Gets the Y coordinate */
+    public double getY()  { return Y; }
+    /** Gets the Z coordinate */
+    public double getZ()  { return Z; }
+    /** Gets the channel gain */
+    public double getGt()  { return Gt; }
+    /** Gets the transmission power */
+    public double getPt()  { return Pt; }
+    /** Gets the packet */
         public Object getPkt() { return pkt; }
 
-		public int getSize()
-		{ return ((Packet)pkt).getSize(); }
+    public int getSize()
+    { return ((Packet)pkt).getSize(); }
 
-		public int getNumberCount()
-		{ return ((Packet)pkt).getNumberCount(); }
+    public int getNumberCount()
+    { return ((Packet)pkt).getNumberCount(); }
 
-		public long getSizeCount()
-		{ return ((Packet)pkt).getSizeCount(); }
+    public long getSizeCount()
+    { return ((Packet)pkt).getSizeCount(); }
 
-		public Object clone()
-		{
-			// the contract is between channel and multiple nodes;
-			// need to clone pkt
-			return new Message(nid, X, Y, Z, Pt, Gt,
-					pkt instanceof drcl.ObjectCloneable?
-					((drcl.ObjectCloneable)pkt).clone(): pkt);
-		}
+    public Object clone()
+    {
+      // the contract is between channel and multiple nodes;
+      // need to clone pkt
+      return new Message(nid, X, Y, Z, Pt, Gt,
+          pkt instanceof drcl.ObjectCloneable?
+          ((drcl.ObjectCloneable)pkt).clone(): pkt);
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
+    public String toString(String separator_)
+    {
             String str;
             str = "Node-Channel Message:" + separator_ + "nid=" + nid + separator_ + "X=" + X + separator_ + "Y=" + Y + separator_ + "Z=" + Z + separator_ ;
             str = str + "Pt=" + Pt + separator_ + "Gt=" + Gt + separator_ + "Pkt=" + pkt.toString(); 
-			return str;
-		}
-	}
+      return str;
+    }
+  }
 }

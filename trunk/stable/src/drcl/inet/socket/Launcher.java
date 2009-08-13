@@ -55,277 +55,277 @@ application cannot run on J-Sim without modification.
  */
 public class Launcher extends drcl.comp.Component implements SocketImplFactory
 {
-	static Launcher ONE_COPY;
-	{ if (ONE_COPY == null) ONE_COPY = this; }
+  static Launcher ONE_COPY;
+  { if (ONE_COPY == null) ONE_COPY = this; }
 
-	Hashtable htAddr = new Hashtable();
-		// InetAddress --> JSim/INET address, statically configured
-	Hashtable htAddrReverse = new Hashtable();
-		// J-Sim/INET address --> InetAddress, statically configured
-	Hashtable htThreadGroup = new Hashtable();
-		// thread group --> node component, auto configured
-	Hashtable htID = new Hashtable();
-		// node ID --> thread group, auto configured
-	Vector vSockets = new Vector();
-		// store JSimSocketImpls created for debug
-	int counter = 0; // count # of JSimSocketImpls created
+  Hashtable htAddr = new Hashtable();
+    // InetAddress --> JSim/INET address, statically configured
+  Hashtable htAddrReverse = new Hashtable();
+    // J-Sim/INET address --> InetAddress, statically configured
+  Hashtable htThreadGroup = new Hashtable();
+    // thread group --> node component, auto configured
+  Hashtable htID = new Hashtable();
+    // node ID --> thread group, auto configured
+  Vector vSockets = new Vector();
+    // store JSimSocketImpls created for debug
+  int counter = 0; // count # of JSimSocketImpls created
 
-	/** Returns the corresponding JSim/INET address (<code>long</code>) given
-	 * the real <code>InetAddress</code>.*/
-	public synchronized long getJSimAddr(InetAddress addr_)
-	{
-		if (addr_ == null) return drcl.net.Address.NULL_ADDR;
-		Long javasimAddr_ = (Long)htAddr.get(addr_);
-		// XX: how to tell if it is an "any" address?
-		if (javasimAddr_ == null) return drcl.net.Address.NULL_ADDR;
-		return javasimAddr_.longValue();
-	}
+  /** Returns the corresponding JSim/INET address (<code>long</code>) given
+   * the real <code>InetAddress</code>.*/
+  public synchronized long getJSimAddr(InetAddress addr_)
+  {
+    if (addr_ == null) return drcl.net.Address.NULL_ADDR;
+    Long javasimAddr_ = (Long)htAddr.get(addr_);
+    // XX: how to tell if it is an "any" address?
+    if (javasimAddr_ == null) return drcl.net.Address.NULL_ADDR;
+    return javasimAddr_.longValue();
+  }
 
-	/** Returns the real <code>InetAddress</code> given the JSim/INET address
-	 * (long).*/
-	public synchronized InetAddress getInetAddress(long javasimAddr_)
-	{ return (InetAddress)htAddrReverse.get(new Long(javasimAddr_)); }
+  /** Returns the real <code>InetAddress</code> given the JSim/INET address
+   * (long).*/
+  public synchronized InetAddress getInetAddress(long javasimAddr_)
+  { return (InetAddress)htAddrReverse.get(new Long(javasimAddr_)); }
 
-	/** Returns the node component in which the current thread is working for
-	 * the {@link JSimSocketImpl}. */
-	public synchronized Node getNode()
-	{ return (Node)htThreadGroup.get(Thread.currentThread().getThreadGroup()); }
+  /** Returns the node component in which the current thread is working for
+   * the {@link JSimSocketImpl}. */
+  public synchronized Node getNode()
+  { return (Node)htThreadGroup.get(Thread.currentThread().getThreadGroup()); }
 
-	public void takeover()
-	{
-		try {
-			Socket.setSocketImplFactory(this);
-			ServerSocket.setSocketFactory(this);
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+  public void takeover()
+  {
+    try {
+      Socket.setSocketImplFactory(this);
+      ServerSocket.setSocketFactory(this);
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	public void restore()
-	{
-		try {
-			Socket.setSocketImplFactory(null);
-			ServerSocket.setSocketFactory(null);
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+  public void restore()
+  {
+    try {
+      Socket.setSocketImplFactory(null);
+      ServerSocket.setSocketFactory(null);
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	/**
-	 * Configures the launcher with a "map".
-	 Each line of the map is in the following format:
-	 <pre>&lt;domain name&gt; or &lt;ip&gt;	&lt;J-Sim address&gt;</pre>
-	 */
-	public synchronized void configure(String map_)
-	{
-		try {
-			java.io.LineNumberReader reader_ =
-				new java.io.LineNumberReader(new java.io.StringReader(map_));
-			while (true) {
-				String line_ = reader_.readLine();
-				if (line_ == null) break;
-				line_ = line_.trim();
-				if (line_.length() == 0) continue;
-				if (line_.charAt(0) == '#') continue;
-				//System.out.println("parse " + line_);
-				// format: <domain name> or <ip>	<JSim address>
-				String[] ss_ = drcl.util.StringUtil.substrings(line_, " \t");
-				InetAddress addr_ = InetAddress.getByName(ss_[0]);
-				Long javasimAddr_ = Long.valueOf(ss_[1]);
-				htAddr.put(addr_, javasimAddr_);
-				htAddrReverse.put(javasimAddr_, addr_);
-			}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+  /**
+   * Configures the launcher with a "map".
+   Each line of the map is in the following format:
+   <pre>&lt;domain name&gt; or &lt;ip&gt;  &lt;J-Sim address&gt;</pre>
+   */
+  public synchronized void configure(String map_)
+  {
+    try {
+      java.io.LineNumberReader reader_ =
+        new java.io.LineNumberReader(new java.io.StringReader(map_));
+      while (true) {
+        String line_ = reader_.readLine();
+        if (line_ == null) break;
+        line_ = line_.trim();
+        if (line_.length() == 0) continue;
+        if (line_.charAt(0) == '#') continue;
+        //System.out.println("parse " + line_);
+        // format: <domain name> or <ip>  <JSim address>
+        String[] ss_ = drcl.util.StringUtil.substrings(line_, " \t");
+        InetAddress addr_ = InetAddress.getByName(ss_[0]);
+        Long javasimAddr_ = Long.valueOf(ss_[1]);
+        htAddr.put(addr_, javasimAddr_);
+        htAddrReverse.put(javasimAddr_, addr_);
+      }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	/** Starts an application. */
-	public synchronized void start(String appClassName_, String[] args_,
-					Node node_)
-	{
-		try {
-			Class class_ = Class.forName(appClassName_);
-			String id_ = node_.getID();
-			ThreadGroup threadGroup_ = (ThreadGroup)htID.get(id_);
-			if (threadGroup_ == null) {
-				threadGroup_ = new ThreadGroup(id_);
-				htID.put(id_, threadGroup_);
-				htThreadGroup.put(threadGroup_, node_);
-			}
-			//new MyThread(threadGroup_, class_, args_).start();
-			getRuntime().addRunnableAt(0.0, new MyRunnable(class_, args_),
-							threadGroup_);
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-	}
+  /** Starts an application. */
+  public synchronized void start(String appClassName_, String[] args_,
+          Node node_)
+  {
+    try {
+      Class class_ = Class.forName(appClassName_);
+      String id_ = node_.getID();
+      ThreadGroup threadGroup_ = (ThreadGroup)htID.get(id_);
+      if (threadGroup_ == null) {
+        threadGroup_ = new ThreadGroup(id_);
+        htID.put(id_, threadGroup_);
+        htThreadGroup.put(threadGroup_, node_);
+      }
+      //new MyThread(threadGroup_, class_, args_).start();
+      getRuntime().addRunnableAt(0.0, new MyRunnable(class_, args_),
+              threadGroup_);
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+  }
 
-	public static void newThread(Runnable r)
-	{
-		ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
-		drcl.comp.Util.getRuntime(ONE_COPY).addRunnableAt(0.0, r, threadGroup_);
-	}
+  public static void newThread(Runnable r)
+  {
+    ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
+    drcl.comp.Util.getRuntime(ONE_COPY).addRunnableAt(0.0, r, threadGroup_);
+  }
 
-	public synchronized String info()
-	{
-		StringBuffer sb_ = new StringBuffer(
-						"InetAddress <--> JSim/INET address:\n");
-		for (Enumeration e_ = htAddr.keys(); e_.hasMoreElements(); ) {
-			Object key_ = e_.nextElement();
-			Object addr_ = htAddr.get(key_);
-			sb_.append("     " + key_ + "\t<--->\t" + addr_ + "\n");
-		}
-		sb_.append(counter + " JSimSocketImpls created so far.\n"
-						+ "Active JSimSocketImpls:\n");
-		try {
-			for (int i = 0; i < vSockets.size(); i++)
-				sb_.append("   socket " + i + ": " + vSockets.elementAt(i)
-								+ "\n");
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}
-		sb_.append("ThreadGroup <--> Node:\n");
-		for (Enumeration e_ = htThreadGroup.keys(); e_.hasMoreElements(); ) {
-			Object key_ = e_.nextElement();
-			Object node_ = htThreadGroup.get(key_);
-			sb_.append("     " + key_ + "\t<--->\t" + node_ + "\n");
-		}
-		return sb_.toString();
-	}
+  public synchronized String info()
+  {
+    StringBuffer sb_ = new StringBuffer(
+            "InetAddress <--> JSim/INET address:\n");
+    for (Enumeration e_ = htAddr.keys(); e_.hasMoreElements(); ) {
+      Object key_ = e_.nextElement();
+      Object addr_ = htAddr.get(key_);
+      sb_.append("     " + key_ + "\t<--->\t" + addr_ + "\n");
+    }
+    sb_.append(counter + " JSimSocketImpls created so far.\n"
+            + "Active JSimSocketImpls:\n");
+    try {
+      for (int i = 0; i < vSockets.size(); i++)
+        sb_.append("   socket " + i + ": " + vSockets.elementAt(i)
+                + "\n");
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }
+    sb_.append("ThreadGroup <--> Node:\n");
+    for (Enumeration e_ = htThreadGroup.keys(); e_.hasMoreElements(); ) {
+      Object key_ = e_.nextElement();
+      Object node_ = htThreadGroup.get(key_);
+      sb_.append("     " + key_ + "\t<--->\t" + node_ + "\n");
+    }
+    return sb_.toString();
+  }
 
-	public synchronized void reset()
-	{
-		super.reset();
-		for (Enumeration e_ = htThreadGroup.elements();
-						e_.hasMoreElements(); ) {
-			Node node_ = (Node)e_.nextElement();
-			Component wrap_ = node_.getComponent("sockets");
-			wrap_.removeAll();
-			node_.removeComponent(wrap_);
-		}
-		htThreadGroup.clear();
-		htID.clear();
-		vSockets.removeAllElements();
-		counter = 0;
-	}
+  public synchronized void reset()
+  {
+    super.reset();
+    for (Enumeration e_ = htThreadGroup.elements();
+            e_.hasMoreElements(); ) {
+      Node node_ = (Node)e_.nextElement();
+      Component wrap_ = node_.getComponent("sockets");
+      wrap_.removeAll();
+      node_.removeComponent(wrap_);
+    }
+    htThreadGroup.clear();
+    htID.clear();
+    vSockets.removeAllElements();
+    counter = 0;
+  }
 
-	public synchronized SocketImpl createSocketImpl()
-	{
-		ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
-		Node node_ = (Node)htThreadGroup.get(threadGroup_);
-		if (node_ == null) {
-			// XX: throw an exception?
-			System.out.println("Current Thread = " + Thread.currentThread()
-							+ ", Threadgroup = " + threadGroup_);
-			return null;
-		}
-		Component tcp_ = node_.getComponent("tcp");
+  public synchronized SocketImpl createSocketImpl()
+  {
+    ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
+    Node node_ = (Node)htThreadGroup.get(threadGroup_);
+    if (node_ == null) {
+      // XX: throw an exception?
+      System.out.println("Current Thread = " + Thread.currentThread()
+              + ", Threadgroup = " + threadGroup_);
+      return null;
+    }
+    Component tcp_ = node_.getComponent("tcp");
 
-		// create a wrapper component "sockets" if necessary
-		WrapperComponent wrap_ =
-				(WrapperComponent)node_.getComponent("sockets");
-		Vector vsocket_ = null;
-		SocketHandler handler_ = null;
-		Port controlPort_;
-		if (wrap_ == null) {
-			wrap_ = new WrapperComponent("sockets");
-			wrap_.setObject(vsocket_ = new Vector());
-			controlPort_ = wrap_.addPort("control");
-			controlPort_.connect(tcp_.getPort(drcl.net.Module.PortGroup_UP));
-			node_.addComponent(wrap_);
+    // create a wrapper component "sockets" if necessary
+    WrapperComponent wrap_ =
+        (WrapperComponent)node_.getComponent("sockets");
+    Vector vsocket_ = null;
+    SocketHandler handler_ = null;
+    Port controlPort_;
+    if (wrap_ == null) {
+      wrap_ = new WrapperComponent("sockets");
+      wrap_.setObject(vsocket_ = new Vector());
+      controlPort_ = wrap_.addPort("control");
+      controlPort_.connect(tcp_.getPort(drcl.net.Module.PortGroup_UP));
+      node_.addComponent(wrap_);
 
-			handler_ = new SocketHandler(vsocket_); // to handler QUERY from TCP
-			wrap_.setHandler(handler_);
-		}
-		else {
-			vsocket_ = (Vector)wrap_.getObject();
-			controlPort_ = wrap_.getPort("control");
-			handler_ = (SocketHandler) wrap_.getHandler();
-		}
+      handler_ = new SocketHandler(vsocket_); // to handler QUERY from TCP
+      wrap_.setHandler(handler_);
+    }
+    else {
+      vsocket_ = (Vector)wrap_.getObject();
+      controlPort_ = wrap_.getPort("control");
+      handler_ = (SocketHandler) wrap_.getHandler();
+    }
 
-		Port port_ = wrap_.addPort("_tcp" + String.valueOf(counter++));
-		InetAddress defaultAddr_ = (InetAddress)htAddrReverse.get(new Long(node_.getDefaultAddress()));
-		//System.out.println(node_.getDefaultAddress() + ": " + defaultAddr_);
+    Port port_ = wrap_.addPort("_tcp" + String.valueOf(counter++));
+    InetAddress defaultAddr_ = (InetAddress)htAddrReverse.get(new Long(node_.getDefaultAddress()));
+    //System.out.println(node_.getDefaultAddress() + ": " + defaultAddr_);
 
-		JSimSocketImpl s_ = new JSimSocketImpl(this, defaultAddr_, port_, controlPort_, node_);
-		vsocket_.addElement(s_);
-		vSockets.addElement(s_);
-		return s_;
-	}
+    JSimSocketImpl s_ = new JSimSocketImpl(this, defaultAddr_, port_, controlPort_, node_);
+    vsocket_.addElement(s_);
+    vSockets.addElement(s_);
+    return s_;
+  }
 
-	public synchronized void removeSocket(JSimSocketImpl s_)
-	{
-		vSockets.removeElement(s_);
-		ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
-		Node node_ = (Node)htThreadGroup.get(threadGroup_);
-		Component tcp_ = node_.getComponent("tcp");
-		if (tcp_ == null) {
-			// XX: throw an exception?
-			return;
-		}
-		WrapperComponent wrap_ = (WrapperComponent)node_.getComponent("sockets");
-		wrap_.removePort(s_.dataPort);
-		Vector vsocket_ = (Vector)wrap_.getObject();
-		vsocket_.removeElement(s_);
-	}
+  public synchronized void removeSocket(JSimSocketImpl s_)
+  {
+    vSockets.removeElement(s_);
+    ThreadGroup threadGroup_ = Thread.currentThread().getThreadGroup();
+    Node node_ = (Node)htThreadGroup.get(threadGroup_);
+    Component tcp_ = node_.getComponent("tcp");
+    if (tcp_ == null) {
+      // XX: throw an exception?
+      return;
+    }
+    WrapperComponent wrap_ = (WrapperComponent)node_.getComponent("sockets");
+    wrap_.removePort(s_.dataPort);
+    Vector vsocket_ = (Vector)wrap_.getObject();
+    vsocket_.removeElement(s_);
+  }
 
-	// to start an application in the right thread group context
-	static class MyThread extends Thread
-	{
-		Class appClass;
-		String[] args;
+  // to start an application in the right thread group context
+  static class MyThread extends Thread
+  {
+    Class appClass;
+    String[] args;
 
-		public MyThread(ThreadGroup threadGroup_, Class class_, String[] args_)
-		{
-			super(threadGroup_, class_.getName());
-			appClass = class_;
-			args = args_;
-		}
+    public MyThread(ThreadGroup threadGroup_, Class class_, String[] args_)
+    {
+      super(threadGroup_, class_.getName());
+      appClass = class_;
+      args = args_;
+    }
 
-		public void run()
-		{
-			try {
-				appClass.getDeclaredMethod("main", new Class[]{String[].class})
-					.invoke(null, new Object[]{args});
-			}
-			catch (Exception e_) {
-				e_.printStackTrace();
-			}
-		}
-	}
+    public void run()
+    {
+      try {
+        appClass.getDeclaredMethod("main", new Class[]{String[].class})
+          .invoke(null, new Object[]{args});
+      }
+      catch (Exception e_) {
+        e_.printStackTrace();
+      }
+    }
+  }
 
-	static class MyRunnable implements Runnable
-	{
-		Class appClass;
-		String[] args;
+  static class MyRunnable implements Runnable
+  {
+    Class appClass;
+    String[] args;
 
-		public MyRunnable(Class class_, String[] args_)
-		{
-			appClass = class_;
-			args = args_;
-		}
+    public MyRunnable(Class class_, String[] args_)
+    {
+      appClass = class_;
+      args = args_;
+    }
 
-		public void run()
-		{
-			try {
-				appClass.getDeclaredMethod("main", new Class[]{String[].class})
-					.invoke(null, new Object[]{args});
-			}
-			catch (Exception e_) {
-				e_.printStackTrace();
-			}
-		}
+    public void run()
+    {
+      try {
+        appClass.getDeclaredMethod("main", new Class[]{String[].class})
+          .invoke(null, new Object[]{args});
+      }
+      catch (Exception e_) {
+        e_.printStackTrace();
+      }
+    }
 
-		public String toString()
-		{
-			return super.toString() + ":" + appClass + ":"
-					+ drcl.util.StringUtil.toString(args);
-		}
-	}
+    public String toString()
+    {
+      return super.toString() + ":" + appClass + ":"
+          + drcl.util.StringUtil.toString(args);
+    }
+  }
 }

@@ -41,87 +41,87 @@ import drcl.util.StringUtil;
 */
 public class SensorNodeChannelContract extends Contract
 {
-	public static final SensorNodeChannelContract INSTANCE = new SensorNodeChannelContract();
+  public static final SensorNodeChannelContract INSTANCE = new SensorNodeChannelContract();
 
-	public SensorNodeChannelContract()
-	{ super(); }
-	
-	public SensorNodeChannelContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Sensor Node Channel Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
- 	/** This class implements the underlying message of the contract. */
-    	public static class Message extends drcl.comp.Message
-	{
+  public SensorNodeChannelContract()
+  { super(); }
+  
+  public SensorNodeChannelContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Sensor Node Channel Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+   /** This class implements the underlying message of the contract. */
+      public static class Message extends drcl.comp.Message
+  {
         long   nid;         // sender's node id
         double X, Y, Z;     // sender's position
         double Pt;          // sender's transmittion power
-	double Radius;	    // sender's transmission radius
+  double Radius;      // sender's transmission radius
         
         Object pkt;         // the packet
         
-        public Message ()	{ }
+        public Message ()  { }
 
-		public Message (long nid_, double X_, double Y_, double Z_, double Pt_, double Radius_, Object pkt_)
-		{
-     			nid = nid_;
-			X = X_;  Y = Y_;  Z = Z_;
-	            Pt = Pt_; 
-			Radius = Radius_;
-			pkt = pkt_;
-		}
+    public Message (long nid_, double X_, double Y_, double Z_, double Pt_, double Radius_, Object pkt_)
+    {
+           nid = nid_;
+      X = X_;  Y = Y_;  Z = Z_;
+              Pt = Pt_; 
+      Radius = Radius_;
+      pkt = pkt_;
+    }
 
-		public Message (long nid_, double X_, double Y_, double Z_, double Pt_, Object pkt_)
-		{
-     			nid = nid_;
-			X = X_;  Y = Y_;  Z = Z_;
-	            Pt = Pt_; 
-			Radius = 0.0 ;
-			pkt = pkt_;
-		}
+    public Message (long nid_, double X_, double Y_, double Z_, double Pt_, Object pkt_)
+    {
+           nid = nid_;
+      X = X_;  Y = Y_;  Z = Z_;
+              Pt = Pt_; 
+      Radius = 0.0 ;
+      pkt = pkt_;
+    }
         
         public long   getNid()  { return nid; }
-		public double getX()  { return X; }
-		public double getY()  { return Y; }
-		public double getZ()  { return Z; }
-		public double getPt()  { return Pt; }
-		public double getRadius() { return Radius; }
+    public double getX()  { return X; }
+    public double getY()  { return Y; }
+    public double getZ()  { return Z; }
+    public double getPt()  { return Pt; }
+    public double getRadius() { return Radius; }
         public Object getPkt() { return pkt; }
         
-		
-		/*
+    
+    /*
         public void duplicate(Object source_)
-		{
+    {
             int i;
-		Message that_ = (Message)source_;
+    Message that_ = (Message)source_;
             nid = that_.nid;
             X = that_.X;  Y = that_.Y;  Z = that_.Z;
             Pt = that_.Pt; 
-		Radius = that_.Radius;
+    Radius = that_.Radius;
             pkt = that_.pkt;
-		}
-		*/
-	
-		public Object clone()
-		{
-			// the contract is between two components; dont clone pkt
-			return new Message(nid, X, Y, Z, Pt, Radius, pkt);
-		}
+    }
+    */
+  
+    public Object clone()
+    {
+      // the contract is between two components; dont clone pkt
+      return new Message(nid, X, Y, Z, Pt, Radius, pkt);
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
+    public String toString(String separator_)
+    {
             String str;
             str = "Sensor-Node-Channel Message:" + separator_ + "nid=" + nid + separator_ + "X=" + X + separator_ + "Y=" + Y + separator_ + "Z=" + Z + separator_ ;
             str = str + "Pt=" + Pt + separator_ + "Radius=" + Radius + separator_ + "Pkt=" + pkt.toString(); 
-			return str;
-		}
-	}
+      return str;
+    }
+  }
 }

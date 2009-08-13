@@ -40,87 +40,87 @@ import drcl.net.*;
  * <tr>
  *   <td>Type <td nowrap>LSA Name          <td nowrap>Originate from      
  *   <td>Content
- *   <td>Extent		<td>Originator
+ *   <td>Extent    <td>Originator
  * <tr>
  *   <td valign=top>1    <td valign=top nowrap>Router-LSAs       <td valign=top nowrap>all routers
  *   <td valign=top>states of the router's interface to an area
- *   <td valign=top nowrap>intra-area	<td valign=top>Router
+ *   <td valign=top nowrap>intra-area  <td valign=top>Router
  * <tr>
  *   <td valign=top>2    <td valign=top nowrap>Network-LSAs      <td valign=top nowrap>brocast and MBMA
  *   <td valign=top>list of routers connected to the network
- *   <td valign=top nowrap>intra-area	<td>network's desiginated router
+ *   <td valign=top nowrap>intra-area  <td>network's desiginated router
  * <tr>
  *   <td valign=top nowrap>3,4  <td valign=top nowrap>Summary-LSAs      <td valign=top>area border router
  *   <td valign=top nowrap>3: router to networks outside this area<br>
  *       4: router to AS boundary router
  *   <td valign=top nowrap>inter-area
  *   <td valign=top>area border router
- *											  
+ *                        
  * <tr>
  *   <td valign=top>5    <td valign=top>As-external-LSAa  <td valign=top>AS boundary router 
  *   <td valign=top>a route to a dest. in another AS             
- *   <td valign=top nowrap>inter-AS	<td valign=top>AS boundary router
+ *   <td valign=top nowrap>inter-AS  <td valign=top>AS boundary router
  * </table>
  * Except type 5, all other four types are flooded through a single area only.
  * Type 5 is flooded through the entire AS.
  *
- * @author Wei-peng Chen	
+ * @author Wei-peng Chen  
  * @see OSPF_LSA_Header
  * @see Router_LSA
  */
 public class OSPF_LSA extends drcl.DrclObj
 {
-	protected final static int OSPF_LSA_HEADER_SIZE	= 20;
+  protected final static int OSPF_LSA_HEADER_SIZE  = 20;
 
-	// Tyan: 05/08/2001, remove flags to save space
-	protected int			floodback_flag	;
-	//protected int			duplicate_flag	;
-	//protected int			impliedack_flag ;
+  // Tyan: 05/08/2001, remove flags to save space
+  protected int      floodback_flag  ;
+  //protected int      duplicate_flag  ;
+  //protected int      impliedack_flag ;
 
-	/* timeout event */
-	//protected OSPF_TimeOut_EVT		LSA_Refresh_EVT;
-	//protected OSPF_TimeOut_EVT		LSA_MaxAge_Reach_EVT;
-	
-	// for implementation
-	// protected int from; // the router id of the originating router which sends this lsa
-	protected OSPF_Neighbor	from;
-	protected Object			scope;
-	
-	protected OSPF_LSA_Header header;
-	protected OSPF_LSA_Header getHeader() { return header; }
-	
-	public String toString()
-	{ return _toString(); }
+  /* timeout event */
+  //protected OSPF_TimeOut_EVT    LSA_Refresh_EVT;
+  //protected OSPF_TimeOut_EVT    LSA_MaxAge_Reach_EVT;
+  
+  // for implementation
+  // protected int from; // the router id of the originating router which sends this lsa
+  protected OSPF_Neighbor  from;
+  protected Object      scope;
+  
+  protected OSPF_LSA_Header header;
+  protected OSPF_LSA_Header getHeader() { return header; }
+  
+  public String toString()
+  { return _toString(); }
 
-	public String _toString()
-	{
-		return "from:" + (from == null? "-": from.rtr_id+"") + ",header:"
-			+ (header == null? "-": "<" + header + ">");
-	}
+  public String _toString()
+  {
+    return "from:" + (from == null? "-": from.rtr_id+"") + ",header:"
+      + (header == null? "-": "<" + header + ">");
+  }
 
-	/** Constructor */
-	protected OSPF_LSA() 
-	{ this(new OSPF_LSA_Header()); }
-	
-	/** Constructor */
-	protected OSPF_LSA(OSPF_LSA_Header header_) 
-	{
-		//LSA_Refresh_EVT = null;
-		header = header_;
-	}
-	
-	/** return the size of the LSA */
-	protected int size()
-	{
-		switch(header.lsh_type) {
-			case OSPF.OSPF_ROUTER_LSA:
-				return ((Router_LSA) this).size();
-			default:
-				return Integer.MAX_VALUE; // error
-		}		
-	}
-	
-	// clone fields that are really in OSPF packet
-	public Object clone()
-	{ return new OSPF_LSA((OSPF_LSA_Header)header.clone()); }
+  /** Constructor */
+  protected OSPF_LSA() 
+  { this(new OSPF_LSA_Header()); }
+  
+  /** Constructor */
+  protected OSPF_LSA(OSPF_LSA_Header header_) 
+  {
+    //LSA_Refresh_EVT = null;
+    header = header_;
+  }
+  
+  /** return the size of the LSA */
+  protected int size()
+  {
+    switch(header.lsh_type) {
+      case OSPF.OSPF_ROUTER_LSA:
+        return ((Router_LSA) this).size();
+      default:
+        return Integer.MAX_VALUE; // error
+    }    
+  }
+  
+  // clone fields that are really in OSPF packet
+  public Object clone()
+  { return new OSPF_LSA((OSPF_LSA_Header)header.clone()); }
 } // End of LSA

@@ -30,30 +30,30 @@ package drcl.util.scalar;
 
 public class LongInterval extends drcl.DrclObj
 {
-	/** Start of the interval, inclusive. */
-	public long start;
+  /** Start of the interval, inclusive. */
+  public long start;
 
-	/** End of the interval, exclusive */
-	public long end;
-		
-	public LongInterval ()
-	{}
+  /** End of the interval, exclusive */
+  public long end;
+    
+  public LongInterval ()
+  {}
 
-	public LongInterval (long start_, long end_)
-	{
-		start = start_;
-		end = end_;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		start = ((LongInterval)source_).start;
-		end = ((LongInterval)source_).end;
-	}
+  public LongInterval (long start_, long end_)
+  {
+    start = start_;
+    end = end_;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    start = ((LongInterval)source_).start;
+    end = ((LongInterval)source_).end;
+  }
 
-	public Object clone()
-	{ return new LongInterval(start, end); }
+  public Object clone()
+  { return new LongInterval(start, end); }
 
-	public String toString()
-	{ return super.toString() + ",(" + start + "," + end + ")"; }
+  public String toString()
+  { return super.toString() + ",(" + start + "," + end + ")"; }
 }

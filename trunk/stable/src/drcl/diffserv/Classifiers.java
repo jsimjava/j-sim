@@ -43,57 +43,57 @@ import drcl.diffserv.DFConstants;
  */
 public class Classifiers implements DFConstants
 { 
-	/* The classifier returns 0 for AF11, 1 for AF12/AF13. */
-	public static PktClassifier getAF1xClassifier2()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return DFUtil.getDSCP((InetPacket)pkt_) == AF11? 0: 1; }
-		};
-	}
+  /* The classifier returns 0 for AF11, 1 for AF12/AF13. */
+  public static PktClassifier getAF1xClassifier2()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return DFUtil.getDSCP((InetPacket)pkt_) == AF11? 0: 1; }
+    };
+  }
 
-	/* The classifier returns 0 for AF21, 1 for AF22/AF23. */
-	public static PktClassifier getAF2xClassifier2()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return DFUtil.getDSCP((InetPacket)pkt_) == AF21? 0: 1; }
-		};
-	}
+  /* The classifier returns 0 for AF21, 1 for AF22/AF23. */
+  public static PktClassifier getAF2xClassifier2()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return DFUtil.getDSCP((InetPacket)pkt_) == AF21? 0: 1; }
+    };
+  }
 
-	/* The classifier returns 0 for AF31, 1 for AF32/AF33. */
-	public static PktClassifier getAF3xClassifier2()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return DFUtil.getDSCP((InetPacket)pkt_) == AF31? 0: 1; }
-		};
-	}
+  /* The classifier returns 0 for AF31, 1 for AF32/AF33. */
+  public static PktClassifier getAF3xClassifier2()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return DFUtil.getDSCP((InetPacket)pkt_) == AF31? 0: 1; }
+    };
+  }
 
-	/* The classifier returns 0 for AF11, 1 for AF12 and 2 for AF13. */
-	public static PktClassifier getAF1xClassifier3()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return (DFUtil.getDSCP((InetPacket)pkt_)-AF11)/2; }
-		};
-	}
+  /* The classifier returns 0 for AF11, 1 for AF12 and 2 for AF13. */
+  public static PktClassifier getAF1xClassifier3()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return (DFUtil.getDSCP((InetPacket)pkt_)-AF11)/2; }
+    };
+  }
 
-	/* The classifier returns 0 for AF21, 1 for AF22 and 2 for AF23. */
-	public static PktClassifier getAF2xClassifier3()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return (DFUtil.getDSCP((InetPacket)pkt_)-AF21)/2; }
-		};
-	}
+  /* The classifier returns 0 for AF21, 1 for AF22 and 2 for AF23. */
+  public static PktClassifier getAF2xClassifier3()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return (DFUtil.getDSCP((InetPacket)pkt_)-AF21)/2; }
+    };
+  }
 
-	/* The classifier returns 0 for AF31, 1 for AF32 and 2 for AF33. */
-	public static PktClassifier getAF3xClassifier3()
-	{
-		return new PktClassifier() {
-			public int classify(Packet pkt_)
-			{ return (DFUtil.getDSCP((InetPacket)pkt_)-AF31)/2; }
-		};
-	}
+  /* The classifier returns 0 for AF31, 1 for AF32 and 2 for AF33. */
+  public static PktClassifier getAF3xClassifier3()
+  {
+    return new PktClassifier() {
+      public int classify(Packet pkt_)
+      { return (DFUtil.getDSCP((InetPacket)pkt_)-AF31)/2; }
+    };
+  }
 }

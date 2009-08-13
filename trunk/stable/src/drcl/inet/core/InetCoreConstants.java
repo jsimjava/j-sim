@@ -34,7 +34,7 @@ package drcl.inet.core;
 */
 public interface InetCoreConstants extends drcl.inet.InetConstants
 {
-	/** ID of the packet filter configuration port. */
-	public static final String CONFIG_PORT_ID = ".config";
-	public static final String PULL_PORT_ID = "pull";
+  /** ID of the packet filter configuration port. */
+  public static final String CONFIG_PORT_ID = ".config";
+  public static final String PULL_PORT_ID = "pull";
 }

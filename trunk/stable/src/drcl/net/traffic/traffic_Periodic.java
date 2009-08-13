@@ -44,67 +44,67 @@ It defines the following parameters:
  */
 public class traffic_Periodic extends TrafficModel implements TrafficPeriodic
 {
-	public int maxPacketSize;
-	public int C;
-	public double P;
+  public int maxPacketSize;
+  public int C;
+  public double P;
 
-	public traffic_Periodic()
-	{}
+  public traffic_Periodic()
+  {}
 
-	public traffic_Periodic(int c_, double p_, int mtu_)
-	{ set(c_, p_, mtu_); }
+  public traffic_Periodic(int c_, double p_, int mtu_)
+  { set(c_, p_, mtu_); }
 
-	public void set(int c_, double p_, int mtu_)
-	{
-		C = c_; P = p_;
-		maxPacketSize = mtu_;
-	}
+  public void set(int c_, double p_, int mtu_)
+  {
+    C = c_; P = p_;
+    maxPacketSize = mtu_;
+  }
 
-	public double getPeriod() { return P; }
-	
-	public double getLoad() 
-	{ return (double)(C << 3) / P; }
+  public double getPeriod() { return P; }
+  
+  public double getLoad() 
+  { return (double)(C << 3) / P; }
 
-	public int getBurst() { return maxPacketSize; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_Periodic)) return null;
-		
-		traffic_Periodic thatTraffic_ = (traffic_Periodic) that_;
-		if (C > thatTraffic_.C)	C = thatTraffic_.C;
-		if (P < thatTraffic_.P)	P = thatTraffic_.P;
-		if (maxPacketSize < thatTraffic_.maxPacketSize)
-			maxPacketSize = thatTraffic_.maxPacketSize;
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_Periodic)) return;
-		traffic_Periodic that_ = (traffic_Periodic) source_;
-		C = that_.C;
-		P = that_.P;
-		maxPacketSize = that_.maxPacketSize;
-	}
-	
-	public String oneline()
-	{
-		return getClass().getName() + ":C=" + C + ", P=" + P
-			+ ", maxPacketSize=" + maxPacketSize;
-	}
-	
-	// 
-	static void ___PROPERTY___() {}
-	//
-	
-	public void setMaxPacketSize(int size_) { maxPacketSize = size_; }
-	public int getMaxPacketSize() { return maxPacketSize; }
-	
-	public void setC(int c_) { C = c_; }
-	public int getC() { return C; }
-	
-	public void setPeriod(double p_) { P = p_; }
-	
-	public int getMTU() { return maxPacketSize; }
+  public int getBurst() { return maxPacketSize; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_Periodic)) return null;
+    
+    traffic_Periodic thatTraffic_ = (traffic_Periodic) that_;
+    if (C > thatTraffic_.C)  C = thatTraffic_.C;
+    if (P < thatTraffic_.P)  P = thatTraffic_.P;
+    if (maxPacketSize < thatTraffic_.maxPacketSize)
+      maxPacketSize = thatTraffic_.maxPacketSize;
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_Periodic)) return;
+    traffic_Periodic that_ = (traffic_Periodic) source_;
+    C = that_.C;
+    P = that_.P;
+    maxPacketSize = that_.maxPacketSize;
+  }
+  
+  public String oneline()
+  {
+    return getClass().getName() + ":C=" + C + ", P=" + P
+      + ", maxPacketSize=" + maxPacketSize;
+  }
+  
+  // 
+  static void ___PROPERTY___() {}
+  //
+  
+  public void setMaxPacketSize(int size_) { maxPacketSize = size_; }
+  public int getMaxPacketSize() { return maxPacketSize; }
+  
+  public void setC(int c_) { C = c_; }
+  public int getC() { return C; }
+  
+  public void setPeriod(double p_) { P = p_; }
+  
+  public int getMTU() { return maxPacketSize; }
 }

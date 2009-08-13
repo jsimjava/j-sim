@@ -78,17 +78,17 @@ public class RadioPropagationModel extends drcl.net.Module
      * Constructor.
      */
     public RadioPropagationModel()
-	{
-		super();
-	}
+  {
+    super();
+  }
 
     /** 
      * Constructor.
      */
     public RadioPropagationModel(String id_)
-	{
-		super(id_);
-	}
+  {
+    super(id_);
+  }
 
     /**
      * Sets the flag to indicate whether to use Cartesian coordinates or not.
@@ -103,18 +103,18 @@ public class RadioPropagationModel extends drcl.net.Module
         return isCartesian ;
     }
 
- 	protected synchronized void processOther(Object data_, Port inPort_)
-	{
-		
+   protected synchronized void processOther(Object data_, Port inPort_)
+  {
+    
         if (inPort_ != queryPort) {
-			super.processOther(data_, inPort_);
-			return;
-		}
+      super.processOther(data_, inPort_);
+      return;
+    }
         
         if ( ! (data_ instanceof RadioPropagationQueryContract.Message) ) { 
             error(data_, "processOther()", inPort_, "unrecognized data type");
-			return;
-		}
+      return;
+    }
         processPathLossQuery(data_);
     }    
 
@@ -135,7 +135,7 @@ public class RadioPropagationModel extends drcl.net.Module
         return 1.0;
     }    
     
-   	public String info() { 
+     public String info() { 
         return "RadioPropagationModel" + "\n"; 
     }      
 

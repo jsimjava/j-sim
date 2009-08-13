@@ -35,89 +35,89 @@ package drcl.net.traffic;
  */
 public class tsTokenBucket extends TrafficShaper
 {
-	double lasttime; //last time when tokens start to be generated
-	int acc; // number of accumulated bytes coming in since "lasttime"
-	double readytime; // ready to send next packet; constrained by output rate
-	traffic_TokenBucket traffic = null;
+  double lasttime; //last time when tokens start to be generated
+  int acc; // number of accumulated bytes coming in since "lasttime"
+  double readytime; // ready to send next packet; constrained by output rate
+  traffic_TokenBucket traffic = null;
 
-	public tsTokenBucket()
-	{ this(new traffic_TokenBucket()); }
+  public tsTokenBucket()
+  { this(new traffic_TokenBucket()); }
 
-	public tsTokenBucket(traffic_TokenBucket traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsTokenBucket(traffic_TokenBucket traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void reset()
-	{
-		super.reset();
-		acc = 0;
-		readytime = 0.0;
-		lasttime = Double.NaN;
-	}
+  public void reset()
+  {
+    super.reset();
+    acc = 0;
+    readytime = 0.0;
+    lasttime = Double.NaN;
+  }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+ prefix_ + "State: #bytes accumulated since lasttime=" + acc
-			+ ", lasttime=" + lasttime + ", readytime=" + readytime + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      + prefix_ + "State: #bytes accumulated since lasttime=" + acc
+      + ", lasttime=" + lasttime + ", readytime=" + readytime + "\n";
+  }
 
-	protected double adjust(double now_, int size_) 
-	{
-		double readytime_; // time to have enough tokens for size_
+  protected double adjust(double now_, int size_) 
+  {
+    double readytime_; // time to have enough tokens for size_
 
-		// to avoid rounding error, update fulltime from lasttime
-		double fulltime_ = lasttime + (double)(acc << 3) / traffic.tokenGenRate;
-			// Double.NaN the first time
+    // to avoid rounding error, update fulltime from lasttime
+    double fulltime_ = lasttime + (double)(acc << 3) / traffic.tokenGenRate;
+      // Double.NaN the first time
 
-		if (fulltime_ > now_) {
-			readytime_ = fulltime_ - (double)((traffic.bucketSize - size_) << 3)
-				/ traffic.tokenGenRate;
-			if (readytime_ < now_) readytime_ = now_;
-			// consider integer wrap-around
-			if ((Integer.MAX_VALUE >> 3) - acc < size_) {
-				acc -= (int)(traffic.tokenGenRate * (now_ - lasttime) / 8.0);
-				lasttime = now_;
-			}
-			acc += size_;
-		}
-		else { // goes here too if fulltime_ is Double.NaN (the first time)
-			acc = size_;
-			readytime_ = lasttime = now_;
-		}
+    if (fulltime_ > now_) {
+      readytime_ = fulltime_ - (double)((traffic.bucketSize - size_) << 3)
+        / traffic.tokenGenRate;
+      if (readytime_ < now_) readytime_ = now_;
+      // consider integer wrap-around
+      if ((Integer.MAX_VALUE >> 3) - acc < size_) {
+        acc -= (int)(traffic.tokenGenRate * (now_ - lasttime) / 8.0);
+        lasttime = now_;
+      }
+      acc += size_;
+    }
+    else { // goes here too if fulltime_ is Double.NaN (the first time)
+      acc = size_;
+      readytime_ = lasttime = now_;
+    }
 
-		if (readytime_ > readytime)
-			readytime = readytime_ + (size_ << 3) / traffic.outRate;
-		else
-			readytime += (size_ << 3) / traffic.outRate;
+    if (readytime_ > readytime)
+      readytime = readytime_ + (size_ << 3) / traffic.outRate;
+    else
+      readytime += (size_ << 3) / traffic.outRate;
 
-		return readytime - now_;
-	}
+    return readytime - now_;
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_TokenBucket)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_TokenBucket)traffic_; reset(); }
 
-	public void setOutputRate(double rate_) { traffic.outRate = rate_; }
-	public double getOutputRate() { return traffic.outRate; }
-	
-	public void setTokenGenRate(int rate_) { traffic.tokenGenRate = rate_; }
-	public int getTokenGenRate() { return traffic.tokenGenRate; }
-	
-	public void setBucketSize(int size_) { traffic.bucketSize = size_; }
-	public int getBucketSize() { return traffic.bucketSize; }
-	
-	public void setInitBucketSize(int size_) { traffic.initBucketSize = size_; }
-	public int getInitBucketSize() { return traffic.initBucketSize; }
-	
-	public int getMTU()	{ 	return traffic.mtu;	}
-	public void setMTU(int mtu_) 	{ traffic.mtu = mtu_; }
+  public void setOutputRate(double rate_) { traffic.outRate = rate_; }
+  public double getOutputRate() { return traffic.outRate; }
+  
+  public void setTokenGenRate(int rate_) { traffic.tokenGenRate = rate_; }
+  public int getTokenGenRate() { return traffic.tokenGenRate; }
+  
+  public void setBucketSize(int size_) { traffic.bucketSize = size_; }
+  public int getBucketSize() { return traffic.bucketSize; }
+  
+  public void setInitBucketSize(int size_) { traffic.initBucketSize = size_; }
+  public int getInitBucketSize() { return traffic.initBucketSize; }
+  
+  public int getMTU()  {   return traffic.mtu;  }
+  public void setMTU(int mtu_)   { traffic.mtu = mtu_; }
 
-	public void set(int bsize_, int initbsize_, int trate_, double outrate_,
-					int mtu_)
-	{
-		traffic.set(bsize_, initbsize_, trate_, outrate_, mtu_);
-		reset();
-	}
+  public void set(int bsize_, int initbsize_, int trate_, double outrate_,
+          int mtu_)
+  {
+    traffic.set(bsize_, initbsize_, trate_, outrate_, mtu_);
+    reset();
+  }
 }

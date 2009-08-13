@@ -57,162 +57,162 @@ as necessary.
  */
 public class Module extends drcl.comp.Component
 {
-	/** The ID of the "up" port group. */
-	public static final String PortGroup_UP   = "up";
+  /** The ID of the "up" port group. */
+  public static final String PortGroup_UP   = "up";
 
-	/** The ID of the "down" port group. */
-	public static final String PortGroup_DOWN = "down";
-	
-	/** The default "down" port. */
-	public Port downPort = addPort(PortGroup_DOWN, false/*not removable*/);
-	/** The default "up" port. */
-	public Port upPort = addPort(PortGroup_UP, false/*not removable*/);
-	
-	/** The port at which the timeout events come.
-	@see #setTimeout(Object, double)
-	@see #setTimeoutAt(Object, double)
-	 */
-	protected Port timerPort = addForkPort(".timer");
+  /** The ID of the "down" port group. */
+  public static final String PortGroup_DOWN = "down";
+  
+  /** The default "down" port. */
+  public Port downPort = addPort(PortGroup_DOWN, false/*not removable*/);
+  /** The default "up" port. */
+  public Port upPort = addPort(PortGroup_UP, false/*not removable*/);
+  
+  /** The port at which the timeout events come.
+  @see #setTimeout(Object, double)
+  @see #setTimeoutAt(Object, double)
+   */
+  protected Port timerPort = addForkPort(".timer");
 
-	public Module()
-	{ super(null); }
-	
-	public Module(String id_)
-	{ super(id_); }
+  public Module()
+  { super(null); }
+  
+  public Module(String id_)
+  { super(id_); }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-	}
-	
-	/**
-	 * Delivers <code>data_</code> at the (up) port specified.
-	 * Returns false if failed (e.g. port does not exist).
-	 */
-	protected final boolean deliver(Object data_, String portID_) 
-	{
-		try {
-			getPort(PortGroup_UP, portID_).doSending(data_);
-			return true;
-		}
-		catch (Exception e_) {
-			return false;
-		}	
-	}
-	
-	/**
-	 The handler invoked when a packet arrives at a "down" port.
-	 Subclasses should override it to handle such an event.
-	 */
-	protected void dataArriveAtDownPort(Object data_, Port downPort_) 
-	{
-		if (isErrorNoticeEnabled())
-			error(data_, "processOther()", downPort_, "data not processed");
-	}
-	
-	/**
-	 The handler invoked when a packet arrives at an "up" port.
-	 Subclasses should override it to handle such an event.
-	 */
-	protected void dataArriveAtUpPort(Object data_,  Port upPort_) 
-	{
-		if (isErrorNoticeEnabled())
-			error(data_, "processOther()", upPort_, "data not processed");
-	}
-	
-	/**
-	 The handler invoked when a timeout event occurs.
-	 Subclasses should override it to handle such an event.
-	 @see #setTimeout(Object, double)
-	 @see #setTimeoutAt(Object, double)
-	 */
-	protected void timeout(Object data_)
-	{
-		if (isErrorNoticeEnabled())
-			error(data_, "timeout()", timerPort, "data not processed");
-	}
-	
-	/**
-	 The handler invoked when a packet arrived at a port other than the
-	 "up", "down" and timer ports. 
-	 */
-	protected void processOther(Object data_, Port inPort_)
-	{
-		if (isErrorNoticeEnabled())
-			error(data_, "processOther()", inPort_, "data not processed");
-	}
-	
-	/** This method classifies <code>inPort_</code> and delegates process of data
-	to the appropriate handler.  If a subclass decides to override this method,
-	then it should call <code>super.process(data_, inPort_)</code> to make those
-	handlers effective.
-	@see #dataArriveAtUpPort(Object, drcl.comp.Port)
-	@see #dataArriveAtDownPort(Object, drcl.comp.Port)
-	@see #processOther(Object, drcl.comp.Port)
-	*/
-	protected /*final*/ void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		String gname_ = inPort_.groupID;
-		
-		if (inPort_ == downPort)
-			dataArriveAtDownPort(data_, inPort_);
-		else if (inPort_ == upPort)
-			dataArriveAtUpPort(data_, inPort_);
-		else if (gname_.equals(PortGroup_DOWN))
-			dataArriveAtDownPort(data_, inPort_);
-		else if (gname_.equals(PortGroup_UP))
-			dataArriveAtUpPort(data_, inPort_);
-		else if (inPort_ == timerPort)
-			timeout(data_);
-		else processOther(data_, inPort_);
-	}
-	
-	/** Sets up a timeout event at the specified absolute time.  
-	 * Returns a timer object that can be used to cancel the event. 
-	 * @see #timeout(Object) */
-	public final ACATimer setTimeoutAt(Object evt_, double time_)
-	{
-		if (timerPort == null) {
-			error(evt_, "setTimeoutAt()", infoPort, "no timerPort is defined");
-			return null;
-		}
-		return forkAt(timerPort, evt_, time_);
-	}
-	
-	/** Sets up a timeout event at the specified time later.
-	 * Returns a timer object that can be used to cancel the event. 
-	 * @see #timeout(Object) */
-	public final ACATimer setTimeout(Object evt_, double duration_)
-	{
-		if (timerPort == null) {
-			error(evt_, "setTimeout()", infoPort, "no timerPort is defined");
-			return null;
-		}
-		return fork(timerPort, evt_, duration_);
-	}
-	
-	/** Cancels a timeout event. */
-	public final void cancelTimeout(ACATimer handle_)
-	{
-		if (timerPort == null) {
-			error(handle_, "cancelTimeout()", infoPort, "no timerPort is defined");
-			return;
-		}
-		cancelFork(handle_);
-	}
-	
-	/** Removes the equipped down port (<code>down@</code>), if it is not used by this module.
-	This method should be called in the construction code block. */
-	protected void removeDefaultDownPort()
-	{ downPort.setRemovable(true); removePort(downPort); downPort = null; }
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+  }
+  
+  /**
+   * Delivers <code>data_</code> at the (up) port specified.
+   * Returns false if failed (e.g. port does not exist).
+   */
+  protected final boolean deliver(Object data_, String portID_) 
+  {
+    try {
+      getPort(PortGroup_UP, portID_).doSending(data_);
+      return true;
+    }
+    catch (Exception e_) {
+      return false;
+    }  
+  }
+  
+  /**
+   The handler invoked when a packet arrives at a "down" port.
+   Subclasses should override it to handle such an event.
+   */
+  protected void dataArriveAtDownPort(Object data_, Port downPort_) 
+  {
+    if (isErrorNoticeEnabled())
+      error(data_, "processOther()", downPort_, "data not processed");
+  }
+  
+  /**
+   The handler invoked when a packet arrives at an "up" port.
+   Subclasses should override it to handle such an event.
+   */
+  protected void dataArriveAtUpPort(Object data_,  Port upPort_) 
+  {
+    if (isErrorNoticeEnabled())
+      error(data_, "processOther()", upPort_, "data not processed");
+  }
+  
+  /**
+   The handler invoked when a timeout event occurs.
+   Subclasses should override it to handle such an event.
+   @see #setTimeout(Object, double)
+   @see #setTimeoutAt(Object, double)
+   */
+  protected void timeout(Object data_)
+  {
+    if (isErrorNoticeEnabled())
+      error(data_, "timeout()", timerPort, "data not processed");
+  }
+  
+  /**
+   The handler invoked when a packet arrived at a port other than the
+   "up", "down" and timer ports. 
+   */
+  protected void processOther(Object data_, Port inPort_)
+  {
+    if (isErrorNoticeEnabled())
+      error(data_, "processOther()", inPort_, "data not processed");
+  }
+  
+  /** This method classifies <code>inPort_</code> and delegates process of data
+  to the appropriate handler.  If a subclass decides to override this method,
+  then it should call <code>super.process(data_, inPort_)</code> to make those
+  handlers effective.
+  @see #dataArriveAtUpPort(Object, drcl.comp.Port)
+  @see #dataArriveAtDownPort(Object, drcl.comp.Port)
+  @see #processOther(Object, drcl.comp.Port)
+  */
+  protected /*final*/ void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    String gname_ = inPort_.groupID;
+    
+    if (inPort_ == downPort)
+      dataArriveAtDownPort(data_, inPort_);
+    else if (inPort_ == upPort)
+      dataArriveAtUpPort(data_, inPort_);
+    else if (gname_.equals(PortGroup_DOWN))
+      dataArriveAtDownPort(data_, inPort_);
+    else if (gname_.equals(PortGroup_UP))
+      dataArriveAtUpPort(data_, inPort_);
+    else if (inPort_ == timerPort)
+      timeout(data_);
+    else processOther(data_, inPort_);
+  }
+  
+  /** Sets up a timeout event at the specified absolute time.  
+   * Returns a timer object that can be used to cancel the event. 
+   * @see #timeout(Object) */
+  public final ACATimer setTimeoutAt(Object evt_, double time_)
+  {
+    if (timerPort == null) {
+      error(evt_, "setTimeoutAt()", infoPort, "no timerPort is defined");
+      return null;
+    }
+    return forkAt(timerPort, evt_, time_);
+  }
+  
+  /** Sets up a timeout event at the specified time later.
+   * Returns a timer object that can be used to cancel the event. 
+   * @see #timeout(Object) */
+  public final ACATimer setTimeout(Object evt_, double duration_)
+  {
+    if (timerPort == null) {
+      error(evt_, "setTimeout()", infoPort, "no timerPort is defined");
+      return null;
+    }
+    return fork(timerPort, evt_, duration_);
+  }
+  
+  /** Cancels a timeout event. */
+  public final void cancelTimeout(ACATimer handle_)
+  {
+    if (timerPort == null) {
+      error(handle_, "cancelTimeout()", infoPort, "no timerPort is defined");
+      return;
+    }
+    cancelFork(handle_);
+  }
+  
+  /** Removes the equipped down port (<code>down@</code>), if it is not used by this module.
+  This method should be called in the construction code block. */
+  protected void removeDefaultDownPort()
+  { downPort.setRemovable(true); removePort(downPort); downPort = null; }
 
-	/** Removes the equipped up port (<code>up@</code>), if it is not used by this module.
-	This method should be called in the construction code block. */
-	protected void removeDefaultUpPort()
-	{ upPort.setRemovable(true); removePort(upPort); upPort = null; }
+  /** Removes the equipped up port (<code>up@</code>), if it is not used by this module.
+  This method should be called in the construction code block. */
+  protected void removeDefaultUpPort()
+  { upPort.setRemovable(true); removePort(upPort); upPort = null; }
 
-	/** Removes the equipped timer port (<code>.timer@</code>), if it is not used by this module.
-	This method should be called in the construction code block. */
-	protected void removeTimerPort()
-	{ timerPort.setRemovable(true); removePort(timerPort); timerPort = null; }
+  /** Removes the equipped timer port (<code>.timer@</code>), if it is not used by this module.
+  This method should be called in the construction code block. */
+  protected void removeTimerPort()
+  { timerPort.setRemovable(true); removePort(timerPort); timerPort = null; }
 }

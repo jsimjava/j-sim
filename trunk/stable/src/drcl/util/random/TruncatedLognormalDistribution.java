@@ -33,109 +33,109 @@ import java.util.*;
 
 public class TruncatedLognormalDistribution extends RandomNumberGenerator
 {
-	public String   getName()
-	{ return "Lognormal Distribution"; }
-	
-	double mean = 0.0, std = 1.0;
-	double cutoff = 0.0;
-	
-	public TruncatedLognormalDistribution ()
-	{ super(); }
+  public String   getName()
+  { return "Lognormal Distribution"; }
+  
+  double mean = 0.0, std = 1.0;
+  double cutoff = 0.0;
+  
+  public TruncatedLognormalDistribution ()
+  { super(); }
 
-	public TruncatedLognormalDistribution (long normalSeed_)
-	{ super(normalSeed_); }
+  public TruncatedLognormalDistribution (long normalSeed_)
+  { super(normalSeed_); }
 
-	public TruncatedLognormalDistribution (double normalMean_, 
-					double normalStd_, double cutoff_)
-	{ this(normalMean_, normalStd_, cutoff_, 0L); }
+  public TruncatedLognormalDistribution (double normalMean_, 
+          double normalStd_, double cutoff_)
+  { this(normalMean_, normalStd_, cutoff_, 0L); }
 
-	public TruncatedLognormalDistribution (double normalMean_, 
-					double normalStd_, double cutoff_, long normalSeed_)
-	{
-		super(normalSeed_);
-		mean = normalMean_;
-		std = normalStd_;
-		cutoff = (Math.log(cutoff_) - mean) / std;
-	}
+  public TruncatedLognormalDistribution (double normalMean_, 
+          double normalStd_, double cutoff_, long normalSeed_)
+  {
+    super(normalSeed_);
+    mean = normalMean_;
+    std = normalStd_;
+    cutoff = (Math.log(cutoff_) - mean) / std;
+  }
 
-	public double getMean()
-	{ return Math.exp(mean + std*std/2) * (0.5 + _erf(cutoff/std)); }
+  public double getMean()
+  { return Math.exp(mean + std*std/2) * (0.5 + _erf(cutoff/std)); }
 
-	// XXX: estimation of erf(); wait for next JDK to include erf()
-	double _erf(double x)
-	{
-		if (x < 0) return -_erf(-x);
-		else return 1.0 - Math.exp(-1.6*x);
-	}
-	
-	public double nextDouble()
-	{
-		double tmp_;
-		do { tmp_ = r.nextGaussian(); } while ( tmp_ > cutoff ); 
-		return Math.exp(tmp_ * std + mean);
-	}
+  // XXX: estimation of erf(); wait for next JDK to include erf()
+  double _erf(double x)
+  {
+    if (x < 0) return -_erf(-x);
+    else return 1.0 - Math.exp(-1.6*x);
+  }
+  
+  public double nextDouble()
+  {
+    double tmp_;
+    do { tmp_ = r.nextGaussian(); } while ( tmp_ > cutoff ); 
+    return Math.exp(tmp_ * std + mean);
+  }
 
-	public int nextInt()
-	{
-		return (int) nextDouble();
-	}
+  public int nextInt()
+  {
+    return (int) nextDouble();
+  }
 
-	public long nextLong()
-	{
-		return (long) nextDouble();
-	}
+  public long nextLong()
+  {
+    return (long) nextDouble();
+  }
 
-	/** Sets the "normal" distribution mean for the lognormal distribution. */
-	public void setNormalMean(double m_)
-	{
-		cutoff = getCutOff();
-		mean = m_;
-		setCutOff(cutoff);
-	}
+  /** Sets the "normal" distribution mean for the lognormal distribution. */
+  public void setNormalMean(double m_)
+  {
+    cutoff = getCutOff();
+    mean = m_;
+    setCutOff(cutoff);
+  }
 
-	/** Returns the "normal" distribution mean for the lognormal distribution.
-	 */
-	public double getNormalMean()
-	{ return mean; }
-	
-	/** Sets the "normal" distribution std for the lognormal distribution. */
-	public void setNormalStd(double std_)
-	{
-		cutoff = getCutOff();
-		std = std_;
-		setCutOff(cutoff);
-	}
+  /** Returns the "normal" distribution mean for the lognormal distribution.
+   */
+  public double getNormalMean()
+  { return mean; }
+  
+  /** Sets the "normal" distribution std for the lognormal distribution. */
+  public void setNormalStd(double std_)
+  {
+    cutoff = getCutOff();
+    std = std_;
+    setCutOff(cutoff);
+  }
 
-	/** Returns the "normal" distribution std for the lognormal distribution. */
-	public double getNormalStd()
-	{ return std; }
+  /** Returns the "normal" distribution std for the lognormal distribution. */
+  public double getNormalStd()
+  { return std; }
 
-	/** Sets the cut-off point in the lognormal distribution. */
-	public void setCutOff(double cutoff_)
-	{
-		cutoff = (Math.log(cutoff_) - mean ) / std;
-	}
+  /** Sets the cut-off point in the lognormal distribution. */
+  public void setCutOff(double cutoff_)
+  {
+    cutoff = (Math.log(cutoff_) - mean ) / std;
+  }
 
-	/** Returns the cut-off point in the lognormal distribution. */
-	public double getCutOff()
-	{
-		return Math.exp(cutoff * std + mean);
-	}
+  /** Returns the cut-off point in the lognormal distribution. */
+  public double getCutOff()
+  {
+    return Math.exp(cutoff * std + mean);
+  }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Normal Mean = " + mean + "\n"
-			+  prefix_ + "Normal Std. = " + std + "\n"
-			+  prefix_ + "Cut-off     = " + getCutOff() + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Normal Mean = " + mean + "\n"
+      +  prefix_ + "Normal Std. = " + std + "\n"
+      +  prefix_ + "Cut-off     = " + getCutOff() + "\n";
+  }
 
-	public String oneline()
-	{
-		return super.oneline()
-			+ ", normal_mean=" + mean
-			+ ", normal_std=" + std
-			+ ", cutoff=" + getCutOff();
-	}
+  public String oneline()
+  {
+    return super.oneline()
+      + ", normal_mean=" + mean
+      + ", normal_std=" + std
+      + ", cutoff=" + getCutOff();
+  }
 }
 

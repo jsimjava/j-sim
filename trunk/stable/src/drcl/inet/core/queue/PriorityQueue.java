@@ -51,301 +51,301 @@ import drcl.inet.InetPacketInterface;
  * is found for the packet.
  */
 public class PriorityQueue extends drcl.inet.core.Queue 
-	implements drcl.net.PktClassifier
+  implements drcl.net.PktClassifier
 {
-	/** Name of the port that exports the instant queue size change events. */
-	public static final String EVENT_QSIZE_PORT_ID = ".q";
-	public static final String EVENT_QLEN = "Instant Q Length";
-	protected Port qLenPort = addEventPort(".q");
+  /** Name of the port that exports the instant queue size change events. */
+  public static final String EVENT_QSIZE_PORT_ID = ".q";
+  public static final String EVENT_QLEN = "Instant Q Length";
+  protected Port qLenPort = addEventPort(".q");
 
-	/** The real queue that holds packets. */
-	VSFIFOQueue[] qq = null;
+  /** The real queue that holds packets. */
+  VSFIFOQueue[] qq = null;
 
-	/** Levels of queue logics. */
-	QLogic[] qlogics;
-	
-	PktClassifier classifier = this;
+  /** Levels of queue logics. */
+  QLogic[] qlogics;
+  
+  PktClassifier classifier = this;
 
-	int capacity = Integer.MAX_VALUE;
-	int currentSize = 0;
+  int capacity = Integer.MAX_VALUE;
+  int currentSize = 0;
 
-	public PriorityQueue()
-	{ super(); }
-	
-	public PriorityQueue(String id_)
-	{ super(id_); }
-	
-	/**
-	 * Implements {@link drcl.net.PktClassifier#classify(drcl.net.Packet)}.
-	 * It simply return (1 - the first bit of the ToS field of the INET header)
-	 * so CONTROL packets have higher priority than DATA packets. 
-	 */
-	public int classify(Packet p_)
-	{
-		if (p_ instanceof InetPacketInterface)
-			return 1 - (int) ((InetPacketInterface)p_).getToS() & 01;
-		else
-			return 0;
-	}
+  public PriorityQueue()
+  { super(); }
+  
+  public PriorityQueue(String id_)
+  { super(id_); }
+  
+  /**
+   * Implements {@link drcl.net.PktClassifier#classify(drcl.net.Packet)}.
+   * It simply return (1 - the first bit of the ToS field of the INET header)
+   * so CONTROL packets have higher priority than DATA packets. 
+   */
+  public int classify(Packet p_)
+  {
+    if (p_ instanceof InetPacketInterface)
+      return 1 - (int) ((InetPacketInterface)p_).getToS() & 01;
+    else
+      return 0;
+  }
 
-	public void setClassifier(PktClassifier pc_)
-	{ classifier = pc_; }
+  public void setClassifier(PktClassifier pc_)
+  { classifier = pc_; }
 
-	public void reset()
-	{
-		super.reset();
-		if (qq != null)
-			for (int i=0; i<qq.length; i++)
-				qq[i].reset();
-		if (qlogics != null) {
-			for (int i=0; i<qlogics.length; i++)
-				if (qlogics[i] != null)
-					qlogics[i].reset();
-		}
-		currentSize = 0;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		PriorityQueue that_ = (PriorityQueue)source_;
-		classifier = that_.classifier; // FIXME:??
-		capacity = that_.capacity;
-		if (that_.qq != null) setLevels(that_.qq.length);
+  public void reset()
+  {
+    super.reset();
+    if (qq != null)
+      for (int i=0; i<qq.length; i++)
+        qq[i].reset();
+    if (qlogics != null) {
+      for (int i=0; i<qlogics.length; i++)
+        if (qlogics[i] != null)
+          qlogics[i].reset();
+    }
+    currentSize = 0;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    PriorityQueue that_ = (PriorityQueue)source_;
+    classifier = that_.classifier; // FIXME:??
+    capacity = that_.capacity;
+    if (that_.qq != null) setLevels(that_.qq.length);
 
-		if (that_.qlogics == null) qlogics = null;
-		else {
-			try {
-				qlogics = new QLogic[that_.qlogics.length];
-				for (int i=0; i<qlogics.length; i++) {
-					QLogic thatqlogic_ = that_.qlogics[i];
-					if (thatqlogic_ == null) {
-						setQLogic(i, null); continue;
-					}
-					QLogic qlogic_ = (QLogic)thatqlogic_.getClass().newInstance();
-					// must sethost() before calling qlogic.duplicate() so that
-					// the event ports are also duplicated
-					qlogic_.setHost(this);
-					qlogic_.duplicate(thatqlogic_);
-					setQLogic(i, qlogic_);
-				}
-			} catch (Exception e_) {
-				drcl.Debug.error(e_);
-				e_.printStackTrace();
-			}
-		}
-	}
-	
-	public String info(String prefix_)
-	{ return info(prefix_, false); }
+    if (that_.qlogics == null) qlogics = null;
+    else {
+      try {
+        qlogics = new QLogic[that_.qlogics.length];
+        for (int i=0; i<qlogics.length; i++) {
+          QLogic thatqlogic_ = that_.qlogics[i];
+          if (thatqlogic_ == null) {
+            setQLogic(i, null); continue;
+          }
+          QLogic qlogic_ = (QLogic)thatqlogic_.getClass().newInstance();
+          // must sethost() before calling qlogic.duplicate() so that
+          // the event ports are also duplicated
+          qlogic_.setHost(this);
+          qlogic_.duplicate(thatqlogic_);
+          setQLogic(i, qlogic_);
+        }
+      } catch (Exception e_) {
+        drcl.Debug.error(e_);
+        e_.printStackTrace();
+      }
+    }
+  }
+  
+  public String info(String prefix_)
+  { return info(prefix_, false); }
 
-	public String info(String prefix_, boolean listContent_)
-	{
-		try {
-		StringBuffer sb_ = new StringBuffer(super.info(prefix_) + prefix_
-										+ "Classifier:" + classifier + "\n");
-		if (qlogics == null)
-			sb_.append(prefix_ + "No queue logic is installed.\n");
-		else {
-			sb_.append(prefix_ + "QueueLogics: # of levels=" + qlogics.length
-							+ "\n");
-			for (int i=0; i<qlogics.length; i++) {
-				if (qlogics[i] == null) continue;
-				sb_.append(prefix_ + "   Level" + i + ":\n"
-								+ qlogics[i].info(prefix_ + "      "));
-			}
-		}
-		if (qq == null || qq.length == 0)
-			sb_.append(prefix_ + "No queue is installed.\n");
-		else {
-			for (int i=0; i<qq.length; i++)
-				sb_.append(prefix_ + "Queue" + i + ": "
-								+ qq[i].info("", listContent_) + "\n");
-		}
-		return sb_.toString();
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			return null;
-		}
-	}
+  public String info(String prefix_, boolean listContent_)
+  {
+    try {
+    StringBuffer sb_ = new StringBuffer(super.info(prefix_) + prefix_
+                    + "Classifier:" + classifier + "\n");
+    if (qlogics == null)
+      sb_.append(prefix_ + "No queue logic is installed.\n");
+    else {
+      sb_.append(prefix_ + "QueueLogics: # of levels=" + qlogics.length
+              + "\n");
+      for (int i=0; i<qlogics.length; i++) {
+        if (qlogics[i] == null) continue;
+        sb_.append(prefix_ + "   Level" + i + ":\n"
+                + qlogics[i].info(prefix_ + "      "));
+      }
+    }
+    if (qq == null || qq.length == 0)
+      sb_.append(prefix_ + "No queue is installed.\n");
+    else {
+      for (int i=0; i<qq.length; i++)
+        sb_.append(prefix_ + "Queue" + i + ": "
+                + qq[i].info("", listContent_) + "\n");
+    }
+    return sb_.toString();
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      return null;
+    }
+  }
 
-	public Queue getQueue(int level_)
-	{
-		if (qq == null || level_ < 0 || qq.length <= level_)
-			return null;
-		else
-			return qq[level_];
-	}
+  public Queue getQueue(int level_)
+  {
+    if (qq == null || level_ < 0 || qq.length <= level_)
+      return null;
+    else
+      return qq[level_];
+  }
 
-	// make sure array has a spot at the level_
-	void _assureLogics(int level_)
-	{
-		if (level_ < 0) throw new IndexOutOfBoundsException("negative index:" + level_);
-		if (qlogics == null) qlogics = new QLogic[level_ + 1];
-		if (qlogics.length > level_) return;
+  // make sure array has a spot at the level_
+  void _assureLogics(int level_)
+  {
+    if (level_ < 0) throw new IndexOutOfBoundsException("negative index:" + level_);
+    if (qlogics == null) qlogics = new QLogic[level_ + 1];
+    if (qlogics.length > level_) return;
 
-		// create a larger array
-		QLogic[] tmp_ = new QLogic[level_ + 1];
-		System.arraycopy(qlogics, 0, tmp_, 0, qlogics.length);
-		qlogics = tmp_;
-		if (qq.length <= level_) {
-			VSFIFOQueue[] tmp2_ = new VSFIFOQueue[level_ + 1];
-			System.arraycopy(qq, 0, tmp2_, 0, qq.length);
-			for (int i=qq.length; i<=level_; i++)
-				qq[i] = new VSFIFOQueue();
-			qq = tmp2_;
-		}
-	}
+    // create a larger array
+    QLogic[] tmp_ = new QLogic[level_ + 1];
+    System.arraycopy(qlogics, 0, tmp_, 0, qlogics.length);
+    qlogics = tmp_;
+    if (qq.length <= level_) {
+      VSFIFOQueue[] tmp2_ = new VSFIFOQueue[level_ + 1];
+      System.arraycopy(qq, 0, tmp2_, 0, qq.length);
+      for (int i=qq.length; i<=level_; i++)
+        qq[i] = new VSFIFOQueue();
+      qq = tmp2_;
+    }
+  }
 
-	/**
-	 * @param level_ level index of the queue logic.
-	 */
-	public void setQLogic(int level_, QLogic qlogic_)
-	{
-		_assureLogics(level_);
-		qlogics[level_] = qlogic_;
-	}
+  /**
+   * @param level_ level index of the queue logic.
+   */
+  public void setQLogic(int level_, QLogic qlogic_)
+  {
+    _assureLogics(level_);
+    qlogics[level_] = qlogic_;
+  }
 
-	public void setLevels(int nlevels_)
-	{
-		qq = new VSFIFOQueue[nlevels_];
-		for (int i=0; i<qq.length; i++)
-			qq[i] = new VSFIFOQueue();
-	}
+  public void setLevels(int nlevels_)
+  {
+    qq = new VSFIFOQueue[nlevels_];
+    for (int i=0; i<qq.length; i++)
+      qq[i] = new VSFIFOQueue();
+  }
 
-	public QLogic getQLogic(int level_)
-	{ return qlogics[level_]; }
-	
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueue(Object obj_)
-	{
-		Packet p_ = (Packet)obj_;
-		int psize_ = isByteMode()? p_.size: 1;
-		int level_ = classifier.classify(p_);
-		if (level_ < 0 || level_ >= qq.length)
-			level_ = qq.length-1; // lowest priority
-		
-		if (currentSize + psize_ > capacity) {
-			if (isGarbageEnabled()) drop(p_, "buffer overflow");
+  public QLogic getQLogic(int level_)
+  { return qlogics[level_]; }
+  
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueue(Object obj_)
+  {
+    Packet p_ = (Packet)obj_;
+    int psize_ = isByteMode()? p_.size: 1;
+    int level_ = classifier.classify(p_);
+    if (level_ < 0 || level_ >= qq.length)
+      level_ = qq.length-1; // lowest priority
+    
+    if (currentSize + psize_ > capacity) {
+      if (isGarbageEnabled()) drop(p_, "buffer overflow");
 
-			// do we need to do this?
-			if (qlogics != null && qlogics.length > level_
-						&& qlogics[level_] != null)
-				qlogics[level_].dropHandler(p_, psize_);
-			return null;
-		}
+      // do we need to do this?
+      if (qlogics != null && qlogics.length > level_
+            && qlogics[level_] != null)
+        qlogics[level_].dropHandler(p_, psize_);
+      return null;
+    }
 
-		if (qlogics != null && qlogics.length > level_
-						&& qlogics[level_] != null) {
-			String advice_ = qlogics[level_].adviceOn(p_, psize_);
-		
-			if (advice_ != null) {
-				if (isGarbageEnabled()) drop(p_, advice_);
-				qlogics[level_].dropHandler(p_, psize_);
-				return null;
-			}
-		}
-		qq[level_].enqueue(p_);
-		currentSize += psize_;
-		if (qLenPort._isEventExportEnabled())
-			qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
-		return null;
-	}
-	
-	/**
-	 * Dequeues and returns the first object in the queue.
-	 * @return the object dequeued; null if queue is empty.
-	 */
-	public Object dequeue()
-	{
-		for (int i=0; i<qq.length; i++) {
-			VSFIFOQueue q = qq[i];
-			if (q.isEmpty()) continue;
-			Packet p_ = (Packet) q.dequeue();
-			int psize_ = isByteMode()? p_.size: 1;
-			if (qlogics != null && qlogics.length > i && qlogics[i] != null)
-				qlogics[i].dequeueHandler(p_, psize_);
-			currentSize -= psize_;
-			if (qLenPort._isEventExportEnabled())
-				qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
-			return p_;
-		}
-		return null;
-	}
-	
-	/**
-	 * Retrieves but not remove the object at the position specified.
-	 * @return the object; null if position is not valid.
-	 */
-	public Object peekAt(int pos_)
-	{
-		for (int i=0; i<qq.length; i++) {
-			VSFIFOQueue q = qq[i];
-			if (q.getSize() <= pos_) {
-				pos_ -= q.getSize();
-				continue;
-			}
-			else
-				return q.retrieveAt(pos_);
-		}
-		return null;
-	}
-	
-	/**
-	 * Retrieves but not dequeue the first object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object firstElement()
-	{
-		for (int i=0; i<qq.length; i++) {
-			VSFIFOQueue q = qq[i];
-			if (q.isEmpty()) continue;
-			return q.firstElement();
-		}
-		return null;
-	}
+    if (qlogics != null && qlogics.length > level_
+            && qlogics[level_] != null) {
+      String advice_ = qlogics[level_].adviceOn(p_, psize_);
+    
+      if (advice_ != null) {
+        if (isGarbageEnabled()) drop(p_, advice_);
+        qlogics[level_].dropHandler(p_, psize_);
+        return null;
+      }
+    }
+    qq[level_].enqueue(p_);
+    currentSize += psize_;
+    if (qLenPort._isEventExportEnabled())
+      qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
+    return null;
+  }
+  
+  /**
+   * Dequeues and returns the first object in the queue.
+   * @return the object dequeued; null if queue is empty.
+   */
+  public Object dequeue()
+  {
+    for (int i=0; i<qq.length; i++) {
+      VSFIFOQueue q = qq[i];
+      if (q.isEmpty()) continue;
+      Packet p_ = (Packet) q.dequeue();
+      int psize_ = isByteMode()? p_.size: 1;
+      if (qlogics != null && qlogics.length > i && qlogics[i] != null)
+        qlogics[i].dequeueHandler(p_, psize_);
+      currentSize -= psize_;
+      if (qLenPort._isEventExportEnabled())
+        qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
+      return p_;
+    }
+    return null;
+  }
+  
+  /**
+   * Retrieves but not remove the object at the position specified.
+   * @return the object; null if position is not valid.
+   */
+  public Object peekAt(int pos_)
+  {
+    for (int i=0; i<qq.length; i++) {
+      VSFIFOQueue q = qq[i];
+      if (q.getSize() <= pos_) {
+        pos_ -= q.getSize();
+        continue;
+      }
+      else
+        return q.retrieveAt(pos_);
+    }
+    return null;
+  }
+  
+  /**
+   * Retrieves but not dequeue the first object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object firstElement()
+  {
+    for (int i=0; i<qq.length; i++) {
+      VSFIFOQueue q = qq[i];
+      if (q.isEmpty()) continue;
+      return q.firstElement();
+    }
+    return null;
+  }
 
-	/**
-	 * Retrieves but not remove the last object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object lastElement()
-	{
-		for (int i=qq.length-1; i>=0; i--) {
-			VSFIFOQueue q = qq[i];
-			if (q.isEmpty()) continue;
-			return q.lastElement();
-		}
-		return null;
-	}
+  /**
+   * Retrieves but not remove the last object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object lastElement()
+  {
+    for (int i=qq.length-1; i>=0; i--) {
+      VSFIFOQueue q = qq[i];
+      if (q.isEmpty()) continue;
+      return q.lastElement();
+    }
+    return null;
+  }
 
-	/** Return true if the queue is full. */
-	public boolean isFull()
-	{ return currentSize >= capacity; }
-	
-	/** Return true if the queue is empty.  */
-	public boolean isEmpty()
-	{
-		for (int i=0; i<qq.length; i++) {
-			VSFIFOQueue q = qq[i];
-			if (!q.isEmpty()) return false;
-		}
-		return true;
-	}
-	
-	/** Sets the capacity of the queue. */
-	public void setCapacity(int capacity_)
-	{ capacity = capacity_; }
-	
-	/** Returns the capacity of the queue. */
-	public int getCapacity()
-	{ return capacity; }
-	
-	/** Returns the current size of the queue.  */
-	public int getSize()
-	{ return currentSize; }
+  /** Return true if the queue is full. */
+  public boolean isFull()
+  { return currentSize >= capacity; }
+  
+  /** Return true if the queue is empty.  */
+  public boolean isEmpty()
+  {
+    for (int i=0; i<qq.length; i++) {
+      VSFIFOQueue q = qq[i];
+      if (!q.isEmpty()) return false;
+    }
+    return true;
+  }
+  
+  /** Sets the capacity of the queue. */
+  public void setCapacity(int capacity_)
+  { capacity = capacity_; }
+  
+  /** Returns the capacity of the queue. */
+  public int getCapacity()
+  { return capacity; }
+  
+  /** Returns the current size of the queue.  */
+  public int getSize()
+  { return currentSize; }
 }

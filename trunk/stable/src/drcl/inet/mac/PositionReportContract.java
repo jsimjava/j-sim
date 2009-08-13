@@ -46,20 +46,20 @@ import drcl.util.StringUtil;
  */ 
 public class PositionReportContract extends Contract
 {
-	public static final PositionReportContract INSTANCE = new PositionReportContract();
+  public static final PositionReportContract INSTANCE = new PositionReportContract();
 
-	public PositionReportContract()
-	{ super(); }
-	
-	public PositionReportContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Position Report Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
+  public PositionReportContract()
+  { super(); }
+  
+  public PositionReportContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Position Report Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
     
     /**
      * Constructs a position report message and sends it through out_ port.
@@ -70,18 +70,18 @@ public class PositionReportContract extends Contract
      *@out_     the port through which to send the constructed message.
      *
      */
-	public static void report(double X_, double Y_, double Z_, Port out_)    
-	{ out_.doSending(new Message(X_, Y_, Z_)); }
-	
-	/** The position report message.  */
+  public static void report(double X_, double Y_, double Z_, Port out_)    
+  { out_.doSending(new Message(X_, Y_, Z_)); }
+  
+  /** The position report message.  */
     public static class Message extends drcl.comp.Message
-	{
+  {
         long   nid;          //  node id
         double X, Y, Z;      //  new position
         double X0, Y0, Z0;   //  original position
         
-		public Message ()
-		{}
+    public Message ()
+    {}
 
         /** Constructor
          *
@@ -93,46 +93,46 @@ public class PositionReportContract extends Contract
          *@param Y0_ the y coordinate of the node previous position
          *@param Z0_ the z coordinate of the node previous position
          */
-		public Message (long nid_, double X_, double Y_, double Z_, double X0_, double Y0_, double Z0_)
-		{
-			nid = nid_; X = X_;  Y = Y_;  Z = Z_; X0 = X0_;  Y0 = Y0_;  Z0 = Z0_;
-		}
-		
+    public Message (long nid_, double X_, double Y_, double Z_, double X0_, double Y0_, double Z0_)
+    {
+      nid = nid_; X = X_;  Y = Y_;  Z = Z_; X0 = X0_;  Y0 = Y0_;  Z0 = Z0_;
+    }
+    
         /** 
          * This is only used while MobilityModel responding WirelessPhy's query and reporting its own position. 
          */
         public Message (double X_, double Y_, double Z_)
-		{
-			nid = -1;
+    {
+      nid = -1;
             X = X_;  Y = Y_;  Z = Z_; 
             X0 = X_;  Y0 = Y_;  Z0 = Z_;
-		}
+    }
         
         public long   getNid() { return nid; }
-		public double getX()   { return X; }
-		public double getY()   { return Y; }
-		public double getZ()   { return Z; }
-		public double getX0()  { return X0; }
-		public double getY0()  { return Y0; }
-		public double getZ0()  { return Z0; }
+    public double getX()   { return X; }
+    public double getY()   { return Y; }
+    public double getZ()   { return Z; }
+    public double getX0()  { return X0; }
+    public double getY0()  { return Y0; }
+    public double getZ0()  { return Z0; }
 
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
             nid = that_.nid; X = that_.X;  Y = that_.Y;  Z = that_.Z; X0 = that_.X0;  Y0 = that_.Y0;  Z0 = that_.Z0;
-		}
-		*/
-	
-		public Object clone()
-		{ return new Message(nid, X, Y, Z, X0, Y0, Z0); }
+    }
+    */
+  
+    public Object clone()
+    { return new Message(nid, X, Y, Z, X0, Y0, Z0); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			return "Position Report:" + separator_ + "nid=" + nid + separator_ + "X=" + X + separator_ + "Y=" + Y + separator_ + "Z=" + Z + separator_ + "X0=" + X0 + separator_ + "Y0=" + Y0 + separator_ + "Z0=" + Z0;
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "Position Report:" + separator_ + "nid=" + nid + separator_ + "X=" + X + separator_ + "Y=" + Y + separator_ + "Z=" + Z + separator_ + "X0=" + X0 + separator_ + "Y0=" + Y0 + separator_ + "Z0=" + Z0;
+    }
+  }
 }

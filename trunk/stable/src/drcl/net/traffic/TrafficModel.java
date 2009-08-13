@@ -33,23 +33,23 @@ package drcl.net.traffic;
  */
 public abstract class TrafficModel extends drcl.DrclObj
 {
-	/**
-	 * Returns the load of this traffic model instance (bps).
-	 * It provides a general sense of how much
-	 * traffic there is in this model instance.
-	 */
-	public abstract double getLoad();
-	
-	/** Returns the maximum transmission unit (MTU) of this model instance (byte). */
-	public abstract int getMTU();
-	
-	/** Returns the maximum burstness that can be generated from this model instance (byte). */
-	public abstract int getBurst();
+  /**
+   * Returns the load of this traffic model instance (bps).
+   * It provides a general sense of how much
+   * traffic there is in this model instance.
+   */
+  public abstract double getLoad();
+  
+  /** Returns the maximum transmission unit (MTU) of this model instance (byte). */
+  public abstract int getMTU();
+  
+  /** Returns the maximum burstness that can be generated from this model instance (byte). */
+  public abstract int getBurst();
 
-	/** Merges this instance with the specified one and returns this instance. */
-	public abstract TrafficModel merge(TrafficModel that_);
+  /** Merges this instance with the specified one and returns this instance. */
+  public abstract TrafficModel merge(TrafficModel that_);
 
-	/** Prints and returns the parameters of this model instance in one line of String. */
-	public abstract String oneline();
+  /** Prints and returns the parameters of this model instance in one line of String. */
+  public abstract String oneline();
 }
 

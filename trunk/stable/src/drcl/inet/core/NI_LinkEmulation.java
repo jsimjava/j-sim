@@ -33,50 +33,50 @@ package drcl.inet.core;
  */
 public abstract class NI_LinkEmulation extends NI
 {
-	/** The propagation delay of the emulated link. */
-	protected double propDelay = 0.0;
+  /** The propagation delay of the emulated link. */
+  protected double propDelay = 0.0;
 
-	/** Link emulation is enabled? */
-	protected boolean linkEmulation = false;
+  /** Link emulation is enabled? */
+  protected boolean linkEmulation = false;
 
-	public NI_LinkEmulation()
-	{ super(); }
-	
-	public NI_LinkEmulation(String id_)
-	{ super(id_); }
-	
-	public void duplicate(Object source_) 
-	{
-		if (!(source_ instanceof NI_LinkEmulation)) return;
-		super.duplicate(source_);
-		NI_LinkEmulation that_ = (NI_LinkEmulation)source_;
-		propDelay = that_.propDelay;
-		linkEmulation = that_.linkEmulation;
-	}
-	
-	
-	public String info()
-	{
-		return   super.info()
-			   + "State:" + (isReady()? "ready": "busy")
-			   + (linkEmulation? ", Link emulation enabled with prop. delay "
-							   + propDelay: "") + "\n";
-	}
-	
-	public void setLinkEmulationEnabled(boolean v_)
-	{ linkEmulation = v_; }
-	
-	public boolean isLinkEmulationEnabled()
-	{ return linkEmulation; }
-	
-	/** Returns the propagation delay of the emulated link. */
-	public double getPropDelay() 
-	{ return propDelay; }
-	
-	/** Enables link emulation and sets the propagation delay of the emulated
-	 * link. */
-	public void setPropDelay(double delay_) 
-	{ propDelay = delay_; linkEmulation = true; }
+  public NI_LinkEmulation()
+  { super(); }
+  
+  public NI_LinkEmulation(String id_)
+  { super(id_); }
+  
+  public void duplicate(Object source_) 
+  {
+    if (!(source_ instanceof NI_LinkEmulation)) return;
+    super.duplicate(source_);
+    NI_LinkEmulation that_ = (NI_LinkEmulation)source_;
+    propDelay = that_.propDelay;
+    linkEmulation = that_.linkEmulation;
+  }
+  
+  
+  public String info()
+  {
+    return   super.info()
+         + "State:" + (isReady()? "ready": "busy")
+         + (linkEmulation? ", Link emulation enabled with prop. delay "
+                 + propDelay: "") + "\n";
+  }
+  
+  public void setLinkEmulationEnabled(boolean v_)
+  { linkEmulation = v_; }
+  
+  public boolean isLinkEmulationEnabled()
+  { return linkEmulation; }
+  
+  /** Returns the propagation delay of the emulated link. */
+  public double getPropDelay() 
+  { return propDelay; }
+  
+  /** Enables link emulation and sets the propagation delay of the emulated
+   * link. */
+  public void setPropDelay(double delay_) 
+  { propDelay = delay_; linkEmulation = true; }
 }
 
 

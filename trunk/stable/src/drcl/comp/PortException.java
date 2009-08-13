@@ -30,12 +30,12 @@ package drcl.comp;
 
 public class PortException extends Error
 {
-	public PortException()
-	{ super(); }
+  public PortException()
+  { super(); }
 
-	public PortException(String msg_)
-	{ super(msg_); }
+  public PortException(String msg_)
+  { super(msg_); }
 
-	public PortException(Port port_, String msg_)
-	{ super(port_ + ": " + msg_); }
+  public PortException(Port port_, String msg_)
+  { super(port_ + ": " + msg_); }
 }

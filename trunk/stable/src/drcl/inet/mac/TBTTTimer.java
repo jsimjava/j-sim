@@ -43,15 +43,15 @@ import drcl.comp.*;
 
 
 public class TBTTTimer extends Mac_802_11_Timer {
-	public TBTTTimer(Mac_802_11 h) {	
-		super(h); 
-		o_.setType(MacTimeoutEvt.TBTT_timeout); 
-	}
+  public TBTTTimer(Mac_802_11 h) {  
+    super(h); 
+    o_.setType(MacTimeoutEvt.TBTT_timeout); 
+  }
 
-	public void handle( ) {
-		busy_ = false;
-	    paused_ = false;
-	    stime = 0.0;
-	    rtime = 0.0;
-	}
+  public void handle( ) {
+    busy_ = false;
+      paused_ = false;
+      stime = 0.0;
+      rtime = 0.0;
+  }
 }

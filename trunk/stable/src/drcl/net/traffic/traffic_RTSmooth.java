@@ -47,72 +47,72 @@ It defines the following parameters:
  */
 public class traffic_RTSmooth extends TrafficModel implements TrafficPeriodic
 {
-	public double frameLength; // second
-	public int nbits; // max amount of bits can be served in a frame
-	public double origin; // time origin of frame
-	public int mtu; // byte
-	
-	public traffic_RTSmooth()
-	{}
+  public double frameLength; // second
+  public int nbits; // max amount of bits can be served in a frame
+  public double origin; // time origin of frame
+  public int mtu; // byte
+  
+  public traffic_RTSmooth()
+  {}
 
-	public traffic_RTSmooth(int nbits_, double flen_, double forigin_, int mtu_)
-	{ set(nbits_, flen_, forigin_, mtu_); }
+  public traffic_RTSmooth(int nbits_, double flen_, double forigin_, int mtu_)
+  { set(nbits_, flen_, forigin_, mtu_); }
 
-	public void set(int nbits_, double flen_, double forigin_, int mtu_)
-	{
-		nbits = nbits_;
-		frameLength = flen_;
-		origin = forigin_;
-		mtu = nbits_ >= (mtu_ << 3)? mtu_: (nbits_ >> 3)
-			+ ((nbits_ & 7) > 0? 1: 0);
-	}
-		
-	public double getPeriod() { return frameLength; }
-	
-	public double getLoad() 
-	{ return (double)nbits / frameLength; }
+  public void set(int nbits_, double flen_, double forigin_, int mtu_)
+  {
+    nbits = nbits_;
+    frameLength = flen_;
+    origin = forigin_;
+    mtu = nbits_ >= (mtu_ << 3)? mtu_: (nbits_ >> 3)
+      + ((nbits_ & 7) > 0? 1: 0);
+  }
+    
+  public double getPeriod() { return frameLength; }
+  
+  public double getLoad() 
+  { return (double)nbits / frameLength; }
 
-	public int getBurst() { return nbits >> 3; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_RTSmooth)) return null;
-		
-		traffic_RTSmooth thatTraffic_ = (traffic_RTSmooth) that_;
-		if (frameLength > thatTraffic_.frameLength)
-			frameLength = thatTraffic_.frameLength;
-		if (nbits < thatTraffic_.nbits)	nbits = thatTraffic_.nbits;
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_RTSmooth)) return;
-		traffic_RTSmooth that_ = (traffic_RTSmooth) source_;
-		frameLength = that_.frameLength;
-		nbits = that_.nbits;
-		origin = that_.origin;
-	}
-	
-	public String oneline()
-	{
-		return getClass().getName() + ":frameLength=" + frameLength
-			+ "), #bits/frame=" + nbits + ", frameOrigin=" + origin;
-	}
-	
-	//
-	private void ___PROPERTY___() {}
-	//
-	
-	public void setFrameLength(double time_) { frameLength = time_; }
-	public double getFrameLength() { return frameLength; }
-	
-	public void setNBitsPerFrame(int nbits_) { nbits = nbits_; }
-	public int getNBitsPerFrame() { return nbits; }
-	
-	public void setOrigin(double time_) { origin = time_; }
-	public double getOrigin() { return origin; }
-	
-	public int getMTU()	{ 	return mtu;	}
-	public void setMTU(int mtu_) 	{ mtu = mtu_; }
+  public int getBurst() { return nbits >> 3; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_RTSmooth)) return null;
+    
+    traffic_RTSmooth thatTraffic_ = (traffic_RTSmooth) that_;
+    if (frameLength > thatTraffic_.frameLength)
+      frameLength = thatTraffic_.frameLength;
+    if (nbits < thatTraffic_.nbits)  nbits = thatTraffic_.nbits;
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_RTSmooth)) return;
+    traffic_RTSmooth that_ = (traffic_RTSmooth) source_;
+    frameLength = that_.frameLength;
+    nbits = that_.nbits;
+    origin = that_.origin;
+  }
+  
+  public String oneline()
+  {
+    return getClass().getName() + ":frameLength=" + frameLength
+      + "), #bits/frame=" + nbits + ", frameOrigin=" + origin;
+  }
+  
+  //
+  private void ___PROPERTY___() {}
+  //
+  
+  public void setFrameLength(double time_) { frameLength = time_; }
+  public double getFrameLength() { return frameLength; }
+  
+  public void setNBitsPerFrame(int nbits_) { nbits = nbits_; }
+  public int getNBitsPerFrame() { return nbits; }
+  
+  public void setOrigin(double time_) { origin = time_; }
+  public double getOrigin() { return origin; }
+  
+  public int getMTU()  {   return mtu;  }
+  public void setMTU(int mtu_)   { mtu = mtu_; }
 }
