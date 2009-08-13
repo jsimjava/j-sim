@@ -1,0 +1,107 @@
+Test 1
+--------- TEST STARTS ---------
+10 events in the batch.
+Event 0| (v)msg| Test: add an entry w/o timeout
+Event 1| (v)send| 0.0| /test/tester/rt@| RTCONFIG:add--key:(100,100,100)(-1,-1,-1)--entry:null:??-0,2,4-Hello!-0.0--timeout:-1.0
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/rtchanged@| (?)EVENT--0.0--/test/rt/.rt_ucast@--RT Entry Added--(100,100,100)(-1,-1,-1):??-0,2,4-Hello!-NaN--
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/rt@| (v)<null>
+Event 4| (v)msg| Test: look up the entry
+Event 5| (v)send| 100.0| /test/tester/rt@| (100,100,100)(-1,-1,-1)
+Event 6| (v)rcv| (v)100.0| (v)/test/tester/rt@| (v)(0,2,4)
+Event 7| (v)send| 100.0| /test/tester/rt@| RTCONFIG:retrieve--key:(100,100,100)(-1,-1,-1)--match:exact match
+Event 8| (v)rcv| (v)100.0| (v)/test/tester/rt@| (v)(100,100,100)(-1,-1,-1):??-0,2,4-Hello!-NaN
+Event 9| (v)finish| 1000.0
+------- (?) Test finished --------
+#Entries=1
+(100,100,100)(-1,-1,-1)   	---{0,2,4}	Hello!	timeout:NaN
+
+Test 2
+--------- TEST STARTS ---------
+27 events in the batch.
+Event 0| (v)msg| Test: add an entry with timeout 200.0
+Event 1| (v)send| 0.0| /test/tester/rt@| RTCONFIG:add--key:(200,-200,200)(-1,-1,-1)--entry:null:??-0,4-Hello!-0.0--timeout:200.0
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/rtchanged@| (?)EVENT--1000.0--/test/rt/.rt_mcast@--RT Entry Added--(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1200.0--
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/rt@| (v)<null>
+Event 4| (v)send| 100.0| /test/tester/rt@| RTCONFIG:retrieve--key:(200,-200,200)(-1,-1,-1)--match:exact match
+Event 5| (v)rcv| (v)100.0| (v)/test/tester/rt@| (v)(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1200.0
+Event 6| (v)msg| Test: look up timed-out entry
+Event 7| (v)send| 199.0| /test/tester/rt@| (200,-200,200)(-1,-1,-1)
+Event 8| (v)rcv| (v)199.0| (v)/test/tester/rt@| (v)(0,4)
+Event 9| (?)rcv| (v)200.0| (v)/test/tester/rtchanged@| (?)EVENT--1200.0--/test/rt/.rt_mcast@--RT Entry Removed--(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1200.0--due to timeout
+Event 10| (v)send| 201.0| /test/tester/rt@| (200,-200,200)(-1,-1,-1)
+Event 11| (v)rcv| (v)201.0| (v)/test/tester/rt@| (v)<null>
+Event 12| (v)msg| Test: add an entry with timeout 200.0 and extend it at 499.0
+Event 13| (v)send| 300.0| /test/tester/rt@| RTCONFIG:add--key:(200,-200,200)(-1,-1,-1)--entry:(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1200.0--timeout:200.0
+Event 14| (?)rcv| (v)300.0| (v)/test/tester/rtchanged@| (?)EVENT--1300.0--/test/rt/.rt_mcast@--RT Entry Added--(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1500.0--
+Event 15| (v)rcv| (v)300.0| (v)/test/tester/rt@| (v)<null>
+Event 16| (v)send| 499.0| /test/tester/rt@| (200,-200,200)(-1,-1,-1)
+Event 17| (v)rcv| (v)499.0| (v)/test/tester/rt@| (v)(0,4)
+Event 18| (v)send| 499.0| /test/tester/rt@| RTCONFIG:add--key:(200,-200,200)(-1,-1,-1)--entry:(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1500.0--timeout:200.0
+Event 19| (?)rcv| (v)499.0| (v)/test/tester/rtchanged@| (?)EVENT--1499.0--/test/rt/.rt_mcast@--RT Entry Modified--((200,-200,200)(-1,-1,-1):??-0,4-Hello!-1699.0,(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1699.0)--
+Event 20| (v)rcv| (v)499.0| (v)/test/tester/rt@| (v)<null>
+Event 21| (v)send| 698.0| /test/tester/rt@| (200,-200,200)(-1,-1,-1)
+Event 22| (v)rcv| (v)698.0| (v)/test/tester/rt@| (v)(0,4)
+Event 23| (?)rcv| (v)699.0| (v)/test/tester/rtchanged@| (?)EVENT--1699.0--/test/rt/.rt_mcast@--RT Entry Removed--(200,-200,200)(-1,-1,-1):??-0,4-Hello!-1699.0--due to timeout
+Event 24| (v)send| 700.0| /test/tester/rt@| (200,-200,200)(-1,-1,-1)
+Event 25| (v)rcv| (v)700.0| (v)/test/tester/rt@| (v)<null>
+Event 26| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 3
+--------- TEST STARTS ---------
+7 events in the batch.
+Event 0| (v)msg| Test: Modify the first entry
+Event 1| (v)send| 0.0| /test/tester/rt@| RTCONFIG:add--key:(100,100,100)(-1,-1,-1)--entry:null:??-0,4-New Extension!-0.0--timeout:-1.0
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/rtchanged@| (?)EVENT--2000.0--/test/rt/.rt_ucast@--RT Entry Modified--((100,100,100)(-1,-1,-1):??-0,2,4-Hello!-NaN,(100,100,100)(-1,-1,-1):??-0,4-New Extension!-NaN)--
+Event 3| (v)rcv| (v)0.0| (v)/test/tester/rt@| (v)<null>
+Event 4| (v)send| 100.0| /test/tester/rt@| RTCONFIG:retrieve--key:(100,100,100)(-1,-1,-1)--match:exact match
+Event 5| (v)rcv| (v)100.0| (v)/test/tester/rt@| (v)(100,100,100)(-1,-1,-1):??-0,4-New Extension!-NaN
+Event 6| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 4
+--------- TEST STARTS ---------
+16 events in the batch.
+Event 0| (v)msg| Test: graft
+Event 1| (v)send| 0.0| /test/tester/rt@| RTCONFIG:retrieve--key:(100,100,100)(-1,-1,-1)--match:exact match
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/rt@| (?)(100,100,100)(-1,-1,-1):??-0,4-New Extension!-NaN
+Event 3| (v)send| 100.0| /test/tester/rt@| RTCONFIG:graft--key:(100,100,100)(-1,-1,-1)--entry:null:??-2-DONT_CHANGE_EXTENSION-0.0--timeout:-1.0
+Event 4| (?)rcv| (v)100.0| (v)/test/tester/rtchanged@| (?)EVENT--3100.0--/test/rt/.rt_ucast@--RT Entry Modified--((100,100,100)(-1,-1,-1):??-0,4-New Extension!-NaN,(100,100,100)(-1,-1,-1):??-0,2,4-New Extension!-NaN)--(graft)
+Event 5| (v)rcv| (v)100.0| (v)/test/tester/rt@| (v)<null>
+Event 6| (v)send| 200.0| /test/tester/rt@| RTCONFIG:retrieve--key:(100,100,100)(-1,-1,-1)--match:exact match
+Event 7| (?)rcv| (v)200.0| (v)/test/tester/rt@| (?)(100,100,100)(-1,-1,-1):??-0,2,4-New Extension!-NaN
+Event 8| (v)msg| Test: prune
+Event 9| (v)send| 300.0| /test/tester/rt@| RTCONFIG:prune--key:(100,100,100)(-1,-1,-1)--entry:null:??-0,2-DONT_CHANGE_EXTENSION-0.0--timeout:200.0
+Event 10| (?)rcv| (v)300.0| (v)/test/tester/rtchanged@| (?)EVENT--3300.0--/test/rt/.rt_ucast@--RT Entry Modified--((100,100,100)(-1,-1,-1):??-0,2,4-New Extension!-NaN,(100,100,100)(-1,-1,-1):??-4-New Extension!-3500.0)--(prune)
+Event 11| (v)rcv| (v)300.0| (v)/test/tester/rt@| (v)<null>
+Event 12| (v)send| 400.0| /test/tester/rt@| RTCONFIG:retrieve--key:(100,100,100)(-1,-1,-1)--match:exact match
+Event 13| (?)rcv| (v)400.0| (v)/test/tester/rt@| (?)(100,100,100)(-1,-1,-1):??-4-New Extension!-3500.0
+Event 14| (?)rcv| (v)500.0| (v)/test/tester/rtchanged@| (?)EVENT--3500.0--/test/rt/.rt_ucast@--RT Entry Removed--(100,100,100)(-1,-1,-1):??-4-New Extension!-3500.0--due to timeout
+Event 15| (v)finish| 1000.0
+------- (?) Test finished --------
+Test 5
+--------- TEST STARTS ---------
+24 events in the batch.
+Event 0| (v)msg| Test: Retrieve/remove
+Event 1| (v)send| 0.0| /test/tester/rt@| RTCONFIG:retrieve--key:(0,0,0)(0,0,0)--match:match *
+Event 2| (?)rcv| (v)0.0| (v)/test/tester/rt@| (?)((1,1,1)(-5,-5,-5):??-0,1-entry1-NaN,(2,2,2)(-5,-5,-5):??-0,2-entry2-NaN,(5,5,5)(-1,-1,-1):??-0,5-entry5-NaN,(6,6,6)(-1,-1,-1):??-0,6-entry6-NaN,(7,7,7)(-1,-1,-1):??-0,7-entry7-NaN)
+Event 3| (v)send| 10.0| /test/tester/rt@| RTCONFIG:retrieve--key:(4,4,4)(-4,-4,-4)--match:match *
+Event 4| (?)rcv| (v)10.0| (v)/test/tester/rt@| (?)((5,5,5)(-1,-1,-1):??-0,5-entry5-NaN,(6,6,6)(-1,-1,-1):??-0,6-entry6-NaN,(7,7,7)(-1,-1,-1):??-0,7-entry7-NaN)
+Event 5| (v)send| 20.0| /test/tester/rt@| RTCONFIG:retrieve--key:(5,5,5)(-1,-1,-1)--match:match all
+Event 6| (?)rcv| (v)20.0| (v)/test/tester/rt@| (?)((1,1,1)(-5,-5,-5):??-0,1-entry1-NaN,(5,5,5)(-1,-1,-1):??-0,5-entry5-NaN)
+Event 7| (v)send| 30.0| /test/tester/rt@| RTCONFIG:retrieve--key:(5,5,5)(-1,-1,-1)--match:longest match
+Event 8| (?)rcv| (v)30.0| (v)/test/tester/rt@| (?)(5,5,5)(-1,-1,-1):??-0,5-entry5-NaN
+Event 9| (v)send| 40.0| /test/tester/rt@| RTCONFIG:remove--key:(5,5,5)(-3,-3,-3)--match:match *
+Event 10| (?)rcv| (v)40.0| (v)/test/tester/rtchanged@| (?)EVENT--4040.0--/test/rt/.rt_ucast@--RT Entry Removed--((5,5,5)(-1,-1,-1):??-0,5-entry5-NaN,(7,7,7)(-1,-1,-1):??-0,7-entry7-NaN)--
+Event 11| (?)rcv| (v)40.0| (v)/test/tester/rt@| (?)((5,5,5)(-1,-1,-1):??-0,5-entry5-NaN,(7,7,7)(-1,-1,-1):??-0,7-entry7-NaN)
+Event 12| (v)send| 41.0| /test/tester/rt@| RTCONFIG:retrieve--key:(0,0,0)(0,0,0)--match:match *
+Event 13| (?)rcv| (v)41.0| (v)/test/tester/rt@| (?)((1,1,1)(-5,-5,-5):??-0,1-entry1-NaN,(2,2,2)(-5,-5,-5):??-0,2-entry2-NaN,(6,6,6)(-1,-1,-1):??-0,6-entry6-NaN)
+Event 14| (v)send| 50.0| /test/tester/rt@| RTCONFIG:remove--key:(6,6,6)(-1,-1,-1)--match:match all
+Event 15| (?)rcv| (v)50.0| (v)/test/tester/rtchanged@| (?)EVENT--4050.0--/test/rt/.rt_ucast@--RT Entry Removed--((2,2,2)(-5,-5,-5):??-0,2-entry2-NaN,(6,6,6)(-1,-1,-1):??-0,6-entry6-NaN)--
+Event 16| (?)rcv| (v)50.0| (v)/test/tester/rt@| (?)((2,2,2)(-5,-5,-5):??-0,2-entry2-NaN,(6,6,6)(-1,-1,-1):??-0,6-entry6-NaN)
+Event 17| (v)send| 51.0| /test/tester/rt@| RTCONFIG:retrieve--key:(0,0,0)(0,0,0)--match:match *
+Event 18| (?)rcv| (v)51.0| (v)/test/tester/rt@| (?)((1,1,1)(-5,-5,-5):??-0,1-entry1-NaN)
+Event 19| (v)send| 60.0| /test/tester/rt@| RTCONFIG:remove--key:(1,1,1)(-5,-5,-5)--match:exact match
+Event 20| (?)rcv| (v)60.0| (v)/test/tester/rtchanged@| (?)EVENT--4060.0--/test/rt/.rt_ucast@--RT Entry Removed--(1,1,1)(-5,-5,-5):??-0,1-entry1-NaN--
+Event 21| (?)rcv| (v)60.0| (v)/test/tester/rt@| (?)(1,1,1)(-5,-5,-5):??-0,1-entry1-NaN
+Event 22| (v)send| 61.0| /test/tester/rt@| RTCONFIG:retrieve--key:(0,0,0)(0,0,0)--match:match *
+Event 23| (?)rcv| (v)61.0| (v)/test/tester/rt@| (?)Object[0]
+------- (?) Test finished --------

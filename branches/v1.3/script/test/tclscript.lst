@@ -1,0 +1,21 @@
+#
+# Tcl file list for J-sim test
+#
+../drcl/inet/aodv/aodv_n6_tcp3_multi_hop.tcl
+../drcl/inet/aodv/aodv_n6_tcp3_multi_hop_directional_antenna.tcl
+../drcl/inet/aodv/aodv_n6_tcp3_multi_hop_psm.tcl
+../drcl/inet/aodv/aodv_n6_tcp3_single_hop.tcl
+../drcl/inet/aodv/example2_aodv_n20_tcp1_multihop_PSMOff.tcl
+../drcl/inet/sensorsim/sample_sensor_network.tcl
+../drcl/inet/cbt/cbt.tcl
+../drcl/inet/dv/dv.tcl
+../drcl/inet/queue/droptail.tcl
+../drcl/inet/queue/fifo.tcl
+../drcl/inet/queue/fred.tcl
+../drcl/inet/queue/sred.tcl
+../drcl/inet/tcp/tcp.tcl
+../drcl/inet/ospf/test9.tcl
+../drcl/net/traffic1.tcl
+../drcl/net/traffic_eoo.tcl
+../drcl/net/traffic_poisson.tcl
+../drcl/diffserv/diffserv_ex1.tcl
