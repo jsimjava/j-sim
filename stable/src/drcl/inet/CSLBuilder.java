@@ -42,129 +42,129 @@ an instance of the {@link CoreServiceLayer} that is known to this builder.
  */
 public abstract class CSLBuilder extends Component implements InetConstants
 {
-	/** The default CSL builder. */
-	public static CSLBuilder DEFAULT_BUILDER = new drcl.inet.core.CSLBuilder(
-					Node.ID_CSL);
-	
-	public CSLBuilder()
-	{ super(); }
+  /** The default CSL builder. */
+  public static CSLBuilder DEFAULT_BUILDER = new drcl.inet.core.CSLBuilder(
+          Node.ID_CSL);
+  
+  public CSLBuilder()
+  { super(); }
 
-	public CSLBuilder(String id_)
-	{ super(id_); }
-	
-	public void duplicate(Object source_) 
-	{
-		super.duplicate(source_);
-		CSLBuilder that_ = (CSLBuilder)source_;
-		bw = that_.bw;
-		bs = that_.bs;
-		mtu = that_.mtu;
-	}
-	
-	public String info()
-	{
-		String mtu_ = mtu > 0? String.valueOf(mtu): mtu == 0?
-				"disabled": "default value (depending on CSL implementation)";
-		return   "   Bandwidth = " + (bw > 0.0?
-				String.valueOf(bw):
-				"default value (depending on CSL implementation)") + "\n"
-				+ " Buffer size = "
-				+ (bs > 0.0? String.valueOf(bs):
-					"default value (depending on CSL implementation)") + "\n"
-				+ "Fragmentation: " + mtu_ + "\n";
-	}
+  public CSLBuilder(String id_)
+  { super(id_); }
+  
+  public void duplicate(Object source_) 
+  {
+    super.duplicate(source_);
+    CSLBuilder that_ = (CSLBuilder)source_;
+    bw = that_.bw;
+    bs = that_.bs;
+    mtu = that_.mtu;
+  }
+  
+  public String info()
+  {
+    String mtu_ = mtu > 0? String.valueOf(mtu): mtu == 0?
+        "disabled": "default value (depending on CSL implementation)";
+    return   "   Bandwidth = " + (bw > 0.0?
+        String.valueOf(bw):
+        "default value (depending on CSL implementation)") + "\n"
+        + " Buffer size = "
+        + (bs > 0.0? String.valueOf(bs):
+          "default value (depending on CSL implementation)") + "\n"
+        + "Fragmentation: " + mtu_ + "\n";
+  }
 
-	/** Extracts the structure of an existing CoreServiceLayer to
-	 * the builder. */
-	public abstract void extract(CoreServiceLayer csl_);
-	
-	/** Builds the core service layers inside the specified containers. */
-	public abstract void build(Object[] cc_);
-	
-	/**
-	 * Creates and returns an instance of the CoreServiceLayer class
-	 * which is known to this builder.
-	 */
-	public abstract CoreServiceLayer createCSL();
+  /** Extracts the structure of an existing CoreServiceLayer to
+   * the builder. */
+  public abstract void extract(CoreServiceLayer csl_);
+  
+  /** Builds the core service layers inside the specified containers. */
+  public abstract void build(Object[] cc_);
+  
+  /**
+   * Creates and returns an instance of the CoreServiceLayer class
+   * which is known to this builder.
+   */
+  public abstract CoreServiceLayer createCSL();
 
-	public void build(Object c_)
-	{ build(new Object[]{c_}); }
-	
-	public Port addUpPort(int pid_)
-	{
-		return addPort(Module.PortGroup_UP, String.valueOf(pid_));
-	}
-	
-	public Port addDownPort(int ifindex_)
-	{
-		return addPort(Module.PortGroup_DOWN, String.valueOf(ifindex_));
-	}
-	
-	/** Global bandwidth setting (in bps). */
-	protected double bw;
-	
-	/** Global buffer size setting (in bytes). */
-	protected int bs;
-	
-	/** Fragmentation size.  Default is 0 (no fragmentation).*/
-	protected int mtu = 0;
-	
-	protected String bufferMode = "byte";
+  public void build(Object c_)
+  { build(new Object[]{c_}); }
+  
+  public Port addUpPort(int pid_)
+  {
+    return addPort(Module.PortGroup_UP, String.valueOf(pid_));
+  }
+  
+  public Port addDownPort(int ifindex_)
+  {
+    return addPort(Module.PortGroup_DOWN, String.valueOf(ifindex_));
+  }
+  
+  /** Global bandwidth setting (in bps). */
+  protected double bw;
+  
+  /** Global buffer size setting (in bytes). */
+  protected int bs;
+  
+  /** Fragmentation size.  Default is 0 (no fragmentation).*/
+  protected int mtu = 0;
+  
+  protected String bufferMode = "byte";
 
-	/** True if link emulation is enabled. */
-	protected boolean linkEmu = false;
+  /** True if link emulation is enabled. */
+  protected boolean linkEmu = false;
 
-	/** Global link propagation delay, used with link emulation enabled. */
-	protected double linkPropDelay = Double.NaN;
-	
-	/** Sets the bandwidth (in bps) for all the interfaces. */
-	public void setBandwidth(double bw_)
-	{ bw = bw_;	}
-	
-	public double getBandwidth()
-	{ return bw; }
-	
-	/** Sets the buffer size (in bytes) for all the interfaces. */
-	public void setBufferSize(int bs_)
-	{ bs = bs_;	}
-	
-	public int getBufferSize()
-	{ return bs; }
-	
-	/**
-	 * Sets the maximum transmission unit (MTU) for all interfaces.
-	 * A positive value also enables the fragmentation in the core service layer.
-	 * Zero disables it.  The default value applies if a negative value is given.
-	 */
-	public void setMTU(int mtu_)
-	{ mtu = mtu_; }
+  /** Global link propagation delay, used with link emulation enabled. */
+  protected double linkPropDelay = Double.NaN;
+  
+  /** Sets the bandwidth (in bps) for all the interfaces. */
+  public void setBandwidth(double bw_)
+  { bw = bw_;  }
+  
+  public double getBandwidth()
+  { return bw; }
+  
+  /** Sets the buffer size (in bytes) for all the interfaces. */
+  public void setBufferSize(int bs_)
+  { bs = bs_;  }
+  
+  public int getBufferSize()
+  { return bs; }
+  
+  /**
+   * Sets the maximum transmission unit (MTU) for all interfaces.
+   * A positive value also enables the fragmentation in the core service layer.
+   * Zero disables it.  The default value applies if a negative value is given.
+   */
+  public void setMTU(int mtu_)
+  { mtu = mtu_; }
 
-	public int getMTU()
-	{ return mtu; }
+  public int getMTU()
+  { return mtu; }
 
-	/**
-	 * Sets the buffer mode of all the interfaces.
-	 * @param mode_ can be either "packet" or "byte".
-	 */
-	public void setBufferMode(String mode_)
-	{ bufferMode = mode_; }
+  /**
+   * Sets the buffer mode of all the interfaces.
+   * @param mode_ can be either "packet" or "byte".
+   */
+  public void setBufferMode(String mode_)
+  { bufferMode = mode_; }
 
-	public String getBufferMode()
-	{ return bufferMode; }
+  public String getBufferMode()
+  { return bufferMode; }
 
-	public boolean isLinkEmulationEnabled()
-	{ return linkEmu; }
+  public boolean isLinkEmulationEnabled()
+  { return linkEmu; }
 
-	public void setLinkEmulationEnabled(boolean enabled_)
-	{ linkEmu = enabled_; }
+  public void setLinkEmulationEnabled(boolean enabled_)
+  { linkEmu = enabled_; }
 
-	/** Returns the (global) emulated link propagation delay.
-	 * Used with link emulation enabled. */
-	public double getLinkPropDelay()
-	{ return linkPropDelay; }
+  /** Returns the (global) emulated link propagation delay.
+   * Used with link emulation enabled. */
+  public double getLinkPropDelay()
+  { return linkPropDelay; }
 
-	/** Sets the (global) emulated link propagation delay.
-	 * Used with link emulation enabled. */
-	public void setLinkPropDelay(double delay_)
-	{ linkPropDelay = delay_; }
+  /** Sets the (global) emulated link propagation delay.
+   * Used with link emulation enabled. */
+  public void setLinkPropDelay(double delay_)
+  { linkPropDelay = delay_; }
 }

@@ -41,98 +41,98 @@ import drcl.comp.*;
  */
 public class OSPF_DBdesc extends drcl.DrclObj
 {
-	/* the packet body size exccluding the size of LSA header */
-	protected final static int OSPF_DBDESC_FIX_SIZE	= 8;
-	protected int		ifmtu;
-  	protected int		dd_msbit;
-	protected int		dd_mbit;
-	protected int		dd_ibit;
-	protected int		dd_seqnum;     /* DD sequence number */
-	/* The OSPF Options field is present in OSPF Hello packets, Database
+  /* the packet body size exccluding the size of LSA header */
+  protected final static int OSPF_DBDESC_FIX_SIZE  = 8;
+  protected int    ifmtu;
+    protected int    dd_msbit;
+  protected int    dd_mbit;
+  protected int    dd_ibit;
+  protected int    dd_seqnum;     /* DD sequence number */
+  /* The OSPF Options field is present in OSPF Hello packets, Database
            Description packets and all LSAs. */
-	private int     options;
+  private int     options;
 
-	/* this field does not exist in the specification, for implementation simplicity */
-	protected int			LSA_no;
+  /* this field does not exist in the specification, for implementation simplicity */
+  protected int      LSA_no;
 
-	//protected OSPF_LSA_Header[]	LSA_hdr;
-	protected Vector	LSA_hdr_list;
-	
-	public Object clone()
-	{
-		OSPF_DBdesc new_ = new OSPF_DBdesc(dd_ibit, dd_mbit, dd_msbit, dd_seqnum);
-		new_.duplicate(this);
-		return new_;
-	}
+  //protected OSPF_LSA_Header[]  LSA_hdr;
+  protected Vector  LSA_hdr_list;
+  
+  public Object clone()
+  {
+    OSPF_DBdesc new_ = new OSPF_DBdesc(dd_ibit, dd_mbit, dd_msbit, dd_seqnum);
+    new_.duplicate(this);
+    return new_;
+  }
 
-	public void duplicate(Object source_)
-	{
-		OSPF_DBdesc that_ = (OSPF_DBdesc)source_;
-		LSA_no = that_.LSA_no;
-		LSA_hdr_list.removeAllElements();
-		LSA_hdr_list.setSize(LSA_no);
-		for (int i=0; i<LSA_no; i++)
-			LSA_hdr_list.setElementAt(((OSPF_LSA_Header)that_.LSA_hdr_list.elementAt(i)).clone(), i); // clone header
-	}
+  public void duplicate(Object source_)
+  {
+    OSPF_DBdesc that_ = (OSPF_DBdesc)source_;
+    LSA_no = that_.LSA_no;
+    LSA_hdr_list.removeAllElements();
+    LSA_hdr_list.setSize(LSA_no);
+    for (int i=0; i<LSA_no; i++)
+      LSA_hdr_list.setElementAt(((OSPF_LSA_Header)that_.LSA_hdr_list.elementAt(i)).clone(), i); // clone header
+  }
 
-	public String toString()
-	{
-		return (dd_ibit > 0? "I": "-") + (dd_mbit > 0? "M": "-") + (dd_msbit > 0? "MS": "-")
-			+ ",seq#:" + dd_seqnum
-			+ ",#lshs:" + LSA_no + (LSA_no>0 && LSA_no<5? ",lshs:" + LSA_hdr_list:"");
-	}
-	
-	/**
-	 * Constructor
-	 */
-	protected OSPF_DBdesc( int ibit, int mbit, int msbit, int seqnum)
-	{
-		LSA_hdr_list = new Vector();
-		dd_msbit = msbit;
-		dd_mbit  = mbit;
-		dd_ibit  = ibit;
-		dd_seqnum = seqnum;
-	}
+  public String toString()
+  {
+    return (dd_ibit > 0? "I": "-") + (dd_mbit > 0? "M": "-") + (dd_msbit > 0? "MS": "-")
+      + ",seq#:" + dd_seqnum
+      + ",#lshs:" + LSA_no + (LSA_no>0 && LSA_no<5? ",lshs:" + LSA_hdr_list:"");
+  }
+  
+  /**
+   * Constructor
+   */
+  protected OSPF_DBdesc( int ibit, int mbit, int msbit, int seqnum)
+  {
+    LSA_hdr_list = new Vector();
+    dd_msbit = msbit;
+    dd_mbit  = mbit;
+    dd_ibit  = ibit;
+    dd_seqnum = seqnum;
+  }
 
-	public void reset()
-	{
-		LSA_hdr_list.removeAllElements();
-	}
-	
-	protected static int isduplicate( OSPF_DBdesc db1, OSPF_DBdesc db2) 
-	{
-		if( db1.dd_ibit == db2.dd_ibit && db1.dd_mbit == db2.dd_mbit &&
-			db1.dd_msbit == db2.dd_msbit && db1.dd_seqnum == db2.dd_seqnum )
-			return 1;
-		return 0;
-	}
-	
-	protected void addlsaheader( OSPF_LSA_Header hdr) {
-		LSA_hdr_list.addElement(hdr);
-		/*OSPF_LSA_Header[] tmphdr_ = new OSPF_LSA_HEADER[ LSA_no+1 ]; 
-		System.arraycopy(LSA_hdr, 0, tmphdr_, 0, LSA_no);
-		LSA_hdr = tmpkey_;
-		LSA_hdr[LSA_no] = hdr;*/
-		LSA_no ++;
-	}
+  public void reset()
+  {
+    LSA_hdr_list.removeAllElements();
+  }
+  
+  protected static int isduplicate( OSPF_DBdesc db1, OSPF_DBdesc db2) 
+  {
+    if( db1.dd_ibit == db2.dd_ibit && db1.dd_mbit == db2.dd_mbit &&
+      db1.dd_msbit == db2.dd_msbit && db1.dd_seqnum == db2.dd_seqnum )
+      return 1;
+    return 0;
+  }
+  
+  protected void addlsaheader( OSPF_LSA_Header hdr) {
+    LSA_hdr_list.addElement(hdr);
+    /*OSPF_LSA_Header[] tmphdr_ = new OSPF_LSA_HEADER[ LSA_no+1 ]; 
+    System.arraycopy(LSA_hdr, 0, tmphdr_, 0, LSA_no);
+    LSA_hdr = tmpkey_;
+    LSA_hdr[LSA_no] = hdr;*/
+    LSA_no ++;
+  }
 
-	public int size()
-	{
-		int size_ = OSPF_DBDESC_FIX_SIZE;
-		for (int i=0; i<LSA_no; i++)
-			size_ += ((OSPF_LSA_Header)LSA_hdr_list.elementAt(i)).size();
-		return size_;
-	}
+  public int size()
+  {
+    int size_ = OSPF_DBDESC_FIX_SIZE;
+    for (int i=0; i<LSA_no; i++)
+      size_ += ((OSPF_LSA_Header)LSA_hdr_list.elementAt(i)).size();
+    return size_;
+  }
 
-	void ospf_age_update_to_send(int transdelay_, int now_)
-	{
-		for (int i=0; i<LSA_no; i++)
-			((OSPF_LSA_Header)LSA_hdr_list.elementAt(i)).ospf_age_update_to_send(transdelay_, now_);
-	}
-	
-	protected void setMbit( int mbit_) {
-		dd_mbit = mbit_;
-	}
+  void ospf_age_update_to_send(int transdelay_, int now_)
+  {
+    for (int i=0; i<LSA_no; i++)
+      ((OSPF_LSA_Header)LSA_hdr_list.elementAt(i)).ospf_age_update_to_send(transdelay_, now_);
+  }
+  
+  protected void setMbit( int mbit_) {
+    dd_mbit = mbit_;
+  }
 }
 
 

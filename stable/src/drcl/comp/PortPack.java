@@ -32,26 +32,26 @@ package drcl.comp;
  *  Used by Wire. */
 class PortPack
 {
-	Port port;
-	PortPack next;
+  Port port;
+  PortPack next;
 
-	PortPack(Port port_)
-	{ port = port_; }
+  PortPack(Port port_)
+  { port = port_; }
 
-	// this is wacky but in order to make it last-in-last for the linked list
-	PortPack(Port port_, PortPack next_)
-	{
-		next = next_;
-		if (next_ == null) {
-			port = port_;
-		}
-		else {
-			port = next_.port;
-			while (next_.next != null) {
-				next_.port = next_.next.port;
-				next_ = next_.next;
-			}
-			next_.port = port_;
-		}
-	}
+  // this is wacky but in order to make it last-in-last for the linked list
+  PortPack(Port port_, PortPack next_)
+  {
+    next = next_;
+    if (next_ == null) {
+      port = port_;
+    }
+    else {
+      port = next_.port;
+      while (next_.next != null) {
+        next_.port = next_.next.port;
+        next_ = next_.next;
+      }
+      next_.port = port_;
+    }
+  }
 }

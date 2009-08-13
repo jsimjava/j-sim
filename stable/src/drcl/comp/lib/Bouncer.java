@@ -35,55 +35,55 @@ One can delay the response by specifying the delay parameter.
 The component also keeps a counter to count the data arrivals. */
 public class Bouncer extends Component
 {
-	long count = 0;
-	double delay = 0.0;
+  long count = 0;
+  double delay = 0.0;
 
-	public Bouncer()
-	{ super(); }
-	
-	public Bouncer(String id_)
-	{ super(id_); }
-	
-	public String info()
-	{
-		return "count = " + count + "\ndelay = " + delay + "\n";
-	}
-	
-	public void reset()
-	{
-		super.reset();
-		count = 0;
-	}
+  public Bouncer()
+  { super(); }
+  
+  public Bouncer(String id_)
+  { super(id_); }
+  
+  public String info()
+  {
+    return "count = " + count + "\ndelay = " + delay + "\n";
+  }
+  
+  public void reset()
+  {
+    super.reset();
+    count = 0;
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		count = ((Bouncer)source_).count;
-		delay = ((Bouncer)source_).delay;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    count = ((Bouncer)source_).count;
+    delay = ((Bouncer)source_).delay;
+  }
 
-	public synchronized void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		count++;
-		if (delay > 0.0)
-			send(inPort_, data_, delay);
-		else
-			inPort_.doLastSending(data_);
-	}
-	
-	/** Sets the counter value. */
-	public void setCount(long v_)
-	{ count = v_; }
-	
-	/** Returns the counter value. */
-	public long getCount()
-	{ return count; }
-	
-	/** Sets the delay. */
-	public void setDelay(double v_)
-	{ delay = v_; }
-	
-	/** Returns the delay. */
-	public double getDelay()
-	{ return delay; }
+  public synchronized void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    count++;
+    if (delay > 0.0)
+      send(inPort_, data_, delay);
+    else
+      inPort_.doLastSending(data_);
+  }
+  
+  /** Sets the counter value. */
+  public void setCount(long v_)
+  { count = v_; }
+  
+  /** Returns the counter value. */
+  public long getCount()
+  { return count; }
+  
+  /** Sets the delay. */
+  public void setDelay(double v_)
+  { delay = v_; }
+  
+  /** Returns the delay. */
+  public double getDelay()
+  { return delay; }
 }

@@ -215,7 +215,7 @@ public class Histogram extends PlotBox {
         _deferIfNecessary(doFill);
     }
 
-	// DRCL:
+  // DRCL:
     /** Return the actual number of data sets.
      *  @return The number of data sets that have been created.
      */
@@ -223,37 +223,37 @@ public class Histogram extends PlotBox {
         return _points.size();
     }
 
-  	// DRCL:
- 	public synchronized int getNumPoints(int dataset_)
-	{
-		return dataset_ >= _points.size()? 
-			   0: ((Vector)_points.elementAt(dataset_)).size();
-	}
+    // DRCL:
+   public synchronized int getNumPoints(int dataset_)
+  {
+    return dataset_ >= _points.size()? 
+         0: ((Vector)_points.elementAt(dataset_)).size();
+  }
 
-	// DRCL:
- 	public synchronized boolean isSetEmpty(int dataset_)
-	{
-		return dataset_ >= _points.size()? 
-			   true: ((Vector)_points.elementAt(dataset_)).size() == 0;
-	}
+  // DRCL:
+   public synchronized boolean isSetEmpty(int dataset_)
+  {
+    return dataset_ >= _points.size()? 
+         true: ((Vector)_points.elementAt(dataset_)).size() == 0;
+  }
 
-	// DRCL:
-	public synchronized double getPoint(int dataset, int index_)
-	{
-		Vector pts = (Vector)_points.elementAt(dataset);
-		return ((Double)pts.elementAt(index_)).doubleValue();
-	}
+  // DRCL:
+  public synchronized double getPoint(int dataset, int index_)
+  {
+    Vector pts = (Vector)_points.elementAt(dataset);
+    return ((Double)pts.elementAt(index_)).doubleValue();
+  }
 
-	// DRCL:
-	public synchronized double[] getPoints(int dataset)
-	{
-		Vector pts = (Vector)_points.elementAt(dataset);
-		if (pts == null) return new double[0];
-		double[] pp_ = new double[pts.size()];
-		for (int i=0; i<pts.size(); i++)
-			pp_[i] = ((Double)pts.elementAt(i)).doubleValue();
-		return pp_;
-	}
+  // DRCL:
+  public synchronized double[] getPoints(int dataset)
+  {
+    Vector pts = (Vector)_points.elementAt(dataset);
+    if (pts == null) return new double[0];
+    double[] pp_ = new double[pts.size()];
+    for (int i=0; i<pts.size(); i++)
+      pp_[i] = ((Double)pts.elementAt(i)).doubleValue();
+    return pp_;
+  }
 
     /** Create a sample plot.
      */

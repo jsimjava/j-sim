@@ -39,148 +39,148 @@ import drcl.data.*;
  */
 public class RTKey extends drcl.data.MapKey
 {
-	/**
-	 * Creates an <code>RTKey</code> given source, destination and incoming interface.
-	 * If source/destination can be ignored, <code>Address.any()</code>
-	 * or <code>Address.dontcare()</code> is specified.  If incoming interface
-	 * can be ignored, use negative indices.  The corresponding masks are
-	 * set to be all 1's if the arguments are not equal to the above special
-	 * values, otherwise the masks are set to be 0.
-	 * 
-	 * @param src_ source.
-	 * @param dest_ destination.
-	 * @param incoming_ index of incoming interface.
-	 */
-	public RTKey (long src_, long dest_, int incoming_)
-	{
-		super();
-		value = new drcl.data.BitSet(192);
-		mask = new drcl.data.BitSet(192);
-		set(src_, dest_, incoming_);
-	}
-	
-	/**
-	 * Creates an <code>RTKey</code> given source, destination, incoming interface and masks.
-	 * If source/destination can be ignored, <code>Address.any()</code>
-	 * or <code>Address.dontcare()</code> is specified.  If incoming interface
-	 * can be ignored, use negative indices.  The corresponding masks are
-	 * set to be the argument masks if the arguments are not equal to the above special
-	 * values, otherwise the masks are set to be 0.
-	 * 
-	 * @param src_ source.
-	 * @param srcmask_ source mask.
-	 * @param dest_ destination.
-	 * @param destmask_ destination mask.
-	 * @param incoming_ index of incoming interface.
-	 * @param incomingmask_ mask for the incoming interface index.
-	 */
-	public RTKey (long src_, long srcmask_, long dest_, long destmask_, int incoming_, int incomingmask_)
-	{
-		super();
-		value = new drcl.data.BitSet(192);
-		mask = new drcl.data.BitSet(192);
-		set(src_, srcmask_, dest_, destmask_, incoming_, incomingmask_);
-	}
-	
-	public RTKey() 
-	{
-		super();
-		value = new drcl.data.BitSet(192);
-		mask = new drcl.data.BitSet(192);
-	}
+  /**
+   * Creates an <code>RTKey</code> given source, destination and incoming interface.
+   * If source/destination can be ignored, <code>Address.any()</code>
+   * or <code>Address.dontcare()</code> is specified.  If incoming interface
+   * can be ignored, use negative indices.  The corresponding masks are
+   * set to be all 1's if the arguments are not equal to the above special
+   * values, otherwise the masks are set to be 0.
+   * 
+   * @param src_ source.
+   * @param dest_ destination.
+   * @param incoming_ index of incoming interface.
+   */
+  public RTKey (long src_, long dest_, int incoming_)
+  {
+    super();
+    value = new drcl.data.BitSet(192);
+    mask = new drcl.data.BitSet(192);
+    set(src_, dest_, incoming_);
+  }
+  
+  /**
+   * Creates an <code>RTKey</code> given source, destination, incoming interface and masks.
+   * If source/destination can be ignored, <code>Address.any()</code>
+   * or <code>Address.dontcare()</code> is specified.  If incoming interface
+   * can be ignored, use negative indices.  The corresponding masks are
+   * set to be the argument masks if the arguments are not equal to the above special
+   * values, otherwise the masks are set to be 0.
+   * 
+   * @param src_ source.
+   * @param srcmask_ source mask.
+   * @param dest_ destination.
+   * @param destmask_ destination mask.
+   * @param incoming_ index of incoming interface.
+   * @param incomingmask_ mask for the incoming interface index.
+   */
+  public RTKey (long src_, long srcmask_, long dest_, long destmask_, int incoming_, int incomingmask_)
+  {
+    super();
+    value = new drcl.data.BitSet(192);
+    mask = new drcl.data.BitSet(192);
+    set(src_, srcmask_, dest_, destmask_, incoming_, incomingmask_);
+  }
+  
+  public RTKey() 
+  {
+    super();
+    value = new drcl.data.BitSet(192);
+    mask = new drcl.data.BitSet(192);
+  }
 
-	public long getSource() { return value.getSubset(0); }
-	public void setSource(long s_)
-	{ value.set(0, s_); }
-	
-	public long getDestination() { return value.getSubset(1); }
-	public void setDestination(long g_)
-	{ value.set(1, g_); }
-	
-	public int getIncomingIf() { return (int)value.getSubset(2); }
-	public void setIncomingIf(int i_)
-	{ value.set(2, i_); }
-			
-	public long getSourceMask() { return mask.getSubset(0); }
-	public void setSourceMask(long m_)
-	{ mask.set(0, m_); }
-	
-	public long getMaskedSource()
-	{ return value.getSubset(0) & mask.getSubset(0); }
-	
-	public long getDestinationMask() { return mask.getSubset(1); }
-	public void setDestinationMask(long m_)
-	{ mask.set(1, m_); }
-	
-	public long getMaskedDestination()
-	{ return value.getSubset(1) & mask.getSubset(1); }
-	
-	public int getIncomingIfMask() { return (int)mask.getSubset(2); }
-	public void setIncomingIfMask(int m_)
-	{ mask.set(2, m_); }
-			
-	public int getMaskedIncomingIf()
-	{ return (int)(value.getSubset(2) & mask.getSubset(2)); }
-	
-	/**
-	 * Set this <code>RTKey</code> with the given source, destination and incoming interface.
-	 * The corresponding masks are set to be all 1's.
-	 * 
-	 * @param src_ source.
-	 * @param dest_ destination.
-	 * @param incoming_ index of incoming interface.
-	 */
-	public void set(long src_, long dest_, int incoming_)
-	{
-		value.set(0, src_);
-		value.set(1, dest_);
-		value.set(2, incoming_);
-		mask.set(0, -1L);
-		mask.set(1, -1L);
-		mask.set(2, -1L);
-	}
-	
-	/**
-	 * Set this <code>RTKey</code> with the given source, destination, incoming interface and masks.
-	 * 
-	 * @param src_ source.
-	 * @param srcmask_ source mask.
-	 * @param dest_ destination.
-	 * @param destmask_ destination mask.
-	 * @param incoming_ index of incoming interface.
-	 * @param incomingmask_ mask for the incoming interface index.
-	 */
-	public void set(long src_, long srcmask_, long dest_, long destmask_,
-							   int incoming_, int incomingmask_)
-	{
-		value.set(0, src_);
-		value.set(1, dest_);
-		value.set(2, incoming_);
-		mask.set(0, srcmask_);
-		mask.set(1, destmask_);
-		mask.set(2, incomingmask_);
-		value.and(mask);
-	}
-	
-	//
-	private void ___MISC___() {}
-	//
-	
-	public int hashCode()
-	{
-		return (int)value.getSubset(1);
-	}
-	
-	public String toString() 
-	{
-		return "(" + value.getSubset(0) + "," + value.getSubset(1) + "," + value.getSubset(2) + ")" +
-			   "(" + mask.getSubset(0) + "," + mask.getSubset(1) +  "," + mask.getSubset(2) + ")";
-	}
+  public long getSource() { return value.getSubset(0); }
+  public void setSource(long s_)
+  { value.set(0, s_); }
+  
+  public long getDestination() { return value.getSubset(1); }
+  public void setDestination(long g_)
+  { value.set(1, g_); }
+  
+  public int getIncomingIf() { return (int)value.getSubset(2); }
+  public void setIncomingIf(int i_)
+  { value.set(2, i_); }
+      
+  public long getSourceMask() { return mask.getSubset(0); }
+  public void setSourceMask(long m_)
+  { mask.set(0, m_); }
+  
+  public long getMaskedSource()
+  { return value.getSubset(0) & mask.getSubset(0); }
+  
+  public long getDestinationMask() { return mask.getSubset(1); }
+  public void setDestinationMask(long m_)
+  { mask.set(1, m_); }
+  
+  public long getMaskedDestination()
+  { return value.getSubset(1) & mask.getSubset(1); }
+  
+  public int getIncomingIfMask() { return (int)mask.getSubset(2); }
+  public void setIncomingIfMask(int m_)
+  { mask.set(2, m_); }
+      
+  public int getMaskedIncomingIf()
+  { return (int)(value.getSubset(2) & mask.getSubset(2)); }
+  
+  /**
+   * Set this <code>RTKey</code> with the given source, destination and incoming interface.
+   * The corresponding masks are set to be all 1's.
+   * 
+   * @param src_ source.
+   * @param dest_ destination.
+   * @param incoming_ index of incoming interface.
+   */
+  public void set(long src_, long dest_, int incoming_)
+  {
+    value.set(0, src_);
+    value.set(1, dest_);
+    value.set(2, incoming_);
+    mask.set(0, -1L);
+    mask.set(1, -1L);
+    mask.set(2, -1L);
+  }
+  
+  /**
+   * Set this <code>RTKey</code> with the given source, destination, incoming interface and masks.
+   * 
+   * @param src_ source.
+   * @param srcmask_ source mask.
+   * @param dest_ destination.
+   * @param destmask_ destination mask.
+   * @param incoming_ index of incoming interface.
+   * @param incomingmask_ mask for the incoming interface index.
+   */
+  public void set(long src_, long srcmask_, long dest_, long destmask_,
+                 int incoming_, int incomingmask_)
+  {
+    value.set(0, src_);
+    value.set(1, dest_);
+    value.set(2, incoming_);
+    mask.set(0, srcmask_);
+    mask.set(1, destmask_);
+    mask.set(2, incomingmask_);
+    value.and(mask);
+  }
+  
+  //
+  private void ___MISC___() {}
+  //
+  
+  public int hashCode()
+  {
+    return (int)value.getSubset(1);
+  }
+  
+  public String toString() 
+  {
+    return "(" + value.getSubset(0) + "," + value.getSubset(1) + "," + value.getSubset(2) + ")" +
+         "(" + mask.getSubset(0) + "," + mask.getSubset(1) +  "," + mask.getSubset(2) + ")";
+  }
 
-	public String print(drcl.net.Address addr_) 
-	{
-		return "(" + addr_.ltos(value.getSubset(0)) + "," + addr_.ltos(value.getSubset(1))
-			+ "," + value.getSubset(2) + ")"
-			+ "(" + mask.getSubset(0) + "," + mask.getSubset(1) +  "," + mask.getSubset(2) + ")";
-	}
+  public String print(drcl.net.Address addr_) 
+  {
+    return "(" + addr_.ltos(value.getSubset(0)) + "," + addr_.ltos(value.getSubset(1))
+      + "," + value.getSubset(2) + ")"
+      + "(" + mask.getSubset(0) + "," + mask.getSubset(1) +  "," + mask.getSubset(2) + ")";
+  }
 }

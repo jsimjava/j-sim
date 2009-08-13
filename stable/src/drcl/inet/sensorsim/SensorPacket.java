@@ -36,55 +36,55 @@ import drcl.net.Packet;
 */
 public class SensorPacket extends Packet
 {
-	int pktType ;
-	int dataSize ;
-	double maxSNR ;
-	int eventID ;
-	long target_nid; /* target to which this information pertains */
-	int maxProp ;
+  int pktType ;
+  int dataSize ;
+  double maxSNR ;
+  int eventID ;
+  long target_nid; /* target to which this information pertains */
+  int maxProp ;
 
-	/** Gets the data size.  */
-	public int getDataSize()   {return dataSize;}
+  /** Gets the data size.  */
+  public int getDataSize()   {return dataSize;}
 
-	/** Gets the MaxSNR.  */
-	public double getMaxSnr()  {return maxSNR;}
+  /** Gets the MaxSNR.  */
+  public double getMaxSnr()  {return maxSNR;}
 
-	/** Gets the ID of the target node to which the enclosed information pertains.  */
-	public long getTargetNid() {return target_nid;}
+  /** Gets the ID of the target node to which the enclosed information pertains.  */
+  public long getTargetNid() {return target_nid;}
 
-	public String getName()
-	{ return "Sensor Packet"; }
+  public String getName()
+  { return "Sensor Packet"; }
 
-	SensorPacket(int pktType_, int dataSize_, double maxSNR_, int eventID_, int maxProp_, long target_nid_)
-	{
-		pktType = pktType_ ;
-		dataSize = dataSize_ ;
-		maxSNR = maxSNR_ ;
-		eventID = eventID_ ;
-		maxProp = maxProp_ ;
-		target_nid = target_nid_ ;
-	}
+  SensorPacket(int pktType_, int dataSize_, double maxSNR_, int eventID_, int maxProp_, long target_nid_)
+  {
+    pktType = pktType_ ;
+    dataSize = dataSize_ ;
+    maxSNR = maxSNR_ ;
+    eventID = eventID_ ;
+    maxProp = maxProp_ ;
+    target_nid = target_nid_ ;
+  }
 
         public void duplicate(Object source_)
-	{
-		SensorPacket that_ = (SensorPacket)source_;
-		pktType = that_.pktType ;
-		dataSize = that_.dataSize ;
-		maxSNR = that_.maxSNR ;
-		eventID = that_.eventID ;
-		maxProp = that_.maxProp ;
-		target_nid = that_.target_nid ;
-	}
-	
-	public Object clone()
-	{ 
-		return new SensorPacket(pktType, dataSize, maxSNR, eventID, maxProp, target_nid); 
-	}
+  {
+    SensorPacket that_ = (SensorPacket)source_;
+    pktType = that_.pktType ;
+    dataSize = that_.dataSize ;
+    maxSNR = that_.maxSNR ;
+    eventID = that_.eventID ;
+    maxProp = that_.maxProp ;
+    target_nid = that_.target_nid ;
+  }
+  
+  public Object clone()
+  { 
+    return new SensorPacket(pktType, dataSize, maxSNR, eventID, maxProp, target_nid); 
+  }
 
-	public String toString(String separator_)
-	{
-		String str;
-        	str = "Sensor Packet dataSize =" + separator_ + dataSize + separator_ + "maxSNR=" + maxSNR + separator_ + "target_nid=" + target_nid ; 
-		return str;
-	}
+  public String toString(String separator_)
+  {
+    String str;
+          str = "Sensor Packet dataSize =" + separator_ + dataSize + separator_ + "maxSNR=" + maxSNR + separator_ + "target_nid=" + target_nid ; 
+    return str;
+  }
 }

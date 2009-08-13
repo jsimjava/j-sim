@@ -34,19 +34,19 @@ import java.beans.*;
 public class RTKeyBeanInfo extends SimpleBeanInfo {  
 
     public PropertyDescriptor[] getPropertyDescriptors() {
-		try {
-		    return new PropertyDescriptor[] {
-				new PropertyDescriptor("Source", RTKey.class),
-				new PropertyDescriptor("SourceMask", RTKey.class),
-				new PropertyDescriptor("Destination", RTKey.class),
-				new PropertyDescriptor("DestinationMask", RTKey.class),
-				new PropertyDescriptor("IncomingIf", RTKey.class),
-				new PropertyDescriptor("IncomingIfMask", RTKey.class),
-			    };
-		}
-		catch (IntrospectionException e_) {
-			e_.printStackTrace();
-			return null;
-		}
-	}
+    try {
+        return new PropertyDescriptor[] {
+        new PropertyDescriptor("Source", RTKey.class),
+        new PropertyDescriptor("SourceMask", RTKey.class),
+        new PropertyDescriptor("Destination", RTKey.class),
+        new PropertyDescriptor("DestinationMask", RTKey.class),
+        new PropertyDescriptor("IncomingIf", RTKey.class),
+        new PropertyDescriptor("IncomingIfMask", RTKey.class),
+          };
+    }
+    catch (IntrospectionException e_) {
+      e_.printStackTrace();
+      return null;
+    }
+  }
 }

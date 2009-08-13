@@ -41,91 +41,91 @@ import drcl.util.StringUtil;
 */
 public class SensorAppWirelessAgentContract extends Contract
 {
-	public static final SensorAppWirelessAgentContract INSTANCE = new SensorAppWirelessAgentContract();
-	public static int UNICAST_SENSOR_PACKET = 0 ;
-	public static int BROADCAST_SENSOR_PACKET = 1 ;
+  public static final SensorAppWirelessAgentContract INSTANCE = new SensorAppWirelessAgentContract();
+  public static int UNICAST_SENSOR_PACKET = 0 ;
+  public static int BROADCAST_SENSOR_PACKET = 1 ;
 
-	public SensorAppWirelessAgentContract()
-	{ super(); }
-	
-	public SensorAppWirelessAgentContract(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "Sensor Application Wireless Agent Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	/** This class implements the underlying message of the contract. */
-	public static class Message extends drcl.comp.Message
-	{
-		long dst ; /* should be address of sink */
-		int size ;
-		int type ; /* SUPPRESS, COHERENT, NON_COHERENT */
-		double snr ;
-		int eventID ;
-		int UniBcast_flag ; /* a flag that is added to differentiate between sendPkt() (UniBcast_flag=0) and sendBcastPkt() (UniBcast_flag=1). */
-		long target_nid;
+  public SensorAppWirelessAgentContract()
+  { super(); }
+  
+  public SensorAppWirelessAgentContract(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "Sensor Application Wireless Agent Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  /** This class implements the underlying message of the contract. */
+  public static class Message extends drcl.comp.Message
+  {
+    long dst ; /* should be address of sink */
+    int size ;
+    int type ; /* SUPPRESS, COHERENT, NON_COHERENT */
+    double snr ;
+    int eventID ;
+    int UniBcast_flag ; /* a flag that is added to differentiate between sendPkt() (UniBcast_flag=0) and sendBcastPkt() (UniBcast_flag=1). */
+    long target_nid;
         
-        	public Message ()	{ }
+          public Message ()  { }
 
-		/** Constructor for unicast packets */
-		public Message (int UniBcast_flag_, long dst_, int size_, int type_, double snr_, int eventID_, long target_nid_)
-		{
-			UniBcast_flag = UniBcast_flag_ ;
-			dst = dst_ ;
-			size = size_ ;
-			type = type_ ;
-			snr = snr_ ;
-			eventID = eventID_;
-			target_nid = target_nid_ ;
-		}
+    /** Constructor for unicast packets */
+    public Message (int UniBcast_flag_, long dst_, int size_, int type_, double snr_, int eventID_, long target_nid_)
+    {
+      UniBcast_flag = UniBcast_flag_ ;
+      dst = dst_ ;
+      size = size_ ;
+      type = type_ ;
+      snr = snr_ ;
+      eventID = eventID_;
+      target_nid = target_nid_ ;
+    }
 
-		/** Constructor for broadcast packets */
-		public Message (int UniBcast_flag_, int type_, double snr_, int eventID_)
-		{
-			UniBcast_flag = UniBcast_flag_ ;
-			type = type_ ;
-			snr = snr_ ;
-			eventID = eventID_;
-		}
+    /** Constructor for broadcast packets */
+    public Message (int UniBcast_flag_, int type_, double snr_, int eventID_)
+    {
+      UniBcast_flag = UniBcast_flag_ ;
+      type = type_ ;
+      snr = snr_ ;
+      eventID = eventID_;
+    }
 
- 		public long getDst() { return dst; }
- 		public int getSize() { return size; }
- 		public int getType() { return type; }
- 		public double getSNR() { return snr; }
- 		public int getEventID() { return eventID; }
-		public int getFlag() { return UniBcast_flag; }
-		public long getTargetNid() { return target_nid; }
+     public long getDst() { return dst; }
+     public int getSize() { return size; }
+     public int getType() { return type; }
+     public double getSNR() { return snr; }
+     public int getEventID() { return eventID; }
+    public int getFlag() { return UniBcast_flag; }
+    public long getTargetNid() { return target_nid; }
 
-		/*
+    /*
         public void duplicate(Object source_)
-		{
-		    Message that_ = (Message)source_;
-		    UniBcast_flag = that_.UniBcast_flag ;
-		    dst = that_.dst ;
-		    size = that_.size ;
-		    type = that_.type ;
-		    snr = that_.snr ;
-		    eventID = that_.eventID;
-		    target_nid = that_.target_nid;
-		}
-		*/
-	
-		public Object clone()
-		{ 
-			return new Message(UniBcast_flag, dst, size, type, snr, eventID, target_nid); 
-		}
+    {
+        Message that_ = (Message)source_;
+        UniBcast_flag = that_.UniBcast_flag ;
+        dst = that_.dst ;
+        size = that_.size ;
+        type = that_.type ;
+        snr = that_.snr ;
+        eventID = that_.eventID;
+        target_nid = that_.target_nid;
+    }
+    */
+  
+    public Object clone()
+    { 
+      return new Message(UniBcast_flag, dst, size, type, snr, eventID, target_nid); 
+    }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-	            String str;
-        	    str = "Sensor-App-Agent Message:" + separator_ + "UniBcast_flag=" + UniBcast_flag + "dst=" + dst + "size=" + size  + "type=" + type  + "snr=" + snr  + "eventID=" + eventID + "target_nid=" + target_nid; 
-			return str;
-		}
-	}
+    public String toString(String separator_)
+    {
+              String str;
+              str = "Sensor-App-Agent Message:" + separator_ + "UniBcast_flag=" + UniBcast_flag + "dst=" + dst + "size=" + size  + "type=" + type  + "snr=" + snr  + "eventID=" + eventID + "target_nid=" + target_nid; 
+      return str;
+    }
+  }
 }

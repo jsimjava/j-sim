@@ -32,24 +32,24 @@ package drcl.inet.protocol.cbt;
  * It includes join-rtx-timer, join/transient-timeout and quit-rtx-timer. */
 public class CBTStateTimer extends CBTTimer
 { 
-	public CBTState state;
+  public CBTState state;
 
-	public CBTStateTimer()
-	{}
+  public CBTStateTimer()
+  {}
 
-	public CBTStateTimer(int type_, CBTState s)
-	{
-		type = type_;
-		state = s;
-	}
+  public CBTStateTimer(int type_, CBTState s)
+  {
+    type = type_;
+    state = s;
+  }
 
-	public boolean equals(Object o)
-	{
-		if (!(o instanceof CBTStateTimer)) return false;
-		return type == ((CBTTimer)o).type
-			&& state == ((CBTStateTimer)o).state;
-	}
+  public boolean equals(Object o)
+  {
+    if (!(o instanceof CBTStateTimer)) return false;
+    return type == ((CBTTimer)o).type
+      && state == ((CBTStateTimer)o).state;
+  }
 
-	public String toString()
-	{ return CBTConstants.TIMER_TYPES[type] + ":" + state; }
+  public String toString()
+  { return CBTConstants.TIMER_TYPES[type] + ":" + state; }
 }

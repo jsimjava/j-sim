@@ -31,16 +31,16 @@ package drcl.comp;
 /** Defines the "fork" task. */
 public class TaskFork extends Task
 {
-	/** Creates a task to be executed immediately. */
-	public TaskFork (ForkManager fm_, double time_)
-	{
-		data = fm_;
-		time = time_;
-	}
+  /** Creates a task to be executed immediately. */
+  public TaskFork (ForkManager fm_, double time_)
+  {
+    data = fm_;
+    time = time_;
+  }
 
-	public final String toString()
-	{ return "FORK:" + drcl.util.StringUtil.toString(data) + ",time:" + time; }
+  public final String toString()
+  { return "FORK:" + drcl.util.StringUtil.toString(data) + ",time:" + time; }
 
-	public void execute(WorkerThread thread_)
-	{ ((ForkManager)data).process(thread_, thread_.runtime.getTime()); }
+  public void execute(WorkerThread thread_)
+  { ((ForkManager)data).process(thread_, thread_.runtime.getTime()); }
 }

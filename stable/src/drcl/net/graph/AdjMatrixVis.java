@@ -34,25 +34,25 @@ import java.io.*;
 // matrix to topology data structure.
 public class AdjMatrixVis
 {
-	public static void visualize(int[][] adjMatrix_)
-	{ visualize(adjMatrix_, false); }
+  public static void visualize(int[][] adjMatrix_)
+  { visualize(adjMatrix_, false); }
 
-	public static void visualize(int[][] adjMatrix_, boolean excludeStub_)
-	{
-		TopologyParser parser_ = new TopologyParser();
-		Graph g = parser_.parse(adjMatrix_);
+  public static void visualize(int[][] adjMatrix_, boolean excludeStub_)
+  {
+    TopologyParser parser_ = new TopologyParser();
+    Graph g = parser_.parse(adjMatrix_);
 
-		if (parser_.nodes.length < 20)
-			System.out.println(parser_.info());
-		else
-			System.out.println("visualize it...");
+    if (parser_.nodes.length < 20)
+      System.out.println(parser_.info());
+    else
+      System.out.println("visualize it...");
 
-		int width_ = 400, height_ = 300;
-		long seed_ = 0;
-		TopologyVisRelaxer t_ = new TopologyVisRelaxer(width_, height_);
-		Relaxer relaxer_ = new Relaxer(g , t_.getWidth(), t_.getHeight(),
-					   	1, seed_);
-		if (excludeStub_) relaxer_.excludeStub();
-		t_.visualize(relaxer_);
-	}
+    int width_ = 400, height_ = 300;
+    long seed_ = 0;
+    TopologyVisRelaxer t_ = new TopologyVisRelaxer(width_, height_);
+    Relaxer relaxer_ = new Relaxer(g , t_.getWidth(), t_.getHeight(),
+               1, seed_);
+    if (excludeStub_) relaxer_.excludeStub();
+    t_.visualize(relaxer_);
+  }
 }

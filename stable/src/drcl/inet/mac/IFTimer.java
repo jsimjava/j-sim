@@ -42,18 +42,18 @@ import drcl.comp.*;
  * @author Ye Ge
  */
 class IFTimer extends Mac_802_11_Timer {
-	public IFTimer(Mac_802_11 h) {	
-		super(h); 
-		o_.setType(MacTimeoutEvt.IF_timeout); 
-	}
+  public IFTimer(Mac_802_11 h) {  
+    super(h); 
+    o_.setType(MacTimeoutEvt.IF_timeout); 
+  }
 
     /**
      * Handles the IFTimer timeout event. This method is called in Mac_802_11 class.
      */
-	public void handle( ) {
-		busy_ = false;
-	    paused_ = false;
-	    stime = 0.0;
-	    rtime = 0.0;
-	}
+  public void handle( ) {
+    busy_ = false;
+      paused_ = false;
+      stime = 0.0;
+      rtime = 0.0;
+  }
 }

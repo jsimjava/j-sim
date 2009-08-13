@@ -33,23 +33,23 @@ package drcl.util.scalar;
  */
 public class IntUtil
 {
-	/**
-	 * Check if <em>subset</em> is a subset of <em>superset</em>.
-	 */
-	public static boolean isSubset(int[] subset, int[] superset)
-	{
-		if (subset == null) return true;
-		else if (superset == null) return false;
+  /**
+   * Check if <em>subset</em> is a subset of <em>superset</em>.
+   */
+  public static boolean isSubset(int[] subset, int[] superset)
+  {
+    if (subset == null) return true;
+    else if (superset == null) return false;
 
-		if (subset.length > superset.length) return false;
+    if (subset.length > superset.length) return false;
 
-		for (int i=0; i<subset.length; i++)
-		{
-			boolean matched = false;
-			for (int j=0; j<superset.length; j++)
-				if (subset[i] == superset[j]) { matched = true; break; }
-			if (!matched) return false;
-		}
-		return true;
-	}
+    for (int i=0; i<subset.length; i++)
+    {
+      boolean matched = false;
+      for (int j=0; j<superset.length; j++)
+        if (subset[i] == superset[j]) { matched = true; break; }
+      if (!matched) return false;
+    }
+    return true;
+  }
 }

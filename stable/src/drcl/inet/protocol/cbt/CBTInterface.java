@@ -34,44 +34,44 @@ package drcl.inet.protocol.cbt;
  */
 public class CBTInterface
 { 
-	/** True if the interface leads to the upstream router
-	 * and implies that the interface is also a router interface but not
-	 * a host interface.  */
-	public boolean isUpstream;
-	/** True if the interface is a broadcast LAN. (not used) */
-	public boolean isBroadcast;
-	/** True if the interface is connected to at least an end host member
-	 * and implies that the interface is not an upstream interface 
-	 * (downstream). */
-	public boolean isHostIf;
-	/** True if the interface is connected to at least a router. */
-	public boolean isRouterIf;
-	/** Time when this interface expires (not refreshed by echo messages). */
-	public double expireTime;
+  /** True if the interface leads to the upstream router
+   * and implies that the interface is also a router interface but not
+   * a host interface.  */
+  public boolean isUpstream;
+  /** True if the interface is a broadcast LAN. (not used) */
+  public boolean isBroadcast;
+  /** True if the interface is connected to at least an end host member
+   * and implies that the interface is not an upstream interface 
+   * (downstream). */
+  public boolean isHostIf;
+  /** True if the interface is connected to at least a router. */
+  public boolean isRouterIf;
+  /** Time when this interface expires (not refreshed by echo messages). */
+  public double expireTime;
 
-	public Object extension;
+  public Object extension;
 
-	CBTInterface()
-	{}
+  CBTInterface()
+  {}
 
-	public CBTInterface(boolean upstream_, boolean broadcast_,
-					boolean hostIf_, boolean routerIf_, Object extension_)
-	{
-		isUpstream = upstream_;
-		isBroadcast = broadcast_;
-		isHostIf = hostIf_;
-		isRouterIf = routerIf_;
-		extension = extension_;
-	}
+  public CBTInterface(boolean upstream_, boolean broadcast_,
+          boolean hostIf_, boolean routerIf_, Object extension_)
+  {
+    isUpstream = upstream_;
+    isBroadcast = broadcast_;
+    isHostIf = hostIf_;
+    isRouterIf = routerIf_;
+    extension = extension_;
+  }
 
-	public String toString()
-	{
-		return (isUpstream? "up": "down")
-				+ (isBroadcast? ",bcast": ",p2p")
-				+ (isHostIf? ",host": "")
-				+ (isRouterIf? ",router": "")
-				+ ",expire=" + expireTime
-				+ (extension == null? "": ",ext=" + 
-								drcl.util.StringUtil.toString(extension));
-	}
+  public String toString()
+  {
+    return (isUpstream? "up": "down")
+        + (isBroadcast? ",bcast": ",p2p")
+        + (isHostIf? ",host": "")
+        + (isRouterIf? ",router": "")
+        + ",expire=" + expireTime
+        + (extension == null? "": ",ext=" + 
+                drcl.util.StringUtil.toString(extension));
+  }
 }

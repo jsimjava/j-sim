@@ -39,62 +39,62 @@ import drcl.comp.*;
  */
 public class TextDisplay extends Extension
 {
-	Port port = addPort("in");
-	TextArea taDisplay = new TextArea(30, 80);
-	boolean isPaste = true;
-	
-	{ taDisplay.setEditable(false); }
-						
-	public TextDisplay()
-	{	super();	}
+  Port port = addPort("in");
+  TextArea taDisplay = new TextArea(30, 80);
+  boolean isPaste = true;
+  
+  { taDisplay.setEditable(false); }
+            
+  public TextDisplay()
+  {  super();  }
 
-	public TextDisplay(String id_)
-	{	super(id_);}
+  public TextDisplay(String id_)
+  {  super(id_);}
 
-	protected void process(Object data_, drcl.comp.Port inPort_)
-	{
-		if (data_ == null) return;
-		
-		synchronized (taDisplay) {
-			if (isPaste) taDisplay.setText(data_.toString());
-			else taDisplay.append(data_.toString());
-		}
-	}
+  protected void process(Object data_, drcl.comp.Port inPort_)
+  {
+    if (data_ == null) return;
+    
+    synchronized (taDisplay) {
+      if (isPaste) taDisplay.setText(data_.toString());
+      else taDisplay.append(data_.toString());
+    }
+  }
 
-	public void reset()
-	{
-		super.reset(); // Let super class reset its fields.
-		taDisplay.setText("");
-	}
+  public void reset()
+  {
+    super.reset(); // Let super class reset its fields.
+    taDisplay.setText("");
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_); // Let super class copy its fields.
-		TextDisplay that_ = (TextDisplay)source_;
-		taDisplay.setRows(that_.taDisplay.getRows());
-		taDisplay.setColumns(that_.taDisplay.getColumns());
-		taDisplay.setText(that_.taDisplay.getText());
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_); // Let super class copy its fields.
+    TextDisplay that_ = (TextDisplay)source_;
+    taDisplay.setRows(that_.taDisplay.getRows());
+    taDisplay.setColumns(that_.taDisplay.getColumns());
+    taDisplay.setText(that_.taDisplay.getText());
+  }
 
-	public String info()
-	{
-		return this + ":\n" + taDisplay.getText();
-	}
+  public String info()
+  {
+    return this + ":\n" + taDisplay.getText();
+  }
 
-	/**
-	 * Sets the number of rows and columns of the display text area.
-	 * The number of columns also affects that of the input text area.
-	 */
-	public void setDisplaySize(int rows_, int cols_)
-	{
-		taDisplay.setRows(rows_);
-		taDisplay.setColumns(cols_);
-		taDisplay.validate();
-	}
-	
-	public java.awt.Component getDisplay() 
-	{ return taDisplay; }
-	
-	public boolean isPaste() { return isPaste; }
-	public void setPaste(boolean v_) { isPaste = v_; }
+  /**
+   * Sets the number of rows and columns of the display text area.
+   * The number of columns also affects that of the input text area.
+   */
+  public void setDisplaySize(int rows_, int cols_)
+  {
+    taDisplay.setRows(rows_);
+    taDisplay.setColumns(cols_);
+    taDisplay.validate();
+  }
+  
+  public java.awt.Component getDisplay() 
+  { return taDisplay; }
+  
+  public boolean isPaste() { return isPaste; }
+  public void setPaste(boolean v_) { isPaste = v_; }
 }

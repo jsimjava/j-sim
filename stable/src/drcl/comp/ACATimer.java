@@ -33,22 +33,22 @@ package drcl.comp;
  */
 public class ACATimer extends drcl.DrclObj
 {
-	/** The timeout event object. */
-	public Object data;
+  /** The timeout event object. */
+  public Object data;
 
-	/** Time when the timer expires. */
-	double time;
+  /** Time when the timer expires. */
+  double time;
 
-	public ACATimer()
-	{}
+  public ACATimer()
+  {}
 
-	/** Returns the time when the timer expires. */
-	public double getTime()
-	{ return time; }
+  /** Returns the time when the timer expires. */
+  public double getTime()
+  { return time; }
 
-	public void duplicate(Object source_)
-	{
-		data = drcl.util.ObjectUtil.clone(((ACATimer)source_).data);
-		time = ((ACATimer)source_).time;
-	}
+  public void duplicate(Object source_)
+  {
+    data = drcl.util.ObjectUtil.clone(((ACATimer)source_).data);
+    time = ((ACATimer)source_).time;
+  }
 }

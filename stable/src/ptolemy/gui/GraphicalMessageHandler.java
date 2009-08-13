@@ -74,8 +74,8 @@ public class GraphicalMessageHandler extends MessageHandler {
      */
     protected void _error(String info) {
         Object[] message = new Object[1];
-	String string = info;
-	message[0] = _ellipsis(string, 400);
+  String string = info;
+  message[0] = _ellipsis(string, 400);
 
         Object[] options = {"Dismiss"};
 
@@ -110,13 +110,13 @@ public class GraphicalMessageHandler extends MessageHandler {
         // (new Exception()).printStackTrace();
 
         Object[] message = new Object[1];
-	String string;
-	if(info != null) {
-	    string = info + "\n" + exception.getMessage();
-	} else {
-	    string = exception.getMessage();
-	}
-	message[0] = _ellipsis(string, 400);
+  String string;
+  if(info != null) {
+      string = info + "\n" + exception.getMessage();
+  } else {
+      string = exception.getMessage();
+  }
+  message[0] = _ellipsis(string, 400);
 
         Object[] options = {"Dismiss", "Display Stack Trace"};
 
@@ -237,10 +237,10 @@ public class GraphicalMessageHandler extends MessageHandler {
      *  @param length The length to which to truncate the string.
      */
     private String _ellipsis(String string, int length) {
-	if(string.length() > length) {
-	    return string.substring(0, length-3) + "...";
-	}
-	return string;
+  if(string.length() > length) {
+      return string.substring(0, length-3) + "...";
+  }
+  return string;
     }
 
     /** Display a stack trace dialog. The "info" argument is a

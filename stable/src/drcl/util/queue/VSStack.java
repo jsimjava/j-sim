@@ -35,94 +35,94 @@ import java.util.Vector;
  */
 public class VSStack extends VSSimpleQueue
 {
-	public VSStack()
-	{ super(); }
-	
-	public void enqueue(double key_, Object element_, int size_)
-	{
-		//drcl.Debug.log(this, "enqueue: key=" + key_ + ", element=" + element_ 
-		//			   + ", size=" + size + ", maxSize=" + maxSize);
-		_Element e_ = head;
-		_Element new_ = _Element.create(key_, element_, size_);
-		// insert before e_.next
-		new_.next = e_.next;
-		e_.next = new_;
-		size += size_; length ++;
-		if (new_.next == null) tail = new_;
-	}
-	
-	public boolean enqueueAt(int pos_, double key_, Object element_, int size_)
-	{
-		_Element e_= head;
-		for (int i=0; i<pos_ && e_.next != null; i++, e_ = e_.next);
-		
-		// insert after e_
-		_Element new_ = _Element.create(key_, element_, size_);
-		new_.next = e_.next;
-		e_.next = new_;
-		size += size_; length ++;
-		if (new_.next == null) tail = new_;
-		return true;
-	}
-	
-	public void merge(Queue that_)
-	{
-		double[] keys_ = (double[]) that_.keys();
-		Element[] elements_ = that_._retrieveAll();
-		
-		_Element e_ = head;
-		
-		for (int i=0; i<keys_.length; i++)	{
-			int size_ = elements_[i].getSize();
-			
-			_Element new_ = _Element.create(keys_[i], elements_[i], size_);
-		
-			// insert after e_
-			new_.next = e_.next;
-			e_.next = new_;
-			size += size_; length ++;
-			if (new_.next == null) tail = new_;
-			e_ = new_;
-		}
-	}
-	
-	
-	public void enqueue(Object element_, int size_)
-	{
-		_Element e_ = head;
-		_Element new_ = _Element.create(e_.next == null? 0.0: e_.next.key, element_, size_);
-		// insert before e_.next
-		new_.next = e_.next;
-		e_.next = new_;
-		size += size_; length++;
-		if (new_.next == null) tail = new_;
-	}
-	
-	
-	public Object retrieveBy(double key_)
-	{
-		for (_Element e_ = head; e_.next != null; e_ = e_.next)
-			if (e_.next.key == key_) return e_.next.obj;
-		return null;
-	}
-	
-	
-	
-	public Object[] retrieveAll(double key_)
-	{
-		Vector v_ = new Vector();
-		for (_Element e_ = head; e_.next != null; e_ = e_.next)	
-			if (e_.next.key == key_) v_.addElement(e_.next.obj);
-		Object[] oo_ = new Object[v_.size()];
-		v_.copyInto(oo_);
-		return oo_;
-	}
-	
-	
-	public boolean containsKey(double key_)
-	{ 
-		for (_Element e_ = head; e_.next != null; e_ = e_.next)
-			if (e_.next.key == key_) return true;
-		return false;
-	}
+  public VSStack()
+  { super(); }
+  
+  public void enqueue(double key_, Object element_, int size_)
+  {
+    //drcl.Debug.log(this, "enqueue: key=" + key_ + ", element=" + element_ 
+    //         + ", size=" + size + ", maxSize=" + maxSize);
+    _Element e_ = head;
+    _Element new_ = _Element.create(key_, element_, size_);
+    // insert before e_.next
+    new_.next = e_.next;
+    e_.next = new_;
+    size += size_; length ++;
+    if (new_.next == null) tail = new_;
+  }
+  
+  public boolean enqueueAt(int pos_, double key_, Object element_, int size_)
+  {
+    _Element e_= head;
+    for (int i=0; i<pos_ && e_.next != null; i++, e_ = e_.next);
+    
+    // insert after e_
+    _Element new_ = _Element.create(key_, element_, size_);
+    new_.next = e_.next;
+    e_.next = new_;
+    size += size_; length ++;
+    if (new_.next == null) tail = new_;
+    return true;
+  }
+  
+  public void merge(Queue that_)
+  {
+    double[] keys_ = (double[]) that_.keys();
+    Element[] elements_ = that_._retrieveAll();
+    
+    _Element e_ = head;
+    
+    for (int i=0; i<keys_.length; i++)  {
+      int size_ = elements_[i].getSize();
+      
+      _Element new_ = _Element.create(keys_[i], elements_[i], size_);
+    
+      // insert after e_
+      new_.next = e_.next;
+      e_.next = new_;
+      size += size_; length ++;
+      if (new_.next == null) tail = new_;
+      e_ = new_;
+    }
+  }
+  
+  
+  public void enqueue(Object element_, int size_)
+  {
+    _Element e_ = head;
+    _Element new_ = _Element.create(e_.next == null? 0.0: e_.next.key, element_, size_);
+    // insert before e_.next
+    new_.next = e_.next;
+    e_.next = new_;
+    size += size_; length++;
+    if (new_.next == null) tail = new_;
+  }
+  
+  
+  public Object retrieveBy(double key_)
+  {
+    for (_Element e_ = head; e_.next != null; e_ = e_.next)
+      if (e_.next.key == key_) return e_.next.obj;
+    return null;
+  }
+  
+  
+  
+  public Object[] retrieveAll(double key_)
+  {
+    Vector v_ = new Vector();
+    for (_Element e_ = head; e_.next != null; e_ = e_.next)  
+      if (e_.next.key == key_) v_.addElement(e_.next.obj);
+    Object[] oo_ = new Object[v_.size()];
+    v_.copyInto(oo_);
+    return oo_;
+  }
+  
+  
+  public boolean containsKey(double key_)
+  { 
+    for (_Element e_ = head; e_.next != null; e_ = e_.next)
+      if (e_.next.key == key_) return true;
+    return false;
+  }
 }

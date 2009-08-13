@@ -30,9 +30,9 @@ package drcl.util.queue;
 
 public class QueueOptionalImplException extends Error
 {
-	public QueueOptionalImplException()
-	{ super(); }
-	
-	public QueueOptionalImplException(String msg_)
-	{ super(msg_); }
+  public QueueOptionalImplException()
+  { super(); }
+  
+  public QueueOptionalImplException(String msg_)
+  { super(msg_); }
 }

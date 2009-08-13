@@ -42,85 +42,85 @@ import java.util.*;
  */
 public class TclAction extends drcl.comp.Extension
 {
-	Interp interp;
-	Object lock; // lock for accessing the interpreter
-	String universalAction; // a Tcl script to execute in response to any signal
-	Map actionMap; // signal (Object) -> action (Tcl script in String)
+  Interp interp;
+  Object lock; // lock for accessing the interpreter
+  String universalAction; // a Tcl script to execute in response to any signal
+  Map actionMap; // signal (Object) -> action (Tcl script in String)
 
-	public TclAction ()
-	{ super(); }
+  public TclAction ()
+  { super(); }
 
-	public TclAction(String id_)
-	{ super(id_); }
+  public TclAction(String id_)
+  { super(id_); }
 
-	/**
-	 * Initializes the component. 
-	 * Usually, lock_ is the drcl.ruv.Shell object that contains the
-	 * interpreter if the Shell has its own thread to accept commands from
-	 * a terminal.  If the interpreter is dedicated to this purpose,
-	 * then lock_ can be the interpreter itself.
-	 *
-	 * @param interp_ the Jacl interpreter instance.
-	 * @param lock_ to make sure only one thread is accessing interp_ at a time.
-	 */
-	public void init(Interp interp_, Object lock_)
-	{
-		interp = interp_;
-		lock = lock_;
-	}
+  /**
+   * Initializes the component. 
+   * Usually, lock_ is the drcl.ruv.Shell object that contains the
+   * interpreter if the Shell has its own thread to accept commands from
+   * a terminal.  If the interpreter is dedicated to this purpose,
+   * then lock_ can be the interpreter itself.
+   *
+   * @param interp_ the Jacl interpreter instance.
+   * @param lock_ to make sure only one thread is accessing interp_ at a time.
+   */
+  public void init(Interp interp_, Object lock_)
+  {
+    interp = interp_;
+    lock = lock_;
+  }
 
-	/** Sets the Tcl script to execute in response to signal_ received.
-	 * @param action_ the Tcl script to execute.
-	 */ 
-	public void addAction(Object signal_, String action_)
-	{
-		if (actionMap == null) actionMap = new HashMap();
-		actionMap.put(signal_, action_);
-	}
+  /** Sets the Tcl script to execute in response to signal_ received.
+   * @param action_ the Tcl script to execute.
+   */ 
+  public void addAction(Object signal_, String action_)
+  {
+    if (actionMap == null) actionMap = new HashMap();
+    actionMap.put(signal_, action_);
+  }
 
-	/** Sets the Tcl script to execute in response to any signal received.
-	 * This action is executed after the designated action (to the signal)
-	 * is executed. 
-	 */ 
-	public void setUniversalAction(String action_)
-	{
-		universalAction = action_;
-	}
+  /** Sets the Tcl script to execute in response to any signal received.
+   * This action is executed after the designated action (to the signal)
+   * is executed. 
+   */ 
+  public void setUniversalAction(String action_)
+  {
+    universalAction = action_;
+  }
 
-	public String getUniversalAction()
-	{ return universalAction; }
+  public String getUniversalAction()
+  { return universalAction; }
 
-	/** Sets the action map that associates the signals with actions. */
-	public void setActionMap(Map map_)
-	{
-		actionMap = map_;
-	}
+  /** Sets the action map that associates the signals with actions. */
+  public void setActionMap(Map map_)
+  {
+    actionMap = map_;
+  }
 
-	/** Returns the action map. */
-	public Map getActionMap()
-	{ return actionMap; }
+  /** Returns the action map. */
+  public Map getActionMap()
+  { return actionMap; }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		synchronized (lock) {
-			try {
-				if (actionMap != null) {
-					String action_ = (String)actionMap.get(data_);
-					if (action_ != null) interp.eval(action_);
-				}
-				if (universalAction != null)
-					interp.eval(universalAction);
-			}
-			catch (Exception e_) {
-				e_.printStackTrace();
-			}
-		}
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    synchronized (lock) {
+      try {
+        if (actionMap != null) {
+          String action_ = (String)actionMap.get(data_);
+          if (action_ != null) interp.eval(action_);
+        }
+        if (universalAction != null)
+          interp.eval(universalAction);
+      }
+      catch (Exception e_) {
+        e_.printStackTrace();
+      }
+    }
+  }
 
-	public String info()
-	{
-		return "interp = " + interp + "\nlock = " + lock
-				+ "\nuniversalAction = " + universalAction
-				+ "\nactionMap = " + actionMap + "\n";
-	}
+  public String info()
+  {
+    return "interp = " + interp + "\nlock = " + lock
+        + "\nuniversalAction = " + universalAction
+        + "\nactionMap = " + actionMap + "\n";
+  }
 }

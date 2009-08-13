@@ -32,44 +32,44 @@ package drcl.net.traffic;
  * superclass. */
 public class TimestampedFooPacket extends drcl.net.FooPacket
 {
-	double timestamp;
+  double timestamp;
 
-	public TimestampedFooPacket()
-	{ super(); }
+  public TimestampedFooPacket()
+  { super(); }
 
-	public TimestampedFooPacket(int pktsize_, int pktcnt_, long bytecnt_)
-	{ super(pktsize_, pktcnt_, bytecnt_); }
+  public TimestampedFooPacket(int pktsize_, int pktcnt_, long bytecnt_)
+  { super(pktsize_, pktcnt_, bytecnt_); }
 
-	public TimestampedFooPacket(double time_, int pktsize_, int pktcnt_,
-					long bytecnt_)
-	{ super(pktsize_, pktcnt_, bytecnt_); timestamp = time_; }
+  public TimestampedFooPacket(double time_, int pktsize_, int pktcnt_,
+          long bytecnt_)
+  { super(pktsize_, pktcnt_, bytecnt_); timestamp = time_; }
 
-	public String getName()
-	{ return "TimedFOO"; }
+  public String getName()
+  { return "TimedFOO"; }
 
-	public void setTimestamp(double time_)
-	{ timestamp = time_; }
+  public void setTimestamp(double time_)
+  { timestamp = time_; }
 
-	public double getTimestamp()
-	{ return timestamp; }
+  public double getTimestamp()
+  { return timestamp; }
 
-	/** Returns true always. */
-	public boolean isTimestampSupported()
-	{ return true; }
+  /** Returns true always. */
+  public boolean isTimestampSupported()
+  { return true; }
 
-	/*
-	public void duplicate(Object p_)
-	{
-		super.duplicate(p_);
-		timestamp = ((TimestampedFooPacket)p_).timestamp;
-	}
-	*/
+  /*
+  public void duplicate(Object p_)
+  {
+    super.duplicate(p_);
+    timestamp = ((TimestampedFooPacket)p_).timestamp;
+  }
+  */
 
-	public Object clone()
-	{ return new TimestampedFooPacket(timestamp, size, getPacketCount(),
-					getByteCount()); }
+  public Object clone()
+  { return new TimestampedFooPacket(timestamp, size, getPacketCount(),
+          getByteCount()); }
 
-	public String _toString(String separator_)
-	{ return "timestamp:" + timestamp + separator_
-			+ super._toString(separator_); }
+  public String _toString(String separator_)
+  { return "timestamp:" + timestamp + separator_
+      + super._toString(separator_); }
 }

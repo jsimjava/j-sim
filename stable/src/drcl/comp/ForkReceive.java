@@ -30,35 +30,35 @@ package drcl.comp;
 
 class ForkReceive extends ForkEvent
 {
-	public ForkReceive (Object evt_, Port p_, double time_)
-	{
-		data = evt_;
-		port = p_;
-		time = time_;
-	}
+  public ForkReceive (Object evt_, Port p_, double time_)
+  {
+    data = evt_;
+    port = p_;
+    time = time_;
+  }
 
-	public final String toString()
-	{
-		return "RECEIVE:PORT=" + port + "--EVT=" + data + (sent()? "\t\tsent_up": "");
-	}
-	
-	/** Doesn't compare action. */
-	public final boolean equals(Object thatobj_) 
-	{
-		if (this == thatobj_) return true;
-		if (!(thatobj_ instanceof ForkReceive)) return false;
-		ForkReceive that_ = (ForkReceive)thatobj_;
-		return port == that_.port && (data == that_.data || data != null && data.equals(that_.data));
-	}
+  public final String toString()
+  {
+    return "RECEIVE:PORT=" + port + "--EVT=" + data + (sent()? "\t\tsent_up": "");
+  }
+  
+  /** Doesn't compare action. */
+  public final boolean equals(Object thatobj_) 
+  {
+    if (this == thatobj_) return true;
+    if (!(thatobj_ instanceof ForkReceive)) return false;
+    ForkReceive that_ = (ForkReceive)thatobj_;
+    return port == that_.port && (data == that_.data || data != null && data.equals(that_.data));
+  }
 
-	// must be in WorkerThread
-	public void execute(WorkerThread thread_)
-	{
-		thread_.mainContext = this;
-		returnPort = null;
-		if (port.flagTraceData)
-			port.host.trace(Component.Trace_DATA, port, data);
-		if (port.host.isEnabled())
-			port.host.process(data, port);
-	}
+  // must be in WorkerThread
+  public void execute(WorkerThread thread_)
+  {
+    thread_.mainContext = this;
+    returnPort = null;
+    if (port.flagTraceData)
+      port.host.trace(Component.Trace_DATA, port, data);
+    if (port.host.isEnabled())
+      port.host.process(data, port);
+  }
 }

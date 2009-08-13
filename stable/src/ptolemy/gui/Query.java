@@ -114,7 +114,7 @@ public class Query extends JPanel {
      */
     public void addChoice(String name, String label,
             String[] values, String defaultChoice) {
-	addChoice(name, label, values, defaultChoice, false);
+  addChoice(name, label, values, defaultChoice, false);
     }
 
     /** Create a choice menu.
@@ -152,7 +152,7 @@ public class Query extends JPanel {
         // least in the current version of swing, JLabel.setText() does
         // not work.
         JTextArea displayField = new JTextArea(theValue, 1, 10);
-	displayField.setEditable(false);
+  displayField.setEditable(false);
         displayField.setBackground(_background);
         _addPair(name, lbl, displayField, displayField);
     }
@@ -709,7 +709,7 @@ public class Query extends JPanel {
         }
         if (result instanceof JSlider) {
             JSlider theSlider = (JSlider)result;
-	    // Set the new slider position.
+      // Set the new slider position.
             theSlider.setValue(value);
         } else {
             throw new IllegalArgumentException("Item named \"" +

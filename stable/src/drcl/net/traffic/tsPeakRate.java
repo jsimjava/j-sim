@@ -40,83 +40,83 @@ import drcl.net.FooPacket;
  */
 public class tsPeakRate extends TrafficSourceComponent
 {
-	double nextTime;
-	traffic_PeakRate traffic = null;
-	Random randomSize = new Random();
-	Random randomInterval = new Random();
+  double nextTime;
+  traffic_PeakRate traffic = null;
+  Random randomSize = new Random();
+  Random randomInterval = new Random();
 
-	public tsPeakRate()
-	{ this(new traffic_PeakRate()); }
+  public tsPeakRate()
+  { this(new traffic_PeakRate()); }
 
-	public tsPeakRate(String id_)
-	{ super(id_); traffic = new traffic_PeakRate(); reset(); }
+  public tsPeakRate(String id_)
+  { super(id_); traffic = new traffic_PeakRate(); reset(); }
 
-	public tsPeakRate(traffic_PeakRate traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsPeakRate(traffic_PeakRate traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void setSeed(long seed_)
-	{
-		super.setSeed(seed_);
-		Random r = new Random(seed_);
-		randomSize.setSeed(r.nextLong());
-		randomInterval.setSeed(r.nextLong());
-	}
+  public void setSeed(long seed_)
+  {
+    super.setSeed(seed_);
+    Random r = new Random(seed_);
+    randomSize.setSeed(r.nextLong());
+    randomInterval.setSeed(r.nextLong());
+  }
 
-	public void reset()
-	{
-		super.reset();
-		nextTime   = 0.0;
-	}
+  public void reset()
+  {
+    super.reset();
+    nextTime   = 0.0;
+  }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_) + prefix_ + "State: nextTime=" + nextTime
-			+ "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_) + prefix_ + "State: nextTime=" + nextTime
+      + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_PeakRate)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_PeakRate)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_)
-	{ 
-		int size_ = (int)((double)(traffic.maxPktSize - traffic.minPktSize)
-					* randomSize.nextDouble()) + traffic.minPktSize;
-		if (size_ < 1) size_ = 1;
+  protected double setNextPacket(FooPacket nextpkt_)
+  { 
+    int size_ = (int)((double)(traffic.maxPktSize - traffic.minPktSize)
+          * randomSize.nextDouble()) + traffic.minPktSize;
+    if (size_ < 1) size_ = 1;
 
-		double delta_ = (traffic.maxIntArrivalTime - traffic.minIntArrivalTime)
-					* randomInterval.nextDouble() + traffic.minIntArrivalTime;
-		//if (delta_ > .001)// XXX: temporary, for readability
-		//	nextTime += (double)((long)delta_);
-		double time_ = nextTime;
-		nextTime += delta_;
+    double delta_ = (traffic.maxIntArrivalTime - traffic.minIntArrivalTime)
+          * randomInterval.nextDouble() + traffic.minIntArrivalTime;
+    //if (delta_ > .001)// XXX: temporary, for readability
+    //  nextTime += (double)((long)delta_);
+    double time_ = nextTime;
+    nextTime += delta_;
 
-		nextpkt_.setPacketSize(size_);
-		return time_;
-	}
+    nextpkt_.setPacketSize(size_);
+    return time_;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime += (newTime_ - birthTime);
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime += (newTime_ - birthTime);
+    super.reschedule(newTime_);
+  }
 
-	public void setMaxPktSize(int size_) { traffic.maxPktSize = size_; }
-	public int getMaxPktSize() { return traffic.maxPktSize; }
-	
-	public void setMinPktSize(int size_) { traffic.minPktSize = size_; }
-	public int getMinPktSize() { return traffic.minPktSize; }
-	
-	public void setMaxIntArrivalTime(double time_)
-	{traffic.maxIntArrivalTime = time_; }
-	public double getMaxIntArrivalTime() { return traffic.maxIntArrivalTime; }
-	
-	public void setMinIntArrivalTime(double time_)
-	{ traffic.minIntArrivalTime = time_; }
-	public double getMinIntArrivalTime() { return traffic.minIntArrivalTime; }
+  public void setMaxPktSize(int size_) { traffic.maxPktSize = size_; }
+  public int getMaxPktSize() { return traffic.maxPktSize; }
+  
+  public void setMinPktSize(int size_) { traffic.minPktSize = size_; }
+  public int getMinPktSize() { return traffic.minPktSize; }
+  
+  public void setMaxIntArrivalTime(double time_)
+  {traffic.maxIntArrivalTime = time_; }
+  public double getMaxIntArrivalTime() { return traffic.maxIntArrivalTime; }
+  
+  public void setMinIntArrivalTime(double time_)
+  { traffic.minIntArrivalTime = time_; }
+  public double getMinIntArrivalTime() { return traffic.minIntArrivalTime; }
 
-	public void set(int min_, int max_, double miniat_, double maxiat_)
-	{ traffic.set(min_, max_, miniat_, maxiat_); reset(); }
+  public void set(int min_, int max_, double miniat_, double maxiat_)
+  { traffic.set(min_, max_, miniat_, maxiat_); reset(); }
 }

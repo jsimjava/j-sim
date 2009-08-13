@@ -40,61 +40,61 @@ package drcl.net.traffic;
  */
 public class traffic_PacketTrain extends TrafficModel implements TrafficPeriodic
 {
-	public int   packetSize;
-	public double interArrivalTime;
-	
-	public traffic_PacketTrain()
-	{}
+  public int   packetSize;
+  public double interArrivalTime;
+  
+  public traffic_PacketTrain()
+  {}
 
-	public traffic_PacketTrain(int mtu_, double iat_)
-	{ set(mtu_, iat_); }
+  public traffic_PacketTrain(int mtu_, double iat_)
+  { set(mtu_, iat_); }
 
-	public void set(int mtu_, double iat_)
-	{
-		packetSize = mtu_;
-		interArrivalTime = iat_;
-	}
-	
-	public double getLoad() 
-	{ return (double)(packetSize << 3)/interArrivalTime; }
-	
-	public double getPeriod() { return interArrivalTime; }
-	public int getBurst() { return packetSize; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_PacketTrain)) return null;
-		traffic_PacketTrain thatTraffic_ = (traffic_PacketTrain) that_;
-		double load1_ = getLoad();
-		double load2_ = thatTraffic_.getLoad();
-		packetSize = Math.max(packetSize, thatTraffic_.packetSize);
-		interArrivalTime = (packetSize << 3) / (load1_ + load2_);
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_PacketTrain)) return;
-		traffic_PacketTrain that_ = (traffic_PacketTrain) source_;
-		packetSize = that_.packetSize;
-		interArrivalTime = that_.interArrivalTime;
-	}
-	
-	public String oneline()
-	{
-		return getClass().getName() + ":packetSize=" + packetSize
-			+ ", interArrivalTime=" + interArrivalTime;
-	}
-	
-	// 
-	private void ___PROPERTY___() {}
-	//
-	
-	public void setPacketSize(int size_) { packetSize = size_; }
-	public int getPacketSize() { return packetSize; }
-	
-	public void setIntArrivalTime(double t_) { interArrivalTime = t_; }
-	public double getIntArrivalTime() { return interArrivalTime; }
-	
-	public int getMTU() { return packetSize; }
+  public void set(int mtu_, double iat_)
+  {
+    packetSize = mtu_;
+    interArrivalTime = iat_;
+  }
+  
+  public double getLoad() 
+  { return (double)(packetSize << 3)/interArrivalTime; }
+  
+  public double getPeriod() { return interArrivalTime; }
+  public int getBurst() { return packetSize; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_PacketTrain)) return null;
+    traffic_PacketTrain thatTraffic_ = (traffic_PacketTrain) that_;
+    double load1_ = getLoad();
+    double load2_ = thatTraffic_.getLoad();
+    packetSize = Math.max(packetSize, thatTraffic_.packetSize);
+    interArrivalTime = (packetSize << 3) / (load1_ + load2_);
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_PacketTrain)) return;
+    traffic_PacketTrain that_ = (traffic_PacketTrain) source_;
+    packetSize = that_.packetSize;
+    interArrivalTime = that_.interArrivalTime;
+  }
+  
+  public String oneline()
+  {
+    return getClass().getName() + ":packetSize=" + packetSize
+      + ", interArrivalTime=" + interArrivalTime;
+  }
+  
+  // 
+  private void ___PROPERTY___() {}
+  //
+  
+  public void setPacketSize(int size_) { packetSize = size_; }
+  public int getPacketSize() { return packetSize; }
+  
+  public void setIntArrivalTime(double t_) { interArrivalTime = t_; }
+  public double getIntArrivalTime() { return interArrivalTime; }
+  
+  public int getMTU() { return packetSize; }
 }

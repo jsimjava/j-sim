@@ -38,47 +38,47 @@ import drcl.data.*;
  */
 public class DataCounter extends Extension
 {
-	Hashtable htcount = new Hashtable();
-	
-	public DataCounter() { super(); }
-	
-	public DataCounter(String id_) { super(id_); }
-	
-	protected synchronized void process(Object data_, Port inPort_) 
-	{
-		LongObj count_ = (LongObj)htcount.get(inPort_);
-		if (count_ == null) {
-			count_ = new LongObj(0);
-			htcount.put(inPort_, count_);
-		}
-		count_.value ++;
-	}
-	
-	public void reset()
-	{
-		if (htcount != null) htcount.clear();
-		else htcount = new Hashtable();
-		super.reset();
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof DataCounter)) return;
-		super.duplicate(source_);
-		DataCounter that_ = (DataCounter)source_;
-	}
-	
-	public String info()
-	{
-		if (htcount == null || htcount.size() == 0) 
-			return "Nothing being counted.\n";
-		StringBuffer sb_ = new StringBuffer("#Ports being monitored: " + htcount.size() + "\n");
-		Enumeration counts_ = htcount.elements();
-		for (Enumeration e_ = htcount.keys(); e_.hasMoreElements(); ) {
-			Object port_ = e_.nextElement();
-			Object count_ = counts_.nextElement();
-			sb_.append(port_ + ": " + count_ + "\n");
-		}
-		return sb_.toString();
-	}
+  Hashtable htcount = new Hashtable();
+  
+  public DataCounter() { super(); }
+  
+  public DataCounter(String id_) { super(id_); }
+  
+  protected synchronized void process(Object data_, Port inPort_) 
+  {
+    LongObj count_ = (LongObj)htcount.get(inPort_);
+    if (count_ == null) {
+      count_ = new LongObj(0);
+      htcount.put(inPort_, count_);
+    }
+    count_.value ++;
+  }
+  
+  public void reset()
+  {
+    if (htcount != null) htcount.clear();
+    else htcount = new Hashtable();
+    super.reset();
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof DataCounter)) return;
+    super.duplicate(source_);
+    DataCounter that_ = (DataCounter)source_;
+  }
+  
+  public String info()
+  {
+    if (htcount == null || htcount.size() == 0) 
+      return "Nothing being counted.\n";
+    StringBuffer sb_ = new StringBuffer("#Ports being monitored: " + htcount.size() + "\n");
+    Enumeration counts_ = htcount.elements();
+    for (Enumeration e_ = htcount.keys(); e_.hasMoreElements(); ) {
+      Object port_ = e_.nextElement();
+      Object count_ = counts_.nextElement();
+      sb_.append(port_ + ": " + count_ + "\n");
+    }
+    return sb_.toString();
+  }
 }

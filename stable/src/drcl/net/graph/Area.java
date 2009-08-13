@@ -32,28 +32,28 @@ import java.util.LinkedList;
 
 public class Area extends Node
 {
-	public LinkedList llNodes = new LinkedList();
+  public LinkedList llNodes = new LinkedList();
 
-	public Area(int id_)
-	{
-		id = id_;
-	}
+  public Area(int id_)
+  {
+    id = id_;
+  }
 
-	public Area(int id_, Area parent_)
-	{
-		this(id_);
-		parent = parent_;
-	}
+  public Area(int id_, Area parent_)
+  {
+    this(id_);
+    parent = parent_;
+  }
 
-	public void addNode(Node n)
-	{
-		llNodes.add(n);
-		n.parent = this;
-	}
+  public void addNode(Node n)
+  {
+    llNodes.add(n);
+    n.parent = this;
+  }
 
-	public int numNodes()
-	{ return llNodes.size(); }
+  public int numNodes()
+  { return llNodes.size(); }
 
-	public String toString()
-	{ return id + " nnodes=" + numNodes(); }
+  public String toString()
+  { return id + " nnodes=" + numNodes(); }
 }

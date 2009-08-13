@@ -46,129 +46,129 @@ The associated traffic model is made up by the load, burst and MTU properties.
  */
 public abstract class TraceInput extends TrafficSourceComponent
 {
-	static final long FLAG_LOOP_ENABLED  = 1L << FLAG_UNDEFINED_START;
+  static final long FLAG_LOOP_ENABLED  = 1L << FLAG_UNDEFINED_START;
 
-	public TraceInput()
-	{ super(); }
+  public TraceInput()
+  { super(); }
 
-	public TraceInput(String id_)
-	{ super(id_); }
+  public TraceInput(String id_)
+  { super(id_); }
 
-	protected transient Reader reader;
-	double loopPeriod = 0.0;
+  protected transient Reader reader;
+  double loopPeriod = 0.0;
 
-	protected abstract double setNextPacket(drcl.net.FooPacket nextpkt_);
+  protected abstract double setNextPacket(drcl.net.FooPacket nextpkt_);
 
-	public void reset()
-	{
-		super.reset();
-		if (isLoopEnabled())
-			loopingTest(false/*dont mark*/);
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof TraceInput)) return;
-		super.duplicate(source_);
-		TraceInput that_ = (TraceInput) source_;
-	}
-	
-	public String info()
-	{
-		return super.info()
-			+ (isLoopEnabled()? "LoopEnabled: period = " + loopPeriod + "\n": "");
-	}
-	
-	/** Loads the trace file into this component. */
-	public void load(String filename_)
-	{
-		try{
-			setReader(new FileReader(filename_));
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-		}		
-	}
+  public void reset()
+  {
+    super.reset();
+    if (isLoopEnabled())
+      loopingTest(false/*dont mark*/);
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof TraceInput)) return;
+    super.duplicate(source_);
+    TraceInput that_ = (TraceInput) source_;
+  }
+  
+  public String info()
+  {
+    return super.info()
+      + (isLoopEnabled()? "LoopEnabled: period = " + loopPeriod + "\n": "");
+  }
+  
+  /** Loads the trace file into this component. */
+  public void load(String filename_)
+  {
+    try{
+      setReader(new FileReader(filename_));
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+    }    
+  }
 
-	public void setReader(Reader r_)
-	{
-		reader = r_;
-		if (isLoopEnabled())
-			loopingTest(true);
-	}
+  public void setReader(Reader r_)
+  {
+    reader = r_;
+    if (isLoopEnabled())
+      loopingTest(true);
+  }
 
-	public Reader getReader()
-	{ return reader; }
+  public Reader getReader()
+  { return reader; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = traffic_; }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = traffic_; }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
-	
-	public double load;
-	public int mtu;
-	public int burst;
-	
-	TrafficModel traffic = new TrafficModel() {
-		public double getLoad() { return load; }
-		public TrafficModel merge(TrafficModel that_) {return this;}			
-		public int getMTU() { return mtu; }
-		public int getBurst() { return burst; }
-		public String oneline() { return "<TraceFile>"; }
-	};
-	
-	public void setLoad(double load_) { load = load_; }
-	public double getLoad() { return load; }
-	
-	public void setBurst(int b_) { burst = b_; }
-	public int getBurst() { return burst; }
-	
-	public void setMTU(int mtu_) { mtu = mtu_; }
-	public int getMTU() { return mtu; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
+  
+  public double load;
+  public int mtu;
+  public int burst;
+  
+  TrafficModel traffic = new TrafficModel() {
+    public double getLoad() { return load; }
+    public TrafficModel merge(TrafficModel that_) {return this;}      
+    public int getMTU() { return mtu; }
+    public int getBurst() { return burst; }
+    public String oneline() { return "<TraceFile>"; }
+  };
+  
+  public void setLoad(double load_) { load = load_; }
+  public double getLoad() { return load; }
+  
+  public void setBurst(int b_) { burst = b_; }
+  public int getBurst() { return burst; }
+  
+  public void setMTU(int mtu_) { mtu = mtu_; }
+  public int getMTU() { return mtu; }
 
-	/** Returns true if looping the trace is enabled.*/
-	public boolean isLoopEnabled()
-	{ return getComponentFlag(FLAG_LOOP_ENABLED) != 0; }
-	
-	/** Enables/disables looping. */
-	public void setLoopEnabled(boolean v_)
-	{
-		setComponentFlag(FLAG_LOOP_ENABLED, v_);
-		if (isLoopEnabled())
-			loopingTest(true);
-	}
+  /** Returns true if looping the trace is enabled.*/
+  public boolean isLoopEnabled()
+  { return getComponentFlag(FLAG_LOOP_ENABLED) != 0; }
+  
+  /** Enables/disables looping. */
+  public void setLoopEnabled(boolean v_)
+  {
+    setComponentFlag(FLAG_LOOP_ENABLED, v_);
+    if (isLoopEnabled())
+      loopingTest(true);
+  }
 
-	void loopingTest(boolean mark_)
-	{
-		// try reset() and then mark(), turn off looping if both failed
-		try {
-			try {
-				reader.reset();
-				return;
-			}
-			catch (Exception e_) {
-				if (mark_) {
-					if (!reader.markSupported())
-						reader = new BufferedReader(reader);
-					reader.mark(1<<20);
-					return;
-				}
-				drcl.Debug.error(e_ + "\n");
-			}
-		}
-		catch (Exception e_) {
-			drcl.Debug.error(e_ + "\n");
-		}
-		drcl.Debug.error("Turn off the looping flag.\n");
-		setLoopEnabled(false);
-	}
+  void loopingTest(boolean mark_)
+  {
+    // try reset() and then mark(), turn off looping if both failed
+    try {
+      try {
+        reader.reset();
+        return;
+      }
+      catch (Exception e_) {
+        if (mark_) {
+          if (!reader.markSupported())
+            reader = new BufferedReader(reader);
+          reader.mark(1<<20);
+          return;
+        }
+        drcl.Debug.error(e_ + "\n");
+      }
+    }
+    catch (Exception e_) {
+      drcl.Debug.error(e_ + "\n");
+    }
+    drcl.Debug.error("Turn off the looping flag.\n");
+    setLoopEnabled(false);
+  }
 
-	/** Returns the looping period. */
-	public double getLoopPeriod()
-	{ return loopPeriod; }
+  /** Returns the looping period. */
+  public double getLoopPeriod()
+  { return loopPeriod; }
 
-	/** Sets the looping period. */
-	public void setLoopPeriod(double p_)
-	{ loopPeriod = p_; }
+  /** Sets the looping period. */
+  public void setLoopPeriod(double p_)
+  { loopPeriod = p_; }
 }

@@ -57,34 +57,34 @@ public class SensorMobilityModel extends drcl.inet.mac.MobilityModel
     public void setTopologyParameters(double maxX_, double maxY_, double minX_, double minY_)  {
         maxX = maxX_; maxY = maxY_; maxZ = 10.0; 
         minX = minX_; minY = minY_; minZ = 0.0;
-	dX = 1.0 ; dY = 1.0 ; dZ = 1.0 ;
+  dX = 1.0 ; dY = 1.0 ; dZ = 1.0 ;
     }    
     
     /** Sets the dimensions of the terrain of the sensor network */ 
     public void setTopologyParameters(double maxX_, double maxY_, double maxZ_, double minX_, double minY_, double minZ_)  {
         maxX = maxX_; maxY = maxY_; maxZ = maxZ_; 
         minX = minX_; minY = minY_; minZ = minZ_;
-	dX = 1.0 ; dY = 1.0 ; dZ = 1.0 ;
+  dX = 1.0 ; dY = 1.0 ; dZ = 1.0 ;
     }    
 
     /** Sends position report to the mobility tracker components */
     public synchronized void reportPosition(boolean forcedReport) {
         if (forcedReport == true || (X-X0) >= dX || (X0-X) >= dX || (Y-Y0) >= dY || (Y0-Y) >= dY || (Z-Z0) >= dZ || (Z0-Z) >= dZ ) 
-	{   // if not forced report, report only if the change of position has exceeded the boundary
-		if ( reportPort.anyPeer() )
-		{
-			reportPort.doSending(new PositionReportContract.Message(nid, X, Y, Z, X0, Y0, Z0));
-		}
+  {   // if not forced report, report only if the change of position has exceeded the boundary
+    if ( reportPort.anyPeer() )
+    {
+      reportPort.doSending(new PositionReportContract.Message(nid, X, Y, Z, X0, Y0, Z0));
+    }
             X0 = X; Y0 = Y; Z0 = Z;
         }    
 
         if (forcedReport == true || (X-X0) >= 1.0 || (X0-X) >= 1.0 || (Y-Y0) >= 1.0 || (Y0-Y) >= 1.0 || (Z-Z0) >= 1.0 || (Z0-Z) >= 1.0 ) 
-	{   // if not forced report, report only if the change of position has exceeded the boundary
-		if ( report_SensorPort.anyPeer() )
-		{
-			report_SensorPort.doSending(new SensorPositionReportContract.Message(nid, X, Y, Z, X0, Y0, Z0));
-		}
-		X0 = X; Y0 = Y; Z0 = Z;
+  {   // if not forced report, report only if the change of position has exceeded the boundary
+    if ( report_SensorPort.anyPeer() )
+    {
+      report_SensorPort.doSending(new SensorPositionReportContract.Message(nid, X, Y, Z, X0, Y0, Z0));
+    }
+    X0 = X; Y0 = Y; Z0 = Z;
         }
     }    
      
@@ -93,19 +93,19 @@ public class SensorMobilityModel extends drcl.inet.mac.MobilityModel
     {
         updatePosition();
 
-	/* queryPort is a server port, so it can be connected to multiple ports with no problem */
-	/* If query comes from WirelessPhy */
+  /* queryPort is a server port, so it can be connected to multiple ports with no problem */
+  /* If query comes from WirelessPhy */
         if (data_ instanceof PositionReportContract.Message) 
-	{
-		if ( queryPort.anyPeer() )
-			queryPort.doSending(new PositionReportContract.Message(X, Y, Z));
+  {
+    if ( queryPort.anyPeer() )
+      queryPort.doSending(new PositionReportContract.Message(X, Y, Z));
         }
 
-	/* If query comes from SensorPhy */
+  /* If query comes from SensorPhy */
         if (data_ instanceof SensorPositionReportContract.Message) 
-	{
-		if ( queryPort.anyPeer() )
-			queryPort.doSending(new SensorPositionReportContract.Message(X, Y, Z));
+  {
+    if ( queryPort.anyPeer() )
+      queryPort.doSending(new SensorPositionReportContract.Message(X, Y, Z));
         }       
     }    
 }

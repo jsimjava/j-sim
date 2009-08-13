@@ -34,36 +34,36 @@ import drcl.data.*;
 
 public class Stdout extends Extension
 {
-	boolean appendNewLineToObject = true;
+  boolean appendNewLineToObject = true;
 
-	{ Port p_ = addPort("port"); }
+  { Port p_ = addPort("port"); }
 
-	public Stdout()
-	{ super(); }
-	
-	public Stdout(String id_)
-	{ super(id_); }
-	
-	protected synchronized void process(Object data_, Port inPort_) 
-	{
-		if (!appendNewLineToObject || data_ instanceof String)
-			System.out.print(data_);
-		else
-			System.out.println(data_);
-	}
-	
-	public void reset()
-	{ super.reset(); }
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		appendNewLineToObject = ((Stdout)source_).appendNewLineToObject;
-	}
-	
-	public void setAppendNewLineToObjectEnabled(boolean enabled_)
-	{ appendNewLineToObject = enabled_; }
-	
-	public boolean isAppendNewLineToObjectEnabled()
-	{ return appendNewLineToObject;}
+  public Stdout()
+  { super(); }
+  
+  public Stdout(String id_)
+  { super(id_); }
+  
+  protected synchronized void process(Object data_, Port inPort_) 
+  {
+    if (!appendNewLineToObject || data_ instanceof String)
+      System.out.print(data_);
+    else
+      System.out.println(data_);
+  }
+  
+  public void reset()
+  { super.reset(); }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    appendNewLineToObject = ((Stdout)source_).appendNewLineToObject;
+  }
+  
+  public void setAppendNewLineToObjectEnabled(boolean enabled_)
+  { appendNewLineToObject = enabled_; }
+  
+  public boolean isAppendNewLineToObjectEnabled()
+  { return appendNewLineToObject;}
 }

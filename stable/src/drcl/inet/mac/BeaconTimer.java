@@ -41,15 +41,15 @@ import drcl.comp.*;
  * @author Rong Zheng
  */
 public class BeaconTimer extends Mac_802_11_Timer {
-	public BeaconTimer(Mac_802_11 h) {	
-		super(h); 
-		o_.setType(MacTimeoutEvt.Beacon_timeout); 
-	}
+  public BeaconTimer(Mac_802_11 h) {  
+    super(h); 
+    o_.setType(MacTimeoutEvt.Beacon_timeout); 
+  }
 
-	public void handle( ) {
-		busy_ = false;
-	    paused_ = false;
-	    stime = 0.0;
-	    rtime = 0.0;
-	}
+  public void handle( ) {
+    busy_ = false;
+      paused_ = false;
+      stime = 0.0;
+      rtime = 0.0;
+  }
 }

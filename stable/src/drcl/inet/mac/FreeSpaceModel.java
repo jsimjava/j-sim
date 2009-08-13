@@ -129,7 +129,7 @@ public class FreeSpaceModel extends drcl.inet.mac.RadioPropagationModel
         return M*M;
     }
 
-   	public String info() { 
+     public String info() { 
         return "FreeSpaceModel" + "\n"; 
     }
     

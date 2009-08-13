@@ -68,7 +68,7 @@ public class UIUCInjector extends drcl.net.Module
   { return DEBUG_LEVELS; }
 
   //injector status variables
-  protected int	e_inj_type;   // case be INJTYPE_NONE(0), INJTYPE_SINGLE(1), INJTYPE_CONSTANT(2)
+  protected int  e_inj_type;   // case be INJTYPE_NONE(0), INJTYPE_SINGLE(1), INJTYPE_CONSTANT(2)
   protected int inj_target_ptype; //target packet type AODV_UU, IP ...
   protected int inj_target_msg_type; //target msg type within packet type
   protected int inj_target_bit;
@@ -153,22 +153,22 @@ public class UIUCInjector extends drcl.net.Module
     if (index < 0) return false;
     switch (type) {
       case AODV.AODVTYPE_RREQ:
-	if (index < AODV_RREQ_PKT_SIZE ) status = true;
-	break;
+  if (index < AODV_RREQ_PKT_SIZE ) status = true;
+  break;
       
       case AODV.AODVTYPE_HELLO:
       case AODV.AODVTYPE_RREP:
-	if (index < AODV_RREP_PKT_SIZE ) status = true;
-	break;
+  if (index < AODV_RREP_PKT_SIZE ) status = true;
+  break;
   
       case AODV.AODVTYPE_RERR:
-	//since the rerr packet has various packet size, we only support to flip the fields till the first pair
-	if (index < AODV_RERR_PKT_SIZE ) status = true;
-	break;
+  //since the rerr packet has various packet size, we only support to flip the fields till the first pair
+  if (index < AODV_RERR_PKT_SIZE ) status = true;
+  break;
 
       case AODV.AODVTYPE_RREP_ACK:
-	error("validateInjIndx()", "RREP_ACK not implemented in J-Sim yet!");
-	break;
+  error("validateInjIndx()", "RREP_ACK not implemented in J-Sim yet!");
+  break;
     }
     if (isDebugEnabled() && isDebugEnabledAt(DEBUG_ALL)) {
       debug("Validation status "  + status);
@@ -198,15 +198,15 @@ public class UIUCInjector extends drcl.net.Module
       if (e_inj_type != INJTYPE_NONE) {
         AODV_Packet aodv_pkt_ = (AODV_Packet)ipkt_.getBody(); 
         if (isDebugEnabled() && (isDebugEnabledAt(DEBUG_INJ) || isDebugEnabledAt(DEBUG_ALL))) {
-	  debug("Before Injecting! " + aodv_pkt_ + " bit " + inj_target_bit);
+    debug("Before Injecting! " + aodv_pkt_ + " bit " + inj_target_bit);
         }
-	injectAODVUU(aodv_pkt_);
+  injectAODVUU(aodv_pkt_);
         if (isDebugEnabled() && (isDebugEnabledAt(DEBUG_INJ) || isDebugEnabledAt(DEBUG_ALL))) {
-	  debug("After Injecting! " + aodv_pkt_ + " bit " + inj_target_bit);
+    debug("After Injecting! " + aodv_pkt_ + " bit " + inj_target_bit);
         }
       
         if (e_inj_type == INJTYPE_SINGLE) {
-	  e_inj_type = INJTYPE_NONE;
+    e_inj_type = INJTYPE_NONE;
         }
       }
     }
@@ -231,7 +231,7 @@ public class UIUCInjector extends drcl.net.Module
         printf("After injection %2x \n",target_hdr->type);
       }*/
       /* XXX: It is quite inefficient to map each bit into the field of pkt header in Javasim,
-	 any better idea?? */
+   any better idea?? */
       switch (pkt_type_) {
         case AODV.AODVTYPE_RREQ:
           flipBitRREQ(pkt_, inj_target_bit);
@@ -245,8 +245,8 @@ public class UIUCInjector extends drcl.net.Module
           break;
         case AODV.AODVTYPE_RREP_ACK:
           if (isDebugEnabled() && isDebugEnabledAt(DEBUG_ALL)) {
-	    debug("RREP_ACK not implemented yet !");
-	  }
+      debug("RREP_ACK not implemented yet !");
+    }
           break;
         default:
           if (isDebugEnabled()) {

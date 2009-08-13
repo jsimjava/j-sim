@@ -39,18 +39,18 @@ This contract defines three services at the reactor:
 <dl>
 <dt> <code>DefaultIdentityRetrieval</code>
 <dd> The initiator sends a <code>drcl.data.IntObj</code>
-	of value 0 and the reactor returns the default identity 
-	(<code>drcl.data.LongObj</code>) stored at the reactor.
+  of value 0 and the reactor returns the default identity 
+  (<code>drcl.data.LongObj</code>) stored at the reactor.
 <dt> <code>AllIdentitiesRetrieval</code>
 <dd> The initiator sends a <code>drcl.data.IntObj</code>
-	of value 1 and the reactor returns all the identities 
-	(<code>long[]</code>) stored at the reactor.
+  of value 1 and the reactor returns all the identities 
+  (<code>long[]</code>) stored at the reactor.
 <dt> <code>IdentitiesQuery</code>
 <dd> The initiator sends identities in question (<code>long[]</code>)
-	and the reactor sends back the corresponding answers in
-	the <code>boolean[]</code> array of the same size.
-	The value <code>true</code> indicates the corresponding identity
-	exists in the reactor.
+  and the reactor sends back the corresponding answers in
+  the <code>boolean[]</code> array of the same size.
+  The value <code>true</code> indicates the corresponding identity
+  exists in the reactor.
 </dl>
 This class also provides a set of static methods to facilitate conducting
 the above services
@@ -64,66 +64,66 @@ a protocol that needs to be aware of the identities of the node.
 */
 public class IDLookup extends Contract
 {
-	public IDLookup()
-	{ super(); }
-	
-	public IDLookup(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "IdentityLookup Contract"; }
+  public IDLookup()
+  { super(); }
+  
+  public IDLookup(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "IdentityLookup Contract"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static final int GET_DEFAULT = 0;
-	public static final int GET_ALL = 1;
-	
-	/**
-	 */
-	public static long getDefaultID(Port out_)
-	{
-		LongObj o_ = (LongObj)out_.sendReceive(new IntObj(GET_DEFAULT));
-		return o_.value;
-	}
-	
-	/**
-	 */
-	public static long[] getAllIDs(Port out_)
-	{ return (long[])out_.sendReceive(new IntObj(GET_ALL)); }
-	
-	/**
-	 */
-	public static boolean query(long id_, Port out_)
-	{
-		boolean[] o_ = (boolean[])out_.sendReceive(new long[]{id_});
-		return o_[0];
-	}
-	
-	/**
-	 */
-	public static boolean[] query(long[] ids_, Port out_)
-	{ return (boolean[])out_.sendReceive(ids_); }
-	
-	/**
-	 */
-	public static Object createGetDefaultRequest()
-	{	return new IntObj(GET_DEFAULT);	}
-	
-	/**
-	 */
-	public static Object createGetAllRequest()
-	{	return new IntObj(GET_ALL);	}
-	
-	/**
-	 */
-	public static Object createQueryRequest(long id_)
-	{	return new long[]{id_}; }
-	
-	/**
-	 */
-	public static Object createQueryRequest(long[] id_)
-	{	return id_; }
+  public static final int GET_DEFAULT = 0;
+  public static final int GET_ALL = 1;
+  
+  /**
+   */
+  public static long getDefaultID(Port out_)
+  {
+    LongObj o_ = (LongObj)out_.sendReceive(new IntObj(GET_DEFAULT));
+    return o_.value;
+  }
+  
+  /**
+   */
+  public static long[] getAllIDs(Port out_)
+  { return (long[])out_.sendReceive(new IntObj(GET_ALL)); }
+  
+  /**
+   */
+  public static boolean query(long id_, Port out_)
+  {
+    boolean[] o_ = (boolean[])out_.sendReceive(new long[]{id_});
+    return o_[0];
+  }
+  
+  /**
+   */
+  public static boolean[] query(long[] ids_, Port out_)
+  { return (boolean[])out_.sendReceive(ids_); }
+  
+  /**
+   */
+  public static Object createGetDefaultRequest()
+  {  return new IntObj(GET_DEFAULT);  }
+  
+  /**
+   */
+  public static Object createGetAllRequest()
+  {  return new IntObj(GET_ALL);  }
+  
+  /**
+   */
+  public static Object createQueryRequest(long id_)
+  {  return new long[]{id_}; }
+  
+  /**
+   */
+  public static Object createQueryRequest(long[] id_)
+  {  return id_; }
 }
 
 

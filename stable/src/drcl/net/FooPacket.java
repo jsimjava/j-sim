@@ -31,64 +31,64 @@ package drcl.net;
 /** A packet class that keeps both packet count and byte count. */
 public class FooPacket extends Packet
 {
-	int pktcount;
-	long bytecount;
+  int pktcount;
+  long bytecount;
 
-	public FooPacket()
-	{ super(); }
+  public FooPacket()
+  { super(); }
 
-	public FooPacket(int pktsize_, int pktcnt_, long bytecnt_)
-	{ super(pktsize_); pktcount = pktcnt_; bytecount = bytecnt_; }
+  public FooPacket(int pktsize_, int pktcnt_, long bytecnt_)
+  { super(pktsize_); pktcount = pktcnt_; bytecount = bytecnt_; }
 
-	public String getName()
-	{ return "FOO"; }
+  public String getName()
+  { return "FOO"; }
 
-	public void setPacketCount(int cnt_)
-	{ pktcount = cnt_; }
+  public void setPacketCount(int cnt_)
+  { pktcount = cnt_; }
 
-	public int getPacketCount()
-	{ return pktcount; }
+  public int getPacketCount()
+  { return pktcount; }
 
-	public int getNumberCount()
-	{ return pktcount; }
+  public int getNumberCount()
+  { return pktcount; }
 
-	public boolean isPacketCountSupported()
-	{ return true; }
+  public boolean isPacketCountSupported()
+  { return true; }
 
-	public void setByteCount(long cnt_)
-	{ bytecount = cnt_; }
+  public void setByteCount(long cnt_)
+  { bytecount = cnt_; }
 
-	public long getByteCount()
-	{ return bytecount; }
+  public long getByteCount()
+  { return bytecount; }
 
-	public long getSizeCount()
-	{ return bytecount; }
+  public long getSizeCount()
+  { return bytecount; }
 
-	public boolean isByteCountSupported()
-	{ return true; }
+  public boolean isByteCountSupported()
+  { return true; }
 
-	public void set(int pktcount_, long bytecount_)
-	{
-		pktcount = pktcount_;
-		bytecount = bytecount_;
-	}
+  public void set(int pktcount_, long bytecount_)
+  {
+    pktcount = pktcount_;
+    bytecount = bytecount_;
+  }
 
-	/** Returns <code>null</code>; this class does not provide packet type information. */
-	public String getPacketType()
-	{ return null; }
+  /** Returns <code>null</code>; this class does not provide packet type information. */
+  public String getPacketType()
+  { return null; }
 
-	/*
-	public void duplicate(Object p_)
-	{
-		super.duplicate(p_);
-		pktcount = ((FooPacket)p_).pktcount;
-		bytecount = ((FooPacket)p_).bytecount;
-	}
-	*/
+  /*
+  public void duplicate(Object p_)
+  {
+    super.duplicate(p_);
+    pktcount = ((FooPacket)p_).pktcount;
+    bytecount = ((FooPacket)p_).bytecount;
+  }
+  */
 
-	public Object clone()
-	{ return new FooPacket(size, pktcount, bytecount); }
+  public Object clone()
+  { return new FooPacket(size, pktcount, bytecount); }
 
-	public String _toString(String separator_)
-	{ return "pktcnt:" + pktcount + separator_ + "bytecnt:" + bytecount; }
+  public String _toString(String separator_)
+  { return "pktcnt:" + pktcount + separator_ + "bytecnt:" + bytecount; }
 }

@@ -41,193 +41,193 @@ import java.util.Iterator;
  */
 public class DotDump2 extends DotDump
 {
-	HashMap blockmap = new HashMap(); // Class -> dont care
+  HashMap blockmap = new HashMap(); // Class -> dont care
 
-	// "pass" list
-	HashMap passmap = new HashMap(); // Class -> dont care
+  // "pass" list
+  HashMap passmap = new HashMap(); // Class -> dont care
 
-	boolean showHidden = false;
-	boolean showInfoPort = false;
-	
-	public DotDump2()
-	{ super(); }
+  boolean showHidden = false;
+  boolean showInfoPort = false;
+  
+  public DotDump2()
+  { super(); }
 
-	public DotDump2(Component root_)
-	{ super(root_); }
+  public DotDump2(Component root_)
+  { super(root_); }
 
-	/**
-	 * Enables/disables showing the hidden components/ports. 
-	 * This flag does not apply to "InfoPort". 
-	 * Default is off. 
-	 */
-	public void setShowHiddenEnabled(boolean s)
-	{ showHidden = s; }
+  /**
+   * Enables/disables showing the hidden components/ports. 
+   * This flag does not apply to "InfoPort". 
+   * Default is off. 
+   */
+  public void setShowHiddenEnabled(boolean s)
+  { showHidden = s; }
 
-	public boolean isShowHiddenEnabled()
-	{ return showHidden; }
+  public boolean isShowHiddenEnabled()
+  { return showHidden; }
 
-	/**
-	 * Enables/disables showing the InfoPorts.
-	 * Default is off. 
-	 */
-	public void setShowInfoPortEnabled(boolean s)
-	{ showInfoPort = s; }
+  /**
+   * Enables/disables showing the InfoPorts.
+   * Default is off. 
+   */
+  public void setShowInfoPortEnabled(boolean s)
+  { showInfoPort = s; }
 
-	public boolean isShowInfoPortEnabled()
-	{ return showInfoPort; }
+  public boolean isShowInfoPortEnabled()
+  { return showInfoPort; }
 
-	/** 
-	 * Don't show the internal structure of the components of the same class. 
-	 */
-	public void block(Object o)
-	{ if (o != null) blockmap.put(o.getClass(), this); }
+  /** 
+   * Don't show the internal structure of the components of the same class. 
+   */
+  public void block(Object o)
+  { if (o != null) blockmap.put(o.getClass(), this); }
 
-	/** 
-	 * Show the internal structure of the components of the same class. 
-	 */
-	public void unblock(Object o)
-	{ if (o != null) blockmap.remove(o.getClass()); }
+  /** 
+   * Show the internal structure of the components of the same class. 
+   */
+  public void unblock(Object o)
+  { if (o != null) blockmap.remove(o.getClass()); }
 
-	/** 
-	 * Don't show the internal structure of the components of the same class. 
-	 */
-	public void block(String className_)
-	{
-		try {
-			Class c = Class.forName(className_); 
-			blockmap.put(c, this);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		} 
-	}
+  /** 
+   * Don't show the internal structure of the components of the same class. 
+   */
+  public void block(String className_)
+  {
+    try {
+      Class c = Class.forName(className_); 
+      blockmap.put(c, this);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    } 
+  }
 
-	/** 
-	 * Show the internal structure of the components of the same class. 
-	 */
-	public void unblock(String className_)
-	{
-		try {
-			Class c = Class.forName(className_);
-			blockmap.remove(c);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+  /** 
+   * Show the internal structure of the components of the same class. 
+   */
+  public void unblock(String className_)
+  {
+    try {
+      Class c = Class.forName(className_);
+      blockmap.remove(c);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	/** Removes any blocked classes. */
-	public void unblockAll()
-	{
-		blockmap.clear();
-	}
+  /** Removes any blocked classes. */
+  public void unblockAll()
+  {
+    blockmap.clear();
+  }
 
-	/** Adds the object to the "pass" list.
-	 * The components in the list are shown no matter what flags are set. */
-	public void pass(Object o)
-	{ passmap.put(o, this); }
+  /** Adds the object to the "pass" list.
+   * The components in the list are shown no matter what flags are set. */
+  public void pass(Object o)
+  { passmap.put(o, this); }
 
-	/** Adds the objects to the "pass" list.
-	 * The components in the list are shown no matter what flags are set. */
-	public void pass(Object[] oo)
-	{
-		for (int i=0; i<oo.length; i++)
-			passmap.put(oo[i], this);
-	}
+  /** Adds the objects to the "pass" list.
+   * The components in the list are shown no matter what flags are set. */
+  public void pass(Object[] oo)
+  {
+    for (int i=0; i<oo.length; i++)
+      passmap.put(oo[i], this);
+  }
 
-	/** Removes the object from the "pass" list. */
-	public void removePass(Object o)
-	{ passmap.remove(o); }
+  /** Removes the object from the "pass" list. */
+  public void removePass(Object o)
+  { passmap.remove(o); }
 
-	/** Removes the objects from the "pass" list. */
-	public void removePass(Object[] oo)
-	{
-		for (int i=0; i<oo.length; i++)
-			passmap.remove(oo[i]);
-	}
+  /** Removes the objects from the "pass" list. */
+  public void removePass(Object[] oo)
+  {
+    for (int i=0; i<oo.length; i++)
+      passmap.remove(oo[i]);
+  }
 
-	/** Clears the "pass" list. */
-	public void resetPass()
-	{ passmap.clear(); }
+  /** Clears the "pass" list. */
+  public void resetPass()
+  { passmap.clear(); }
 
-	protected boolean _showing(Component c)
-	{
-		// in the "pass" list?
-		if (passmap.containsKey(c)) return true;
+  protected boolean _showing(Component c)
+  {
+    // in the "pass" list?
+    if (passmap.containsKey(c)) return true;
 
-		// show hidden component?
-		boolean show_ = showHidden || c.getID().charAt(0) != '.';
+    // show hidden component?
+    boolean show_ = showHidden || c.getID().charAt(0) != '.';
 
-		Component parent_ = c.getParent();
+    Component parent_ = c.getParent();
 
-		if (show_ && parent_ != null)
-			show_ = !blockmap.containsKey(parent_.getClass());
+    if (show_ && parent_ != null)
+      show_ = !blockmap.containsKey(parent_.getClass());
 
-		return show_;
-	}
+    return show_;
+  }
 
-	protected boolean _showing(Port p)
-	{
-		Component host_ = p.getHost();
+  protected boolean _showing(Port p)
+  {
+    Component host_ = p.getHost();
 
-		// show infoPort?
-		if (!showInfoPort && host_ != null && p == host_.infoPort)
-			return false;
+    // show infoPort?
+    if (!showInfoPort && host_ != null && p == host_.infoPort)
+      return false;
 
-		// show hidden port?
-		return showHidden || super._showing(p);
-	}
+    // show hidden port?
+    return showHidden || super._showing(p);
+  }
 
-	protected String _graphAttributes(String prefix_)
-	{
-		 return super._graphAttributes(prefix_)
-				 + prefix_ + "concentrate=true;\n";
-   	}
+  protected String _graphAttributes(String prefix_)
+  {
+     return super._graphAttributes(prefix_)
+         + prefix_ + "concentrate=true;\n";
+     }
 
-	protected String _component(String prefix_, Component c)
-	{
-		return prefix_ + "graph [color=\"#93A4BF\"];\n"
-				+ prefix_ + "\"" + c + "\" [label=\"" + c.getID()
-			   	+ "\",shape=plaintext];\n"
-				+ prefix_ + "node ["
-			// style for port
-			+ "style=filled,fontsize=10,height=0,width=0,fontcolor=white];\n";
+  protected String _component(String prefix_, Component c)
+  {
+    return prefix_ + "graph [color=\"#93A4BF\"];\n"
+        + prefix_ + "\"" + c + "\" [label=\"" + c.getID()
+           + "\",shape=plaintext];\n"
+        + prefix_ + "node ["
+      // style for port
+      + "style=filled,fontsize=10,height=0,width=0,fontcolor=white];\n";
 
-	}
+  }
 
-	protected String _port(String prefix_, Port p)
-	{
-		String portColor = p.isShadow()? "#319E41": "#356ABF";
-		return prefix_ + "\"" + p + "\" [label=\""
-			   	+ p.getID() + "@" + p.getGroupID()
-			   	+ "\",color=\"" + portColor + "\"];\n";
-			   	//+ "\",color=\"" + portColor + "\","
-				//+"style=filled,fontsize=10];\n";
-	}
+  protected String _port(String prefix_, Port p)
+  {
+    String portColor = p.isShadow()? "#319E41": "#356ABF";
+    return prefix_ + "\"" + p + "\" [label=\""
+           + p.getID() + "@" + p.getGroupID()
+           + "\",color=\"" + portColor + "\"];\n";
+           //+ "\",color=\"" + portColor + "\","
+        //+"style=filled,fontsize=10];\n";
+  }
 
-	protected String _connect(Port p1, Port p2, String color_)
-	{
-		return "\"" + p1 + "\" -> \"" + p2 + "\" [color=\"" + color_ + "\"];";
-	}
+  protected String _connect(Port p1, Port p2, String color_)
+  {
+    return "\"" + p1 + "\" -> \"" + p2 + "\" [color=\"" + color_ + "\"];";
+  }
 
-	public String info()
-	{
-		StringBuffer sb = new StringBuffer("showInfoPort: " + showInfoPort
-						+ "\nshowHidden: " + showHidden
-						+ "\nblocked classes: " + blockmap.size()
-						+ "\n");
-		for (Iterator it_ = blockmap.keySet().iterator(); it_.hasNext(); )
-			sb.append("\t" + it_.next() + "\n");
+  public String info()
+  {
+    StringBuffer sb = new StringBuffer("showInfoPort: " + showInfoPort
+            + "\nshowHidden: " + showHidden
+            + "\nblocked classes: " + blockmap.size()
+            + "\n");
+    for (Iterator it_ = blockmap.keySet().iterator(); it_.hasNext(); )
+      sb.append("\t" + it_.next() + "\n");
 
-		sb.append("passed components: " + passmap.size() + "\n");
-		for (Iterator it_ = passmap.keySet().iterator(); it_.hasNext(); )
-			sb.append("\t" + it_.next() + "\n");
+    sb.append("passed components: " + passmap.size() + "\n");
+    for (Iterator it_ = passmap.keySet().iterator(); it_.hasNext(); )
+      sb.append("\t" + it_.next() + "\n");
 
-		return super.info() + sb.toString();
-	}
+    return super.info() + sb.toString();
+  }
 
     public static void main(String[] args) {
-		example();
+    example();
         new DotDump2().show();
         new DotDump2().toFile("DotDump2_test.dot");
     }

@@ -31,14 +31,14 @@ package drcl.comp;
 /** The contract that matches any contract. */
 public class ContractAny extends Contract
 {
-	public static final ContractAny INSTANCE = new ContractAny();
+  public static final ContractAny INSTANCE = new ContractAny();
 
-	public boolean match(Contract that_)
-	{ return true; }
-		
-	public Object getContractContent()
-	{ return "Any contract"; }
-		
-	public String getName()
-	{ return "ContractAny"; }
+  public boolean match(Contract that_)
+  { return true; }
+    
+  public Object getContractContent()
+  { return "Any contract"; }
+    
+  public String getName()
+  { return "ContractAny"; }
 };

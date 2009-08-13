@@ -43,114 +43,114 @@ starts with "ts".  For example, tsTokenBucket.
 */
 public class TrafficAssistant
 {
-	/** Returns a {@link TrafficSourceComponent} instance for the given source
-	 * traffic model and the shaper traffic model.*/
-	public static TrafficSourceComponent getTrafficSource(TrafficModel traffic_,
-					TrafficModel shaperTraffic_)
-	{
-		TrafficSourceComponent source_ =
-			(TrafficSourceComponent)getTrafficComponent(traffic_);
-		source_.setShaper(getTrafficShaper(shaperTraffic_));
-		return source_;
-	}
+  /** Returns a {@link TrafficSourceComponent} instance for the given source
+   * traffic model and the shaper traffic model.*/
+  public static TrafficSourceComponent getTrafficSource(TrafficModel traffic_,
+          TrafficModel shaperTraffic_)
+  {
+    TrafficSourceComponent source_ =
+      (TrafficSourceComponent)getTrafficComponent(traffic_);
+    source_.setShaper(getTrafficShaper(shaperTraffic_));
+    return source_;
+  }
 
-	/** Returns a {@link TrafficComponent} instance for the given traffic model.
-	The component returned may be a {@link TrafficSourceComponent} or a
-	{@link TrafficShaperComponent},
-	depending on the nature of the traffic model.
-	*/
-	public static TrafficComponent getTrafficComponent(TrafficModel traffic_)
-	{
-		if (traffic_ instanceof traffic_PeakRate) {
-			if (traffic_ instanceof traffic_FixedPoints)
-				return new tsFixedPoints((traffic_FixedPoints)traffic_);
-			else
-				return new tsPeakRate((traffic_PeakRate)traffic_);
-		}
-		if (traffic_ instanceof traffic_TokenBucket)
-			return new TrafficShaperComponent(
-							new tsTokenBucket((traffic_TokenBucket)traffic_));
-		if (traffic_ instanceof traffic_CDSmooth)
-			return new TrafficShaperComponent(
-							new tsCDSmooth((traffic_CDSmooth)traffic_));
-		if (traffic_ instanceof traffic_RTSmooth)
-			return new TrafficShaperComponent(
-							new tsRTSmooth((traffic_RTSmooth)traffic_));
-		if (traffic_ instanceof traffic_PacketTrain)
-			return new tsPacketTrain((traffic_PacketTrain)traffic_);
-		if (traffic_ instanceof traffic_ExpOnOff)
-			return new tsExpOnOff((traffic_ExpOnOff)traffic_);
-		if (traffic_ instanceof traffic_ParetoOnOff)
-			return new tsParetoOnOff((traffic_ParetoOnOff)traffic_);
-		if (traffic_ instanceof traffic_Periodic)
-			return new TrafficShaperComponent(
-							new tsPeriodic((traffic_Periodic)traffic_));
-		if (traffic_ instanceof traffic_OnOff)
-			return new tsOnOff((traffic_OnOff)traffic_);
+  /** Returns a {@link TrafficComponent} instance for the given traffic model.
+  The component returned may be a {@link TrafficSourceComponent} or a
+  {@link TrafficShaperComponent},
+  depending on the nature of the traffic model.
+  */
+  public static TrafficComponent getTrafficComponent(TrafficModel traffic_)
+  {
+    if (traffic_ instanceof traffic_PeakRate) {
+      if (traffic_ instanceof traffic_FixedPoints)
+        return new tsFixedPoints((traffic_FixedPoints)traffic_);
+      else
+        return new tsPeakRate((traffic_PeakRate)traffic_);
+    }
+    if (traffic_ instanceof traffic_TokenBucket)
+      return new TrafficShaperComponent(
+              new tsTokenBucket((traffic_TokenBucket)traffic_));
+    if (traffic_ instanceof traffic_CDSmooth)
+      return new TrafficShaperComponent(
+              new tsCDSmooth((traffic_CDSmooth)traffic_));
+    if (traffic_ instanceof traffic_RTSmooth)
+      return new TrafficShaperComponent(
+              new tsRTSmooth((traffic_RTSmooth)traffic_));
+    if (traffic_ instanceof traffic_PacketTrain)
+      return new tsPacketTrain((traffic_PacketTrain)traffic_);
+    if (traffic_ instanceof traffic_ExpOnOff)
+      return new tsExpOnOff((traffic_ExpOnOff)traffic_);
+    if (traffic_ instanceof traffic_ParetoOnOff)
+      return new tsParetoOnOff((traffic_ParetoOnOff)traffic_);
+    if (traffic_ instanceof traffic_Periodic)
+      return new TrafficShaperComponent(
+              new tsPeriodic((traffic_Periodic)traffic_));
+    if (traffic_ instanceof traffic_OnOff)
+      return new tsOnOff((traffic_OnOff)traffic_);
 
-		Class class_ = null;
-		try {
-			String className_ = traffic_.getClass().getName();
-			// suppose component is in the same package as the traffic model
-			// class.  So className is in the form of 
-			// "<PackageName>.traffic_XYZ", convert it to 
-			// "<PackageName>.tsXYZ"
-			int index_ = className_.lastIndexOf("."); 
-			String packageName_ = index_ >=0? 
-					className_.substring(0, index_+1): "";
-			className_ = index_ >=0? 
-					className_.substring(index_+1): className_;
+    Class class_ = null;
+    try {
+      String className_ = traffic_.getClass().getName();
+      // suppose component is in the same package as the traffic model
+      // class.  So className is in the form of 
+      // "<PackageName>.traffic_XYZ", convert it to 
+      // "<PackageName>.tsXYZ"
+      int index_ = className_.lastIndexOf("."); 
+      String packageName_ = index_ >=0? 
+          className_.substring(0, index_+1): "";
+      className_ = index_ >=0? 
+          className_.substring(index_+1): className_;
 
-			className_ = packageName_ + "ts" + className_.substring(8);
-			class_ = Class.forName(className_);
-			TrafficComponent tc_ = null;
-			if (TrafficShaper.class.isAssignableFrom(class_))
-				tc_ = new TrafficShaperComponent(
-								(TrafficShaper)class_.newInstance());
-			else
-				tc_ = (TrafficComponent)class_.newInstance();
-			tc_.setTrafficModel(traffic_);
-			return tc_;
-		}
-		catch (ClassNotFoundException e_) {
-			drcl.Debug.error("Cannot find traffic component for "
-							+ traffic_.getClass());
-		}
-		catch (InstantiationException e_) {
-			drcl.Debug.error(e_.toString());
-		}
-		catch (IllegalAccessException e_) {
-			drcl.Debug.error(e_.toString());
-		}
-		return null;
-	}
+      className_ = packageName_ + "ts" + className_.substring(8);
+      class_ = Class.forName(className_);
+      TrafficComponent tc_ = null;
+      if (TrafficShaper.class.isAssignableFrom(class_))
+        tc_ = new TrafficShaperComponent(
+                (TrafficShaper)class_.newInstance());
+      else
+        tc_ = (TrafficComponent)class_.newInstance();
+      tc_.setTrafficModel(traffic_);
+      return tc_;
+    }
+    catch (ClassNotFoundException e_) {
+      drcl.Debug.error("Cannot find traffic component for "
+              + traffic_.getClass());
+    }
+    catch (InstantiationException e_) {
+      drcl.Debug.error(e_.toString());
+    }
+    catch (IllegalAccessException e_) {
+      drcl.Debug.error(e_.toString());
+    }
+    return null;
+  }
 
-	/** Returns a {@link TrafficShaper} instance for the given traffic model.*/
-	public static TrafficShaper getTrafficShaper(TrafficModel traffic_)
-	{
-		// FIXME: hard-coded
-		if (traffic_ instanceof traffic_TokenBucket)
-			return new tsTokenBucket((traffic_TokenBucket)traffic_);
-		if (traffic_ instanceof traffic_CDSmooth)
-			return new tsCDSmooth((traffic_CDSmooth)traffic_);
-		if (traffic_ instanceof traffic_RTSmooth)
-			return new tsRTSmooth((traffic_RTSmooth)traffic_);
-		if (traffic_ instanceof traffic_Periodic)
-			return new tsPeriodic((traffic_Periodic)traffic_);
+  /** Returns a {@link TrafficShaper} instance for the given traffic model.*/
+  public static TrafficShaper getTrafficShaper(TrafficModel traffic_)
+  {
+    // FIXME: hard-coded
+    if (traffic_ instanceof traffic_TokenBucket)
+      return new tsTokenBucket((traffic_TokenBucket)traffic_);
+    if (traffic_ instanceof traffic_CDSmooth)
+      return new tsCDSmooth((traffic_CDSmooth)traffic_);
+    if (traffic_ instanceof traffic_RTSmooth)
+      return new tsRTSmooth((traffic_RTSmooth)traffic_);
+    if (traffic_ instanceof traffic_Periodic)
+      return new tsPeriodic((traffic_Periodic)traffic_);
 
-		try {
-			String className_ = traffic_.getClass().getName();
-			// suppose className is in the form of "traffic_XYZ",
-			// 	convert it to "tsXYZ"
-			Class class_ = Class.forName("ts" + className_.substring(8));
-			TrafficShaper ts_ = (TrafficShaper)class_.newInstance();
-			ts_.setTrafficModel(traffic_);
-			return ts_;
-		}
-		catch (Exception e_) {
-			drcl.Debug.error("Cannot find traffic shaper class for "
-							+ traffic_.getClass());
-			return null;
-		}
-	}
+    try {
+      String className_ = traffic_.getClass().getName();
+      // suppose className is in the form of "traffic_XYZ",
+      //   convert it to "tsXYZ"
+      Class class_ = Class.forName("ts" + className_.substring(8));
+      TrafficShaper ts_ = (TrafficShaper)class_.newInstance();
+      ts_.setTrafficModel(traffic_);
+      return ts_;
+    }
+    catch (Exception e_) {
+      drcl.Debug.error("Cannot find traffic shaper class for "
+              + traffic_.getClass());
+      return null;
+    }
+  }
 }

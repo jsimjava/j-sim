@@ -34,55 +34,55 @@ import java.util.*;
 
 public class UniformDistribution extends RandomNumberGenerator
 {
-	public String   getName()           { return "Uniform distribution for double number"; }
-	
-	public UniformDistribution (double min_, double max_)
-	{ this(min_, max_, 0L); }
+  public String   getName()           { return "Uniform distribution for double number"; }
+  
+  public UniformDistribution (double min_, double max_)
+  { this(min_, max_, 0L); }
 
-	public UniformDistribution (double min_, double max_, long seed_)
-	{
-		this(seed_);
-		min = min_;
-		max = max_;
-	}
+  public UniformDistribution (double min_, double max_, long seed_)
+  {
+    this(seed_);
+    min = min_;
+    max = max_;
+  }
 
-	public UniformDistribution()
-	{ super(); }
+  public UniformDistribution()
+  { super(); }
 
-	public UniformDistribution(long seed_)
-	{ super(seed_); }
-	
-	double max = 1.0, min = 0.0;
-	
-	public double nextDouble()
-	{ return r.nextDouble() * (max - min) + min;	}
+  public UniformDistribution(long seed_)
+  { super(seed_); }
+  
+  double max = 1.0, min = 0.0;
+  
+  public double nextDouble()
+  { return r.nextDouble() * (max - min) + min;  }
 
-	public int    nextInt()
-	{ return (int) nextDouble(); }
-	
-	public long nextLong()
-	{ return (long) nextDouble(); }
-	
-	public double getMax() { return max; }
-	public void setMax(double max_) { max = max_; }
-	
-	public double getMin() { return min; }
-	public void setMin(double min_) { min = min_; }
+  public int    nextInt()
+  { return (int) nextDouble(); }
+  
+  public long nextLong()
+  { return (long) nextDouble(); }
+  
+  public double getMax() { return max; }
+  public void setMax(double max_) { max = max_; }
+  
+  public double getMin() { return min; }
+  public void setMin(double min_) { min = min_; }
 
-	public double getMean()
-	{ return (max + min) / 2; }
+  public double getMean()
+  { return (max + min) / 2; }
 
-	public double getStd()
-	{ return Math.sqrt((max-min)*(max-min)/12); }
+  public double getStd()
+  { return Math.sqrt((max-min)*(max-min)/12); }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Max. = " + max + "\n"
-			+  prefix_ + "Min. = " + min + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Max. = " + max + "\n"
+      +  prefix_ + "Min. = " + min + "\n";
+  }
 
-	public String oneline()
-	{ return super.oneline() + ", max=" + max + ", min=" + min; }
+  public String oneline()
+  { return super.oneline() + ", max=" + max + ", min=" + min; }
 }
 

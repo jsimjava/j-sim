@@ -41,37 +41,37 @@ Accepts any <code>SpecR</code> that implements <code>SpecR_SP</code>.
  */
 public class scheduler_SP extends drcl.intserv.Scheduler
 {
-	Queue pq = QueueAssistant.getBest();		// QoS Packet queue vector
-	
-	public void reset() 
-	{
-		super.reset();
-		pq.reset();
-	}
+  Queue pq = QueueAssistant.getBest();    // QoS Packet queue vector
+  
+  public void reset() 
+  {
+    super.reset();
+    pq.reset();
+  }
 
-	protected void qosEnque(Packet p_, SpecR rspec_)
+  protected void qosEnque(Packet p_, SpecR rspec_)
     {
-		if (!(rspec_ instanceof SpecR_SP)) {
-			drop(p_, "unknown rspec format");
-			return;
-		}
-		pq.enqueue(((SpecR_SP)rspec_).getPriority(), p_);
-	}
+    if (!(rspec_ instanceof SpecR_SP)) {
+      drop(p_, "unknown rspec format");
+      return;
+    }
+    pq.enqueue(((SpecR_SP)rspec_).getPriority(), p_);
+  }
 
-	protected Packet qosDeque()
+  protected Packet qosDeque()
     { return (Packet)pq.dequeue(); }
 
-	public synchronized int setFlowspec(int handle_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
-	{	
-		handle_ = super.setFlowspec(handle_, tos_, tosmask_, fspec_);
-		if (handle_ == -1) return -1;
-		return handle_;
-	}
+  public synchronized int setFlowspec(int handle_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
+  {  
+    handle_ = super.setFlowspec(handle_, tos_, tosmask_, fspec_);
+    if (handle_ == -1) return -1;
+    return handle_;
+  }
 
-	public synchronized SpecFlow removeFlowspec(int handle_)
-	{	
-		return super.removeFlowspec(handle_);
-	}
+  public synchronized SpecFlow removeFlowspec(int handle_)
+  {  
+    return super.removeFlowspec(handle_);
+  }
 }
 
 

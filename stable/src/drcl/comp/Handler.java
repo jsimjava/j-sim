@@ -33,5 +33,5 @@ Defines interface for embedding a handler in a component, e.g., {@link WrapperCo
  */
 public interface Handler
 {
-	public void process(Object data_, Port inPort_);
+  public void process(Object data_, Port inPort_);
 }

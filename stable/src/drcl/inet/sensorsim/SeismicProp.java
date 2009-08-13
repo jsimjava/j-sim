@@ -38,50 +38,50 @@ import drcl.comp.Contract;
 */
 public class SeismicProp extends SensorRadioPropagationModel
 {
-	double d0 ;
-	/** Attenuation Factor  */
-	double atnFactor ;
+  double d0 ;
+  /** Attenuation Factor  */
+  double atnFactor ;
 
-	public SeismicProp()
-	{
-		super();
-		d0 = 0.1 ;
-		atnFactor = 1.0 ;
-	}
+  public SeismicProp()
+  {
+    super();
+    d0 = 0.1 ;
+    atnFactor = 1.0 ;
+  }
 
- 	public SeismicProp(String id_)
-	{
-		super(id_);
-		d0 = 0.1 ;
-		atnFactor = 1.0 ;
-	}
+   public SeismicProp(String id_)
+  {
+    super(id_);
+    d0 = 0.1 ;
+    atnFactor = 1.0 ;
+  }
 
-	/** Sets the minimum value of the distance between two nodes */
-	public void setD0(double d0_)
-	{
-		d0 = d0_ ;
-	}
+  /** Sets the minimum value of the distance between two nodes */
+  public void setD0(double d0_)
+  {
+    d0 = d0_ ;
+  }
 
-	/** Sets the attenuation factor  */
-	public void setAtnFactor(double atnFactor_)
-	{
-		atnFactor = atnFactor_ ;
-	}
+  /** Sets the attenuation factor  */
+  public void setAtnFactor(double atnFactor_)
+  {
+    atnFactor = atnFactor_ ;
+  }
 
-	/** Calculates the signal strength of a received signal based on the distance between the transmitter and the receiver and also based on the attenuation factor  */
+  /** Calculates the signal strength of a received signal based on the distance between the transmitter and the receiver and also based on the attenuation factor  */
     protected synchronized double calculateReceivedSignalStrength(Object data_) {
         SensorRadioPropagationQueryContract.Message msg = (SensorRadioPropagationQueryContract.Message) data_;
 
         double Pt; // power with which the packet was sent
-		   // Pt is included in the request (i.e., query)
-	double Xs, Ys, Zs; // location of sender
-	double Xr, Yr, Zr; // location of receiver
+       // Pt is included in the request (i.e., query)
+  double Xs, Ys, Zs; // location of sender
+  double Xr, Yr, Zr; // location of receiver
         double Pr; // power with which the packet was received
-		   // Pr is included in the reply
+       // Pr is included in the reply
 
-	double d;			// distance between sender and receiver
+  double d;      // distance between sender and receiver
 
-	Xs = msg.getXs(); 
+  Xs = msg.getXs(); 
         Ys = msg.getYs(); 
         Zs = msg.getZs(); 
         Xr = msg.getXr();
@@ -89,16 +89,16 @@ public class SeismicProp extends SensorRadioPropagationModel
         Zr = msg.getZr();
         Pt = msg.getPt();
   
-	d = Math.sqrt((Xs - Xr) * (Xs - Xr)  
-	   + (Ys - Yr) * (Ys - Yr) 
-	   + (Zs - Zr) * (Zs - Zr)); 
+  d = Math.sqrt((Xs - Xr) * (Xs - Xr)  
+     + (Ys - Yr) * (Ys - Yr) 
+     + (Zs - Zr) * (Zs - Zr)); 
  
-	d = Math.max(d, d0);
+  d = Math.max(d, d0);
 
-	Pr = Pt/ (Math.pow(d, atnFactor));
-	return Pr;        
+  Pr = Pt/ (Math.pow(d, atnFactor));
+  return Pr;        
     }
-       	public String info() { 
+         public String info() { 
         return "SeismicProp" + "\n"; 
     }
 }

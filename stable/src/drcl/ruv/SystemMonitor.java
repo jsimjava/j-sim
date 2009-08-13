@@ -39,156 +39,156 @@ import drcl.util.*;
  */
 public class SystemMonitor extends drcl.comp.Extension
 {
-	Port defaultInPort = addPort(".in", false/*not removable*/);
+  Port defaultInPort = addPort(".in", false/*not removable*/);
 
-	transient protected TraceManager tr =
-			new TraceManager(new String[]{
-					drcl.comp.Component.Trace_DATA,
-					drcl.comp.Component.Trace_SEND});
+  transient protected TraceManager tr =
+      new TraceManager(new String[]{
+          drcl.comp.Component.Trace_DATA,
+          drcl.comp.Component.Trace_SEND});
 
-	boolean tracePrintThread = false;
-	boolean isRcvOn = true;
-	boolean allToStderr = false; // output all msg to stderr
+  boolean tracePrintThread = false;
+  boolean isRcvOn = true;
+  boolean allToStderr = false; // output all msg to stderr
 
-	{
-		setComponentFlag(FLAG_ENABLED); // turn off all other flags
-		setPortNotificationEnabled(true); // to act as extension
-		infoPort.setType(Port.PortType_IN);
-		infoPort.setExecutionBoundary(false);
-		tr.setTraceEnabled(true); 
-		tr.setTraceEnabledAt(drcl.comp.Component.Trace_DATA, true);
-		tr.setTraceEnabledAt(drcl.comp.Component.Trace_SEND, true);
-	}
-	
-	public SystemMonitor() 
-	{ super(); 	}
-	
-	public SystemMonitor(String id_)
-	{ super(id_); }
-	
-	/** Enables/disables the receipt notice.  */
-	public void setRcvEnabled(boolean v_) {isRcvOn = v_; }
-	public boolean isRcvEnabled() { return isRcvOn; }
+  {
+    setComponentFlag(FLAG_ENABLED); // turn off all other flags
+    setPortNotificationEnabled(true); // to act as extension
+    infoPort.setType(Port.PortType_IN);
+    infoPort.setExecutionBoundary(false);
+    tr.setTraceEnabled(true); 
+    tr.setTraceEnabledAt(drcl.comp.Component.Trace_DATA, true);
+    tr.setTraceEnabledAt(drcl.comp.Component.Trace_SEND, true);
+  }
+  
+  public SystemMonitor() 
+  { super();   }
+  
+  public SystemMonitor(String id_)
+  { super(id_); }
+  
+  /** Enables/disables the receipt notice.  */
+  public void setRcvEnabled(boolean v_) {isRcvOn = v_; }
+  public boolean isRcvEnabled() { return isRcvOn; }
 
-	/**
-	 */
-	protected void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		synchronized (this) {
-			if (inPort_ == infoPort) {
-				try {
-					//java.lang.System.out.println("receives " + data_);
-					Message s_ = (Message)data_;
-					if (s_ instanceof GarbageContract.Message) {
-						if (!isGarbageDisplayEnabled()
-							|| !((GarbageContract.Message)s_).isDisplayable())
-							return;
-					}
-					else if (s_ instanceof TraceContract.Message) {
-						if (isTraceEnabled())
-							printTrace((TraceContract.Message)s_);
-						return;
-					}
-					else if (s_ instanceof ErrorContract.Message) {
-						if (isErrorNoticeEnabled())
-							errpost(" ** ERROR ** " + s_.toString("| ") + "\n");
-						return;
-					}
-					else if (s_ instanceof PropertyContract.Message)
-						return; // ignore
-					//else post("Unrecognized info message| " + data_ + "\n");
+  /**
+   */
+  protected void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    synchronized (this) {
+      if (inPort_ == infoPort) {
+        try {
+          //java.lang.System.out.println("receives " + data_);
+          Message s_ = (Message)data_;
+          if (s_ instanceof GarbageContract.Message) {
+            if (!isGarbageDisplayEnabled()
+              || !((GarbageContract.Message)s_).isDisplayable())
+              return;
+          }
+          else if (s_ instanceof TraceContract.Message) {
+            if (isTraceEnabled())
+              printTrace((TraceContract.Message)s_);
+            return;
+          }
+          else if (s_ instanceof ErrorContract.Message) {
+            if (isErrorNoticeEnabled())
+              errpost(" ** ERROR ** " + s_.toString("| ") + "\n");
+            return;
+          }
+          else if (s_ instanceof PropertyContract.Message)
+            return; // ignore
+          //else post("Unrecognized info message| " + data_ + "\n");
 
-					post(s_.toString("| ") + "\n");
-					return;
-				}
-				catch (Exception e_) {
-					e_.printStackTrace();
-				}
-			}
-			else if (isRcvOn) {
-				// receipt notification
-				if (data_ instanceof String && inPort_ == defaultInPort)
-					post(data_.toString() + "\n");
-				else if (inPort_ == defaultInPort)
-					post("SYSTEM MONITOR| " + "| "
-								+ drcl.util.StringUtil.toString(data_) + "\n");
-				else {
-					post(inPort_.getID() + "@" + inPort_.getGroupID() + "| "
-								+ drcl.util.StringUtil.toString(data_) + "\n");
-				}
-			}
-		}
-	}
-	
-	//
-	private void ___TRACE____() {}
-	//
+          post(s_.toString("| ") + "\n");
+          return;
+        }
+        catch (Exception e_) {
+          e_.printStackTrace();
+        }
+      }
+      else if (isRcvOn) {
+        // receipt notification
+        if (data_ instanceof String && inPort_ == defaultInPort)
+          post(data_.toString() + "\n");
+        else if (inPort_ == defaultInPort)
+          post("SYSTEM MONITOR| " + "| "
+                + drcl.util.StringUtil.toString(data_) + "\n");
+        else {
+          post(inPort_.getID() + "@" + inPort_.getGroupID() + "| "
+                + drcl.util.StringUtil.toString(data_) + "\n");
+        }
+      }
+    }
+  }
+  
+  //
+  private void ___TRACE____() {}
+  //
 
-	public boolean isThreadPrintedInTraceEnabled()
-	{ return tracePrintThread; }
+  public boolean isThreadPrintedInTraceEnabled()
+  { return tracePrintThread; }
 
-	public void setThreadPrintedInTraceEnabled(boolean enabled_)
-	{ tracePrintThread = enabled_; }
-	
-	WorkerThread getThread()
-	{
-		Thread t_ = Thread.currentThread();
-		if (t_ instanceof WorkerThread) return (WorkerThread)t_;
-		else return null;
-	}
+  public void setThreadPrintedInTraceEnabled(boolean enabled_)
+  { tracePrintThread = enabled_; }
+  
+  WorkerThread getThread()
+  {
+    Thread t_ = Thread.currentThread();
+    if (t_ instanceof WorkerThread) return (WorkerThread)t_;
+    else return null;
+  }
 
-	/**
-	 * For subclasses to provide their own trace mechanism,
-	 * e.g., trace filtering.
-	 */
-	protected void printTrace(TraceContract.Message msg_)
-	{
-		String trace_ = msg_.getTrace();
-		if (tr.isTraceEnabledAt(trace_)) {
-			if (tracePrintThread)
-				post(msg_.toString("| ") + "|" + getThread()._debug() + "\n");
-			else
-				post(msg_.toString("| ") + "\n");
-		}
-	}
-	
-	public TraceManager getTraceManager() { return tr; }
-	
-	public void setTraceEnabledAt(String which_, boolean enabled_)
-	{ if (tr != null) tr.setTraceEnabledAt(which_, enabled_); }
-	
-	public boolean isTraceEnabledAt(String which_)
-	{ return tr == null? false: tr.isTraceEnabledAt(which_); }
-	
-	/** Enables/disables directing all outputs to stderr.
-	 * It is disabled by default. */
-	public void setOutputAllToStderrEnabled(boolean enabled_)
-	{ allToStderr = enabled_; }
+  /**
+   * For subclasses to provide their own trace mechanism,
+   * e.g., trace filtering.
+   */
+  protected void printTrace(TraceContract.Message msg_)
+  {
+    String trace_ = msg_.getTrace();
+    if (tr.isTraceEnabledAt(trace_)) {
+      if (tracePrintThread)
+        post(msg_.toString("| ") + "|" + getThread()._debug() + "\n");
+      else
+        post(msg_.toString("| ") + "\n");
+    }
+  }
+  
+  public TraceManager getTraceManager() { return tr; }
+  
+  public void setTraceEnabledAt(String which_, boolean enabled_)
+  { if (tr != null) tr.setTraceEnabledAt(which_, enabled_); }
+  
+  public boolean isTraceEnabledAt(String which_)
+  { return tr == null? false: tr.isTraceEnabledAt(which_); }
+  
+  /** Enables/disables directing all outputs to stderr.
+   * It is disabled by default. */
+  public void setOutputAllToStderrEnabled(boolean enabled_)
+  { allToStderr = enabled_; }
 
-	/** Returns true if directing all outputs to stderr is enabled. */
-	public boolean isOutputAllToStderrEnabled()
-	{ return allToStderr; }
+  /** Returns true if directing all outputs to stderr is enabled. */
+  public boolean isOutputAllToStderrEnabled()
+  { return allToStderr; }
 
-	public void post(String msg_)
-	{
-		if (allToStderr) errpost(msg_);
-		else java.lang.System.out.print(msg_);
-	}
-	
-	public void errpost(String msg_)
-	{ java.lang.System.err.print(msg_); }
-	
-	public String info()
-	{
-		StringBuffer sb_ = new StringBuffer();
-		if (tr != null) sb_.append("Trace manager: " + tr + "\n");
-		return sb_.toString();
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		SystemMonitor that_ = (SystemMonitor)source_;
-		tr = (TraceManager)that_.tr.clone();
-	}
+  public void post(String msg_)
+  {
+    if (allToStderr) errpost(msg_);
+    else java.lang.System.out.print(msg_);
+  }
+  
+  public void errpost(String msg_)
+  { java.lang.System.err.print(msg_); }
+  
+  public String info()
+  {
+    StringBuffer sb_ = new StringBuffer();
+    if (tr != null) sb_.append("Trace manager: " + tr + "\n");
+    return sb_.toString();
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    SystemMonitor that_ = (SystemMonitor)source_;
+    tr = (TraceManager)that_.tr.clone();
+  }
 }

@@ -38,70 +38,70 @@ import java.util.*;
 
 public class ParetoDistribution extends RandomNumberGenerator
 {
-	public String   getName()           { return "Pareto Distribution"; }
+  public String   getName()           { return "Pareto Distribution"; }
 
-	public ParetoDistribution (double scale_, double shape_)
-	{ this(scale_, shape_, 0L); }
+  public ParetoDistribution (double scale_, double shape_)
+  { this(scale_, shape_, 0L); }
 
-	public ParetoDistribution (double scale_, double shape_, long seed_)
-	{
-		this(seed_);
-		scale = scale_;
-		shape = -1.0 / shape_;
-	}
-	
-	double scale = 1.0;
-	double shape = - 1.0;
-	
-	public ParetoDistribution()
-	{ super(); }
+  public ParetoDistribution (double scale_, double shape_, long seed_)
+  {
+    this(seed_);
+    scale = scale_;
+    shape = -1.0 / shape_;
+  }
+  
+  double scale = 1.0;
+  double shape = - 1.0;
+  
+  public ParetoDistribution()
+  { super(); }
 
-	public ParetoDistribution(long seed_)
-	{ super(seed_); }
-	
-	public double getMean()
-	{ return scale / (1 + shape); }
+  public ParetoDistribution(long seed_)
+  { super(seed_); }
+  
+  public double getMean()
+  { return scale / (1 + shape); }
 
-	public double nextDouble()
-	{
-		double x;
-		
-		do { x= r.nextDouble(); } while (x == 0.0);
+  public double nextDouble()
+  {
+    double x;
+    
+    do { x= r.nextDouble(); } while (x == 0.0);
 
-		// Mapping from Uniform to Pareto
-		return scale * Math.pow(x, shape); 
-	}
+    // Mapping from Uniform to Pareto
+    return scale * Math.pow(x, shape); 
+  }
 
-	public int  nextInt()
-	{	return (int) nextDouble();	}
+  public int  nextInt()
+  {  return (int) nextDouble();  }
 
-	public long nextLong()
-	{	return (long) nextDouble();	}
+  public long nextLong()
+  {  return (long) nextDouble();  }
 
-	public void setScale(double scale_)
-	{ scale = scale_; }
+  public void setScale(double scale_)
+  { scale = scale_; }
 
-	public double getScale()
-	{ return scale; }
-	
-	public void setShape(double shape_)
-	{ shape = -1.0 / shape_; }
+  public double getScale()
+  { return scale; }
+  
+  public void setShape(double shape_)
+  { shape = -1.0 / shape_; }
 
-	public double getShape()
-	{ return -1.0 / shape; }
+  public double getShape()
+  { return -1.0 / shape; }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Scale = " + scale + "\n"
-			+  prefix_ + "Shape = " + getShape() + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Scale = " + scale + "\n"
+      +  prefix_ + "Shape = " + getShape() + "\n";
+  }
 
-	public String oneline()
-	{
-		return super.oneline()
-			+ ", scale=" + scale
-			+ ", shape=" + getShape();
-	}
+  public String oneline()
+  {
+    return super.oneline()
+      + ", scale=" + scale
+      + ", shape=" + getShape();
+  }
 }
 

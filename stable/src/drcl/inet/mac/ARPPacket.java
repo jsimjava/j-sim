@@ -93,11 +93,11 @@ public class ARPPacket extends Packet
         ar_pln = 4;
     }
     
-	/*
+  /*
     public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		ARPPacket that_ = (ARPPacket)source_;
+  {
+    super.duplicate(source_);
+    ARPPacket that_ = (ARPPacket)source_;
         arp_op   = that_.arp_op;
         arp_sha  = that_.arp_sha;
         arp_spa  = that_.arp_spa;
@@ -108,15 +108,15 @@ public class ARPPacket extends Packet
         ar_pro = that_.ar_pro;
         ar_hln = that_.ar_hln;
         ar_pln = that_.ar_pln;
-	}
-	*/
+  }
+  */
 
-	public Object clone()
-	{
-		return new ARPPacket(arp_op, arp_sha, arp_spa, arp_tha, arp_tpa);
-	}
+  public Object clone()
+  {
+    return new ARPPacket(arp_op, arp_sha, arp_spa, arp_tha, arp_tpa);
+  }
 
-	public String _toString(String separator_)  { 
+  public String _toString(String separator_)  { 
         return getName() + separator_ + "arp_op="  + arp_op  + separator_ + 
                                         "arp_sha=" + arp_sha + separator_ + 
                                         "arp_spa=" + arp_spa + separator_ + 

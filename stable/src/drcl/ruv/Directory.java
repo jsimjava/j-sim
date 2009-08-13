@@ -34,49 +34,49 @@ import drcl.comp.*;
 // as intermediate data structure in implementing file commands
 public class Directory
 {
-	public Directory (Component parent_, Object[] child_, String path_, boolean trailingSlash_)
-	{
-		parent = parent_;
-		child = child_;
-		ids = null;
-		path = path_;
-		trailingSlash = trailingSlash_;
-	}
-	
-	public Directory (Component parent_, String[] ids_, String path_, boolean trailingSlash_)
-	{
-		parent = parent_;
-		child = null;
-		ids = ids_;
-		path = path_;
-		trailingSlash = trailingSlash_;
-	}
-	
-	public Directory (Object object_, String path_, boolean trailingSlash_)
-	{
-		object = object_;
-		path = path_;
-		trailingSlash = trailingSlash_;
-	}
-	
-	Component parent;
-	Object[] child; // could be component/port/wrapped object
-	String[] ids;  // component id/port group id/port id...
-	// first element is Common.STOP_RESOLUTION
-	Object object; // pure object reference, other fields must be null
+  public Directory (Component parent_, Object[] child_, String path_, boolean trailingSlash_)
+  {
+    parent = parent_;
+    child = child_;
+    ids = null;
+    path = path_;
+    trailingSlash = trailingSlash_;
+  }
+  
+  public Directory (Component parent_, String[] ids_, String path_, boolean trailingSlash_)
+  {
+    parent = parent_;
+    child = null;
+    ids = ids_;
+    path = path_;
+    trailingSlash = trailingSlash_;
+  }
+  
+  public Directory (Object object_, String path_, boolean trailingSlash_)
+  {
+    object = object_;
+    path = path_;
+    trailingSlash = trailingSlash_;
+  }
+  
+  Component parent;
+  Object[] child; // could be component/port/wrapped object
+  String[] ids;  // component id/port group id/port id...
+  // first element is Common.STOP_RESOLUTION
+  Object object; // pure object reference, other fields must be null
 
-	// in mkdir, cp and mv, trailing slash in a path makes sutle differences
-	// between "under" and "onto" the component <-- component only
-	boolean trailingSlash = false;
-	
-	String path; // the path from which this directory is derived
-		// right now, it's only useful for "ls"
-	
-	public String toString()
-	{
-		return parent + ": " + drcl.util.StringUtil.toString(child)
-			   + ", " + drcl.util.StringUtil.toString(ids)
-			   + ", " + drcl.util.StringUtil.toString(object)
-			   + (trailingSlash? "trailing /": "");
-	}
+  // in mkdir, cp and mv, trailing slash in a path makes sutle differences
+  // between "under" and "onto" the component <-- component only
+  boolean trailingSlash = false;
+  
+  String path; // the path from which this directory is derived
+    // right now, it's only useful for "ls"
+  
+  public String toString()
+  {
+    return parent + ": " + drcl.util.StringUtil.toString(child)
+         + ", " + drcl.util.StringUtil.toString(ids)
+         + ", " + drcl.util.StringUtil.toString(object)
+         + (trailingSlash? "trailing /": "");
+  }
 }

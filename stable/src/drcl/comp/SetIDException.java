@@ -30,12 +30,12 @@ package drcl.comp;
 
 public class SetIDException extends Error
 {
-	public SetIDException()
-	{ super(); }
+  public SetIDException()
+  { super(); }
 
-	public SetIDException(String msg_)
-	{ super(msg_); }
+  public SetIDException(String msg_)
+  { super(msg_); }
 
-	public SetIDException(Component parent_, String id_)
-	{ super("'" + id_ + "' has already existed in " + parent_); }
+  public SetIDException(Component parent_, String id_)
+  { super("'" + id_ + "' has already existed in " + parent_); }
 }

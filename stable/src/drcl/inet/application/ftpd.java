@@ -40,78 +40,78 @@ import drcl.comp.*;
  * @see ftp
  */
 public class ftpd extends SApplication
-	implements drcl.comp.ActiveComponent
+  implements drcl.comp.ActiveComponent
 {
-	File file;
-	int bufferSize;
-	long progress, fileSize;
-	Port notifyPort = addEventPort("notify");
+  File file;
+  int bufferSize;
+  long progress, fileSize;
+  Port notifyPort = addEventPort("notify");
 
-	public ftpd ()
-	{ super(); }
+  public ftpd ()
+  { super(); }
 
-	public ftpd(String id_)
-	{ super(id_); }
+  public ftpd(String id_)
+  { super(id_); }
 
-	public void setup(String outfile_, int bufferSize_) throws IOException
-	{
-		bufferSize = bufferSize_;
-		file = new File(outfile_);
-	}
+  public void setup(String outfile_, int bufferSize_) throws IOException
+  {
+    bufferSize = bufferSize_;
+    file = new File(outfile_);
+  }
 
-	public void reset()
-	{
-		super.reset();
-		fileSize = progress = 0;
-	}
+  public void reset()
+  {
+    super.reset();
+    fileSize = progress = 0;
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		bufferSize = ((ftpd)source_).bufferSize;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    bufferSize = ((ftpd)source_).bufferSize;
+  }
 
-	protected void _start ()
-	{
-		if (file == null) {
-			error("_start()", "no file is set up to receive");
-			return;
-		}
-		progress = 0;
-		byte[] buf_ = new byte[bufferSize];
-		try	{
-			FileOutputStream out_ = new FileOutputStream(file);
-			DataInputStream in_ = new DataInputStream(getInputStream());
+  protected void _start ()
+  {
+    if (file == null) {
+      error("_start()", "no file is set up to receive");
+      return;
+    }
+    progress = 0;
+    byte[] buf_ = new byte[bufferSize];
+    try  {
+      FileOutputStream out_ = new FileOutputStream(file);
+      DataInputStream in_ = new DataInputStream(getInputStream());
 
-			fileSize = in_.readLong();
-			if (isDebugEnabled()) debug("Start receiving file size " + fileSize);
-			while (progress < fileSize) {
-				int len_ = in_.read(buf_, 0, -1);// -1: read whatever available in the buffer
-				if (len_ > 0) out_.write(buf_, 0, len_);
-				progress += len_;
-				if (isStopped())
-					wait(this);
-			}
-			out_.close();
-			in_.close();
-			if (isDebugEnabled()) debug("Done with '" + file.getName() + "'");
+      fileSize = in_.readLong();
+      if (isDebugEnabled()) debug("Start receiving file size " + fileSize);
+      while (progress < fileSize) {
+        int len_ = in_.read(buf_, 0, -1);// -1: read whatever available in the buffer
+        if (len_ > 0) out_.write(buf_, 0, len_);
+        progress += len_;
+        if (isStopped())
+          wait(this);
+      }
+      out_.close();
+      in_.close();
+      if (isDebugEnabled()) debug("Done with '" + file.getName() + "'");
 
-			notifyPort.doSending("done");
-		}
-		catch (IOException ioe)	{
-			ioe.printStackTrace();
-			error("_start()", ioe);
-		}
-	}
+      notifyPort.doSending("done");
+    }
+    catch (IOException ioe)  {
+      ioe.printStackTrace();
+      error("_start()", ioe);
+    }
+  }
 
-	protected void _resume()
-	{ notify(this); }
+  protected void _resume()
+  { notify(this); }
 
-	public String info()
-	{
-	    return "Write to file: " + file + "\n"
-			+ "BufferSize = " + bufferSize + "\n"
-			+ "Progress: " + progress + "/" + fileSize + "\n"
-			+ super.info();
-	}
+  public String info()
+  {
+      return "Write to file: " + file + "\n"
+      + "BufferSize = " + bufferSize + "\n"
+      + "Progress: " + progress + "/" + fileSize + "\n"
+      + super.info();
+  }
 }

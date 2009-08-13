@@ -33,43 +33,43 @@ package drcl.data;
  */
 public class IntObj extends NumberObj
 {
-	public int value;
+  public int value;
 
-	public IntObj() {}
-	public IntObj(int v)
-	{	value = v;	}
+  public IntObj() {}
+  public IntObj(int v)
+  {  value = v;  }
 
-	public void setValue(int v) { this.value = v; }
-	public int  getValue()      { return value; }
+  public void setValue(int v) { this.value = v; }
+  public int  getValue()      { return value; }
 
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		else if (!(o instanceof IntObj)) return false;
-		return value == ((IntObj)o).value;
-	}
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    else if (!(o instanceof IntObj)) return false;
+    return value == ((IntObj)o).value;
+  }
 
-	public int hashCode() { return value; }
-	
-	public void duplicate(Object source_)
-	{
-		value = ((IntObj)source_).value;
-	}
-	
-	
-	/** Increases the integer by delta_ and returns the new value. */
-	public int inc(int delta_)
-	{ 
-		value += delta_; 
-		return value;
-	}
-	
-	public String toString() { return value+""; }
-	public byte byteValue() { return (byte)value; }
-	public float floatValue() { return (float)value; }
-	public double doubleValue() { return (double)value; }
-	public int intValue() { return (int)value; }
-	public long longValue() { return (long)value; }
-	public short shortValue() { return (short)value; }
+  public int hashCode() { return value; }
+  
+  public void duplicate(Object source_)
+  {
+    value = ((IntObj)source_).value;
+  }
+  
+  
+  /** Increases the integer by delta_ and returns the new value. */
+  public int inc(int delta_)
+  { 
+    value += delta_; 
+    return value;
+  }
+  
+  public String toString() { return value+""; }
+  public byte byteValue() { return (byte)value; }
+  public float floatValue() { return (float)value; }
+  public double doubleValue() { return (double)value; }
+  public int intValue() { return (int)value; }
+  public long longValue() { return (long)value; }
+  public short shortValue() { return (short)value; }
 }
 

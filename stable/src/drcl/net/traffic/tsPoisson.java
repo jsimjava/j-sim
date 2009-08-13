@@ -37,78 +37,78 @@ import drcl.net.FooPacket;
  */
 public class tsPoisson extends TrafficSourceComponent
 {
-	double nextTime;
-	ExponentialDistribution ed = new ExponentialDistribution();
-		
-	traffic_Poisson traffic = null;
+  double nextTime;
+  ExponentialDistribution ed = new ExponentialDistribution();
+    
+  traffic_Poisson traffic = null;
 
-	public tsPoisson()
-	{ this(new traffic_Poisson()); }
+  public tsPoisson()
+  { this(new traffic_Poisson()); }
 
-	public tsPoisson(String id_)
-	{ super(id_); traffic = new traffic_Poisson(); reset(); }
+  public tsPoisson(String id_)
+  { super(id_); traffic = new traffic_Poisson(); reset(); }
 
-	public tsPoisson(traffic_Poisson traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsPoisson(traffic_Poisson traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void setSeed(long seed_)
-	{
-		super.setSeed(seed_);
-		ed.setSeed(seed_);
-	}
+  public void setSeed(long seed_)
+  {
+    super.setSeed(seed_);
+    ed.setSeed(seed_);
+  }
 
-	public void reset()
-	{
-		super.reset();
-		nextTime = 0.0;
-		if (traffic != null)
-			ed.setRate(1.0 / traffic.getPeriod());
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-				+ prefix_ + "Arrival: " + ed + "\n"
-				+ prefix_ + "State: nextTime=" + nextTime + "\n";
-	}
+  public void reset()
+  {
+    super.reset();
+    nextTime = 0.0;
+    if (traffic != null)
+      ed.setRate(1.0 / traffic.getPeriod());
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+        + prefix_ + "Arrival: " + ed + "\n"
+        + prefix_ + "State: nextTime=" + nextTime + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_Poisson)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_Poisson)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_) 
-	{ 
-		nextTime += ed.nextDouble();
-		nextpkt_.setPacketSize(traffic.packetSize);
-		return nextTime;
-	}
+  protected double setNextPacket(FooPacket nextpkt_) 
+  { 
+    nextTime += ed.nextDouble();
+    nextpkt_.setPacketSize(traffic.packetSize);
+    return nextTime;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime = newTime_;
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime = newTime_;
+    super.reschedule(newTime_);
+  }
 
-	public void setPacketSize(int size_)
-   	{ set(size_, traffic.rate); }
+  public void setPacketSize(int size_)
+     { set(size_, traffic.rate); }
 
-	public int getPacketSize() { return traffic.packetSize; }
-	
-	public void setRate(double brate_)
-   	{ set(traffic.packetSize, brate_); }
+  public int getPacketSize() { return traffic.packetSize; }
+  
+  public void setRate(double brate_)
+     { set(traffic.packetSize, brate_); }
 
-	public double getRate() { return traffic.rate; }
-	
-	public void set(int mtu_, double brate_)
-	{
-		traffic.set(mtu_, brate_);
-		if (isStarted()) {
-			ed.setRate(1.0 / traffic.getPeriod());
-			reschedule(getTime() + ed.nextDouble());
-		}
-		else
-			reset();
-	}
+  public double getRate() { return traffic.rate; }
+  
+  public void set(int mtu_, double brate_)
+  {
+    traffic.set(mtu_, brate_);
+    if (isStarted()) {
+      ed.setRate(1.0 / traffic.getPeriod());
+      reschedule(getTime() + ed.nextDouble());
+    }
+    else
+      reset();
+  }
 }

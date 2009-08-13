@@ -32,26 +32,26 @@ package drcl.data;
  */
 public class XYData implements XYDataInterface
 {
-	Object id;
+  Object id;
 
-	double x,y;
+  double x,y;
 
-	public XYData() {}
+  public XYData() {}
 
-	/**
-	 * @param id_ identifies the data set this x-y pair belongs to.
-	 */
-	public XYData(Object id_, double x_, double y_)
-	{
-		id = id_;
-		x = x_;
-		y = y_;
-	}
+  /**
+   * @param id_ identifies the data set this x-y pair belongs to.
+   */
+  public XYData(Object id_, double x_, double y_)
+  {
+    id = id_;
+    x = x_;
+    y = y_;
+  }
 
-	public double getX()  { return x; }
-	public double getY()  { return y; }
-	public Object getID() { return id; }
+  public double getX()  { return x; }
+  public double getY()  { return y; }
+  public Object getID() { return id; }
 
-	public String toString()
-	{ return "XYData:id=" + id+ ",(" + x + "," + y + ")"; }
+  public String toString()
+  { return "XYData:id=" + id+ ",(" + x + "," + y + ")"; }
 }

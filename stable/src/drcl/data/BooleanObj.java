@@ -33,36 +33,36 @@ package drcl.data;
  */
 public class BooleanObj extends drcl.DrclObj
 {
-	public boolean value;
+  public boolean value;
 
-	public BooleanObj() {}
-	public BooleanObj(boolean v)
-	{	value = v;	}
+  public BooleanObj() {}
+  public BooleanObj(boolean v)
+  {  value = v;  }
 
-	public void setValue(boolean v) { this.value = v; }
-	public boolean  getValue()      { return value; }
+  public void setValue(boolean v) { this.value = v; }
+  public boolean  getValue()      { return value; }
 
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		else if (!(o instanceof BooleanObj)) return false;
-		return value == ((BooleanObj)o).value;
-	}
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    else if (!(o instanceof BooleanObj)) return false;
+    return value == ((BooleanObj)o).value;
+  }
 
-	public int hashCode() { return value? 1:0; }
-	
-	public void duplicate(Object source_)
-	{
-		value = ((BooleanObj)source_).value;
-	}
-	
-	/** Flips the boolean value and returns the new one.  */
-	public boolean flip()
-	{ 
-		value = !value; 
-		return value; 
-	}
-	
-	public String toString() { return value+""; }
+  public int hashCode() { return value? 1:0; }
+  
+  public void duplicate(Object source_)
+  {
+    value = ((BooleanObj)source_).value;
+  }
+  
+  /** Flips the boolean value and returns the new one.  */
+  public boolean flip()
+  { 
+    value = !value; 
+    return value; 
+  }
+  
+  public String toString() { return value+""; }
 }
 

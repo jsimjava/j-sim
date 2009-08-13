@@ -42,73 +42,73 @@ import drcl.data.*;
  */
 public class QoSRequirement extends drcl.DrclObj
 {
-	public long[] connectionID;
-	public double maxE2eDelay;
-	public double maxIntDestJitter;
-	public double maxIntPktJitter;
-	public double minBW;
-	public double maxPktLossRate;
-	public int maxHop;
-	
-	public QoSRequirement (long[] connectionID_)
-	{
-		this(connectionID_, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
-			Double.POSITIVE_INFINITY, 0.0, 1.0, Integer.MAX_VALUE);
-	}
-	
-	public QoSRequirement (long[] connectionID_, double ed_, double idj_, double ipj_, double minbw_, 
-						double ploss_, int hop_)
-	{
-		connectionID = connectionID_;
-		maxE2eDelay = ed_;
-		maxIntDestJitter = idj_;
-		maxIntPktJitter = ipj_;
-		minBW = minbw_;
-		maxPktLossRate = ploss_;
-		maxHop = hop_;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof QoSRequirement)) return;
-		QoSRequirement that_ = (QoSRequirement) source_;
-		connectionID = that_.connectionID;
-		maxE2eDelay = that_.maxE2eDelay;
-		maxIntDestJitter = that_.maxIntDestJitter;
-		maxIntPktJitter = that_.maxIntPktJitter;
-		minBW = that_.minBW;
-		maxPktLossRate = that_.maxPktLossRate;
-		maxHop = that_.maxHop;
-	}
-	
-	public void merge(QoSRequirement that_)
-	{
-		if (maxE2eDelay > that_.maxE2eDelay)maxE2eDelay = that_.maxE2eDelay;
-		if (maxIntDestJitter > that_.maxIntDestJitter)maxIntDestJitter = that_.maxIntDestJitter;
-		if (maxIntPktJitter > that_.maxIntPktJitter)maxIntPktJitter = that_.maxIntPktJitter;
-		if (minBW > that_.minBW)minBW = that_.minBW;
-		if (maxPktLossRate > that_.maxPktLossRate)maxPktLossRate = that_.maxPktLossRate;
-		if (maxHop > that_.maxHop)maxHop = that_.maxHop;
-	}
-	
-	public void setConnectionID(long[] g_) { connectionID = g_; }
-	public long[] getConnectionID() { return connectionID; }
-	
-	public void setMaxEndToEndDelay(double d_) { maxE2eDelay = d_; }
-	public double getMaxEndToEndDelay() { return maxE2eDelay; }
-	
-	public void setMaxIntDestJitter(double d_) { maxIntDestJitter = d_; }
-	public double getMaxIntDestJitter() { return maxIntDestJitter; }
-	
-	public void setMaxIntPktJitter(double d_) { maxIntPktJitter = d_; }
-	public double getMaxIntPktJitter() { return maxIntPktJitter; }
-	
-	public void setMinBW(double d_) { minBW = d_; }
-	public double getMinBW() { return minBW; }
-	
-	public void setMaxPktLossRate(double d_) { maxPktLossRate = d_; }
-	public double getMaxPktLossRate() { return maxPktLossRate; }
-	
-	public void setMaxHop(int d_) { maxHop = d_; }
-	public int getMaxHop() { return maxHop; }
+  public long[] connectionID;
+  public double maxE2eDelay;
+  public double maxIntDestJitter;
+  public double maxIntPktJitter;
+  public double minBW;
+  public double maxPktLossRate;
+  public int maxHop;
+  
+  public QoSRequirement (long[] connectionID_)
+  {
+    this(connectionID_, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,
+      Double.POSITIVE_INFINITY, 0.0, 1.0, Integer.MAX_VALUE);
+  }
+  
+  public QoSRequirement (long[] connectionID_, double ed_, double idj_, double ipj_, double minbw_, 
+            double ploss_, int hop_)
+  {
+    connectionID = connectionID_;
+    maxE2eDelay = ed_;
+    maxIntDestJitter = idj_;
+    maxIntPktJitter = ipj_;
+    minBW = minbw_;
+    maxPktLossRate = ploss_;
+    maxHop = hop_;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof QoSRequirement)) return;
+    QoSRequirement that_ = (QoSRequirement) source_;
+    connectionID = that_.connectionID;
+    maxE2eDelay = that_.maxE2eDelay;
+    maxIntDestJitter = that_.maxIntDestJitter;
+    maxIntPktJitter = that_.maxIntPktJitter;
+    minBW = that_.minBW;
+    maxPktLossRate = that_.maxPktLossRate;
+    maxHop = that_.maxHop;
+  }
+  
+  public void merge(QoSRequirement that_)
+  {
+    if (maxE2eDelay > that_.maxE2eDelay)maxE2eDelay = that_.maxE2eDelay;
+    if (maxIntDestJitter > that_.maxIntDestJitter)maxIntDestJitter = that_.maxIntDestJitter;
+    if (maxIntPktJitter > that_.maxIntPktJitter)maxIntPktJitter = that_.maxIntPktJitter;
+    if (minBW > that_.minBW)minBW = that_.minBW;
+    if (maxPktLossRate > that_.maxPktLossRate)maxPktLossRate = that_.maxPktLossRate;
+    if (maxHop > that_.maxHop)maxHop = that_.maxHop;
+  }
+  
+  public void setConnectionID(long[] g_) { connectionID = g_; }
+  public long[] getConnectionID() { return connectionID; }
+  
+  public void setMaxEndToEndDelay(double d_) { maxE2eDelay = d_; }
+  public double getMaxEndToEndDelay() { return maxE2eDelay; }
+  
+  public void setMaxIntDestJitter(double d_) { maxIntDestJitter = d_; }
+  public double getMaxIntDestJitter() { return maxIntDestJitter; }
+  
+  public void setMaxIntPktJitter(double d_) { maxIntPktJitter = d_; }
+  public double getMaxIntPktJitter() { return maxIntPktJitter; }
+  
+  public void setMinBW(double d_) { minBW = d_; }
+  public double getMinBW() { return minBW; }
+  
+  public void setMaxPktLossRate(double d_) { maxPktLossRate = d_; }
+  public double getMaxPktLossRate() { return maxPktLossRate; }
+  
+  public void setMaxHop(int d_) { maxHop = d_; }
+  public int getMaxHop() { return maxHop; }
 }

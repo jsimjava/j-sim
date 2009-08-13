@@ -47,176 +47,176 @@ active sending.
  */
 public abstract class ActiveQueue extends Component
 {
-	public static final String OUTPUT_PORT_ID = 
-			ActiveQueueContract.OUTPUT_PORT_ID;
-	static {
-		setContract(ActiveQueue.class, "*", 
-						new ActiveQueueContract(Contract.Role_REACTOR));
-	}
-	
-	protected boolean requesting = false; // from the pulling component
-	private long enqueCounter = 0;
-	
-	protected Port outport = addPort(OUTPUT_PORT_ID, false/*not removable*/);
-	
-	public ActiveQueue()
-	{ super(); }
-	
-	public ActiveQueue(String id_)
-	{ super(id_); }
+  public static final String OUTPUT_PORT_ID = 
+      ActiveQueueContract.OUTPUT_PORT_ID;
+  static {
+    setContract(ActiveQueue.class, "*", 
+            new ActiveQueueContract(Contract.Role_REACTOR));
+  }
+  
+  protected boolean requesting = false; // from the pulling component
+  private long enqueCounter = 0;
+  
+  protected Port outport = addPort(OUTPUT_PORT_ID, false/*not removable*/);
+  
+  public ActiveQueue()
+  { super(); }
+  
+  public ActiveQueue(String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		enqueCounter = 0;
-		requesting = false;
-	}
+  public void reset()
+  {
+    super.reset();
+    enqueCounter = 0;
+    requesting = false;
+  }
 
-	public String info()
-	{ return info(""); }
+  public String info()
+  { return info(""); }
 
-	public String info(String prefix_)
-	{
-		return prefix_ + "Enque count: " + enqueCounter
-			+ ", buffering: " + getSize() + "/" + getCapacity()
-			+ ", pending pulling req=" + requesting + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return prefix_ + "Enque count: " + enqueCounter
+      + ", buffering: " + getSize() + "/" + getCapacity()
+      + ", pending pulling req=" + requesting + "\n";
+  }
 
-	protected synchronized void process(Object data_, Port inPort_) 
-	{
-		if (data_ == null) { // dequeue signaling from the pulling component
-			if (!isEmpty())
-				outport.doLastSending(pull());
-			else
-				requesting = true;
-		}
-		else if (data_ instanceof IntObj) {
-			setCapacity(((IntObj)data_).value);
-		}
-		else if (!(data_ instanceof String)) { // enqueue
-			enqueCounter++;
-			if (requesting) {
-				outport.doLastSending(data_);
-				requesting = false;
-			}
-			else {
-				Object dropped_ = enqueue(data_);
-				if (dropped_ != null && isGarbageEnabled())
-					drop(dropped_, "due to queue capacity/policy");
-			}
-			/*
-			Object dropped_ = enqueue(data_);
-			if (dropped_ != null && isGarbageEnabled())
-				drop(dropped_, "due to queue capacity");
-			if (requesting) {
-				data_ = pull(); // 'requesting' off in pull()
-				if (data_ != null) outport.doLastSending(data_);
-			}
-			*/
-		}
-		else if (data_ == ActiveQueueContract.DEQUEUE) {
-			inPort_.doLastSending(dequeue());
-		}
-		else if (data_ == ActiveQueueContract.PEEK) {
-			inPort_.doLastSending(peekAt(0));
-		}
-		else if (data_ == ActiveQueueContract.IS_FULL) {
-			inPort_.doLastSending(new BooleanObj(isFull()));
-		}
-		else if (data_ == ActiveQueueContract.IS_EMPTY) {
-			inPort_.doLastSending(new BooleanObj(isEmpty()));
-		}
-		else if (data_ == ActiveQueueContract.GET_CAPACITY) {
-			inPort_.doLastSending(new IntObj(getCapacity()));
-		}
-		else if (data_ == ActiveQueueContract.GET_SIZE) {
-			inPort_.doLastSending(new IntObj(getSize()));
-		}
-	}
+  protected synchronized void process(Object data_, Port inPort_) 
+  {
+    if (data_ == null) { // dequeue signaling from the pulling component
+      if (!isEmpty())
+        outport.doLastSending(pull());
+      else
+        requesting = true;
+    }
+    else if (data_ instanceof IntObj) {
+      setCapacity(((IntObj)data_).value);
+    }
+    else if (!(data_ instanceof String)) { // enqueue
+      enqueCounter++;
+      if (requesting) {
+        outport.doLastSending(data_);
+        requesting = false;
+      }
+      else {
+        Object dropped_ = enqueue(data_);
+        if (dropped_ != null && isGarbageEnabled())
+          drop(dropped_, "due to queue capacity/policy");
+      }
+      /*
+      Object dropped_ = enqueue(data_);
+      if (dropped_ != null && isGarbageEnabled())
+        drop(dropped_, "due to queue capacity");
+      if (requesting) {
+        data_ = pull(); // 'requesting' off in pull()
+        if (data_ != null) outport.doLastSending(data_);
+      }
+      */
+    }
+    else if (data_ == ActiveQueueContract.DEQUEUE) {
+      inPort_.doLastSending(dequeue());
+    }
+    else if (data_ == ActiveQueueContract.PEEK) {
+      inPort_.doLastSending(peekAt(0));
+    }
+    else if (data_ == ActiveQueueContract.IS_FULL) {
+      inPort_.doLastSending(new BooleanObj(isFull()));
+    }
+    else if (data_ == ActiveQueueContract.IS_EMPTY) {
+      inPort_.doLastSending(new BooleanObj(isEmpty()));
+    }
+    else if (data_ == ActiveQueueContract.GET_CAPACITY) {
+      inPort_.doLastSending(new IntObj(getCapacity()));
+    }
+    else if (data_ == ActiveQueueContract.GET_SIZE) {
+      inPort_.doLastSending(new IntObj(getSize()));
+    }
+  }
 
-	protected final long getEnqueCount()
-	{ return enqueCounter; }
+  protected final long getEnqueCount()
+  { return enqueCounter; }
 
-	/** Increases the enqueue counter, for diagnosis purpose.  */
-	public final void increaseEnqueCount()
-	{ enqueCounter++; }
-	
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public abstract Object enqueue(Object obj_);
-	
-	/**
-	 * Enqueues the object at the position specified.
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueueAt(Object obj_, int pos_)
-	{ drcl.Debug.error("N/A"); return null; }
-	
-	/**
-	 * Dequeues and returns the first object in the queue.
-	 * @return the object dequeued; null if position is not valid.
-	 */
-	public abstract Object dequeue();
-	
-	/**
-	 * Dequeues the object at the position specified.
-	 * @return the object dequeued; null if position is not valid.
-	 */
-	public Object retrieveAt(int pos_)
-	{ drcl.Debug.error("N/A"); return null; }
-	
-	/**
-	 * Retrieves but not dequeue the object at the position specified.
-	 * @return the object; null if position is not valid.
-	 */
-	public Object peekAt(int pos_)
-	{ drcl.Debug.error("N/A"); return null; }
-	
-	/**
-	 * Retrieves but not dequeue the first object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object firstElement()
-	{ drcl.Debug.error("N/A"); return null; }
-	
-	/**
-	 * Retrieves but not remove the last object in the queue.
-	 * @return the object; null if queue is empty.
-	 */
-	public Object lastElement()
-	{ drcl.Debug.error("N/A"); return null; }
-	
-	/** Return true if the queue is full.  */
-	public abstract boolean isFull();
-	
-	/** Return true if the queue is empty.  */
-	public abstract boolean isEmpty();
-	
-	/** Sets the capacity of the queue.  */
-	public abstract void setCapacity(int capacity_);
-	
-	/** Returns the capacity of the queue. */
-	public abstract int getCapacity();
+  /** Increases the enqueue counter, for diagnosis purpose.  */
+  public final void increaseEnqueCount()
+  { enqueCounter++; }
+  
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public abstract Object enqueue(Object obj_);
+  
+  /**
+   * Enqueues the object at the position specified.
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueueAt(Object obj_, int pos_)
+  { drcl.Debug.error("N/A"); return null; }
+  
+  /**
+   * Dequeues and returns the first object in the queue.
+   * @return the object dequeued; null if position is not valid.
+   */
+  public abstract Object dequeue();
+  
+  /**
+   * Dequeues the object at the position specified.
+   * @return the object dequeued; null if position is not valid.
+   */
+  public Object retrieveAt(int pos_)
+  { drcl.Debug.error("N/A"); return null; }
+  
+  /**
+   * Retrieves but not dequeue the object at the position specified.
+   * @return the object; null if position is not valid.
+   */
+  public Object peekAt(int pos_)
+  { drcl.Debug.error("N/A"); return null; }
+  
+  /**
+   * Retrieves but not dequeue the first object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object firstElement()
+  { drcl.Debug.error("N/A"); return null; }
+  
+  /**
+   * Retrieves but not remove the last object in the queue.
+   * @return the object; null if queue is empty.
+   */
+  public Object lastElement()
+  { drcl.Debug.error("N/A"); return null; }
+  
+  /** Return true if the queue is full.  */
+  public abstract boolean isFull();
+  
+  /** Return true if the queue is empty.  */
+  public abstract boolean isEmpty();
+  
+  /** Sets the capacity of the queue.  */
+  public abstract void setCapacity(int capacity_);
+  
+  /** Returns the capacity of the queue. */
+  public abstract int getCapacity();
 
-	/** Returns the current size of the queue. */
-	public abstract int getSize();
+  /** Returns the current size of the queue. */
+  public abstract int getSize();
 
-	/** Returns the available size of the queue.  */
-	public int getAvailableSize()
-	{ return getCapacity() - getSize(); }
-	
-	protected final void _setRequesting(boolean requesting_)
-	{ requesting = requesting_; }
-	
-	protected final boolean _isRequesting()
-	{ return requesting; }
-	
-	/** Returns the first available data in the queue. */
-	protected final Object pull()
-	{
-		if (!isEmpty()) requesting = false; // request served
-		return dequeue();
-	}
+  /** Returns the available size of the queue.  */
+  public int getAvailableSize()
+  { return getCapacity() - getSize(); }
+  
+  protected final void _setRequesting(boolean requesting_)
+  { requesting = requesting_; }
+  
+  protected final boolean _isRequesting()
+  { return requesting; }
+  
+  /** Returns the first available data in the queue. */
+  protected final Object pull()
+  {
+    if (!isEmpty()) requesting = false; // request served
+    return dequeue();
+  }
 }

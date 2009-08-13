@@ -31,6 +31,6 @@ package drcl.ruv;
 /** Defines the interface of a RUV output device. */
 public interface RUVOutput
 {
-	public void RUVOutput(java.lang.String msg_);
+  public void RUVOutput(java.lang.String msg_);
 }
 

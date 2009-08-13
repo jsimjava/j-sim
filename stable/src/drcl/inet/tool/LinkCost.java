@@ -34,8 +34,8 @@ package drcl.inet.tool;
  * By default, it implements unity cost, i.e., cost is always 1.0.
  */
 public class LinkCost 
-{	
-	/** Returns the cost of the link from node i through interface if_. */
-	public double cost(int nodei, int if_)
-	{ return 1.0; }
+{  
+  /** Returns the cost of the link from node i through interface if_. */
+  public double cost(int nodei, int if_)
+  { return 1.0; }
 }

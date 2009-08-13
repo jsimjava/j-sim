@@ -44,85 +44,85 @@ import drcl.net.Packet;
   */
 public class TB_meter extends Meter implements DFConstants
 {
-	/* token bucket parameters */	
-	long burst; // in byte
-	long tgrate; // in byte/second
-	transient double lasttime = Double.NaN; // last time when buffer is filled up
-	transient long counter; // in byte
+  /* token bucket parameters */  
+  long burst; // in byte
+  long tgrate; // in byte/second
+  transient double lasttime = Double.NaN; // last time when buffer is filled up
+  transient long counter; // in byte
 
-	public TB_meter()
-	{ super(); }
-	
-	/**
-	@param burst_ in bit
-	@param rate_ in bit/second
-	 */
-	public TB_meter(long burst_, long rate_)
-	{
-		super();
-		config(burst_, rate_);
-	}
-	
-	public void reset()
-	{
-		lasttime = Double.NaN;
-		counter = burst;
-	}
-	
-	public String info(String prefix_)
-	{
-		return prefix_ + "(TB_Meter) burst=" + (burst<<3) + ", tg_rate=" + (tgrate<<3)
-			+ ", # of tokens=" + (counter<<3) + " at time " + lasttime + "\n";
-	}
+  public TB_meter()
+  { super(); }
+  
+  /**
+  @param burst_ in bit
+  @param rate_ in bit/second
+   */
+  public TB_meter(long burst_, long rate_)
+  {
+    super();
+    config(burst_, rate_);
+  }
+  
+  public void reset()
+  {
+    lasttime = Double.NaN;
+    counter = burst;
+  }
+  
+  public String info(String prefix_)
+  {
+    return prefix_ + "(TB_Meter) burst=" + (burst<<3) + ", tg_rate=" + (tgrate<<3)
+      + ", # of tokens=" + (counter<<3) + " at time " + lasttime + "\n";
+  }
 
-	public void duplicate(Object source_)
-	{
-		TB_meter that_ = (TB_meter)source_;
-		burst = counter = that_.burst;
-		tgrate = that_.tgrate;
-	}
-	
-	/**
-	@param rate_ in bit/second
-	@param burst_ in bit
-	 */
-	public void config(long burst_, long rate_)
-	{
-		burst = counter = burst_ >> 3;
-		tgrate = rate_ >> 3;
-	}
+  public void duplicate(Object source_)
+  {
+    TB_meter that_ = (TB_meter)source_;
+    burst = counter = that_.burst;
+    tgrate = that_.tgrate;
+  }
+  
+  /**
+  @param rate_ in bit/second
+  @param burst_ in bit
+   */
+  public void config(long burst_, long rate_)
+  {
+    burst = counter = burst_ >> 3;
+    tgrate = rate_ >> 3;
+  }
 
-	/** Sets the token bucket size (bits). */
-	public void setBurst(long burst_)
-	{ burst = counter = burst_<<3; }
-	
-	/** Sets the token generation rate (bps). */
-	public void setTokenGenerationRate(long rate_)
-	{ tgrate = rate_<<3; }
+  /** Sets the token bucket size (bits). */
+  public void setBurst(long burst_)
+  { burst = counter = burst_<<3; }
+  
+  /** Sets the token generation rate (bps). */
+  public void setTokenGenerationRate(long rate_)
+  { tgrate = rate_<<3; }
 
-	/** Returns the token bucket size (bits). */
-	public long getBurst()
-	{ return burst>>3; }
+  /** Returns the token bucket size (bits). */
+  public long getBurst()
+  { return burst>>3; }
 
-	/** Returns the token generation rate (bps). */
-	public long getTokenGenerationRate()
-	{ return tgrate>>3; }
+  /** Returns the token generation rate (bps). */
+  public long getTokenGenerationRate()
+  { return tgrate>>3; }
 
-	protected int measure(Packet p, double now_)
-	{ 
-		if (Double.isNaN(lasttime)) lasttime = now_;
+  protected int measure(Packet p, double now_)
+  { 
+    if (Double.isNaN(lasttime)) lasttime = now_;
 
-		long counterNow_ = counter + (long)((now_ - lasttime) * tgrate);
-		if(counterNow_ > burst) {
-			counter = counterNow_ = burst;
-			lasttime = now_;
-		}
+    long counterNow_ = counter + (long)((now_ - lasttime) * tgrate);
+    if(counterNow_ > burst) {
+      counter = counterNow_ = burst;
+      lasttime = now_;
+    }
 
-		if(counterNow_ <  p.size)
-			return OUT_PROFILE;
-	 	else {
-	 		counter -= p.size;
-			return IN_PROFILE;
-		}
-	}
+    if(counterNow_ <  p.size)
+      return OUT_PROFILE;
+     else {
+       counter -= p.size;
+      return IN_PROFILE;
+    }
+  }
 }

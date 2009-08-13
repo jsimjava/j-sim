@@ -38,116 +38,116 @@ import drcl.data.IntObj ;
 */
 public abstract class CPUBase extends drcl.comp.Component
 {
-  	// Different Status of CPU
-	public static final int CPU_IDLE    = 0;  
-	public static final int CPU_SLEEP   = 1;  
-	public static final int CPU_ACTIVE  = 2;  
-	public static final int CPU_OFF     = 3;  
+    // Different Status of CPU
+  public static final int CPU_IDLE    = 0;  
+  public static final int CPU_SLEEP   = 1;  
+  public static final int CPU_ACTIVE  = 2;  
+  public static final int CPU_OFF     = 3;  
 
-	int cpuMode;
-	double activeCur; 
-	double idleCur;
-	double sleepCur; 
-	double offCur;
-	double clockSpeed;
-	boolean flag;
+  int cpuMode;
+  double activeCur; 
+  double idleCur;
+  double sleepCur; 
+  double offCur;
+  double clockSpeed;
+  boolean flag;
 
-	Port batteryInPort = addPort("batteryIn");
-	Port batteryPort = addPort("battery");
-	Port reportCPUModePort = addPort("reportCPUMode");
-	
-	public CPUBase()
-	{
-		super("cpuModel");
-		cpuMode=CPU_IDLE;
-		activeCur=1.0;
-		idleCur=1.0;
-		sleepCur = 1.0;
-		clockSpeed=1.0;
-		flag=false;
-	}
+  Port batteryInPort = addPort("batteryIn");
+  Port batteryPort = addPort("battery");
+  Port reportCPUModePort = addPort("reportCPUMode");
+  
+  public CPUBase()
+  {
+    super("cpuModel");
+    cpuMode=CPU_IDLE;
+    activeCur=1.0;
+    idleCur=1.0;
+    sleepCur = 1.0;
+    clockSpeed=1.0;
+    flag=false;
+  }
  
-	/* attachApp() is to be called explicitly from tcl to attach the reportCPUModePort to the corresponding port in SensorApp, which is passed as the parameter port_ */
-	/** Connects to the sensor application layer. */
-	public void attachApp(Port port_) {
-        	reportCPUModePort.connectTo(port_); 
-		reportCpuMode(cpuMode);
-	}
+  /* attachApp() is to be called explicitly from tcl to attach the reportCPUModePort to the corresponding port in SensorApp, which is passed as the parameter port_ */
+  /** Connects to the sensor application layer. */
+  public void attachApp(Port port_) {
+          reportCPUModePort.connectTo(port_); 
+    reportCpuMode(cpuMode);
+  }
 
-	/** Reports the CPU mode to the sensor application layer. */
-	public void reportCpuMode(int mode) 
-	{
-		reportCPUModePort.doSending(new IntObj(mode));
-	} 
+  /** Reports the CPU mode to the sensor application layer. */
+  public void reportCpuMode(int mode) 
+  {
+    reportCPUModePort.doSending(new IntObj(mode));
+  } 
 
-	/** Gets the active current. */
-	public double getActiveCur() {return activeCur;}
+  /** Gets the active current. */
+  public double getActiveCur() {return activeCur;}
 
-	/** Gets the idle current. */
-	public double getIdleCur() {return idleCur;}
-	
-	/** Gets the sleep current. */
-	public double getSleepCur() { return sleepCur; }
-	
-	/** Gets the OFF current. */
-	public double getOffCur() { return offCur; }
-	
-	/** Gets the clock speed.  */
-	public double getClockSpeed() { return clockSpeed; }
-	
-	/** Gets the CPU mode.  */
-	public int getCPUMode() { return cpuMode; }
-	
-	/** Gets the remaining energy.  */
-	public double getRemainingEnergy() 
-	{
-		double e_ = BatteryContract.getRemainingEnergy(batteryPort);
-		return e_;
-	}
-	
-	/** Sets the active current. */
-	public double setActiveCur(double a) {return activeCur=a;}
-	
-	/** Sets the idle current. */
-	public double setIdleCur(double a) {return idleCur=a;}
-	
-	/** Sets the sleep current. */
-	public double setSleepCur(double a) {return sleepCur=a;}
-	
-	/** Sets the OFF current. */
-	public double setOffCur(double a) {return offCur =a; }
-	
-	/** Returns true if the CPU is OFF. */
-	public boolean isOff(){ return ( cpuMode == CPU_OFF )?true:false;}
-	/** Returns true if the CPU is sleep. */
-	public boolean isSleep(){ return ( cpuMode==CPU_SLEEP)?true:false;}
-	/** Returns true if the CPU is idle. */
-	public boolean isIdle(){ return (cpuMode==CPU_IDLE)?true:false;}
-	/** Returns true if the CPU is active. */
-	public boolean isActive(){ return ( cpuMode==CPU_ACTIVE)?true:false;}
-	
-	public void toggleFlag() { flag=(flag)?false:true; }
-	public boolean flagIsSet() { return flag; }
+  /** Gets the idle current. */
+  public double getIdleCur() {return idleCur;}
+  
+  /** Gets the sleep current. */
+  public double getSleepCur() { return sleepCur; }
+  
+  /** Gets the OFF current. */
+  public double getOffCur() { return offCur; }
+  
+  /** Gets the clock speed.  */
+  public double getClockSpeed() { return clockSpeed; }
+  
+  /** Gets the CPU mode.  */
+  public int getCPUMode() { return cpuMode; }
+  
+  /** Gets the remaining energy.  */
+  public double getRemainingEnergy() 
+  {
+    double e_ = BatteryContract.getRemainingEnergy(batteryPort);
+    return e_;
+  }
+  
+  /** Sets the active current. */
+  public double setActiveCur(double a) {return activeCur=a;}
+  
+  /** Sets the idle current. */
+  public double setIdleCur(double a) {return idleCur=a;}
+  
+  /** Sets the sleep current. */
+  public double setSleepCur(double a) {return sleepCur=a;}
+  
+  /** Sets the OFF current. */
+  public double setOffCur(double a) {return offCur =a; }
+  
+  /** Returns true if the CPU is OFF. */
+  public boolean isOff(){ return ( cpuMode == CPU_OFF )?true:false;}
+  /** Returns true if the CPU is sleep. */
+  public boolean isSleep(){ return ( cpuMode==CPU_SLEEP)?true:false;}
+  /** Returns true if the CPU is idle. */
+  public boolean isIdle(){ return (cpuMode==CPU_IDLE)?true:false;}
+  /** Returns true if the CPU is active. */
+  public boolean isActive(){ return ( cpuMode==CPU_ACTIVE)?true:false;}
+  
+  public void toggleFlag() { flag=(flag)?false:true; }
+  public boolean flagIsSet() { return flag; }
 
-	// needs to be implemented by the derived class
-	/** Sets the CPU mode. */
-	public int setCPUMode(int a) { cpuMode = a; return 1; } 
-	/** Sets the clock speed. */
-	public void setClockSpeed(double a) { clockSpeed=a; }
+  // needs to be implemented by the derived class
+  /** Sets the CPU mode. */
+  public int setCPUMode(int a) { cpuMode = a; return 1; } 
+  /** Sets the clock speed. */
+  public void setClockSpeed(double a) { clockSpeed=a; }
 
-	protected synchronized void process(Object data_, Port inPort_)
-	{
-		if ( inPort_ == batteryInPort )
-		{
-			String msg = new String ((String) data_);
-			if ( msg.equals("BATTERY_OUT") )
-			{
-				setCPUMode(CPU_OFF);
-			}
-		}
-		else if ( inPort_ == reportCPUModePort )
-		{
-			setCPUMode(((IntObj)data_).getValue());
-		}
-	}
+  protected synchronized void process(Object data_, Port inPort_)
+  {
+    if ( inPort_ == batteryInPort )
+    {
+      String msg = new String ((String) data_);
+      if ( msg.equals("BATTERY_OUT") )
+      {
+        setCPUMode(CPU_OFF);
+      }
+    }
+    else if ( inPort_ == reportCPUModePort )
+    {
+      setCPUMode(((IntObj)data_).getValue());
+    }
+  }
 }

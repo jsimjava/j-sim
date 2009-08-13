@@ -45,20 +45,20 @@ package drcl.comp;
  */
 public class Extension extends Component
 {
-	{ setPortNotificationEnabled(true); }
-	
-	public Extension() 
-	{ super(); 	}
-	
-	public Extension(String id_)
-	{ super(id_); }
-	
-	protected void portAdded(Port p_)
-	{ p_.setExecutionBoundary(false); }
+  { setPortNotificationEnabled(true); }
+  
+  public Extension() 
+  { super();   }
+  
+  public Extension(String id_)
+  { super(id_); }
+  
+  protected void portAdded(Port p_)
+  { p_.setExecutionBoundary(false); }
 
-	public void setExtensionEnabled(boolean enabled_)
-	{ setPortNotificationEnabled(enabled_); }
+  public void setExtensionEnabled(boolean enabled_)
+  { setPortNotificationEnabled(enabled_); }
 
-	public boolean isExtensionEnabled()
-	{ return isPortNotificationEnabled(); }
+  public boolean isExtensionEnabled()
+  { return isPortNotificationEnabled(); }
 }

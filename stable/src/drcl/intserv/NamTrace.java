@@ -43,62 +43,62 @@ This class overrides the following methods to complete a NAM packet event:
  */
 public class NamTrace extends drcl.net.tool.NamTrace
 {
-	Hashtable htColor = new Hashtable(); // tos -> color id
-	int colorCount = 0;
+  Hashtable htColor = new Hashtable(); // tos -> color id
+  int colorCount = 0;
 
-	public NamTrace()
-	{ super(); }
-	
-	public NamTrace(String id_)
-	{ super(id_); }
-	
-	public void reset()
-	{
-		super.reset();
-		colorCount = 0;
-		htColor.clear();
-	}
+  public NamTrace()
+  { super(); }
+  
+  public NamTrace(String id_)
+  { super(id_); }
+  
+  public void reset()
+  {
+    super.reset();
+    colorCount = 0;
+    htColor.clear();
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		NamTrace that_ = (NamTrace)source_;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    NamTrace that_ = (NamTrace)source_;
+  }
 
-	public String info()
-	{
-		return super.info()
-    		 + "#colors used: " + colorCount + "\n";
-	}
+  public String info()
+  {
+    return super.info()
+         + "#colors used: " + colorCount + "\n";
+  }
 
-	public String getConversationID(Packet p_)
-	{
-		if (p_ instanceof InetPacket)
-			return String.valueOf(((InetPacket)p_).getTOS());
-		else
-			return super.getConversationID(p_);
-	}
+  public String getConversationID(Packet p_)
+  {
+    if (p_ instanceof InetPacket)
+      return String.valueOf(((InetPacket)p_).getTOS());
+    else
+      return super.getConversationID(p_);
+  }
 
-	public int getColorID(Packet p_)
-	{
-		if (p_ instanceof InetPacket) {
-			Long tmp_ = new Long(((InetPacket)p_).getTOS());
-			Integer colorid_ = (Integer)htColor.get(tmp_);
-			if (colorid_ == null) {
-				colorid_ = new Integer(colorCount++);
-				htColor.put(tmp_, colorid_);
-			}
-			return colorid_.intValue();
-		}
-		else
-			return super.getColorID(p_);
-	}
+  public int getColorID(Packet p_)
+  {
+    if (p_ instanceof InetPacket) {
+      Long tmp_ = new Long(((InetPacket)p_).getTOS());
+      Integer colorid_ = (Integer)htColor.get(tmp_);
+      if (colorid_ == null) {
+        colorid_ = new Integer(colorCount++);
+        htColor.put(tmp_, colorid_);
+      }
+      return colorid_.intValue();
+    }
+    else
+      return super.getColorID(p_);
+  }
 
-	public String getPacketType(Packet p_)
-	{
-		if (p_ instanceof InetPacket)
-			return IntServToS.interpretType((InetPacket)p_);
-		else
-			return super.getPacketType(p_);
-	}
+  public String getPacketType(Packet p_)
+  {
+    if (p_ instanceof InetPacket)
+      return IntServToS.interpretType((InetPacket)p_);
+    else
+      return super.getPacketType(p_);
+  }
 }

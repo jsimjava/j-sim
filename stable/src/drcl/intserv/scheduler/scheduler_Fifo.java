@@ -37,23 +37,23 @@ It accepts any type of Rspec.
  */
 public class scheduler_Fifo extends drcl.intserv.Scheduler
 {
-	FIFOQueue pq = new FIFOQueue(); // packet queue
-	
-	public scheduler_Fifo()
-	{ super(); }
-	
-	public scheduler_Fifo(String id_) 
-	{ super(id_); }
-	
-	public void reset() 
-	{
-		super.reset();
-		pq.reset();
-	}
-	
-	protected void qosEnque(Packet p_, drcl.intserv.SpecR rspec_)
-	{ pq.enqueue(p_); }
+  FIFOQueue pq = new FIFOQueue(); // packet queue
+  
+  public scheduler_Fifo()
+  { super(); }
+  
+  public scheduler_Fifo(String id_) 
+  { super(id_); }
+  
+  public void reset() 
+  {
+    super.reset();
+    pq.reset();
+  }
+  
+  protected void qosEnque(Packet p_, drcl.intserv.SpecR rspec_)
+  { pq.enqueue(p_); }
 
-	protected Packet qosDeque()
-	{ return (Packet)pq.dequeue(); }
+  protected Packet qosDeque()
+  { return (Packet)pq.dequeue(); }
 }

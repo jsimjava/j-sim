@@ -154,7 +154,7 @@ public class TworayGroundModel extends drcl.inet.mac.RadioPropagationModel
         /*
          *  Two-ray ground reflection model.
          *
-         *	     Pt * Gt * Gr * (ht^2 * hr^2)
+         *       Pt * Gt * Gr * (ht^2 * hr^2)
          *  Pr = ----------------------------
          *           d^4 * L
          *
@@ -164,7 +164,7 @@ public class TworayGroundModel extends drcl.inet.mac.RadioPropagationModel
         return (hr_ * hr_ * ht_ * ht_) / (d_ * d_ * d_ * d_ );
     }
 
-   	public String info() { 
+     public String info() { 
         return "TworayGroundModel" + "\n"; 
     }
     

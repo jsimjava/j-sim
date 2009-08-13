@@ -38,117 +38,117 @@ import drcl.net.FooPacket;
  */
 public class tsParetoOnOff extends TrafficSourceComponent
 {
-	double nextTime;
-	double rem; // remaining "on" time in the current on period
-	// interArrivalTime: packet inter-arrival time during ON time (burst)
-	double interArrivalTime;
-	ParetoDistribution pd1 = new ParetoDistribution();
-	ParetoDistribution pd2 = new ParetoDistribution();
-	traffic_ParetoOnOff traffic = null;
+  double nextTime;
+  double rem; // remaining "on" time in the current on period
+  // interArrivalTime: packet inter-arrival time during ON time (burst)
+  double interArrivalTime;
+  ParetoDistribution pd1 = new ParetoDistribution();
+  ParetoDistribution pd2 = new ParetoDistribution();
+  traffic_ParetoOnOff traffic = null;
 
-	public tsParetoOnOff()
-	{ this(new traffic_ParetoOnOff()); }
-	
-	public tsParetoOnOff(String id_)
-	{ super(id_); traffic = new traffic_ParetoOnOff(); reset(); }
-	
-	public tsParetoOnOff(traffic_ParetoOnOff traffic_)
-	{ super(); traffic = traffic_; reset(); }
+  public tsParetoOnOff()
+  { this(new traffic_ParetoOnOff()); }
+  
+  public tsParetoOnOff(String id_)
+  { super(id_); traffic = new traffic_ParetoOnOff(); reset(); }
+  
+  public tsParetoOnOff(traffic_ParetoOnOff traffic_)
+  { super(); traffic = traffic_; reset(); }
 
-	public void setSeed(long seed_)
-	{
-		super.setSeed(seed_);
-		Random r = new Random(seed);
-		pd1.setSeed(r.nextLong());
-		pd2.setSeed(r.nextLong());
-	}
-	
-	public void reset()
-	{
-		super.reset();
-		nextTime   = 0.0;
-		rem = 0;
-		if (traffic != null) {
-			interArrivalTime = (double)(traffic.packetSize << 3)
-				/  traffic.burstRate;
-		
-			double p1_ = traffic.aveOnTime * (traffic.shapeParaOn - 1.0)
-				/traffic.shapeParaOn;
-			double p2_ = traffic.aveOffTime * (traffic.shapeParaOff - 1.0)
-				/traffic.shapeParaOff;
+  public void setSeed(long seed_)
+  {
+    super.setSeed(seed_);
+    Random r = new Random(seed);
+    pd1.setSeed(r.nextLong());
+    pd2.setSeed(r.nextLong());
+  }
+  
+  public void reset()
+  {
+    super.reset();
+    nextTime   = 0.0;
+    rem = 0;
+    if (traffic != null) {
+      interArrivalTime = (double)(traffic.packetSize << 3)
+        /  traffic.burstRate;
+    
+      double p1_ = traffic.aveOnTime * (traffic.shapeParaOn - 1.0)
+        /traffic.shapeParaOn;
+      double p2_ = traffic.aveOffTime * (traffic.shapeParaOff - 1.0)
+        /traffic.shapeParaOff;
 
-			pd1.setScale(p1_);
-			pd1.setShape(traffic.shapeParaOn);
-			pd2.setScale(p2_);
-			pd2.setShape(traffic.shapeParaOff);		
-		}
-	}
-	
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-				+ " On Distr.= " + pd1 + "\n"
-				+ "Off Distr.= " + pd2 + "\n"
-				+ "State: nextTime=" + nextTime
-				+ ", interArrivalTime(on)=" + interArrivalTime
-				+ ", remaining_in_this_on=" + rem
-				+ "\n";
-	}
+      pd1.setScale(p1_);
+      pd1.setShape(traffic.shapeParaOn);
+      pd2.setScale(p2_);
+      pd2.setShape(traffic.shapeParaOff);    
+    }
+  }
+  
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+        + " On Distr.= " + pd1 + "\n"
+        + "Off Distr.= " + pd2 + "\n"
+        + "State: nextTime=" + nextTime
+        + ", interArrivalTime(on)=" + interArrivalTime
+        + ", remaining_in_this_on=" + rem
+        + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_ParetoOnOff)traffic_; reset(); }
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_ParetoOnOff)traffic_; reset(); }
 
-	protected double setNextPacket(FooPacket nextpkt_)
-	{ 
-		double delta_ = interArrivalTime;
-		
-		// off period
-		if (rem < interArrivalTime) {
-			// remain in off when there's not enough "on" time for a pkt
-			while (rem < interArrivalTime) {
-				rem += pd1.nextDouble();
-				delta_ += pd2.nextDouble();
-			}
-		}
-		rem -= interArrivalTime;
+  protected double setNextPacket(FooPacket nextpkt_)
+  { 
+    double delta_ = interArrivalTime;
+    
+    // off period
+    if (rem < interArrivalTime) {
+      // remain in off when there's not enough "on" time for a pkt
+      while (rem < interArrivalTime) {
+        rem += pd1.nextDouble();
+        delta_ += pd2.nextDouble();
+      }
+    }
+    rem -= interArrivalTime;
 
-		nextTime += delta_;
-		
-		nextpkt_.setPacketSize(traffic.packetSize);
-		return nextTime;
-	}
+    nextTime += delta_;
+    
+    nextpkt_.setPacketSize(traffic.packetSize);
+    return nextTime;
+  }
 
-	protected synchronized void reschedule(double newTime_)
-	{
-		nextTime = newTime_;
-		super.reschedule(newTime_);
-	}
+  protected synchronized void reschedule(double newTime_)
+  {
+    nextTime = newTime_;
+    super.reschedule(newTime_);
+  }
 
-	public void setPacketSize(int size_) { traffic.packetSize = size_; }
-	public int getPacketSize() { return traffic.packetSize; }
-	
-	public void setBurstRate(double brate_) {traffic.burstRate = brate_; }
-	public double getBurstRate() { return traffic.burstRate; }
-	
-	public void setAveOnTime(double ontime_) {traffic.aveOnTime = ontime_; }
-	public double getAveOnTime() { return traffic.aveOnTime; }
-	
-	public void setAveOffTime(double offtime_) {traffic.aveOffTime = offtime_; }
-	public double getAveOffTime() { return traffic.aveOffTime; }
+  public void setPacketSize(int size_) { traffic.packetSize = size_; }
+  public int getPacketSize() { return traffic.packetSize; }
+  
+  public void setBurstRate(double brate_) {traffic.burstRate = brate_; }
+  public double getBurstRate() { return traffic.burstRate; }
+  
+  public void setAveOnTime(double ontime_) {traffic.aveOnTime = ontime_; }
+  public double getAveOnTime() { return traffic.aveOnTime; }
+  
+  public void setAveOffTime(double offtime_) {traffic.aveOffTime = offtime_; }
+  public double getAveOffTime() { return traffic.aveOffTime; }
 
-	public void setShapeParaOn(double shape_) {traffic.shapeParaOn = shape_; }
-	public double getShapeParaOn() { return traffic.shapeParaOn; }
+  public void setShapeParaOn(double shape_) {traffic.shapeParaOn = shape_; }
+  public double getShapeParaOn() { return traffic.shapeParaOn; }
 
-	public void setShapeParaOff(double shape_) {traffic.shapeParaOff = shape_; }
-	public double getShapeParaOff() { return traffic.shapeParaOff; }
+  public void setShapeParaOff(double shape_) {traffic.shapeParaOff = shape_; }
+  public double getShapeParaOff() { return traffic.shapeParaOff; }
 
-	public void set(int mtu_, double brate_, double ontime_,
-			double offtime_, double shapeOn_, double shapeOff_)
-	{
-		traffic.set(mtu_, brate_, ontime_, offtime_, shapeOn_, shapeOff_); 
-		reset();
-   	}
+  public void set(int mtu_, double brate_, double ontime_,
+      double offtime_, double shapeOn_, double shapeOff_)
+  {
+    traffic.set(mtu_, brate_, ontime_, offtime_, shapeOn_, shapeOff_); 
+    reset();
+     }
 }

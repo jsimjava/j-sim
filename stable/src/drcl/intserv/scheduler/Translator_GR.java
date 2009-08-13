@@ -37,38 +37,38 @@ import drcl.net.traffic.*;
  * 
  * <p>
  * The minimum end-to-end queueing delay is calculated using the following formula:
-<pre>	buffer required at last hop = burst_ + hop * MTU<br>
-	end-to-end delay = (buffer required at last hop) / minBW.</pre>
+<pre>  buffer required at last hop = burst_ + hop * MTU<br>
+  end-to-end delay = (buffer required at last hop) / minBW.</pre>
  * 
  * @see SpecR_GR
  */
 public class Translator_GR extends drcl.intserv.RspecTranslator
 {
-	/**
-	 */
-	public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
-	{
-		if (adspec_ == null || adspec_.tspec == null || 
-			qos_ == null) return null;
-		
-		// check e2e properties
-		if (!adspec_.check(qos_)) return null;
+  /**
+   */
+  public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
+  {
+    if (adspec_ == null || adspec_.tspec == null || 
+      qos_ == null) return null;
+    
+    // check e2e properties
+    if (!adspec_.check(qos_)) return null;
 
-		int	   hop_		= adspec_.hop;
-		double delay_	= adspec_.minPropDelay; // propagation delay + other hop-related terms
-		int mtu_		= adspec_.tspec.getMTU();
-		TrafficModel tspec_ = adspec_.tspec;
-		int load_	= (int)Math.ceil(tspec_.getLoad());
-		int burst_	= tspec_.getBurst();
-			
-		// calculate min. bw required for satisfying e2e delay using the following formula:
-		//	e2e delay = (burst_ + hop_ * mtu_) / minBW_ + acc. prop. delay;
-		// Buffer:
-		int minBuffer_ = burst_ + hop_ * mtu_;
-		int minBW_ = Math.max(load_, (int)Math.ceil((minBuffer_ << 3) / (qos_.maxE2eDelay - delay_)));
-		if ( adspec_.minBW < minBW_ ) return null; // the path cannot afford 
+    int     hop_    = adspec_.hop;
+    double delay_  = adspec_.minPropDelay; // propagation delay + other hop-related terms
+    int mtu_    = adspec_.tspec.getMTU();
+    TrafficModel tspec_ = adspec_.tspec;
+    int load_  = (int)Math.ceil(tspec_.getLoad());
+    int burst_  = tspec_.getBurst();
+      
+    // calculate min. bw required for satisfying e2e delay using the following formula:
+    //  e2e delay = (burst_ + hop_ * mtu_) / minBW_ + acc. prop. delay;
+    // Buffer:
+    int minBuffer_ = burst_ + hop_ * mtu_;
+    int minBW_ = Math.max(load_, (int)Math.ceil((minBuffer_ << 3) / (qos_.maxE2eDelay - delay_)));
+    if ( adspec_.minBW < minBW_ ) return null; // the path cannot afford 
 
 
-		return new SpecR_GR(minBW_, minBuffer_, mtu_);
-	}
+    return new SpecR_GR(minBW_, minBuffer_, mtu_);
+  }
 }

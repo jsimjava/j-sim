@@ -37,30 +37,30 @@ import drcl.inet.transport.TCPPacket;
  */
 public class PktMonitor extends Extension
 {
-	long tcpseq = -1;
-	
-	public PktMonitor() { super(); }
-	
-	public PktMonitor(String id_) { super(id_); }
-	
-	protected void process(Object data_, Port inPort_) 
-	{
-		Object original_ = data_;
-		while (!(data_ instanceof TCPPacket)) {
-			if (!(data_ instanceof Packet)) return;
-			data_ = ((Packet)data_).getBody();
-		}
-		TCPPacket p = (TCPPacket)data_;
-		if (p.getSeqNo() == tcpseq)
-			debug(inPort_.getID() + ": " + original_);
-	}
+  long tcpseq = -1;
+  
+  public PktMonitor() { super(); }
+  
+  public PktMonitor(String id_) { super(id_); }
+  
+  protected void process(Object data_, Port inPort_) 
+  {
+    Object original_ = data_;
+    while (!(data_ instanceof TCPPacket)) {
+      if (!(data_ instanceof Packet)) return;
+      data_ = ((Packet)data_).getBody();
+    }
+    TCPPacket p = (TCPPacket)data_;
+    if (p.getSeqNo() == tcpseq)
+      debug(inPort_.getID() + ": " + original_);
+  }
 
-	public void setSeqNo(long seq_)
-	{ tcpseq = seq_; }
+  public void setSeqNo(long seq_)
+  { tcpseq = seq_; }
 
-	public String info()
-	{
-		if (tcpseq >= 0) return "tracking " + tcpseq + "\n";
-		else return "tracking nothing\n";
-	}
+  public String info()
+  {
+    if (tcpseq >= 0) return "tracking " + tcpseq + "\n";
+    else return "tracking nothing\n";
+  }
 }

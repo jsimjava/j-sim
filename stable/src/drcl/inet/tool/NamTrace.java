@@ -43,84 +43,84 @@ This class overrides the following method to complete a NAM packet event:
  */
 public class NamTrace extends drcl.net.tool.NamTrace
 {
-	Hashtable htColor = new Hashtable(); // tos -> color id
-	int colorCount = 0;
-	int MSS = 512;
-	boolean mssEnabled = true;
+  Hashtable htColor = new Hashtable(); // tos -> color id
+  int colorCount = 0;
+  int MSS = 512;
+  boolean mssEnabled = true;
 
-	public NamTrace()
-	{ super(); }
-	
-	public NamTrace(String id_)
-	{ super(id_); }
-	
-	public void reset()
-	{
-		super.reset();
-		colorCount = 0;
-		htColor.clear();
-	}
+  public NamTrace()
+  { super(); }
+  
+  public NamTrace(String id_)
+  { super(id_); }
+  
+  public void reset()
+  {
+    super.reset();
+    colorCount = 0;
+    htColor.clear();
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		NamTrace that_ = (NamTrace)source_;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    NamTrace that_ = (NamTrace)source_;
+  }
 
-	public String info()
-	{
-		return super.info()
-    		 + "#colors used: " + colorCount + "\n";
-	}
+  public String info()
+  {
+    return super.info()
+         + "#colors used: " + colorCount + "\n";
+  }
 
-	public String getConversationID(Packet p_)
-	{
-		if (p_ instanceof InetPacket) {
-			if (p_.getBody() instanceof TCPPacket) {
-				TCPPacket tcp_ = (TCPPacket)p_.getBody();
-				if (mssEnabled) {
-					if (tcp_.isACK())
-						return "sn" + (tcp_.getSeqNo()/MSS) + ",asn" + (tcp_.getAckNo()/MSS);
-					else
-						return "sn" + tcp_.getSeqNo()/MSS;
-				}
-				else {
-					if (tcp_.isACK())
-						return "sn" + tcp_.getSeqNo() + ",asn" + tcp_.getAckNo();
-					else
-						return "sn" + tcp_.getSeqNo();
-				}
-			}
-		}
-		return super.getConversationID(p_);
-	}
+  public String getConversationID(Packet p_)
+  {
+    if (p_ instanceof InetPacket) {
+      if (p_.getBody() instanceof TCPPacket) {
+        TCPPacket tcp_ = (TCPPacket)p_.getBody();
+        if (mssEnabled) {
+          if (tcp_.isACK())
+            return "sn" + (tcp_.getSeqNo()/MSS) + ",asn" + (tcp_.getAckNo()/MSS);
+          else
+            return "sn" + tcp_.getSeqNo()/MSS;
+        }
+        else {
+          if (tcp_.isACK())
+            return "sn" + tcp_.getSeqNo() + ",asn" + tcp_.getAckNo();
+          else
+            return "sn" + tcp_.getSeqNo();
+        }
+      }
+    }
+    return super.getConversationID(p_);
+  }
 
-	public int getColorID(Packet p_)
-	{
-		if (p_ instanceof InetPacket) {
-			Long tmp_ = new Long((((InetPacket)p_).getSource() << 16) ^ ((InetPacket)p_).getDestination());
-			Integer colorid_ = (Integer)htColor.get(tmp_);
-			if (colorid_ == null) {
-				colorid_ = new Integer(colorCount++);
-				htColor.put(tmp_, colorid_);
-				tmp_ = new Long((((InetPacket)p_).getDestination() << 16) ^ ((InetPacket)p_).getSource());
-				htColor.put(tmp_, colorid_);
-			}
-			return colorid_.intValue();
-		}
-		else
-			return super.getColorID(p_);
-	}
+  public int getColorID(Packet p_)
+  {
+    if (p_ instanceof InetPacket) {
+      Long tmp_ = new Long((((InetPacket)p_).getSource() << 16) ^ ((InetPacket)p_).getDestination());
+      Integer colorid_ = (Integer)htColor.get(tmp_);
+      if (colorid_ == null) {
+        colorid_ = new Integer(colorCount++);
+        htColor.put(tmp_, colorid_);
+        tmp_ = new Long((((InetPacket)p_).getDestination() << 16) ^ ((InetPacket)p_).getSource());
+        htColor.put(tmp_, colorid_);
+      }
+      return colorid_.intValue();
+    }
+    else
+      return super.getColorID(p_);
+  }
 
-	public void setMSSEnabled(boolean enabled_)
-	{ mssEnabled = enabled_; }
+  public void setMSSEnabled(boolean enabled_)
+  { mssEnabled = enabled_; }
 
-	public boolean isMSSEnabled()
-	{ return mssEnabled; }
+  public boolean isMSSEnabled()
+  { return mssEnabled; }
 
-	public void setMSS(int mss_)
-	{ MSS = mss_; }
+  public void setMSS(int mss_)
+  { MSS = mss_; }
 
-	public int getMSS()
-	{ return MSS; }
+  public int getMSS()
+  { return MSS; }
 }

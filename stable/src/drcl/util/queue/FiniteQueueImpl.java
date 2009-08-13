@@ -31,29 +31,29 @@ package drcl.util.queue;
 /** Base class for implementing a queue with finite length. */
 public abstract class FiniteQueueImpl extends QueueImpl implements FiniteQueue
 {
-	int capacity = Integer.MAX_VALUE;
+  int capacity = Integer.MAX_VALUE;
 
-	public void FiniteQueueImpl()
-	{}
+  public void FiniteQueueImpl()
+  {}
 
-	public void FiniteQueueImpl(int capacity_)
-	{ capacity = capacity_; }
+  public void FiniteQueueImpl(int capacity_)
+  { capacity = capacity_; }
 
-	public int getCapacity()
-	{ return capacity; }
+  public int getCapacity()
+  { return capacity; }
 
-	public void setCapacity(int cap_)
-	{ capacity = cap_; }
+  public void setCapacity(int cap_)
+  { capacity = cap_; }
 
-	/** Returns true if this queue is full. */
-	public boolean isFull()
-	{ return getLength() == capacity; }
+  /** Returns true if this queue is full. */
+  public boolean isFull()
+  { return getLength() == capacity; }
 
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		FiniteQueueImpl q_ = (FiniteQueueImpl)source_;
-		capacity = q_.capacity;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    FiniteQueueImpl q_ = (FiniteQueueImpl)source_;
+    capacity = q_.capacity;
+  }
 }

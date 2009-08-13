@@ -30,9 +30,9 @@ package drcl.net;
 
 public class PacketException extends RuntimeException
 {
-	public PacketException()
-	{ super(); }
+  public PacketException()
+  { super(); }
 
-	public PacketException(String msg_)
-	{ super(msg_); }
+  public PacketException(String msg_)
+  { super(msg_); }
 }

@@ -79,393 +79,393 @@ public class SGB_altToInet {
     static int[][] edge; // Edges in integer format
     static int[][] network; // List of nodes in each network
 
-    static void writeTranstubToXML(PrintWriter out) throws IOException {  	
+    static void writeTranstubToXML(PrintWriter out) throws IOException {    
 
-	//header
-	out.println("<?xml version=\"1.0\"?>\n");
-	//topology
-	out.println("<node name=\"" + name + "\" class=\"drcl.comp.Component\">\n");
+  //header
+  out.println("<?xml version=\"1.0\"?>\n");
+  //topology
+  out.println("<node name=\"" + name + "\" class=\"drcl.comp.Component\">\n");
 
-	for (int nn = 0; nn < numberOfNetwork; nn++) {   //network domain
-	    out.println("\t<node name=\"network" + nn
-			+ "\" class=\"drcl.inet.Network\" posX=\"" 
-			+ vertex[network[nn][0]][2]*10 
-			+ "\" posY=\"" +  vertex[network[nn][0]][3]*10 + "\">\n");
-	    
-	    for (int m = 0; m < node_count[nn]; m++) {   //node
-	        out.println("\t\t<node name=\"node" + vertex[network[nn][m]][0] 
-			    + "\" class=\"drcl.inet.Node\" posX=\"" 
-			    + vertex[network[nn][m]][2]*10 
-			    + "\" posY=\"" +  vertex[network[nn][m]][3]*10 + "\">");
-		
-		for (int n = 0; n < node_degree[network[nn][m]]; n++)  //port for node
-		    out.println("\t\t\t<port name=\""+ n +"\" group=\"\"></port>");
-		out.println("\t\t</node>\n");
-	    }
-	    
-	    for (int m = 0; m < edge_count[nn]; m++)   //port for network
-		out.println("\t\t<port name=\""+ m +"\" group=\"\"></port>\n");
+  for (int nn = 0; nn < numberOfNetwork; nn++) {   //network domain
+      out.println("\t<node name=\"network" + nn
+      + "\" class=\"drcl.inet.Network\" posX=\"" 
+      + vertex[network[nn][0]][2]*10 
+      + "\" posY=\"" +  vertex[network[nn][0]][3]*10 + "\">\n");
+      
+      for (int m = 0; m < node_count[nn]; m++) {   //node
+          out.println("\t\t<node name=\"node" + vertex[network[nn][m]][0] 
+          + "\" class=\"drcl.inet.Node\" posX=\"" 
+          + vertex[network[nn][m]][2]*10 
+          + "\" posY=\"" +  vertex[network[nn][m]][3]*10 + "\">");
+    
+    for (int n = 0; n < node_degree[network[nn][m]]; n++)  //port for node
+        out.println("\t\t\t<port name=\""+ n +"\" group=\"\"></port>");
+    out.println("\t\t</node>\n");
+      }
+      
+      for (int m = 0; m < edge_count[nn]; m++)   //port for network
+    out.println("\t\t<port name=\""+ m +"\" group=\"\"></port>\n");
 
-	    for (int ll = 0; ll < numberOfEdge; ll++) {
-		if ((vertex[edge[ll][0]][1] == nn) || (vertex[edge[ll][1]][1] == nn)) {
-		    if (edge[ll][3] == -1) { 
-			// link inside the network
-		        // link is put at the mid point of two nodes
-			int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
-			int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
-			out.println("\t\t<node name=\"link" + ll  
-				    + "\" class=\"drcl.inet.Link\" posX=\"" + x 
-				    + "\" posY=\"" + y  + "\">");
-			out.println("\t\t\t<property name=\"propDelay\" value=\"" 
-				    + edge[ll][2] 
-				    + "\"></property>");
-			out.println("\t\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
-			out.println("\t\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
-			out.println("\t\t</node>\n");
+      for (int ll = 0; ll < numberOfEdge; ll++) {
+    if ((vertex[edge[ll][0]][1] == nn) || (vertex[edge[ll][1]][1] == nn)) {
+        if (edge[ll][3] == -1) { 
+      // link inside the network
+            // link is put at the mid point of two nodes
+      int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
+      int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
+      out.println("\t\t<node name=\"link" + ll  
+            + "\" class=\"drcl.inet.Link\" posX=\"" + x 
+            + "\" posY=\"" + y  + "\">");
+      out.println("\t\t\t<property name=\"propDelay\" value=\"" 
+            + edge[ll][2] 
+            + "\"></property>");
+      out.println("\t\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
+      out.println("\t\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
+      out.println("\t\t</node>\n");
 
-			// connection between nodes inside the network
-			node_degree[edge[ll][0]]--;
-			node_degree[edge[ll][1]]--;
-			out.println("\t\t<connection node1=\"node" + edge[ll][0] 
-				    + "\" port1=\""+ node_degree[edge[ll][0]] 
-				    + "@\" node2=\"link" + ll 
-				    + "\" port2=\"0@\">");
-			out.println("\t\t</connection>\n");
-			out.println("\t\t<connection node2=\"node" + edge[ll][0] 
-				    + "\" port2=\""+ node_degree[edge[ll][0]] 
-				    + "@\" node1=\"link" + ll 
-				    + "\" port1=\"0@\">");
-			out.println("\t\t</connection>\n");
-			out.println("\t\t<connection node1=\"node" + edge[ll][1] 
-				    + "\" port1=\""+ node_degree[edge[ll][1]] 
-				    + "@\" node2=\"link" + ll 
-				    + "\" port2=\"1@\">");
-			out.println("\t\t</connection>\n");
-			out.println("\t\t<connection node2=\"node" + edge[ll][1] 
-				    + "\" port2=\""+ node_degree[edge[ll][1]] 
-				    + "@\" node1=\"link" + ll 
-				    + "\" port1=\"1@\">");
-			out.println("\t\t</connection>\n");
-		    } else { 
-			// link between node and network
-			int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
-			int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
-			out.println("\t\t<node name=\"link" + ll
-				    + "\" class=\"drcl.inet.Link\" posX=\"" + x 
-				    + "\" posY=\"" + y  + "\">");
-			out.println("\t\t\t<property name=\"propDelay\" value=\"" 
-				    + edge[ll][2]/3.0 
-				    + "\"></property>");
-			out.println("\t\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
-			out.println("\t\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
-			out.println("\t\t</node>\n");
-			
-			// connection between node and network
-			if (vertex[edge[ll][0]][1] == nn) {
-			    node_degree[edge[ll][0]]--;
-			    edge_count[nn]--;
-			    out.println("\t\t<connection node1=\"node" + edge[ll][0] 
-					+ "\" port1=\""+ node_degree[edge[ll][0]] 
-					+ "@\" node2=\"link" + ll 
-					+ "\" port2=\"0@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node2=\"node" + edge[ll][0] 
-					+ "\" port2=\""+ node_degree[edge[ll][0]] 
-					+ "@\" node1=\"link" + ll 
-					+ "\" port1=\"0@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node1=\"."
-					+ "\" port1=\""+ edge_count[nn] 
-					+ "@\" node2=\"link" + ll 
-					+ "\" port2=\"1@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node2=\"."
-					+ "\" port2=\""+ edge_count[nn] 
-					+ "@\" node1=\"link" + ll 
-					+ "\" port1=\"1@\">");
-			    out.println("\t\t</connection>\n");
-			} else if (vertex[edge[ll][1]][1] == nn) {
-			    node_degree[edge[ll][1]]--;
-			    edge_count[nn]--;
-			    out.println("\t\t<connection node1=\"node" + edge[ll][1] 
-					+ "\" port1=\""+ node_degree[edge[ll][1]] 
-					+ "@\" node2=\"link" + ll 
-					+ "\" port2=\"0@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node2=\"node" + edge[ll][1] 
-					+ "\" port2=\""+ node_degree[edge[ll][1]] 
-					+ "@\" node1=\"link" + ll 
-					+ "\" port1=\"0@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node1=\"."
-					+ "\" port1=\""+ edge_count[nn] 
-					+ "@\" node2=\"link" + ll 
-					+ "\" port2=\"1@\">");
-			    out.println("\t\t</connection>\n");
-			    out.println("\t\t<connection node2=\"."
-					+ "\" port2=\""+ edge_count[nn] 
-					+ "@\" node1=\"link" + ll 
-					+ "\" port1=\"1@\">");
-			    out.println("\t\t</connection>\n");
-			}
-		    }
-		}
-	    }
-	      
-	    out.println("\t</node>\n");
-	}  // end of network domain
+      // connection between nodes inside the network
+      node_degree[edge[ll][0]]--;
+      node_degree[edge[ll][1]]--;
+      out.println("\t\t<connection node1=\"node" + edge[ll][0] 
+            + "\" port1=\""+ node_degree[edge[ll][0]] 
+            + "@\" node2=\"link" + ll 
+            + "\" port2=\"0@\">");
+      out.println("\t\t</connection>\n");
+      out.println("\t\t<connection node2=\"node" + edge[ll][0] 
+            + "\" port2=\""+ node_degree[edge[ll][0]] 
+            + "@\" node1=\"link" + ll 
+            + "\" port1=\"0@\">");
+      out.println("\t\t</connection>\n");
+      out.println("\t\t<connection node1=\"node" + edge[ll][1] 
+            + "\" port1=\""+ node_degree[edge[ll][1]] 
+            + "@\" node2=\"link" + ll 
+            + "\" port2=\"1@\">");
+      out.println("\t\t</connection>\n");
+      out.println("\t\t<connection node2=\"node" + edge[ll][1] 
+            + "\" port2=\""+ node_degree[edge[ll][1]] 
+            + "@\" node1=\"link" + ll 
+            + "\" port1=\"1@\">");
+      out.println("\t\t</connection>\n");
+        } else { 
+      // link between node and network
+      int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
+      int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
+      out.println("\t\t<node name=\"link" + ll
+            + "\" class=\"drcl.inet.Link\" posX=\"" + x 
+            + "\" posY=\"" + y  + "\">");
+      out.println("\t\t\t<property name=\"propDelay\" value=\"" 
+            + edge[ll][2]/3.0 
+            + "\"></property>");
+      out.println("\t\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
+      out.println("\t\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
+      out.println("\t\t</node>\n");
+      
+      // connection between node and network
+      if (vertex[edge[ll][0]][1] == nn) {
+          node_degree[edge[ll][0]]--;
+          edge_count[nn]--;
+          out.println("\t\t<connection node1=\"node" + edge[ll][0] 
+          + "\" port1=\""+ node_degree[edge[ll][0]] 
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"0@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node2=\"node" + edge[ll][0] 
+          + "\" port2=\""+ node_degree[edge[ll][0]] 
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"0@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node1=\"."
+          + "\" port1=\""+ edge_count[nn] 
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"1@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node2=\"."
+          + "\" port2=\""+ edge_count[nn] 
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"1@\">");
+          out.println("\t\t</connection>\n");
+      } else if (vertex[edge[ll][1]][1] == nn) {
+          node_degree[edge[ll][1]]--;
+          edge_count[nn]--;
+          out.println("\t\t<connection node1=\"node" + edge[ll][1] 
+          + "\" port1=\""+ node_degree[edge[ll][1]] 
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"0@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node2=\"node" + edge[ll][1] 
+          + "\" port2=\""+ node_degree[edge[ll][1]] 
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"0@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node1=\"."
+          + "\" port1=\""+ edge_count[nn] 
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"1@\">");
+          out.println("\t\t</connection>\n");
+          out.println("\t\t<connection node2=\"."
+          + "\" port2=\""+ edge_count[nn] 
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"1@\">");
+          out.println("\t\t</connection>\n");
+      }
+        }
+    }
+      }
+        
+      out.println("\t</node>\n");
+  }  // end of network domain
 
-	for (int ll = 0; ll < numberOfEdge; ll++) {
-	    if (edge[ll][3] != -1) { 
-		// link between networks
-		int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
-		int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
-		out.println("\t<node name=\"link" + ll  
-			    + "\" class=\"drcl.inet.Link\" posX=\"" + x 
-			    + "\" posY=\"" + y  + "\">");
-		out.println("\t\t<property name=\"propDelay\" value=\"" + edge[ll][2]/3.0 
-			    + "\"></property>");
-		out.println("\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
-		out.println("\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
-		out.println("\t</node>\n");
+  for (int ll = 0; ll < numberOfEdge; ll++) {
+      if (edge[ll][3] != -1) { 
+    // link between networks
+    int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
+    int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
+    out.println("\t<node name=\"link" + ll  
+          + "\" class=\"drcl.inet.Link\" posX=\"" + x 
+          + "\" posY=\"" + y  + "\">");
+    out.println("\t\t<property name=\"propDelay\" value=\"" + edge[ll][2]/3.0 
+          + "\"></property>");
+    out.println("\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
+    out.println("\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
+    out.println("\t</node>\n");
 
-		//connection between networks
-		edge_count2[vertex[edge[ll][0]][1]]--;
-		edge_count2[vertex[edge[ll][1]][1]]--;
-		out.println("\t<connection node1=\"network" + vertex[edge[ll][0]][1]
-			    + "\" port1=\""+ edge_count2[vertex[edge[ll][0]][1]]
-			    + "@\" node2=\"link" + ll 
-			    + "\" port2=\"0@\">");
-		out.println("\t</connection>\n");
-		out.println("\t<connection node2=\"network" + vertex[edge[ll][0]][1]
-			    + "\" port2=\""+ edge_count2[vertex[edge[ll][0]][1]]
-			    + "@\" node1=\"link" + ll 
-			    + "\" port1=\"0@\">");
-		out.println("\t</connection>\n");
-		out.println("\t<connection node1=\"network" + vertex[edge[ll][1]][1]
-			    + "\" port1=\""+ edge_count2[vertex[edge[ll][1]][1]]
-			    + "@\" node2=\"link" + ll 
-			    + "\" port2=\"1@\">");
-		out.println("\t</connection>\n");
-		out.println("\t<connection node2=\"network" + vertex[edge[ll][1]][1]
-			    + "\" port2=\""+ edge_count2[vertex[edge[ll][1]][1]]
-			    + "@\" node1=\"link" + ll 
-			    + "\" port1=\"1@\">");
-		out.println("\t</connection>\n");
-	    }
-	}	
-	
-	out.println("</node>\n");
+    //connection between networks
+    edge_count2[vertex[edge[ll][0]][1]]--;
+    edge_count2[vertex[edge[ll][1]][1]]--;
+    out.println("\t<connection node1=\"network" + vertex[edge[ll][0]][1]
+          + "\" port1=\""+ edge_count2[vertex[edge[ll][0]][1]]
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"0@\">");
+    out.println("\t</connection>\n");
+    out.println("\t<connection node2=\"network" + vertex[edge[ll][0]][1]
+          + "\" port2=\""+ edge_count2[vertex[edge[ll][0]][1]]
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"0@\">");
+    out.println("\t</connection>\n");
+    out.println("\t<connection node1=\"network" + vertex[edge[ll][1]][1]
+          + "\" port1=\""+ edge_count2[vertex[edge[ll][1]][1]]
+          + "@\" node2=\"link" + ll 
+          + "\" port2=\"1@\">");
+    out.println("\t</connection>\n");
+    out.println("\t<connection node2=\"network" + vertex[edge[ll][1]][1]
+          + "\" port2=\""+ edge_count2[vertex[edge[ll][1]][1]]
+          + "@\" node1=\"link" + ll 
+          + "\" port1=\"1@\">");
+    out.println("\t</connection>\n");
+      }
+  }  
+  
+  out.println("</node>\n");
     }
 
-    static void writeRandomToXML(PrintWriter out) throws IOException {  	
+    static void writeRandomToXML(PrintWriter out) throws IOException {    
 
-	//header
-	out.println("<?xml version=\"1.0\"?>\n");
-	//topology
-	out.println("<node name=\"" + name + "\" class=\"drcl.comp.Component\">\n");
+  //header
+  out.println("<?xml version=\"1.0\"?>\n");
+  //topology
+  out.println("<node name=\"" + name + "\" class=\"drcl.comp.Component\">\n");
 
-	//node
-	for (int m = 0; m < numberOfVertex; m++) {
-	    out.println("\t<node name=\"node" + vertex[m][0] 
-			+ "\" class=\"drcl.inet.Node\" posX=\"" + vertex[m][2]*10 
-			+ "\" posY=\"" +  vertex[m][3]*10 + "\">");
-	    //port
-	    for (int n = 0; n < node_degree[m]; n++)
-	        out.println("\t\t<port name=\""+ n +"\" group=\"\"></port>");
-	    out.println("\t</node>\n");
-	}
+  //node
+  for (int m = 0; m < numberOfVertex; m++) {
+      out.println("\t<node name=\"node" + vertex[m][0] 
+      + "\" class=\"drcl.inet.Node\" posX=\"" + vertex[m][2]*10 
+      + "\" posY=\"" +  vertex[m][3]*10 + "\">");
+      //port
+      for (int n = 0; n < node_degree[m]; n++)
+          out.println("\t\t<port name=\""+ n +"\" group=\"\"></port>");
+      out.println("\t</node>\n");
+  }
 
-	//link
-	for (int ll = 0; ll < numberOfEdge; ll++) {
-	    int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
-	    int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
-	    out.println("\t<node name=\"link" + ll  
-			+ "\" class=\"drcl.inet.Link\" posX=\"" + x 
-			+ "\" posY=\"" + y  + "\">");
-	    out.println("\t\t<property name=\"propDelay\" value=\"" + edge[ll][2] 
-			+ "\"></property>");
-	    out.println("\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
-	    out.println("\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
-	    out.println("\t</node>\n");
-	}
-	//connection
-	for (int ll = 0; ll < numberOfEdge; ll++) {
-	    node_degree[edge[ll][0]]--;
-	    node_degree[edge[ll][1]]--;
-	    out.println("\t<connection node1=\"node" + edge[ll][0] 
-			+ "\" port1=\""+ node_degree[edge[ll][0]] 
-			+ "@\" node2=\"link" + ll 
-			+ "\" port2=\"0@\">");
-	    out.println("\t</connection>\n");
-	    out.println("\t<connection node2=\"node" + edge[ll][0] 
-			+ "\" port2=\""+ node_degree[edge[ll][0]] 
-			+ "@\" node1=\"link" + ll 
-			+ "\" port1=\"0@\">");
-	    out.println("\t</connection>\n");
-	    out.println("\t<connection node1=\"node" + edge[ll][1] 
-			+ "\" port1=\""+ node_degree[edge[ll][1]] 
-			+ "@\" node2=\"link" + ll 
-			+ "\" port2=\"1@\">");
-	    out.println("\t</connection>\n");
-	    out.println("\t<connection node2=\"node" + edge[ll][1] 
-			+ "\" port2=\""+ node_degree[edge[ll][1]] 
-			+ "@\" node1=\"link" + ll 
-			+ "\" port1=\"1@\">");
-	    out.println("\t</connection>\n");
-	}
-	out.println("</node>\n");
+  //link
+  for (int ll = 0; ll < numberOfEdge; ll++) {
+      int x = (vertex[edge[ll][0]][2]*10 + vertex[edge[ll][1]][2]*10)/2;
+      int y = (vertex[edge[ll][0]][3]*10 + vertex[edge[ll][1]][3]*10)/2;
+      out.println("\t<node name=\"link" + ll  
+      + "\" class=\"drcl.inet.Link\" posX=\"" + x 
+      + "\" posY=\"" + y  + "\">");
+      out.println("\t\t<property name=\"propDelay\" value=\"" + edge[ll][2] 
+      + "\"></property>");
+      out.println("\t\t<port name=\""+ 0 +"\" group=\"\"></port>");
+      out.println("\t\t<port name=\""+ 1 +"\" group=\"\"></port>");
+      out.println("\t</node>\n");
+  }
+  //connection
+  for (int ll = 0; ll < numberOfEdge; ll++) {
+      node_degree[edge[ll][0]]--;
+      node_degree[edge[ll][1]]--;
+      out.println("\t<connection node1=\"node" + edge[ll][0] 
+      + "\" port1=\""+ node_degree[edge[ll][0]] 
+      + "@\" node2=\"link" + ll 
+      + "\" port2=\"0@\">");
+      out.println("\t</connection>\n");
+      out.println("\t<connection node2=\"node" + edge[ll][0] 
+      + "\" port2=\""+ node_degree[edge[ll][0]] 
+      + "@\" node1=\"link" + ll 
+      + "\" port1=\"0@\">");
+      out.println("\t</connection>\n");
+      out.println("\t<connection node1=\"node" + edge[ll][1] 
+      + "\" port1=\""+ node_degree[edge[ll][1]] 
+      + "@\" node2=\"link" + ll 
+      + "\" port2=\"1@\">");
+      out.println("\t</connection>\n");
+      out.println("\t<connection node2=\"node" + edge[ll][1] 
+      + "\" port2=\""+ node_degree[edge[ll][1]] 
+      + "@\" node1=\"link" + ll 
+      + "\" port1=\"1@\">");
+      out.println("\t</connection>\n");
+  }
+  out.println("</node>\n");
     }
          
     static void parseData() {
 
-	// Creating vertex[][]
+  // Creating vertex[][]
         for (int ii = 0; ii < numberOfVertex; ii++) {
-	    vertex[ii][0] = Integer.parseInt(vertex_string[ii][0]);
-	    for (int jj = 2; jj < numberOfCol; jj++)
-	        vertex[ii][jj] = Integer.parseInt(vertex_string[ii][jj]);
-	}
-	
-	// Counting the node degree
-	node_degree = new int[numberOfVertex];
-	for (int k = 0; k < numberOfEdge; k++) {
-	    for (int l = 0; l < 2; l++) node_degree[edge[k][l]]++;
-	}
+      vertex[ii][0] = Integer.parseInt(vertex_string[ii][0]);
+      for (int jj = 2; jj < numberOfCol; jj++)
+          vertex[ii][jj] = Integer.parseInt(vertex_string[ii][jj]);
+  }
+  
+  // Counting the node degree
+  node_degree = new int[numberOfVertex];
+  for (int k = 0; k < numberOfEdge; k++) {
+      for (int l = 0; l < 2; l++) node_degree[edge[k][l]]++;
+  }
 
-	// Figuring out network domain
-	if (type.equals("transtub")) { // Transit-stub
-	    
-	    node_count = new int[MAX_NETWORK_NUMBER];
-	    network = new int[MAX_NETWORK_NUMBER][MAX_NODE_COUNT];
-	    int netID = -1;
-	    
-	    for (int ii = 0; ii < numberOfVertex; ii++) {
-	        if (vertex_string[ii][1].endsWith("0")) {
-		    netID++;
-		    node_count[netID]++;
-		    network[netID][node_count[netID]-1] = vertex[ii][0];
-		    vertex[ii][1] = netID;
-		} else {
-		    node_count[netID]++;
-		    network[netID][node_count[netID]-1] = vertex[ii][0];
-		    vertex[ii][1] = netID;
-		}
-	    }
-	
-	    numberOfNetwork = vertex[numberOfVertex-1][1] + 1;
+  // Figuring out network domain
+  if (type.equals("transtub")) { // Transit-stub
+      
+      node_count = new int[MAX_NETWORK_NUMBER];
+      network = new int[MAX_NETWORK_NUMBER][MAX_NODE_COUNT];
+      int netID = -1;
+      
+      for (int ii = 0; ii < numberOfVertex; ii++) {
+          if (vertex_string[ii][1].endsWith("0")) {
+        netID++;
+        node_count[netID]++;
+        network[netID][node_count[netID]-1] = vertex[ii][0];
+        vertex[ii][1] = netID;
+    } else {
+        node_count[netID]++;
+        network[netID][node_count[netID]-1] = vertex[ii][0];
+        vertex[ii][1] = netID;
+    }
+      }
+  
+      numberOfNetwork = vertex[numberOfVertex-1][1] + 1;
 
-	    edge_count = new int[numberOfNetwork];
-	    for (int k = 0; k < numberOfNetwork; k++) {
-		for (int l = 0; l < node_count[k]; l++) 
-		    edge_count[k] += node_degree[network[k][l]];
-	    }
+      edge_count = new int[numberOfNetwork];
+      for (int k = 0; k < numberOfNetwork; k++) {
+    for (int l = 0; l < node_count[k]; l++) 
+        edge_count[k] += node_degree[network[k][l]];
+      }
 
-	    for (int i = 0; i < numberOfNetwork; i++)
-		for (int l = 0; l < node_count[i]; l++)
-		    for (int k = 0; k < numberOfEdge; k++) 
-			if (network[i][l] == edge[k][0]) 
-			    for (int ll = 0; ll < node_count[i]; ll++) 
-				if (network[i][ll] == edge[k][1]) {
-				    edge_count[i] -= 2;
-				    edge[k][3] = -1; // this edge is inside the network
-				}
-	    edge_count2 = new int[numberOfNetwork];
-	    System.arraycopy(edge_count, 0, edge_count2, 0, numberOfNetwork);
-	}
+      for (int i = 0; i < numberOfNetwork; i++)
+    for (int l = 0; l < node_count[i]; l++)
+        for (int k = 0; k < numberOfEdge; k++) 
+      if (network[i][l] == edge[k][0]) 
+          for (int ll = 0; ll < node_count[i]; ll++) 
+        if (network[i][ll] == edge[k][1]) {
+            edge_count[i] -= 2;
+            edge[k][3] = -1; // this edge is inside the network
+        }
+      edge_count2 = new int[numberOfNetwork];
+      System.arraycopy(edge_count, 0, edge_count2, 0, numberOfNetwork);
+  }
     }
 
     static void readSGB_alt(BufferedReader in) throws IOException {
 
-	vertex_string = new String[numberOfVertex][numberOfCol];
-	vertex = new int[numberOfVertex][numberOfCol];
-	edge = new int[numberOfEdge][numberOfCol];
-	String s = "";
-	String ts = "";
-	boolean vflag = false;
-	boolean eflag = false;
-	int i = -1;
+  vertex_string = new String[numberOfVertex][numberOfCol];
+  vertex = new int[numberOfVertex][numberOfCol];
+  edge = new int[numberOfEdge][numberOfCol];
+  String s = "";
+  String ts = "";
+  boolean vflag = false;
+  boolean eflag = false;
+  int i = -1;
 
-	while ((s = in.readLine()) != null) {
-	    t = new StringTokenizer(s);
-	    int j = 0;
-	    if ((vflag == true) || (eflag == true)) i++;
-	    // line processing
-	    while (t.countTokens() != 0) {
-	        ts = t.nextToken();
-		if (ts.equals("EDGES")) vflag = false;
-		
-		if (vflag == true) {
-		    vertex_string[i][j] = ts;
-		    j++;
-		}
-		if (eflag == true) {
-		    edge[i][j] = Integer.parseInt(ts);
-		    j++;
-		}
+  while ((s = in.readLine()) != null) {
+      t = new StringTokenizer(s);
+      int j = 0;
+      if ((vflag == true) || (eflag == true)) i++;
+      // line processing
+      while (t.countTokens() != 0) {
+          ts = t.nextToken();
+    if (ts.equals("EDGES")) vflag = false;
+    
+    if (vflag == true) {
+        vertex_string[i][j] = ts;
+        j++;
+    }
+    if (eflag == true) {
+        edge[i][j] = Integer.parseInt(ts);
+        j++;
+    }
 
-		if (ts.equals("z):")) {
-		    vflag = true;
-		    i = -1;
-		}
-		if (ts.equals("b):")) {
-		    eflag = true;
-		    i = -1;
-		}
-	    }
-	}
+    if (ts.equals("z):")) {
+        vflag = true;
+        i = -1;
+    }
+    if (ts.equals("b):")) {
+        eflag = true;
+        i = -1;
+    }
+      }
+  }
     }
     
     static void readSGB_altHeader(BufferedReader in) throws IOException {
 
-	header = new String[numberOfCol*2];
+  header = new String[numberOfCol*2];
 
-	String line = in.readLine();     // Read the first line
-	line = in.readLine();            // Read the second line
-	t = new StringTokenizer(line);
-	int j = 0;
-	while (t.countTokens() != 0) {
-	    header[j] = t.nextToken();
-	    j++;
-	}
+  String line = in.readLine();     // Read the first line
+  line = in.readLine();            // Read the second line
+  t = new StringTokenizer(line);
+  int j = 0;
+  while (t.countTokens() != 0) {
+      header[j] = t.nextToken();
+      j++;
+  }
 
-	t = new StringTokenizer(header[2], "(");
-	type = t.nextToken();     // Setting the type of topology
+  t = new StringTokenizer(header[2], "(");
+  type = t.nextToken();     // Setting the type of topology
 
-	// Setting the number of vertices and the number of edges
-	numberOfVertex = Integer.parseInt(header[0]);
-	numberOfEdge = Integer.parseInt(header[1])/2;
+  // Setting the number of vertices and the number of edges
+  numberOfVertex = Integer.parseInt(header[0]);
+  numberOfEdge = Integer.parseInt(header[1])/2;
     }
          
     public static void main(String[] args) { 
 
         t = new StringTokenizer(args[0], ".");
         name = t.nextToken();      // Get topology name
-	
-	try {
-	    BufferedReader in = new BufferedReader(new FileReader(args[0]));   
-	    readSGB_altHeader(in); // Reading header
-	    readSGB_alt(in);       // Reading vertices and edges
-	    in.close();
-	}
-	catch(IOException e) {  
-	    System.out.print("Error: " + e);
-	    System.exit(1);
-	}
+  
+  try {
+      BufferedReader in = new BufferedReader(new FileReader(args[0]));   
+      readSGB_altHeader(in); // Reading header
+      readSGB_alt(in);       // Reading vertices and edges
+      in.close();
+  }
+  catch(IOException e) {  
+      System.out.print("Error: " + e);
+      System.exit(1);
+  }
 
-	parseData();               // Parsing
+  parseData();               // Parsing
 
-    	try {                      // Writing
-	    PrintWriter out = new PrintWriter(new FileWriter(args[1]));
-	    if (type.equals("transtub")) 
-		writeTranstubToXML(out);    
-	    else  
-		writeRandomToXML(out);
-	    out.close();
-	}
-	catch(IOException e) {  
-	    System.out.print("Error: " + e);
-	    System.exit(1);
-	}
+      try {                      // Writing
+      PrintWriter out = new PrintWriter(new FileWriter(args[1]));
+      if (type.equals("transtub")) 
+    writeTranstubToXML(out);    
+      else  
+    writeRandomToXML(out);
+      out.close();
+  }
+  catch(IOException e) {  
+      System.out.print("Error: " + e);
+      System.exit(1);
+  }
     }
 }
 

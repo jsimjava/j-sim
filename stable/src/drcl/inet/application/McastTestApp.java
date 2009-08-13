@@ -39,64 +39,64 @@ import drcl.inet.contract.PktSending;
  */
 public class McastTestApp extends Component
 { 
-	Port downPort = addPort("down", false);
-	Port mcastPort = addPort(".service_mcast", false);
+  Port downPort = addPort("down", false);
+  Port mcastPort = addPort(".service_mcast", false);
 
-	public McastTestApp()
-	{ super(); }
+  public McastTestApp()
+  { super(); }
 
-	public McastTestApp(String id_)
-	{ super(id_); }
+  public McastTestApp(String id_)
+  { super(id_); }
 
-	/** To join a multicast group. */
-	public void join(long group_)
-	{
-		IDConfig.add(group_, Double.NaN, mcastPort);
-	}
+  /** To join a multicast group. */
+  public void join(long group_)
+  {
+    IDConfig.add(group_, Double.NaN, mcastPort);
+  }
 
-	/** To leave a multicast group. */
-	public void leave(long group_)
-	{
-		IDConfig.remove(group_, mcastPort);
-	}
+  /** To leave a multicast group. */
+  public void leave(long group_)
+  {
+    IDConfig.remove(group_, mcastPort);
+  }
 
-	/** To send data to a multicast group. */
-	public void send(long group_, Object msg_, int size_)
-	{
-		debug("SEND to " + group_ + ": " + msg_ + ", size=" + size_);
+  /** To send data to a multicast group. */
+  public void send(long group_, Object msg_, int size_)
+  {
+    debug("SEND to " + group_ + ": " + msg_ + ", size=" + size_);
 
-		downPort.doSending(PktSending.getForwardPack(
-								msg_, size_,
-								drcl.net.Address.NULL_ADDR,
-								group_,
-								false,
-								255,
-								0));
-	}
+    downPort.doSending(PktSending.getForwardPack(
+                msg_, size_,
+                drcl.net.Address.NULL_ADDR,
+                group_,
+                false,
+                255,
+                0));
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		if (data_ instanceof McastHostEvent.Message) {
-			McastHostEvent.Message s_ = (McastHostEvent.Message)data_;
-			long group_ = s_.getGroup();
-			long src_ = s_.getSource();
-			long srcmask_ = s_.getSourceMask();
-			int ifindex_ = s_.getIfIndex();
-			if (s_.isJoin())
-				debug("JOIN to group " + group_);
-			else
-				debug("LEAVE group " + group_);
-		}
-		else if (data_ instanceof InetPacket) {
-			long group_ = ((InetPacket)data_).getDestination();
-			Object pkt_ = ((InetPacket)data_).getBody();
-			int psize_ = ((InetPacket)data_).getPacketSize();
-			int hsize_ = ((InetPacket)data_).getHeaderSize();
-			debug("RECEIVE from " + group_ + ": " + pkt_ + ", size="
-							+ (psize_ - hsize_));
-		}
-		else {
-			debug("RECEIVE from " + inPort_ + ": " + data_);
-		}
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    if (data_ instanceof McastHostEvent.Message) {
+      McastHostEvent.Message s_ = (McastHostEvent.Message)data_;
+      long group_ = s_.getGroup();
+      long src_ = s_.getSource();
+      long srcmask_ = s_.getSourceMask();
+      int ifindex_ = s_.getIfIndex();
+      if (s_.isJoin())
+        debug("JOIN to group " + group_);
+      else
+        debug("LEAVE group " + group_);
+    }
+    else if (data_ instanceof InetPacket) {
+      long group_ = ((InetPacket)data_).getDestination();
+      Object pkt_ = ((InetPacket)data_).getBody();
+      int psize_ = ((InetPacket)data_).getPacketSize();
+      int hsize_ = ((InetPacket)data_).getHeaderSize();
+      debug("RECEIVE from " + group_ + ": " + pkt_ + ", size="
+              + (psize_ - hsize_));
+    }
+    else {
+      debug("RECEIVE from " + inPort_ + ": " + data_);
+    }
+  }
 }

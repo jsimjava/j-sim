@@ -32,37 +32,37 @@ package drcl.comp;
  * Multiple locks can be chained to form a linked list.*/
 public class LockPack implements Component.Locks
 {
-	/** The target object being locked or waited on. */
-	public Object target;
-	/** Thread that holds the lock of the target object. */
-	public WorkerThread holder;
-	/** The number of times the holder thread grabs the lock. */
-	public int counter; 
-	/** The number of threads competing for the lock of the target object. */
-	public int lockReqCount;
-	/** The number of threads waiting on the target object. */
-	public int waitCount;
-	/** Next lock pack in the chain. */
-	public LockPack next;
-		
-	public LockPack(Object target_)
-	{
-		target = target_;
-	}
+  /** The target object being locked or waited on. */
+  public Object target;
+  /** Thread that holds the lock of the target object. */
+  public WorkerThread holder;
+  /** The number of times the holder thread grabs the lock. */
+  public int counter; 
+  /** The number of threads competing for the lock of the target object. */
+  public int lockReqCount;
+  /** The number of threads waiting on the target object. */
+  public int waitCount;
+  /** Next lock pack in the chain. */
+  public LockPack next;
+    
+  public LockPack(Object target_)
+  {
+    target = target_;
+  }
 
-	public String printAll()
-	{
-		LockPack p_ = this;
-		StringBuffer sb_ = new StringBuffer();
-		while (p_ != null) {
-			sb_.append("   " + p_.target + ": " + p_.holder + ", count="
-				+ p_.counter + ", waitCount=" + p_.waitCount + "\n");
-			p_ = p_.next;
-		}
-		return sb_.toString();
-	}
+  public String printAll()
+  {
+    LockPack p_ = this;
+    StringBuffer sb_ = new StringBuffer();
+    while (p_ != null) {
+      sb_.append("   " + p_.target + ": " + p_.holder + ", count="
+        + p_.counter + ", waitCount=" + p_.waitCount + "\n");
+      p_ = p_.next;
+    }
+    return sb_.toString();
+  }
 
-	public String toString()
-	{ return "LockPack: " + target + ", holder=" + ", " + counter
-				+ ", " + lockReqCount + ", " + waitCount; }
+  public String toString()
+  { return "LockPack: " + target + ", holder=" + ", " + counter
+        + ", " + lockReqCount + ", " + waitCount; }
 }

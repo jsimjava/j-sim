@@ -30,9 +30,9 @@ package drcl.comp;
 
 public class ContextException extends Error
 {
-	public ContextException()
-	{ super(); }
-	
-	public ContextException(String msg_)
-	{ super(msg_); }
+  public ContextException()
+  { super(); }
+  
+  public ContextException(String msg_)
+  { super(msg_); }
 }

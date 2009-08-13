@@ -39,46 +39,46 @@ One can use the info() method of the component to print out the gaps.
 */
 public class Receiver extends Module
 {
-	LongSpace unreceived = new LongSpace(); // not received sequence #
-	LongSpace unreceivedBytes = new LongSpace(); // not received sequence #
+  LongSpace unreceived = new LongSpace(); // not received sequence #
+  LongSpace unreceivedBytes = new LongSpace(); // not received sequence #
 
-	{ removeDefaultUpPort(); removeTimerPort(); }
-	
-	public Receiver() 
-	{ super(); }
-	
-	public Receiver(String id_)
-	{ super(id_); }
-	
-	public void reset()
-	{
-		super.reset();
-		unreceived.reset();
-		unreceivedBytes.reset();
-	}
-	
-	public void duplicate(Object source_)
-	{ super.duplicate(source_); }
-	
-	public String info()
-	{ return "Unreceived packets: " + unreceived + "\nUnreceived bytes: " + unreceivedBytes + "\n"; }
-	
-	protected void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		if (!(data_ instanceof Packet)) {
-			error(data_, "process()", inPort_, "unknown data");
-			return;
-		}
-		Packet pkt_ = (Packet)data_;
-		if (pkt_.isTimestampSupported()) {
-			if (isDebugEnabled())
-				debug("latency=" + (getTime() - pkt_.getTimestamp()) + ": " 
-						+ pkt_);
-		}
-		if (pkt_.isPacketCountSupported())
-			unreceived.checkout(pkt_.getPacketCount());
-		if (pkt_.isByteCountSupported())
-			unreceivedBytes.checkout(pkt_.getByteCount(),
-							pkt_.getByteCount() + pkt_.getPacketSize());
-	}
+  { removeDefaultUpPort(); removeTimerPort(); }
+  
+  public Receiver() 
+  { super(); }
+  
+  public Receiver(String id_)
+  { super(id_); }
+  
+  public void reset()
+  {
+    super.reset();
+    unreceived.reset();
+    unreceivedBytes.reset();
+  }
+  
+  public void duplicate(Object source_)
+  { super.duplicate(source_); }
+  
+  public String info()
+  { return "Unreceived packets: " + unreceived + "\nUnreceived bytes: " + unreceivedBytes + "\n"; }
+  
+  protected void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    if (!(data_ instanceof Packet)) {
+      error(data_, "process()", inPort_, "unknown data");
+      return;
+    }
+    Packet pkt_ = (Packet)data_;
+    if (pkt_.isTimestampSupported()) {
+      if (isDebugEnabled())
+        debug("latency=" + (getTime() - pkt_.getTimestamp()) + ": " 
+            + pkt_);
+    }
+    if (pkt_.isPacketCountSupported())
+      unreceived.checkout(pkt_.getPacketCount());
+    if (pkt_.isByteCountSupported())
+      unreceivedBytes.checkout(pkt_.getByteCount(),
+              pkt_.getByteCount() + pkt_.getPacketSize());
+  }
 }

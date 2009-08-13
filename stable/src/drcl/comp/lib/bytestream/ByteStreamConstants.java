@@ -31,10 +31,10 @@ package drcl.comp.lib.bytestream;
 /** A collection of constants that are used in this package. */
 public interface ByteStreamConstants
 {
-	public static final int SEND = 0;
-	public static final int REPORT = 1;
-	public static final int QUERY = 2;
-	public static final int STOP = 3;
+  public static final int SEND = 0;
+  public static final int REPORT = 1;
+  public static final int QUERY = 2;
+  public static final int STOP = 3;
 
-	public static final int ERROR = -1;
+  public static final int ERROR = -1;
 }

@@ -40,115 +40,115 @@ import drcl.data.IntObj ;
 */
 public abstract class RadioBase extends drcl.comp.Component
 {
-  	// Different Status of Radio
-	public static final int RADIO_IDLE = 0;  
-	public static final int RADIO_SLEEP = 1;  
-	public static final int RADIO_OFF = 2;  
-	public static final int RADIO_TRANSMIT = 3;  
-	public static final int RADIO_RECEIVE = 4;  
+    // Different Status of Radio
+  public static final int RADIO_IDLE = 0;  
+  public static final int RADIO_SLEEP = 1;  
+  public static final int RADIO_OFF = 2;  
+  public static final int RADIO_TRANSMIT = 3;  
+  public static final int RADIO_RECEIVE = 4;  
 
-	int radioMode;
-	double txCur; //Transmit Power
-	double rxCur;
-	double dataRate;  // DataRate
+  int radioMode;
+  double txCur; //Transmit Power
+  double rxCur;
+  double dataRate;  // DataRate
 
-	Port batteryInPort = addPort("batteryIn");
-	Port batteryPort = addPort("battery");
-	Port reportRadioModePort = addPort("reportRadioMode");
+  Port batteryInPort = addPort("batteryIn");
+  Port batteryPort = addPort("battery");
+  Port reportRadioModePort = addPort("reportRadioMode");
 
-	public RadioBase()
-	{
-		super("radioModel");
-		radioMode=RADIO_IDLE;
-		txCur=1.0;
-		rxCur=1.0;
-		dataRate = 1.0;
-	}
-	
-	/** Gets the transmission current. */
-	public double getTxCur() {return txCur;}
-	
-	/** Gets the receiving current. */
-	public double getRxCur() {return rxCur;}
-	
-	/** Gets the data rate. */
-	public double getDataRate() {return dataRate;}
-	
-	/** Gets the radio mode. */
-	public int getRadioMode() { return radioMode; }
+  public RadioBase()
+  {
+    super("radioModel");
+    radioMode=RADIO_IDLE;
+    txCur=1.0;
+    rxCur=1.0;
+    dataRate = 1.0;
+  }
+  
+  /** Gets the transmission current. */
+  public double getTxCur() {return txCur;}
+  
+  /** Gets the receiving current. */
+  public double getRxCur() {return rxCur;}
+  
+  /** Gets the data rate. */
+  public double getDataRate() {return dataRate;}
+  
+  /** Gets the radio mode. */
+  public int getRadioMode() { return radioMode; }
 
-	/** Gets the remaining energy.  */
-	public double getRemainingEnergy() 
-	{ 
-		double e_ = BatteryContract.getRemainingEnergy(batteryPort);
-		return e_;
-	}
+  /** Gets the remaining energy.  */
+  public double getRemainingEnergy() 
+  { 
+    double e_ = BatteryContract.getRemainingEnergy(batteryPort);
+    return e_;
+  }
 
-	/** Sets the transmission current. */
-	public double setTxCur(double a) {return txCur=a;}
-	
-	/** Sets the receiving current. */
-	public double setRxCur(double a) {return txCur=a;}
-	
-	/** Sets the data rate. */
-	public double setDataRate(double a) {return dataRate=a;}
+  /** Sets the transmission current. */
+  public double setTxCur(double a) {return txCur=a;}
+  
+  /** Sets the receiving current. */
+  public double setRxCur(double a) {return txCur=a;}
+  
+  /** Sets the data rate. */
+  public double setDataRate(double a) {return dataRate=a;}
 
-	/* attachApp() is to be called explicitly from tcl to attach the reportRadioModePort to the corresponding port in SensorApp, which is passed as the parameter port_ */
-	/** Connects to the sensor application layer. */
-	public void attachApp(Port port_) {
-        	reportRadioModePort.connectTo(port_); 
-		reportRadioMode(radioMode);
-	}
+  /* attachApp() is to be called explicitly from tcl to attach the reportRadioModePort to the corresponding port in SensorApp, which is passed as the parameter port_ */
+  /** Connects to the sensor application layer. */
+  public void attachApp(Port port_) {
+          reportRadioModePort.connectTo(port_); 
+    reportRadioMode(radioMode);
+  }
 
-	/** Reports the CPU mode to the sensor application layer. */
-	public void reportRadioMode (int mode) 
-	{
-		reportRadioModePort.doSending(new IntObj(mode));
-	} 
+  /** Reports the CPU mode to the sensor application layer. */
+  public void reportRadioMode (int mode) 
+  {
+    reportRadioModePort.doSending(new IntObj(mode));
+  } 
 
-	/** Returns true if the radio is sleep or off. */
-	public boolean isDown()
-	{  
-	    if ( (radioMode == RADIO_SLEEP) || (radioMode == RADIO_OFF) ) 
-		      return true;
-	    else 
-		      return false;
-	}
+  /** Returns true if the radio is sleep or off. */
+  public boolean isDown()
+  {  
+      if ( (radioMode == RADIO_SLEEP) || (radioMode == RADIO_OFF) ) 
+          return true;
+      else 
+          return false;
+  }
 
-	/** Returns true if the radio is off. */
-	public boolean isOff()
-	{ 
-	    if ( radioMode == RADIO_OFF ) 
-		      return true;
-	    else 
-		      return false;
-	}
-	
-	/** Returns true if the radio is sleep. */
-	public boolean isSleep(){ 
-	    if ( radioMode == RADIO_SLEEP ) 
-		      return true;
-	    else 
-		      return false;
-	}
+  /** Returns true if the radio is off. */
+  public boolean isOff()
+  { 
+      if ( radioMode == RADIO_OFF ) 
+          return true;
+      else 
+          return false;
+  }
+  
+  /** Returns true if the radio is sleep. */
+  public boolean isSleep(){ 
+      if ( radioMode == RADIO_SLEEP ) 
+          return true;
+      else 
+          return false;
+  }
 
-	// needs to be implemented by the derived class
-	/** Sets the radio mode. */
-	public int setRadioMode(int a) { radioMode = a; return 1; } 
+  // needs to be implemented by the derived class
+  /** Sets the radio mode. */
+  public int setRadioMode(int a) { radioMode = a; return 1; } 
 
-	protected synchronized void process(Object data_, Port inPort_)
-	{
-		if ( inPort_ == batteryInPort )
-		{
-			String msg = new String ((String) data_);
-			if ( msg.equals("BATTERY_OUT") )
-			{
-				setRadioMode(RADIO_OFF);
-			}
-		}
-		else if ( inPort_ == reportRadioModePort )
-		{
-			setRadioMode(((IntObj)data_).getValue());
-		}
-	}
+  protected synchronized void process(Object data_, Port inPort_)
+  {
+    if ( inPort_ == batteryInPort )
+    {
+      String msg = new String ((String) data_);
+      if ( msg.equals("BATTERY_OUT") )
+      {
+        setRadioMode(RADIO_OFF);
+      }
+    }
+    else if ( inPort_ == reportRadioModePort )
+    {
+      setRadioMode(((IntObj)data_).getValue());
+    }
+  }
 }

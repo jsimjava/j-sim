@@ -39,91 +39,91 @@ Accepts any type of Rspec.
  */
 public class scheduler_SCFQ extends drcl.intserv.Scheduler
 {
-	Queue pq = QueueAssistant.getBest(); // store packets w/ virtual start time
-	Vector vflow = new Vector(3, 3); // handle -> vparam
-	double V; // virtual time; ticks only when a packet departs in real time
-	
-	public scheduler_SCFQ()
-	{ super(); }
-	
-	public scheduler_SCFQ(String id_) 
-	{ super(id_); }
-	
-	public void reset() 
-	{
-		super.reset();
-		pq.reset();
-		vflow.removeAllElements();
-		V = 0.0;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof scheduler_SCFQ)) return;
-		super.duplicate(source_);
-		scheduler_SCFQ that_ = (scheduler_SCFQ)source_;
-	}
-	
-	protected void qosEnque(Packet p_, SpecR rspec_)
-	{
-		vparam vp_ = (vparam)vflow.elementAt(rspec_.handle);
-		if (vp_ == null) {
-			drcl.Debug.error(this, "no flow info is installed for " + p_);
-			return;
-		}
-		
-		double s_ = Math.max(vp_.F, V);
-		vp_.F = s_ + (double)p_.size / vp_.fei;
-		
-		pq.enqueue(vp_.F, p_);
+  Queue pq = QueueAssistant.getBest(); // store packets w/ virtual start time
+  Vector vflow = new Vector(3, 3); // handle -> vparam
+  double V; // virtual time; ticks only when a packet departs in real time
+  
+  public scheduler_SCFQ()
+  { super(); }
+  
+  public scheduler_SCFQ(String id_) 
+  { super(id_); }
+  
+  public void reset() 
+  {
+    super.reset();
+    pq.reset();
+    vflow.removeAllElements();
+    V = 0.0;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof scheduler_SCFQ)) return;
+    super.duplicate(source_);
+    scheduler_SCFQ that_ = (scheduler_SCFQ)source_;
+  }
+  
+  protected void qosEnque(Packet p_, SpecR rspec_)
+  {
+    vparam vp_ = (vparam)vflow.elementAt(rspec_.handle);
+    if (vp_ == null) {
+      drcl.Debug.error(this, "no flow info is installed for " + p_);
+      return;
+    }
+    
+    double s_ = Math.max(vp_.F, V);
+    vp_.F = s_ + (double)p_.size / vp_.fei;
+    
+    pq.enqueue(vp_.F, p_);
     }
 
-	protected Packet qosDeque()
-	{
-		if (pq.isEmpty()) return null;
-		// Note: (XX) can check if the packet's rspec still exists, but what the heck.
-		
-		// virtual clock ticks.
-		V = pq.firstKey(); 
-		return (Packet)pq.dequeue();
-	}
+  protected Packet qosDeque()
+  {
+    if (pq.isEmpty()) return null;
+    // Note: (XX) can check if the packet's rspec still exists, but what the heck.
+    
+    // virtual clock ticks.
+    V = pq.firstKey(); 
+    return (Packet)pq.dequeue();
+  }
 
-	
-	public synchronized int setFlowspec(int handle_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
-	{	
-		handle_ = super.setFlowspec(handle_, tos_, tosmask_, fspec_);
-		if (handle_ == -1) return -1;
-		vparam vp_ = new vparam(fspec_.rspec.getBW());
-		
-		// XX: should we discard the packets that are still queued and belong to the discarded flow?
-		if (vflow.size() <= handle_) vflow.setSize(handle_ + 1);
-		vflow.setElementAt(vp_, handle_);
-		return handle_;
-	}
+  
+  public synchronized int setFlowspec(int handle_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
+  {  
+    handle_ = super.setFlowspec(handle_, tos_, tosmask_, fspec_);
+    if (handle_ == -1) return -1;
+    vparam vp_ = new vparam(fspec_.rspec.getBW());
+    
+    // XX: should we discard the packets that are still queued and belong to the discarded flow?
+    if (vflow.size() <= handle_) vflow.setSize(handle_ + 1);
+    vflow.setElementAt(vp_, handle_);
+    return handle_;
+  }
 
-		
-	public synchronized SpecFlow removeFlowspec(int handle_)
-	{	
-		SpecFlow fspec_ = super.removeFlowspec(handle_);
-		if (fspec_ == null) return null;
-		
-		vparam vp_ = (vparam)vflow.elementAt(handle_);
-		vflow.setElementAt(null, handle_);
-		
-		// packets in the queue still get transmitted, see qosDeque()
-		return fspec_;
-	}
-	
-	// for keeping parameters of a flow under GPS
-	static class vparam extends drcl.DrclObj
-	{
-		double	F;				// virtual finishing time
-		int	fei;			// service share = rspec.getBW()
+    
+  public synchronized SpecFlow removeFlowspec(int handle_)
+  {  
+    SpecFlow fspec_ = super.removeFlowspec(handle_);
+    if (fspec_ == null) return null;
+    
+    vparam vp_ = (vparam)vflow.elementAt(handle_);
+    vflow.setElementAt(null, handle_);
+    
+    // packets in the queue still get transmitted, see qosDeque()
+    return fspec_;
+  }
+  
+  // for keeping parameters of a flow under GPS
+  static class vparam extends drcl.DrclObj
+  {
+    double  F;        // virtual finishing time
+    int  fei;      // service share = rspec.getBW()
 
-		vparam (int fei_)
-		{
-			F		= 0.0;
-			fei		= fei_;
-		}
-	}
+    vparam (int fei_)
+    {
+      F    = 0.0;
+      fei    = fei_;
+    }
+  }
 }

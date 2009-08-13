@@ -38,88 +38,88 @@ import drcl.comp.*;
  */
 public class TraceRT extends Component
 {
-	Port downPort = addPort("down");
-	Port outputPort = addPort("output");
+  Port downPort = addPort("down");
+  Port outputPort = addPort("output");
 
-	HashMap hsRequest = new HashMap(); // pending requests
+  HashMap hsRequest = new HashMap(); // pending requests
 
-	public TraceRT()
-	{ super(); }
-	
-	public TraceRT(String id_)
-	{ super(id_); }
+  public TraceRT()
+  { super(); }
+  
+  public TraceRT(String id_)
+  { super(id_); }
 
-	public void reset()
-	{
-		super.reset();
-		hsRequest.clear();
-	}
+  public void reset()
+  {
+    super.reset();
+    hsRequest.clear();
+  }
 
-	/** Initiates a trace-route with trace route packet of size 0.
-	 * @see #traceRoute(long, int) */
-	public void traceRoute(long destAddress_)
-	{ traceRoute(destAddress_, 0); }
+  /** Initiates a trace-route with trace route packet of size 0.
+   * @see #traceRoute(long, int) */
+  public void traceRoute(long destAddress_)
+  { traceRoute(destAddress_, 0); }
 
-	/** Starts a trace-route in a thread and prints result to stdout.
-	 * @see #traceRoute(long, int) */
-	public void traceRoute(final long destAddress_, final int pktSize_)
-	{
-		TraceRTPkt p = new TraceRTPkt(TraceRTPkt.RT_REQUEST, destAddress_,
-						pktSize_);
-		hsRequest.put(p, new Double(getTime()));
-		downPort.doSending(p);
-	}
+  /** Starts a trace-route in a thread and prints result to stdout.
+   * @see #traceRoute(long, int) */
+  public void traceRoute(final long destAddress_, final int pktSize_)
+  {
+    TraceRTPkt p = new TraceRTPkt(TraceRTPkt.RT_REQUEST, destAddress_,
+            pktSize_);
+    hsRequest.put(p, new Double(getTime()));
+    downPort.doSending(p);
+  }
 
-	protected void process(Object data_, Port inPort_) 
-	{
-		if (!(data_ instanceof TraceRTPkt)) {
-			debug("Dont know how to handle " + data_);
-			return;
-		}
+  protected void process(Object data_, Port inPort_) 
+  {
+    if (!(data_ instanceof TraceRTPkt)) {
+      debug("Dont know how to handle " + data_);
+      return;
+    }
 
-		TraceRTPkt p = (TraceRTPkt)data_;
-		if (p.getType() != TraceRTPkt.RT_RESPONSE) {
-			debug("Dont know how to handle " + data_);
-			return;
-		}
+    TraceRTPkt p = (TraceRTPkt)data_;
+    if (p.getType() != TraceRTPkt.RT_RESPONSE) {
+      debug("Dont know how to handle " + data_);
+      return;
+    }
 
-		Double time_ = (Double)hsRequest.remove(p);
-		if (time_ == null) {
-			debug("no pending request matches the response: " + p);
-			return;
-		}
+    Double time_ = (Double)hsRequest.remove(p);
+    if (time_ == null) {
+      debug("no pending request matches the response: " + p);
+      return;
+    }
 
-		Object[] hops_ = p.getList();
+    Object[] hops_ = p.getList();
 
-		if (hops_ == null || hops_.length == 0)
-			outputPort.doSending("Error: destination not reachable\n");
+    if (hops_ == null || hops_.length == 0)
+      outputPort.doSending("Error: destination not reachable\n");
 
-	 	// Every two elements in the array represent time (Double) and
-		// hop (address + incoming_if) for the corresponding hop
-		// along the route.
-		StringBuffer sb = new StringBuffer(); 
-		for (int i=0; i<hops_.length; i++) {
-			sb.append((i/2+1) + ": " + hops_[i+1] + "   "
-					+ (((Double)hops_[i]).doubleValue() - time_.doubleValue())
-					+ "\n");
-			i++;
-		}
-		outputPort.doSending(sb.toString());
-	}
+     // Every two elements in the array represent time (Double) and
+    // hop (address + incoming_if) for the corresponding hop
+    // along the route.
+    StringBuffer sb = new StringBuffer(); 
+    for (int i=0; i<hops_.length; i++) {
+      sb.append((i/2+1) + ": " + hops_[i+1] + "   "
+          + (((Double)hops_[i]).doubleValue() - time_.doubleValue())
+          + "\n");
+      i++;
+    }
+    outputPort.doSending(sb.toString());
+  }
 
-	public String info()
-	{
-		if (hsRequest.isEmpty())
-			return "No pending request.\n";
-		else {
-			StringBuffer sb = new StringBuffer("Pending Requests:\n");
+  public String info()
+  {
+    if (hsRequest.isEmpty())
+      return "No pending request.\n";
+    else {
+      StringBuffer sb = new StringBuffer("Pending Requests:\n");
 
-			for (Iterator it_=hsRequest.keySet().iterator(); it_.hasNext(); ) {
-				Object pkt_ = it_.next();
-				Object time_ = hsRequest.get(pkt_);
-				sb.append("    " + time_ + ": " + pkt_ + "\n");
-			}
-			return sb.toString();
-		}
-	}
+      for (Iterator it_=hsRequest.keySet().iterator(); it_.hasNext(); ) {
+        Object pkt_ = it_.next();
+        Object time_ = hsRequest.get(pkt_);
+        sb.append("    " + time_ + ": " + pkt_ + "\n");
+      }
+      return sb.toString();
+    }
+  }
 }

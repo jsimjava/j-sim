@@ -37,180 +37,180 @@ package drcl.inet.data;
  */
 public class RTEntry extends drcl.DrclObj
 {
-	public drcl.comp.ACATimer handle; // for timeout
+  public drcl.comp.ACATimer handle; // for timeout
 
-	public RTEntry (drcl.data.BitSet bsOutIf_) 
-	{
-		bsOutIf = bsOutIf_;
-	}
-		
-	public RTEntry (drcl.data.BitSet bsOutIf_, Object extension_) 
-	{
-		bsOutIf = bsOutIf_;
-		extension = extension_;
-	}
-		
-	public RTEntry (RTKey key_, drcl.data.BitSet bsOutIf_, Object extension_,
-								 double timeout_) 
-	{
-		key = key_;
-		bsOutIf = bsOutIf_;
-		extension = extension_;
-		timeout = timeout_;
-	}
-		
-	public RTEntry (long nexthop_, drcl.data.BitSet bsOutIf_) 
-	{
-		nextHop = nexthop_;
-		bsOutIf = bsOutIf_;
-	}
-		
-	public RTEntry (long nexthop_, drcl.data.BitSet bsOutIf_, Object extension_) 
-	{
-		nextHop = nexthop_;
-		bsOutIf = bsOutIf_;
-		extension = extension_;
-	}
-		
-	public RTEntry (RTKey key_, long nexthop_, drcl.data.BitSet bsOutIf_,
-								 Object extension_, double timeout_) 
-	{
-		nextHop = nexthop_;
-		key = key_;
-		bsOutIf = bsOutIf_;
-		extension = extension_;
-		timeout = timeout_;
-	}
-		
-	RTKey  key;
-	long nextHop = drcl.net.Address.NULL_ADDR;
-	drcl.data.BitSet bsOutIf; // interfaces
-	int[]  outIf   = null; // cache to bsOutIf.getSetBitIndices()
-	Object extension; // additional information, 
-	double timeout; // absolute time
+  public RTEntry (drcl.data.BitSet bsOutIf_) 
+  {
+    bsOutIf = bsOutIf_;
+  }
+    
+  public RTEntry (drcl.data.BitSet bsOutIf_, Object extension_) 
+  {
+    bsOutIf = bsOutIf_;
+    extension = extension_;
+  }
+    
+  public RTEntry (RTKey key_, drcl.data.BitSet bsOutIf_, Object extension_,
+                 double timeout_) 
+  {
+    key = key_;
+    bsOutIf = bsOutIf_;
+    extension = extension_;
+    timeout = timeout_;
+  }
+    
+  public RTEntry (long nexthop_, drcl.data.BitSet bsOutIf_) 
+  {
+    nextHop = nexthop_;
+    bsOutIf = bsOutIf_;
+  }
+    
+  public RTEntry (long nexthop_, drcl.data.BitSet bsOutIf_, Object extension_) 
+  {
+    nextHop = nexthop_;
+    bsOutIf = bsOutIf_;
+    extension = extension_;
+  }
+    
+  public RTEntry (RTKey key_, long nexthop_, drcl.data.BitSet bsOutIf_,
+                 Object extension_, double timeout_) 
+  {
+    nextHop = nexthop_;
+    key = key_;
+    bsOutIf = bsOutIf_;
+    extension = extension_;
+    timeout = timeout_;
+  }
+    
+  RTKey  key;
+  long nextHop = drcl.net.Address.NULL_ADDR;
+  drcl.data.BitSet bsOutIf; // interfaces
+  int[]  outIf   = null; // cache to bsOutIf.getSetBitIndices()
+  Object extension; // additional information, 
+  double timeout; // absolute time
 
-	public RTEntry()
-	{}
-		
-	public void duplicate(Object source_)
-	{
-		RTEntry that_ = (RTEntry)source_;
-		key = (RTKey)that_.key;
-		if (that_.outIf != null) {
-			outIf = new int[that_.outIf.length];
-			for (int i=0; i<outIf.length; i++) outIf[i] = that_.outIf[i];
-		}
-		extension = drcl.util.ObjectUtil.clone(that_.extension);
-		bsOutIf = (drcl.data.BitSet) drcl.util.ObjectUtil.clone(that_.bsOutIf);
-		nextHop = that_.nextHop;
-		timeout = that_.timeout;
-	}
-		
-	public void setKey(RTKey k)
-	{ key = k; }
-	
-	public RTKey getKey()
-	{ return key; }
-	
-	public void setNextHop(long nexthop_)
-	{ nextHop = nexthop_; }
-	
-	public long getNextHop()
-	{ return nextHop; }
-			
-	/**
-	 * Returns the bit set of interfaces.
-	 * An unset bit indicates that the corresponding interface is pruned.
-	 */
-	public drcl.data.BitSet getOutIf()
-	{ return bsOutIf; }
+  public RTEntry()
+  {}
+    
+  public void duplicate(Object source_)
+  {
+    RTEntry that_ = (RTEntry)source_;
+    key = (RTKey)that_.key;
+    if (that_.outIf != null) {
+      outIf = new int[that_.outIf.length];
+      for (int i=0; i<outIf.length; i++) outIf[i] = that_.outIf[i];
+    }
+    extension = drcl.util.ObjectUtil.clone(that_.extension);
+    bsOutIf = (drcl.data.BitSet) drcl.util.ObjectUtil.clone(that_.bsOutIf);
+    nextHop = that_.nextHop;
+    timeout = that_.timeout;
+  }
+    
+  public void setKey(RTKey k)
+  { key = k; }
+  
+  public RTKey getKey()
+  { return key; }
+  
+  public void setNextHop(long nexthop_)
+  { nextHop = nexthop_; }
+  
+  public long getNextHop()
+  { return nextHop; }
+      
+  /**
+   * Returns the bit set of interfaces.
+   * An unset bit indicates that the corresponding interface is pruned.
+   */
+  public drcl.data.BitSet getOutIf()
+  { return bsOutIf; }
 
-	/**
-	 * Returns the (grafted) outgoing interfaces.
-	 */
-	public int[] _getOutIfs()
-	{
-		if (outIf == null) {
-			return bsOutIf == null? null: bsOutIf.getSetBitIndices();
-		}
-		return outIf;
-	}
+  /**
+   * Returns the (grafted) outgoing interfaces.
+   */
+  public int[] _getOutIfs()
+  {
+    if (outIf == null) {
+      return bsOutIf == null? null: bsOutIf.getSetBitIndices();
+    }
+    return outIf;
+  }
 
-	/**
-	 * Sets the outgoing interfaces by a bit set.
-	 * One bit corresponds to one interface.
-	 * A bit set (true) indicates a grafted interface.
-	 * An unset bit indicates a pruned interface.
-	 */
-	public void setOutIf(drcl.data.BitSet outIf) 
-	{ 
-		bsOutIf = outIf; 
-		outIf   = null;
-	}
+  /**
+   * Sets the outgoing interfaces by a bit set.
+   * One bit corresponds to one interface.
+   * A bit set (true) indicates a grafted interface.
+   * An unset bit indicates a pruned interface.
+   */
+  public void setOutIf(drcl.data.BitSet outIf) 
+  { 
+    bsOutIf = outIf; 
+    outIf   = null;
+  }
 
-	/**
-	 * Prunes the specified interface.
-	 *
-	 * @param whichIf index of the interface that's got pruned.
-	 */
-	public boolean prune(int whichIf)
-	{
-		boolean routechange = bsOutIf.get(whichIf);
-		bsOutIf.clear(whichIf);
-		outIf = null;
-		return routechange;
-	}
+  /**
+   * Prunes the specified interface.
+   *
+   * @param whichIf index of the interface that's got pruned.
+   */
+  public boolean prune(int whichIf)
+  {
+    boolean routechange = bsOutIf.get(whichIf);
+    bsOutIf.clear(whichIf);
+    outIf = null;
+    return routechange;
+  }
 
-	/**
-	 * Grafts the specified interface.
-	 *
-	 * @param whichIf index of the interface that's got grafted.
-	 */
-	public boolean graft(int whichIf)
-	{
-		boolean routechange = !bsOutIf.get(whichIf);
-		bsOutIf.set(whichIf);
-		outIf = null;
-		return routechange;
-	}
+  /**
+   * Grafts the specified interface.
+   *
+   * @param whichIf index of the interface that's got grafted.
+   */
+  public boolean graft(int whichIf)
+  {
+    boolean routechange = !bsOutIf.get(whichIf);
+    bsOutIf.set(whichIf);
+    outIf = null;
+    return routechange;
+  }
 
-	/**
-	 * Returns the prune state of the specified interface.
-	 */
-	public boolean isPruned(int whichIf)
-	{
-		return !bsOutIf.get(whichIf);
-	}
-		
-	public void setExtension(Object ex_)
-	{ extension = ex_; }
-		
-	public Object getExtension()
-	{ return extension; }
-	
-	public double _getTimeout()
-	{ return timeout; }
-	
-	public void _setTimeout(double t_)
-	{ timeout = t_; }
-		
-	public String toString()
-	{ return toString(""); }
-		
-	public String toString(String prefix)
-	{	return prefix + key + ":"
-			   + (nextHop == drcl.net.Address.NULL_ADDR? "??": nextHop+"")
-			   + "-" + bsOutIf + "-" + extension + "-" + timeout;	}
-	
-	public boolean equals(Object o_)
-	{
-		if (o_ == this) return true;
-		if (!(o_ instanceof RTEntry)) return false;
-		RTEntry that_ = (RTEntry)o_;
-		if (!drcl.util.ObjectUtil.equals(key, that_.key)) return false;
-		if (!drcl.util.ObjectUtil.equals(bsOutIf, that_.bsOutIf)) return false;
-		if (!drcl.util.ObjectUtil.equals(extension, that_.extension)) return false;
-		if (Double.isNaN(timeout) && Double.isNaN(that_.timeout)) return true;
-		return timeout == that_.timeout;
-	}
+  /**
+   * Returns the prune state of the specified interface.
+   */
+  public boolean isPruned(int whichIf)
+  {
+    return !bsOutIf.get(whichIf);
+  }
+    
+  public void setExtension(Object ex_)
+  { extension = ex_; }
+    
+  public Object getExtension()
+  { return extension; }
+  
+  public double _getTimeout()
+  { return timeout; }
+  
+  public void _setTimeout(double t_)
+  { timeout = t_; }
+    
+  public String toString()
+  { return toString(""); }
+    
+  public String toString(String prefix)
+  {  return prefix + key + ":"
+         + (nextHop == drcl.net.Address.NULL_ADDR? "??": nextHop+"")
+         + "-" + bsOutIf + "-" + extension + "-" + timeout;  }
+  
+  public boolean equals(Object o_)
+  {
+    if (o_ == this) return true;
+    if (!(o_ instanceof RTEntry)) return false;
+    RTEntry that_ = (RTEntry)o_;
+    if (!drcl.util.ObjectUtil.equals(key, that_.key)) return false;
+    if (!drcl.util.ObjectUtil.equals(bsOutIf, that_.bsOutIf)) return false;
+    if (!drcl.util.ObjectUtil.equals(extension, that_.extension)) return false;
+    if (Double.isNaN(timeout) && Double.isNaN(that_.timeout)) return true;
+    return timeout == that_.timeout;
+  }
 }

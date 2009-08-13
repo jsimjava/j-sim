@@ -34,48 +34,48 @@ import java.io.PrintStream;
  * and error messages. */
 public class Debug
 {
-	static String BUG_REPORT_EMAIL = "j-sim@cs.uiuc.edu";
-	
-	/** Outputs an error message and exits the program. */
-	public static void fatalError(String msg_)
-	{
-		msg_ += "\nProgram exits.";
-		error(null, msg_, true);
-	}
-	
-	/** Outputs a system-error message and exits the program. */
-	public static void systemFatalError(String msg_)
-	{
-		msg_ += "\nPlease report the bug to " + BUG_REPORT_EMAIL
-				+ ".\nProgram exits.";
-		error(null, msg_, true);
-	}
-	
-	/** Outputs an error message. */
-	public static void error(Object msg_)
-	{ error(null, msg_, false); }
-	
-	/** Outputs an error message. */
-	public static void error(Object where_, Object msg_)
-	{ error(where_, msg_, false); }
-	
-	/** Outputs an error message.
-	@param exit_ true to exit the program after printing out the message. */
-	public static void error(Object msg_, boolean exit_)
-	{ error(null, msg_, exit_); }
-	
-	/** Outputs an error message.
-	@param exit_ true to exit the program after printing out the message. */
-	public static void error(Object where_, Object msg_, boolean exit_)
-	{
-		String s_ = (where_ == null? "": where_ + "| ") + msg_ + "\n";
-		debug(s_);
-		if (exit_) System.exit(1);
-	}
+  static String BUG_REPORT_EMAIL = "j-sim@cs.uiuc.edu";
+  
+  /** Outputs an error message and exits the program. */
+  public static void fatalError(String msg_)
+  {
+    msg_ += "\nProgram exits.";
+    error(null, msg_, true);
+  }
+  
+  /** Outputs a system-error message and exits the program. */
+  public static void systemFatalError(String msg_)
+  {
+    msg_ += "\nPlease report the bug to " + BUG_REPORT_EMAIL
+        + ".\nProgram exits.";
+    error(null, msg_, true);
+  }
+  
+  /** Outputs an error message. */
+  public static void error(Object msg_)
+  { error(null, msg_, false); }
+  
+  /** Outputs an error message. */
+  public static void error(Object where_, Object msg_)
+  { error(where_, msg_, false); }
+  
+  /** Outputs an error message.
+  @param exit_ true to exit the program after printing out the message. */
+  public static void error(Object msg_, boolean exit_)
+  { error(null, msg_, exit_); }
+  
+  /** Outputs an error message.
+  @param exit_ true to exit the program after printing out the message. */
+  public static void error(Object where_, Object msg_, boolean exit_)
+  {
+    String s_ = (where_ == null? "": where_ + "| ") + msg_ + "\n";
+    debug(s_);
+    if (exit_) System.exit(1);
+  }
 
-	/** Outputs a debug message. */
-	public static void debug(String msg_)
-	{
-		System.err.print(msg_);
-	}
+  /** Outputs a debug message. */
+  public static void debug(String msg_)
+  {
+    System.err.print(msg_);
+  }
 }

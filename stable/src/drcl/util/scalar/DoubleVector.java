@@ -33,46 +33,46 @@ import drcl.Debug;
 
 public class DoubleVector extends Vector implements java.io.Serializable
 {
-	public DoubleVector() { super(); }
-	public DoubleVector(int initSize_) { super(initSize_); }
-	
-	public double getValueAt(int i) 
-	{ 
-		if (i<this.size()) return ((Double)elementAt(i)).doubleValue(); 
-		else 
-			Debug.error(this, "DoubleVector: Array index out of bound. size="+size()+", index="+i);
-		
-		return Double.NaN;
-	}
+  public DoubleVector() { super(); }
+  public DoubleVector(int initSize_) { super(initSize_); }
+  
+  public double getValueAt(int i) 
+  { 
+    if (i<this.size()) return ((Double)elementAt(i)).doubleValue(); 
+    else 
+      Debug.error(this, "DoubleVector: Array index out of bound. size="+size()+", index="+i);
+    
+    return Double.NaN;
+  }
 
-	public void addValue(double d) 
-	{ 
-		addElement(new Double(d)); 
-	}
+  public void addValue(double d) 
+  { 
+    addElement(new Double(d)); 
+  }
 
-	public void insertValueAt (double d, int index) 
-	{
-		insertElementAt(new Double(d), index);
-	}
+  public void insertValueAt (double d, int index) 
+  {
+    insertElementAt(new Double(d), index);
+  }
 
-	public void setValueAt(double value, int i) 
-	{
-		Double d = new Double(value);
-		if (i>=size()) this.setSize(i+1);
-		setElementAt(d, i);
-	}
-	
-	public void duplicate(Object source_)
-	{
-		DoubleVector that_ = (DoubleVector)source_;
-		for (int i=0; i<that_.size(); i++)
-			addElement(new Double(that_.getValueAt(i)));
-	}
-	
-	public Object clone()
-	{
-		DoubleVector that_ = new DoubleVector(this.size());
-		that_.duplicate(this);
-		return that_;
-	}
+  public void setValueAt(double value, int i) 
+  {
+    Double d = new Double(value);
+    if (i>=size()) this.setSize(i+1);
+    setElementAt(d, i);
+  }
+  
+  public void duplicate(Object source_)
+  {
+    DoubleVector that_ = (DoubleVector)source_;
+    for (int i=0; i<that_.size(); i++)
+      addElement(new Double(that_.getValueAt(i)));
+  }
+  
+  public Object clone()
+  {
+    DoubleVector that_ = new DoubleVector(this.size());
+    that_.duplicate(this);
+    return that_;
+  }
 }

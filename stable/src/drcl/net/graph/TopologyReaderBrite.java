@@ -33,75 +33,75 @@ import java.util.regex.Pattern;
 
 public class TopologyReaderBrite extends TopologyReader
 {
-	static boolean DEBUG = false;
-	String parameter = null;
+  static boolean DEBUG = false;
+  String parameter = null;
 
-	public String parameter()
-	{ return parameter; }
+  public String parameter()
+  { return parameter; }
 
-	public void parse(Reader r_) throws Exception
-	{
-		BufferedReader r = new BufferedReader(r_);
+  public void parse(Reader r_) throws Exception
+  {
+    BufferedReader r = new BufferedReader(r_);
 
-		StringBuffer sbParameter = new StringBuffer();
-		String line_ = null;
-		while (true) {
-			line_ = r.readLine();
-			if (line_.trim().length() == 0) continue;
-			if (line_.startsWith("Nodes:")) break;
-			sbParameter.append(line_ + "\n");
-		}
-		parameter = sbParameter.toString();
+    StringBuffer sbParameter = new StringBuffer();
+    String line_ = null;
+    while (true) {
+      line_ = r.readLine();
+      if (line_.trim().length() == 0) continue;
+      if (line_.startsWith("Nodes:")) break;
+      sbParameter.append(line_ + "\n");
+    }
+    parameter = sbParameter.toString();
 
-		// read nodes
-		try {
-		Pattern pattern_ = Pattern.compile("[ \t]");
-		int end_ = line_.indexOf(")");
-		nodes = new Node[Integer.parseInt(line_.substring(8, end_).trim())];
-			// "Nodes: (###)"
-		if (DEBUG)
-			System.out.println(nodes.length + " nodes to be read....");
-		for (int i=0; i<nodes.length; i++) {
-			while (true) {
-				line_ = r.readLine();
-				if (line_.trim().length() > 0) break;
-			}
-			String[] ll_ = pattern_.split(line_);
-			double x = Double.valueOf(ll_[1]).doubleValue();
-			double y = Double.valueOf(ll_[2]).doubleValue();
-			// suppose index to be from 0
-			nodes[i] = new Node(i, x, y);
-		}
+    // read nodes
+    try {
+    Pattern pattern_ = Pattern.compile("[ \t]");
+    int end_ = line_.indexOf(")");
+    nodes = new Node[Integer.parseInt(line_.substring(8, end_).trim())];
+      // "Nodes: (###)"
+    if (DEBUG)
+      System.out.println(nodes.length + " nodes to be read....");
+    for (int i=0; i<nodes.length; i++) {
+      while (true) {
+        line_ = r.readLine();
+        if (line_.trim().length() > 0) break;
+      }
+      String[] ll_ = pattern_.split(line_);
+      double x = Double.valueOf(ll_[1]).doubleValue();
+      double y = Double.valueOf(ll_[2]).doubleValue();
+      // suppose index to be from 0
+      nodes[i] = new Node(i, x, y);
+    }
 
-		// skip empty lines
-		while (true) {
-			line_ = r.readLine().trim();
-			if (line_.length() > 0) break;
-		}
+    // skip empty lines
+    while (true) {
+      line_ = r.readLine().trim();
+      if (line_.length() > 0) break;
+    }
 
-		// read lines
-		end_ = line_.indexOf(")");
-		links = new Link[Integer.parseInt(line_.substring(8, end_).trim())];
-			// "Edges: (###):"
-		if (DEBUG)
-			System.out.println(links.length + " links to be read....");
-		for (int i=0; i<links.length; i++) {
-			while (true) {
-				line_ = r.readLine();
-				if (line_.trim().length() > 0) break;
-			}
-			String[] ll_ = pattern_.split(line_);
-			int i1 = Integer.parseInt(ll_[1]);
-			int i2 = Integer.parseInt(ll_[2]);
-			// suppose from 0
-			links[i] = new Link(i, nodes[i1], nodes[i2]);
-		}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			System.err.println(parameter);
-			System.err.println("Line: " + line_);
-			System.exit(1);
-		}
-	}
+    // read lines
+    end_ = line_.indexOf(")");
+    links = new Link[Integer.parseInt(line_.substring(8, end_).trim())];
+      // "Edges: (###):"
+    if (DEBUG)
+      System.out.println(links.length + " links to be read....");
+    for (int i=0; i<links.length; i++) {
+      while (true) {
+        line_ = r.readLine();
+        if (line_.trim().length() > 0) break;
+      }
+      String[] ll_ = pattern_.split(line_);
+      int i1 = Integer.parseInt(ll_[1]);
+      int i2 = Integer.parseInt(ll_[2]);
+      // suppose from 0
+      links[i] = new Link(i, nodes[i1], nodes[i2]);
+    }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      System.err.println(parameter);
+      System.err.println("Line: " + line_);
+      System.exit(1);
+    }
+  }
 }

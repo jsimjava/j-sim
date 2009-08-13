@@ -67,58 +67,58 @@ import drcl.comp.Contract;
  */
 public class DoubleEventContract extends Contract
 {
-	public static final DoubleEventContract INSTANCE = new DoubleEventContract();
+  public static final DoubleEventContract INSTANCE = new DoubleEventContract();
  
-	public String getName()
-	{ return "ACA Double Event Message Format"; }
+  public String getName()
+  { return "ACA Double Event Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
-	
-	public static class Message extends ComponentMessage
-	{
-		double time;
-		String evtName;
-		double event;
-		String portPath;
-		Object description;
+  public Object getContractContent()
+  { return null; }
+  
+  public static class Message extends ComponentMessage
+  {
+    double time;
+    String evtName;
+    double event;
+    String portPath;
+    Object description;
 
-		public Message (double time_, String evtName_, String portPath_, 
-			double event_, Object description_)
-		{
-			time = time_;
-			portPath = portPath_;
-			evtName = evtName_;
-			event = event_;
-			description = description_;
-		}
-	
-		public double getTime()
-		{ return time; }
-	
-		public String getPortPath()
-		{ return portPath; }
-	
-		public String getEventName()
-		{ return evtName; }
-	
-		public double getValue()
-		{ return event; }
-	
-		public Object getDescription()
-		{ return description; }
+    public Message (double time_, String evtName_, String portPath_, 
+      double event_, Object description_)
+    {
+      time = time_;
+      portPath = portPath_;
+      evtName = evtName_;
+      event = event_;
+      description = description_;
+    }
+  
+    public double getTime()
+    { return time; }
+  
+    public String getPortPath()
+    { return portPath; }
+  
+    public String getEventName()
+    { return evtName; }
+  
+    public double getValue()
+    { return event; }
+  
+    public Object getDescription()
+    { return description; }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{ return new Message(time, evtName, portPath, event, description); }
+    public Object clone()
+    { return new Message(time, evtName, portPath, event, description); }
 
-		public String toString(String separator_)
-		{
-			return "EVENT" + separator_ + time + separator_ + portPath + separator_
-				+ evtName + separator_ + event
-				+ (description == null? "": separator_ + description);
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "EVENT" + separator_ + time + separator_ + portPath + separator_
+        + evtName + separator_ + event
+        + (description == null? "": separator_ + description);
+    }
+  }
 }

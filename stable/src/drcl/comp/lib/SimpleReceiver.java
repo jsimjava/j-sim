@@ -35,12 +35,12 @@ import drcl.comp.*;
  */
 public class SimpleReceiver extends Extension
 {
-	public SimpleReceiver() { super(); }
-	
-	public SimpleReceiver(String id_) { super(id_); }
-	
-	protected void process(Object data_, Port inPort_) 
-	{
-		System.out.println(inPort_ + ": " + data_);
-	}
+  public SimpleReceiver() { super(); }
+  
+  public SimpleReceiver(String id_) { super(id_); }
+  
+  protected void process(Object data_, Port inPort_) 
+  {
+    System.out.println(inPort_ + ": " + data_);
+  }
 }

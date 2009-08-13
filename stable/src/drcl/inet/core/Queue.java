@@ -32,70 +32,70 @@ import drcl.comp.*;
 
 public abstract class Queue extends drcl.comp.queue.ActiveQueue implements InetCoreConstants
 {
-	{
-		// input port, follows PktFilter
-		addPort(new Port(Port.PortType_IN), drcl.net.Module.PortGroup_UP);
-		_setRequesting(true);
-	}
-	
-	public Queue()
-	{ super(); }
-	
-	public Queue(String id_)
-	{ super(id_); }
-	
-	
-	public void reset()
-	{
-		super.reset();
-		_setRequesting(true);
-	}
-	
-	public String info(String prefix_)
-	{
-		return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass()) + ", in " + mode + " mode" + "\n"
-			+ super.info(prefix_)
-			+ prefix_ + "Blocked? " + !_isRequesting() + "\n";
-	}
-		
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		Queue that_ = (Queue)source_;
-		mode = that_.mode;
-	}
-	
-	/** For a subclass to create the configuration port for other components to configure this component. */
-	protected Port createConfigPort()
-	{ return addServerPort(CONFIG_PORT_ID); }
+  {
+    // input port, follows PktFilter
+    addPort(new Port(Port.PortType_IN), drcl.net.Module.PortGroup_UP);
+    _setRequesting(true);
+  }
+  
+  public Queue()
+  { super(); }
+  
+  public Queue(String id_)
+  { super(id_); }
+  
+  
+  public void reset()
+  {
+    super.reset();
+    _setRequesting(true);
+  }
+  
+  public String info(String prefix_)
+  {
+    return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass()) + ", in " + mode + " mode" + "\n"
+      + super.info(prefix_)
+      + prefix_ + "Blocked? " + !_isRequesting() + "\n";
+  }
+    
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    Queue that_ = (Queue)source_;
+    mode = that_.mode;
+  }
+  
+  /** For a subclass to create the configuration port for other components to configure this component. */
+  protected Port createConfigPort()
+  { return addServerPort(CONFIG_PORT_ID); }
 
-	/**
-	 * Sets the capacity (in bytes) of the queue.
-	 * @param capacity_ the new capacity.
-	 */
-	public abstract void setCapacity(int capacity_);
-	
-	/** Returns the capacity of the queue. */
-	public abstract int getCapacity();
-	
-	/** Returns the current size of the queue.  */
-	public abstract int getSize();
+  /**
+   * Sets the capacity (in bytes) of the queue.
+   * @param capacity_ the new capacity.
+   */
+  public abstract void setCapacity(int capacity_);
+  
+  /** Returns the capacity of the queue. */
+  public abstract int getCapacity();
+  
+  /** Returns the current size of the queue.  */
+  public abstract int getSize();
 
-	String mode = BYTE_MODE;
-	
-	/**
-	 * Sets the operation mode. Byte mode is the default mode.
-	 * @param mode_ either "packet" or "byte".
-	 */
-	public void setMode(String mode_)
-	{ mode = mode_; }
-	
-	public String getMode()
-	{ return mode; }
-	
-	protected final boolean isByteMode()
-	{ return mode.equals(BYTE_MODE); }
-	
-	protected final boolean isPacketMode()
-	{ return mode.equals(PACKET_MODE); }
+  String mode = BYTE_MODE;
+  
+  /**
+   * Sets the operation mode. Byte mode is the default mode.
+   * @param mode_ either "packet" or "byte".
+   */
+  public void setMode(String mode_)
+  { mode = mode_; }
+  
+  public String getMode()
+  { return mode; }
+  
+  protected final boolean isByteMode()
+  { return mode.equals(BYTE_MODE); }
+  
+  protected final boolean isPacketMode()
+  { return mode.equals(PACKET_MODE); }
 }

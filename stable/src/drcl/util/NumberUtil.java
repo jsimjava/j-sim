@@ -30,19 +30,19 @@ package drcl.util;
 
 public class NumberUtil
 {
-	public static int[] toNumbers(char[] array_)
-	{
-		int[] new_ = new int[array_.length];
-		for (int i=0; i<new_.length; i++)
-			new_[i] = (int)array_[i] & 0x0FFFF;
-		return new_;
-	}
-	
-	public static int[] toNumbers(byte[] array_)
-	{
-		int[] new_ = new int[array_.length];
-		for (int i=0; i<new_.length; i++)
-			new_[i] = (int)array_[i] & 0x0FF;
-		return new_;
-	}
+  public static int[] toNumbers(char[] array_)
+  {
+    int[] new_ = new int[array_.length];
+    for (int i=0; i<new_.length; i++)
+      new_[i] = (int)array_[i] & 0x0FFFF;
+    return new_;
+  }
+  
+  public static int[] toNumbers(byte[] array_)
+  {
+    int[] new_ = new int[array_.length];
+    for (int i=0; i<new_.length; i++)
+      new_[i] = (int)array_[i] & 0x0FF;
+    return new_;
+  }
 }

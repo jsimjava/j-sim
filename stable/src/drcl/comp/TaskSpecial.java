@@ -33,93 +33,93 @@ package drcl.comp;
  */
 public class TaskSpecial extends Task
 {
-	int type;
+  int type;
 
-	/** Creates a notify/runnable task to be executed at the specified time. */
-	public TaskSpecial (Object data_, int type_, double time_)
-	{
-		data = data_;
-		type = type_;
-		time = time_;
-	}
+  /** Creates a notify/runnable task to be executed at the specified time. */
+  public TaskSpecial (Object data_, int type_, double time_)
+  {
+    data = data_;
+    type = type_;
+    time = time_;
+  }
 
-	/** Creates a runnable task to be executed at the specified time
-	 * in the specified thread group. */
-	public TaskSpecial (Runnable runnable_, int type_, double time_,
-					ThreadGroup threadGroup_)
-	{
-		this(runnable_, type_, time_);
-		threadGroup = threadGroup_;
-	}
-	
-	/** Creates a start/stop/resume task to be executed at the specified time. */
-	public TaskSpecial (Port port_, int type_, double time_)
-	{
-		port = port_;
-		type = type_;
-		time = time_;
-	}
+  /** Creates a runnable task to be executed at the specified time
+   * in the specified thread group. */
+  public TaskSpecial (Runnable runnable_, int type_, double time_,
+          ThreadGroup threadGroup_)
+  {
+    this(runnable_, type_, time_);
+    threadGroup = threadGroup_;
+  }
+  
+  /** Creates a start/stop/resume task to be executed at the specified time. */
+  public TaskSpecial (Port port_, int type_, double time_)
+  {
+    port = port_;
+    type = type_;
+    time = time_;
+  }
 
-	/** Creates a notify/runnable task to be executed at the specified time. */
-	public TaskSpecial (Port port_, Object data_, int type_, double time_)
-	{
-		port = port_;
-		data = data_;
-		type = type_;
-		time = time_;
-	}
+  /** Creates a notify/runnable task to be executed at the specified time. */
+  public TaskSpecial (Port port_, Object data_, int type_, double time_)
+  {
+    port = port_;
+    data = data_;
+    type = type_;
+    time = time_;
+  }
 
-	public final static String printType(int type_)
-	{
-		switch (type_) {
-		case TYPE_START: return "START";
-		case TYPE_STOP: return "STOP";
-		case TYPE_RESUME: return "RESUME";
-		case TYPE_RUNNABLE: return "RUNNABLE";
-		default:
-			return "unknown";
-		}
-	}
-		
-	public final String toString()
-	{
-		return printType(type) + ":" + port + ","
-			+ drcl.util.StringUtil.toString(data) + ",time:" + time;
-	}
+  public final static String printType(int type_)
+  {
+    switch (type_) {
+    case TYPE_START: return "START";
+    case TYPE_STOP: return "STOP";
+    case TYPE_RESUME: return "RESUME";
+    case TYPE_RUNNABLE: return "RUNNABLE";
+    default:
+      return "unknown";
+    }
+  }
+    
+  public final String toString()
+  {
+    return printType(type) + ":" + port + ","
+      + drcl.util.StringUtil.toString(data) + ",time:" + time;
+  }
 
-	public void execute(WorkerThread thread_)
-	{
-		switch (type) {
-		case TYPE_RUNNABLE:
-			((Runnable)data).run();
-			break;
-		case TYPE_START:
-			synchronized (thread_) { thread_.totalNumEvents++; }
-			if (!port.host.isStarted() || port.host instanceof RestartableComponent) {
-				port.host.setStarted(true);
-				port.host._start();
-				thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
-			}
-			break;
-		case TYPE_STOP:
-			synchronized (thread_) { thread_.totalNumEvents++; }
-			if (port.host.isStarted() && !port.host.isStopped()) {
-				port.host.setStopped(true);
-				port.host._stop();
-				thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
-			}
-			break;
-		case TYPE_RESUME:
-			//System.out.println(mainContext.data + " " + mainContext.port.host);
-			synchronized (thread_) { thread_.totalNumEvents++; }
-			if (port.host.isStarted() && port.host.isStopped()) {
-				port.host.setStopped(false);
-				port.host._resume();
-				thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
-			}
-			break;
-		default:
-			drcl.Debug.error("unknown task: " + this);
-		}
-	}
+  public void execute(WorkerThread thread_)
+  {
+    switch (type) {
+    case TYPE_RUNNABLE:
+      ((Runnable)data).run();
+      break;
+    case TYPE_START:
+      synchronized (thread_) { thread_.totalNumEvents++; }
+      if (!port.host.isStarted() || port.host instanceof RestartableComponent) {
+        port.host.setStarted(true);
+        port.host._start();
+        thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
+      }
+      break;
+    case TYPE_STOP:
+      synchronized (thread_) { thread_.totalNumEvents++; }
+      if (port.host.isStarted() && !port.host.isStopped()) {
+        port.host.setStopped(true);
+        port.host._stop();
+        thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
+      }
+      break;
+    case TYPE_RESUME:
+      //System.out.println(mainContext.data + " " + mainContext.port.host);
+      synchronized (thread_) { thread_.totalNumEvents++; }
+      if (port.host.isStarted() && port.host.isStopped()) {
+        port.host.setStopped(false);
+        port.host._resume();
+        thread_.releaseAllLocks(port.host); // Don't hold locks across executions!
+      }
+      break;
+    default:
+      drcl.Debug.error("unknown task: " + this);
+    }
+  }
 }

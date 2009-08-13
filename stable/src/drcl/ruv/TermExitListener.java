@@ -30,5 +30,5 @@ package drcl.ruv;
 
 interface TermExitListener
 {
-	void termExit(Term which_, String exitOrQuit_);
+  void termExit(Term which_, String exitOrQuit_);
 }

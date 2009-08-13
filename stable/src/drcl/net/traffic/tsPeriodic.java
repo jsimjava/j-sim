@@ -38,75 +38,75 @@ import drcl.util.queue.*;
  */
 public class tsPeriodic extends TrafficShaper
 {
-	double pend; // end of the current period
-	int remaining; // in this period
-	traffic_Periodic traffic = null;
+  double pend; // end of the current period
+  int remaining; // in this period
+  traffic_Periodic traffic = null;
 
-	public tsPeriodic()
-	{ this(new traffic_Periodic()); }
-	
-	public tsPeriodic(traffic_Periodic traffic_)
-	{ super(); traffic = traffic_; reset(); }
-	
-	public void reset()
-	{
-		super.reset();
-		if (traffic != null) {
-			pend = traffic.P;
-			remaining = traffic.C;
-		}
-	}
+  public tsPeriodic()
+  { this(new traffic_Periodic()); }
+  
+  public tsPeriodic(traffic_Periodic traffic_)
+  { super(); traffic = traffic_; reset(); }
+  
+  public void reset()
+  {
+    super.reset();
+    if (traffic != null) {
+      pend = traffic.P;
+      remaining = traffic.C;
+    }
+  }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+ "State: end of current period=" + pend + ", remaining="
-			+ remaining + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      + "State: end of current period=" + pend + ", remaining="
+      + remaining + "\n";
+  }
 
-	public TrafficModel getTrafficModel()
-	{ return traffic; }
+  public TrafficModel getTrafficModel()
+  { return traffic; }
 
-	public void setTrafficModel(TrafficModel traffic_)
-	{ traffic = (traffic_Periodic)traffic_; reset(); }
-	
-	protected double adjust(double now_, int size_) 
-	{
-		int C_ = traffic.C;
-		double P_ = traffic.P;
-		if (size_ > C_) return Double.NaN;
-		
-		if (now_ < pend) {
-			// adjust the end of period so that it can accommodate
-			// more (bursty?) traffic
-			if (remaining == C_) pend = now_ + P_;
-			
-			remaining -= size_;
-			if (remaining < 0) {
-				// start a new period
-				remaining = C_ - size_;
-				pend += P_;
-				return pend - P_ - now_;
-			}
-			else if (now_ >= pend - P_) return 0.0;
-			else return pend -P_ - now_;
-		}
-		else { // new period
-			pend = now_ + P_;
-			remaining = C_ - size_;
-			return 0.0;
-		}
-	}
+  public void setTrafficModel(TrafficModel traffic_)
+  { traffic = (traffic_Periodic)traffic_; reset(); }
+  
+  protected double adjust(double now_, int size_) 
+  {
+    int C_ = traffic.C;
+    double P_ = traffic.P;
+    if (size_ > C_) return Double.NaN;
+    
+    if (now_ < pend) {
+      // adjust the end of period so that it can accommodate
+      // more (bursty?) traffic
+      if (remaining == C_) pend = now_ + P_;
+      
+      remaining -= size_;
+      if (remaining < 0) {
+        // start a new period
+        remaining = C_ - size_;
+        pend += P_;
+        return pend - P_ - now_;
+      }
+      else if (now_ >= pend - P_) return 0.0;
+      else return pend -P_ - now_;
+    }
+    else { // new period
+      pend = now_ + P_;
+      remaining = C_ - size_;
+      return 0.0;
+    }
+  }
 
-	public void setMaxPacketSize(int size_) { traffic.maxPacketSize = size_; }
-	public int getMaxPacketSize() { return traffic.maxPacketSize; }
-	
-	public void setC(int c_) { traffic.C = c_; }
-	public int getC() { return traffic.C; }
-	
-	public void setPeriod(double p_) { traffic.P = p_; }
-	public double getPeriod() { return traffic.P; }
+  public void setMaxPacketSize(int size_) { traffic.maxPacketSize = size_; }
+  public int getMaxPacketSize() { return traffic.maxPacketSize; }
+  
+  public void setC(int c_) { traffic.C = c_; }
+  public int getC() { return traffic.C; }
+  
+  public void setPeriod(double p_) { traffic.P = p_; }
+  public double getPeriod() { return traffic.P; }
 
-	public void set(int c_, double p_, int mtu_)
-	{ traffic.set(c_, p_, mtu_); reset(); }
+  public void set(int c_, double p_, int mtu_)
+  { traffic.set(c_, p_, mtu_); reset(); }
 }

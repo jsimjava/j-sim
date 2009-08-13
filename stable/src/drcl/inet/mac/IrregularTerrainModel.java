@@ -113,8 +113,8 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     };
     
     /**
-	 * Class Location is used to record self address,
-	 */
+   * Class Location is used to record self address,
+   */
     static class Location {
         
         protected double lon, lat,height;  //lon, lat is in degrees, height is in meters
@@ -147,8 +147,8 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     };
     
     /** 
-	 * Class LocLoss is used to record the loss from a given sender
-	 */
+   * Class LocLoss is used to record the loss from a given sender
+   */
     static class LocLoss extends Location 
     {
         protected double loss;
@@ -165,16 +165,16 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     }
 
 
-	/**
-	  * A port for tracing path loss. 
-	  */
-	protected Port tracePort = addPort(".proptrace");
+  /**
+    * A port for tracing path loss. 
+    */
+  protected Port tracePort = addPort(".proptrace");
 
-	void trace(String what_)
-	{
+  void trace(String what_)
+  {
                 tracePort.doSending("At " + getTime() + " "+  what_ + "\n");
 
-	}
+  }
         
     
     //from adiff
@@ -205,16 +205,16 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     //Otherwise those parameters should not be defined as static
     static final double DB = 8.68589; /*= 20 /ln10 */
     //static String globePath = "/home/jhou/hzhang3/disk2/terrain/globedat";
-	//static String globePath = "C:\\terrain\\globedat\\";
+  //static String globePath = "C:\\terrain\\globedat\\";
     static int polarity ;     // 0--horizontal, 1 -- vertical
     static int radioClimate ;
     static double surfRef ;   //surface reflectivity
     static double dielectric ;
     static double conductivity ;
     
-	//It seems ITM does not handle the case when both sender and
-	//receive are at altitude 0, we add all height by an antennaHeight.
-	static double antennaHeight = 2.0; //meters 
+  //It seems ITM does not handle the case when both sender and
+  //receive are at altitude 0, we add all height by an antennaHeight.
+  static double antennaHeight = 2.0; //meters 
 
     int nPoints ;      //number of points in the terrain profile between sender and receiver
 
@@ -229,8 +229,8 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     
     
     /**
-	 * Creates new IrregularTerrainModel.
-	 */
+   * Creates new IrregularTerrainModel.
+   */
     public IrregularTerrainModel() 
     {
         super();
@@ -250,58 +250,58 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
         //globe = new Globe(globePath);
     }
 
-	/**
-	  * Set the path to the GLOBE database.
-	  */
-	public void setGlobePath(String path)
-	{
-		globe = new Globe(path);
-	}
-	/**
-	  * Set the number of sampling points between transmitter and receiver.
-	  */
-   	public void setNumPoints(int nPts) { 
+  /**
+    * Set the path to the GLOBE database.
+    */
+  public void setGlobePath(String path)
+  {
+    globe = new Globe(path);
+  }
+  /**
+    * Set the number of sampling points between transmitter and receiver.
+    */
+     public void setNumPoints(int nPts) { 
         if (nPts != nPoints) {
             nPoints = nPts; 
             dblelev = new double [nPoints +2];
         }
-   	}
-	/** Set radio polarity: 0 or 1. */
-   	public void setPolarity(int pol) { polarity = (pol == 0)?0:1 ;}
-	/** Get radio polarity. */
-   	public int 	getPolarity() { return polarity  ;}
-	/** Set Radio Climate: 1 to 7.  */
-   	public void setRadioClimate(int climate) {radioClimate = climate; }
-	/** Get Radio Climate.  */
-   	public int 	getRadioClimate() {return radioClimate ; }
-	/** Set Surface Reflectivity. */
-   	public void setSurfRef(double ref) { surfRef = ref; }
-	/** Get Surface Reflectivity. */
-   	public double getSurfRef() { return surfRef; }
-	/** Set Dielectric. */
-   	public void setDielectric(double diel) { dielectric =  diel;}
-	/** Get Dielectric. */
-   	public double getDielectric() { return dielectric ;}
-	/** Set Ground Conductivity. */
-   	public void setConductivity(double cond) {conductivity = cond; }
-	/** Get Ground Conductivity. */
-   	public double getConductivity() {return conductivity ; }
+     }
+  /** Set radio polarity: 0 or 1. */
+     public void setPolarity(int pol) { polarity = (pol == 0)?0:1 ;}
+  /** Get radio polarity. */
+     public int   getPolarity() { return polarity  ;}
+  /** Set Radio Climate: 1 to 7.  */
+     public void setRadioClimate(int climate) {radioClimate = climate; }
+  /** Get Radio Climate.  */
+     public int   getRadioClimate() {return radioClimate ; }
+  /** Set Surface Reflectivity. */
+     public void setSurfRef(double ref) { surfRef = ref; }
+  /** Get Surface Reflectivity. */
+     public double getSurfRef() { return surfRef; }
+  /** Set Dielectric. */
+     public void setDielectric(double diel) { dielectric =  diel;}
+  /** Get Dielectric. */
+     public double getDielectric() { return dielectric ;}
+  /** Set Ground Conductivity. */
+     public void setConductivity(double cond) {conductivity = cond; }
+  /** Get Ground Conductivity. */
+     public double getConductivity() {return conductivity ; }
    
    
         
     
     
-	/**
-	  * Release open file  resources.
-	  */
+  /**
+    * Release open file  resources.
+    */
     public void dispose()
     {
         globe.dispose();
     }
      
-	/**
-	  * Process the query of path loss from the query port and send back the path loss.
-	  */
+  /**
+    * Process the query of path loss from the query port and send back the path loss.
+    */
     
     protected synchronized void processPathLossQuery(Object data_) {
         double loss;
@@ -325,7 +325,7 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
         senderId = msg.getSid();
         
         loss = calculatePathLoss(senderId, txLon, txLat, txHeight, rxLon, rxLat,rxHeight, Lambda, 0.5, 0.5);
-		trace("(" + txLon + "," + txLat + "," + txHeight + ")---> (" + rxLon + "," + rxLat + "," + rxHeight + ") loss = " + loss );
+    trace("(" + txLon + "," + txLat + "," + txHeight + ")---> (" + rxLon + "," + rxLat + "," + rxHeight + ") loss = " + loss );
         queryPort.doSending(new RadioPropagationQueryContract.Message(loss));
     }
 
@@ -333,9 +333,9 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     
     //pr = 0.5, pc = 0.5 for default. lamda = C/F, C = 2.998x10^8. F is carrier frequence 
     //sid set to -1 so far 
-	/**
-	  * Return the path loss from transmitter to receiver.
-	  */
+  /**
+    * Return the path loss from transmitter to receiver.
+    */
     public double calculatePathLoss(long sid,  double txLon, double txLat, double txHeight,
                            double rxLon, double rxLat, double rxHeight, double Lambda, 
                            double pr, double pc) 
@@ -444,9 +444,9 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
       
     }
     
-	/**
-	  * Return the name of this component.
-	  */
+  /**
+    * Return the name of this component.
+    */
 
     public String info() { 
         return "IrregularTerrainModel" + "\n"; 
@@ -479,24 +479,24 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
         if(x<200.0)
         {   
             w=-Math.log(pk);
-	        if( pk < 1e-5 || x*Math.pow(w,3.0) > 5495.0 )
-	        { 
+          if( pk < 1e-5 || x*Math.pow(w,3.0) > 5495.0 )
+          { 
                 fhtv=-117.0;
-		        if(x>1.0)
-		        fhtv=17.372*Math.log(x)+fhtv;
+            if(x>1.0)
+            fhtv=17.372*Math.log(x)+fhtv;
             }
-	        else
+          else
             fhtv=2.5e-5*x*x/pk-8.686*w-15.0;
-	    }
+      }
         else
-	    {
+      {
             fhtv=0.05751*x-4.343*Math.log(x);
-	        if(x<2000.0)
-	        { 
+          if(x<2000.0)
+          { 
                 w=0.0134*x*Math.exp(-0.005*x);
                 fhtv=(1.0-w)*fhtv+w*(17.372*Math.log(x)-117.0);
             }
-	    }
+      }
         return fhtv;
     }
 
@@ -548,31 +548,31 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
         Complex prop_zgnd = new Complex(prop.zgndreal,prop.zgndimag);
         double a, q, pk, ds, th, wa, ar, wd, adiffv;
         if (d==0)
-	    {
-		  q=prop.hg[0]*prop.hg[1];
-		  qk=prop.he[0]*prop.he[1]-q;
-	      if(prop.mdp<0.0)
-		    q+=10.0;
-		  wd1=Math.sqrt(1.0+qk/q);
-		  xd1=propa.dla+propa.tha/prop.gme;
-		  q=(1.0-0.8*Math.exp(-propa.dlsa/50e3))*prop.dh;
-		  q*=0.78*Math.exp(-Math.pow(q/16.0,0.25));
-	      afo=Math.min(15.0,2.171*Math.log(1.0+4.77e-4*prop.hg[0]*prop.hg[1] *
-			  prop.wn*q));
-		  qk=1.0/Complex.abs(prop_zgnd);
-		  aht=20.0;
-		  xht=0.0;
-		  for(int j=0;j<2;++j)
-		    {
+      {
+      q=prop.hg[0]*prop.hg[1];
+      qk=prop.he[0]*prop.he[1]-q;
+        if(prop.mdp<0.0)
+        q+=10.0;
+      wd1=Math.sqrt(1.0+qk/q);
+      xd1=propa.dla+propa.tha/prop.gme;
+      q=(1.0-0.8*Math.exp(-propa.dlsa/50e3))*prop.dh;
+      q*=0.78*Math.exp(-Math.pow(q/16.0,0.25));
+        afo=Math.min(15.0,2.171*Math.log(1.0+4.77e-4*prop.hg[0]*prop.hg[1] *
+        prop.wn*q));
+      qk=1.0/Complex.abs(prop_zgnd);
+      aht=20.0;
+      xht=0.0;
+      for(int j=0;j<2;++j)
+        {
               a=0.5*Math.pow(prop.dl[j],2.0)/prop.he[j];
-			  wa=Math.pow(a*prop.wn,THIRD);
-			  pk=qk/wa;
-			  q=(1.607-pk)*151.0*wa*prop.dl[j]/a;
-			  xht+=q;
-			  aht+=fht(q,pk);
-	    	}
-		  adiffv=0.0;
-		}
+        wa=Math.pow(a*prop.wn,THIRD);
+        pk=qk/wa;
+        q=(1.607-pk)*151.0*wa*prop.dl[j]/a;
+        xht+=q;
+        aht+=fht(q,pk);
+        }
+      adiffv=0.0;
+    }
         else
         { th=propa.tha+d*prop.gme;
           ds=d-propa.dla;
@@ -697,7 +697,7 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
     void qlrps( double fmhz, double zsys, double en0,
               int ipol, double eps, double sgm, prop_type prop)
     {
-	  double gma=157e-9;
+    double gma=157e-9;
       prop.wn=fmhz/47.7;
       prop.ens=en0;
       if(zsys!=0.0)
@@ -799,7 +799,7 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
           propa.aed=a3-propa.emd*d3;
          }
       if(prop.mdp>=0)
-        {	prop.mdp=0;
+        {  prop.mdp=0;
         prop.dist=d;
         }
       if(prop.dist>0.0)
@@ -856,7 +856,7 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
                 }
                 }
               else
-                {	propa.ak1=(a2-a1)/(d2-d1);
+                {  propa.ak1=(a2-a1)/(d2-d1);
                 propa.ak2=0.0;
                 if(propa.ak1<=0.0)
                     propa.ak1=propa.emd;
@@ -891,19 +891,19 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
               wscat=true;
             }
           if(prop.dist>propa.dx) 
-		  {
+      {
             prop.aref=propa.aes+propa.ems*prop.dist;
-		  }
+      }
           else {
             prop.aref=propa.aed+propa.emd*prop.dist;
-		  }
+      }
         }
       prop.aref=Math.max(prop.aref,0.0);
     }
 
 
     //I guess this is lrprop developed by Fred,
-	//it is not used by other functions 
+  //it is not used by other functions 
     void freds_lrprop (double d,
               prop_type prop, propa_type propa) // freds_lrprop
     { 
@@ -1322,19 +1322,19 @@ public class IrregularTerrainModel extends drcl.inet.mac.RadioPropagationModel{
           if(j<m)
             j=m;
           if(i<j)
-            { 	  r=a[i+startIndex]; a[i+startIndex]=a[j+ startIndex]; a[j+ startIndex]=r;
+            {     r=a[i+startIndex]; a[i+startIndex]=a[j+ startIndex]; a[j+ startIndex]=r;
               i0=i+1;
               j1=j-1;
               goto10=false;
             }
           else if(i<k)
-            {	  a[k + startIndex]=a[i+ startIndex];
+            {    a[k + startIndex]=a[i+ startIndex];
               a[i+ startIndex]=q;
               m=i+1;
               goto10=true;
                 }
           else if(j>k)
-            { 	  a[k+ startIndex]=a[j+ startIndex];
+            {     a[k+ startIndex]=a[j+ startIndex];
               a[j+ startIndex]=q;
               n=j-1;
               goto10=true;

@@ -75,16 +75,16 @@ public class LLPacket extends Packet implements InetPacketInterface
         dst_macaddr = that_.dst_macaddr;
         src_macaddr = that_.src_macaddr;
     }
-	*/
+  */
     
-	// InetPacketInterface
-	public long getToS()
-	{
-		if (body instanceof InetPacketInterface)
-			return ((InetPacketInterface)body).getToS();
-		else
-			return 0;
-	}
+  // InetPacketInterface
+  public long getToS()
+  {
+    if (body instanceof InetPacketInterface)
+      return ((InetPacketInterface)body).getToS();
+    else
+      return 0;
+  }
 
     /**
      * Sets destination MAC address.
@@ -111,13 +111,13 @@ public class LLPacket extends Packet implements InetPacketInterface
     }
     
     public String _toString(String separator_)  {
-		if (body instanceof Packet) {
-			return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + "__<" + ((Packet)body).toString(separator_) + ">__";
+    if (body instanceof Packet) {
+      return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + "__<" + ((Packet)body).toString(separator_) + ">__";
         }
         else if (body != null)  {
-			return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + _toString(separator_) + "__<" + drcl.util.StringUtil.toString(body) + ">__";
+      return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + _toString(separator_) + "__<" + drcl.util.StringUtil.toString(body) + ">__";
         }
         else
-			return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + _toString(separator_) + "__<EMPTY_BODY>__";
-	}
+      return getName() + separator_ + "src_macaddr=" + src_macaddr + separator_ + "dst_macaddr=" + dst_macaddr + separator_ + _toString(separator_) + "__<EMPTY_BODY>__";
+  }
 }

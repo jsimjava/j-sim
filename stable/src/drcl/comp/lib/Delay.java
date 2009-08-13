@@ -37,31 +37,31 @@ import drcl.data.*;
  */
 public class Delay extends Extension
 {
-	double delay = 0.0;
+  double delay = 0.0;
 
-	public Delay() { super(); }
-	
-	public Delay(String id_) { super(id_); }
-	
-	public void setDelay(double d)
-	{ delay = d; }
+  public Delay() { super(); }
+  
+  public Delay(String id_) { super(id_); }
+  
+  public void setDelay(double d)
+  { delay = d; }
 
-	public double getDelay()
-	{ return delay; }
+  public double getDelay()
+  { return delay; }
 
-	protected void process(Object data_, Port inPort_) 
-	{
-		send(inPort_, data_, delay);
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof Delay)) return;
-		super.duplicate(source_);
-		Delay that_ = (Delay)source_;
-		delay = that_.delay;
-	}
-	
-	public String info()
-	{ return "delay = " + delay + "\n"; }
+  protected void process(Object data_, Port inPort_) 
+  {
+    send(inPort_, data_, delay);
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof Delay)) return;
+    super.duplicate(source_);
+    Delay that_ = (Delay)source_;
+    delay = that_.delay;
+  }
+  
+  public String info()
+  { return "delay = " + delay + "\n"; }
 }

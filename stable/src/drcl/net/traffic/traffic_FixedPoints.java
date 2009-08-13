@@ -47,105 +47,105 @@ import drcl.data.DoubleObj;
  */
 public class traffic_FixedPoints extends traffic_PeakRate 
 {
-	public double startTime;
-	public Vector fp;
-	
-	public traffic_FixedPoints()
-	{}
+  public double startTime;
+  public Vector fp;
+  
+  public traffic_FixedPoints()
+  {}
 
-	public traffic_FixedPoints(
-					int min_, int max_, double miniat_, double maxiat_)
-	{
-		super(min_, max_, miniat_, maxiat_);
-		startTime = 0.0;
-		fp = new Vector(0);
-	}
-	
-	public traffic_FixedPoints(
-					int min_, int max_, double miniat_, double maxiat_,
-				   	double startTime_, double[] timepoints_)
-	{
-		super(min_, max_, miniat_, maxiat_);
-		startTime = startTime_;
-		setTimePoints(timepoints_);
-	}
-	public void set(int min_, int max_, double miniat_, double maxiat_)
-	{
-		super.set(min_, max_, miniat_, maxiat_);
-		startTime = 0.0;
-		fp = new Vector(0);
-	}
-	
-	public void set(int min_, int max_, double miniat_, double maxiat_,
-		double startTime_, double[] timepoints_)
-	{
-		super.set(min_, max_, miniat_, maxiat_);
-		startTime = startTime_;
-		setTimePoints(timepoints_);
-	}
+  public traffic_FixedPoints(
+          int min_, int max_, double miniat_, double maxiat_)
+  {
+    super(min_, max_, miniat_, maxiat_);
+    startTime = 0.0;
+    fp = new Vector(0);
+  }
+  
+  public traffic_FixedPoints(
+          int min_, int max_, double miniat_, double maxiat_,
+             double startTime_, double[] timepoints_)
+  {
+    super(min_, max_, miniat_, maxiat_);
+    startTime = startTime_;
+    setTimePoints(timepoints_);
+  }
+  public void set(int min_, int max_, double miniat_, double maxiat_)
+  {
+    super.set(min_, max_, miniat_, maxiat_);
+    startTime = 0.0;
+    fp = new Vector(0);
+  }
+  
+  public void set(int min_, int max_, double miniat_, double maxiat_,
+    double startTime_, double[] timepoints_)
+  {
+    super.set(min_, max_, miniat_, maxiat_);
+    startTime = startTime_;
+    setTimePoints(timepoints_);
+  }
 
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		traffic_FixedPoints that_ = (traffic_FixedPoints) source_;
-		startTime = that_.startTime; 
-		fp = (Vector) that_.fp.clone();
-	}
-		
-	public String oneline()
-	{ return super.oneline() + ", startTime=" + startTime + ", FixedPoints=" + fp; }
-	
-	protected void finalize()
-	{ fp.removeAllElements(); }
-	
-	//
-	private void ___PROPERTY___() {}
-	//
-	
-	public void setStartTime(double time_) { startTime = time_; }
-	public double getStartTime() { return startTime; }
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    traffic_FixedPoints that_ = (traffic_FixedPoints) source_;
+    startTime = that_.startTime; 
+    fp = (Vector) that_.fp.clone();
+  }
+    
+  public String oneline()
+  { return super.oneline() + ", startTime=" + startTime + ", FixedPoints=" + fp; }
+  
+  protected void finalize()
+  { fp.removeAllElements(); }
+  
+  //
+  private void ___PROPERTY___() {}
+  //
+  
+  public void setStartTime(double time_) { startTime = time_; }
+  public double getStartTime() { return startTime; }
 
-	public void addTimePoint(double tp_) 
-	{   
-		int i;
-		for (i = fp.size() - 1; i >= 0; i--)
-			if (((DoubleObj)(fp.elementAt(i))).value <= tp_)
-				break;
-		if (++i >= fp.size())
-			fp.addElement(new DoubleObj(tp_));
-		else
-			fp.insertElementAt(new DoubleObj(tp_), i);
-	}
+  public void addTimePoint(double tp_) 
+  {   
+    int i;
+    for (i = fp.size() - 1; i >= 0; i--)
+      if (((DoubleObj)(fp.elementAt(i))).value <= tp_)
+        break;
+    if (++i >= fp.size())
+      fp.addElement(new DoubleObj(tp_));
+    else
+      fp.insertElementAt(new DoubleObj(tp_), i);
+  }
 
-	public void addTimePoints(double[] atp_) 
-	{
-		if (atp_ == null) return;
-		if (fp == null) setTimePoints(atp_);
-		else {
-			for (int i=0; i<atp_.length; i++)
-				addTimePoint(atp_[i]);
-		}
-	}
+  public void addTimePoints(double[] atp_) 
+  {
+    if (atp_ == null) return;
+    if (fp == null) setTimePoints(atp_);
+    else {
+      for (int i=0; i<atp_.length; i++)
+        addTimePoint(atp_[i]);
+    }
+  }
 
-	public void setTimePoints(double[] atp_)
-	{
-		if (atp_ == null) return;
-		if (fp == null) fp = new Vector(atp_.length);
-		else {
-			if (fp.size() < atp_.length) fp.setSize(atp_.length);
-			fp.removeAllElements();
-		}
-		for (int i=0; i<atp_.length; i++)
-			addTimePoint(atp_[i]);
-	}
+  public void setTimePoints(double[] atp_)
+  {
+    if (atp_ == null) return;
+    if (fp == null) fp = new Vector(atp_.length);
+    else {
+      if (fp.size() < atp_.length) fp.setSize(atp_.length);
+      fp.removeAllElements();
+    }
+    for (int i=0; i<atp_.length; i++)
+      addTimePoint(atp_[i]);
+  }
 
-	public double[] getTimePoints()
-	{
-		if (fp == null) return new double[0];
-		double atp_[] = new double[fp.size()];
-		for (int i=0; i<atp_.length; i++)
-			atp_[i] = ((DoubleObj)fp.elementAt(i)).value;
-		return atp_;
-	}
+  public double[] getTimePoints()
+  {
+    if (fp == null) return new double[0];
+    double atp_[] = new double[fp.size()];
+    for (int i=0; i<atp_.length; i++)
+      atp_[i] = ((DoubleObj)fp.elementAt(i)).value;
+    return atp_;
+  }
 }

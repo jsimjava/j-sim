@@ -30,9 +30,9 @@ package drcl.comp;
 
 public class SendReceiveException extends Error
 {
-	public SendReceiveException()
-	{ super(); }
-	
-	public SendReceiveException(String msg_)
-	{ super(msg_); }
+  public SendReceiveException()
+  { super(); }
+  
+  public SendReceiveException(String msg_)
+  { super(msg_); }
 }

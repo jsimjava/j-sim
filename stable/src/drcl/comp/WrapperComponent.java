@@ -35,39 +35,39 @@ One can also embed a {@link Handler handler} to process the incoming data for th
  */
 public class WrapperComponent extends drcl.comp.Component implements Wrapper
 {
-	Handler handler = null;
-	protected Object object;
+  Handler handler = null;
+  protected Object object;
 
-	public WrapperComponent() 
-	{ super((String)null); }
-	
-	public WrapperComponent(String id_)
-	{ super(id_); }
-	
-	public Object getObject() { return object; }
-	public void setObject(Object o_) { object = o_; }
-	
-	public Handler getHandler() { return handler; }
-	public void setHandler(Handler o_) { handler = o_; }
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		WrapperComponent that_ = (WrapperComponent)source_;
-		object = that_.object;
-	}
+  public WrapperComponent() 
+  { super((String)null); }
+  
+  public WrapperComponent(String id_)
+  { super(id_); }
+  
+  public Object getObject() { return object; }
+  public void setObject(Object o_) { object = o_; }
+  
+  public Handler getHandler() { return handler; }
+  public void setHandler(Handler o_) { handler = o_; }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    WrapperComponent that_ = (WrapperComponent)source_;
+    object = that_.object;
+  }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		if (handler != null)
-			handler.process(data_, inPort_);
-	}
-	
-	public String info() 
-	{
-		return "Wrapped object: " + object 
-			   + (object == null? "": "(" + object.getClass().getName() + ")") + "\n"
-			   + "Handler: " + handler + "\n";
-	}
-	
+  protected void process(Object data_, Port inPort_)
+  {
+    if (handler != null)
+      handler.process(data_, inPort_);
+  }
+  
+  public String info() 
+  {
+    return "Wrapped object: " + object 
+         + (object == null? "": "(" + object.getClass().getName() + ")") + "\n"
+         + "Handler: " + handler + "\n";
+  }
+  
 }

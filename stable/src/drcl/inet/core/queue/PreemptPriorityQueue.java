@@ -43,99 +43,99 @@ import drcl.inet.InetPacket;
  */
 public class PreemptPriorityQueue extends PriorityQueue
 {
-	public PreemptPriorityQueue()
-	{ super(); }
-	
-	public PreemptPriorityQueue(String id_)
-	{ super(id_); }
-	
-	/**
-	 * Enqueues the object at the end of the queue
-	 * @return the object being dropped due to the enqueue; null otherwise.
-	 */
-	public Object enqueue(Object obj_)
-	{
-		Packet p_ = (Packet)obj_;
-		int psize_ = isByteMode()? p_.size: 1;
-		int level_ = classifier.classify(p_);
-		if (level_ < 0 || level_ >= qq.length)
-			level_ = qq.length-1; // lowest priority
-		
-		int oldSize_ = currentSize;
+  public PreemptPriorityQueue()
+  { super(); }
+  
+  public PreemptPriorityQueue(String id_)
+  { super(id_); }
+  
+  /**
+   * Enqueues the object at the end of the queue
+   * @return the object being dropped due to the enqueue; null otherwise.
+   */
+  public Object enqueue(Object obj_)
+  {
+    Packet p_ = (Packet)obj_;
+    int psize_ = isByteMode()? p_.size: 1;
+    int level_ = classifier.classify(p_);
+    if (level_ < 0 || level_ >= qq.length)
+      level_ = qq.length-1; // lowest priority
+    
+    int oldSize_ = currentSize;
 
-		if (currentSize + psize_ > capacity) {
-			// need to drop
+    if (currentSize + psize_ > capacity) {
+      // need to drop
 
-			// already lowest priority or no capacity in the queue of
-			// the same level
-			if (level_ == qq.length-1
-				|| qq[level_].getSize() + psize_ > capacity) {
-				if (isGarbageEnabled()) drop(p_, "buffer overflow");
-				if (qlogics != null && qlogics.length > level_
-						&& qlogics[level_] != null)
-					qlogics[level_].dropHandler(p_, psize_);
-			}
-			else {
-				String advice_ = qlogics != null && qlogics.length > level_
-						&& qlogics[level_] != null?
-						qlogics[level_].adviceOn(p_, psize_): null;
+      // already lowest priority or no capacity in the queue of
+      // the same level
+      if (level_ == qq.length-1
+        || qq[level_].getSize() + psize_ > capacity) {
+        if (isGarbageEnabled()) drop(p_, "buffer overflow");
+        if (qlogics != null && qlogics.length > level_
+            && qlogics[level_] != null)
+          qlogics[level_].dropHandler(p_, psize_);
+      }
+      else {
+        String advice_ = qlogics != null && qlogics.length > level_
+            && qlogics[level_] != null?
+            qlogics[level_].adviceOn(p_, psize_): null;
 
-				if (advice_ != null) {
-					if (isGarbageEnabled()) drop(p_, advice_);
-				}
-				else {
-					// enqueue the new pkt and preempt lower-priority pkt
-					currentSize += psize_;
-					if (isByteMode())
-						qq[level_].enqueue(p_, psize_);
-					else
-						qq[level_].enqueue(p_);
+        if (advice_ != null) {
+          if (isGarbageEnabled()) drop(p_, advice_);
+        }
+        else {
+          // enqueue the new pkt and preempt lower-priority pkt
+          currentSize += psize_;
+          if (isByteMode())
+            qq[level_].enqueue(p_, psize_);
+          else
+            qq[level_].enqueue(p_);
 
-					for (int i = qq.length-1; i>level_; i--) {
-						VSFIFOQueue q = qq[i];
-						if (q.isEmpty()) continue;
+          for (int i = qq.length-1; i>level_; i--) {
+            VSFIFOQueue q = qq[i];
+            if (q.isEmpty()) continue;
 
-						QLogic logic_ = qlogics != null && qlogics.length > i?
-							qlogics[i]: null;
+            QLogic logic_ = qlogics != null && qlogics.length > i?
+              qlogics[i]: null;
 
-						while (!q.isEmpty()) {
-							Packet tmp_ = (Packet)q.remove(q.getLength()-1);
+            while (!q.isEmpty()) {
+              Packet tmp_ = (Packet)q.remove(q.getLength()-1);
 
-							int tmpsize_ = isByteMode()? tmp_.size: 1;
-							currentSize -= tmpsize_;
-							if (isGarbageEnabled()) drop(tmp_, "preempted");
-							if (logic_ != null)
-								logic_.dropHandler(tmp_, tmpsize_);
-							if (currentSize <= capacity) break;
-						}
-						if (currentSize <= capacity) break;
-					}
-				}
-			}
-		}
-		else {
-			// put pkt to corresponding queue
+              int tmpsize_ = isByteMode()? tmp_.size: 1;
+              currentSize -= tmpsize_;
+              if (isGarbageEnabled()) drop(tmp_, "preempted");
+              if (logic_ != null)
+                logic_.dropHandler(tmp_, tmpsize_);
+              if (currentSize <= capacity) break;
+            }
+            if (currentSize <= capacity) break;
+          }
+        }
+      }
+    }
+    else {
+      // put pkt to corresponding queue
  
-			String advice_ = qlogics != null && qlogics.length > level_
-						&& qlogics[level_] != null?
-						qlogics[level_].adviceOn(p_, psize_): null;
+      String advice_ = qlogics != null && qlogics.length > level_
+            && qlogics[level_] != null?
+            qlogics[level_].adviceOn(p_, psize_): null;
 
-			if (advice_ != null) {
-				if (isGarbageEnabled()) drop(p_, advice_);
-			}
-			else {
-				// enqueue the new pkt and preempt lower-priority pkt
-				currentSize += psize_;
-				if (isByteMode())
-					qq[level_].enqueue(p_, psize_);
-				else
-					qq[level_].enqueue(p_);
-			}
-		}
+      if (advice_ != null) {
+        if (isGarbageEnabled()) drop(p_, advice_);
+      }
+      else {
+        // enqueue the new pkt and preempt lower-priority pkt
+        currentSize += psize_;
+        if (isByteMode())
+          qq[level_].enqueue(p_, psize_);
+        else
+          qq[level_].enqueue(p_);
+      }
+    }
 
-		if (oldSize_ != currentSize && qLenPort._isEventExportEnabled())
-			qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
+    if (oldSize_ != currentSize && qLenPort._isEventExportEnabled())
+      qLenPort.exportEvent(EVENT_QLEN, (double)currentSize, null);
 
-		return null;
-	}
+    return null;
+  }
 }

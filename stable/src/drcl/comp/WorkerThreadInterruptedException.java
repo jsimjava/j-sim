@@ -30,9 +30,9 @@ package drcl.comp;
 
 public class WorkerThreadInterruptedException extends Error
 {
-	public WorkerThreadInterruptedException()
-	{ super(); }
-	
-	public WorkerThreadInterruptedException(String msg_)
-	{ super(msg_); }
+  public WorkerThreadInterruptedException()
+  { super(); }
+  
+  public WorkerThreadInterruptedException(String msg_)
+  { super(msg_); }
 }

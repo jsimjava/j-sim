@@ -43,12 +43,12 @@ This contract defines three services at the reactor:
      the upated adspec.
 <dt> <code>FlowspecAddition</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 0 (the "add" command);
-	<li> the set of ToS values (<code>long[]</code>) associated with the flowspec, could be null;
-	<li> the set of ToS mask values (<code>long[]</code>) associated with the ToS values, could be null, and
-	<li> the flowspec ({@link SpecFlow}).
-	</ol>
+  <ol>
+  <li> an integer of value 0 (the "add" command);
+  <li> the set of ToS values (<code>long[]</code>) associated with the flowspec, could be null;
+  <li> the set of ToS mask values (<code>long[]</code>) associated with the ToS values, could be null, and
+  <li> the flowspec ({@link SpecFlow}).
+  </ol>
      In response, the reactor returns null and the handle number is set in the flowspec
      if the flowspec is sucessfully installed, or returns another flowspec
      that reflects the availability of the resources if failed.
@@ -60,15 +60,15 @@ This contract defines three services at the reactor:
      In case that the request is failed, the previous installation is intact.
 <dt> <code>FlowspecRemoval</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 2 (the "remove" command);
-	<li> the handle of the flowspec to be removed
-	</ol>
+  <ol>
+  <li> an integer of value 2 (the "remove" command);
+  <li> the handle of the flowspec to be removed
+  </ol>
      In response, the reactor removes the flowspec and returns the removed flowspec.
 <dt> <code>FlowspecQuery</code>
 <dd> The initiator sends a message that has the same format as a <code>FlowspecRemoval</code>
      except that the first field is an integer of value 3 (the "query" command).
-	 Use negative handle to query all the installed flowspecs.
+   Use negative handle to query all the installed flowspecs.
      In response, the reactor returns the queried flowspec(s).
 </dl>
 
@@ -77,128 +77,128 @@ This contract defines three services at the reactor:
 */
 public class SchedulerConfig extends Contract
 {
-	public static final SchedulerConfig INSTANCE = new SchedulerConfig();
+  public static final SchedulerConfig INSTANCE = new SchedulerConfig();
 
-	public SchedulerConfig()
-	{ super(); }
-	
-	public SchedulerConfig(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "SchedulerConfiguration Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	public static SpecFlow add(long[] tos_, long[] tosmask_, SpecFlow fspec_, Port out_)
-	{ return (SpecFlow)out_.sendReceive(new Message(ADD, tos_, tosmask_, fspec_)); }
-	
-	public static SpecFlow modify(SpecFlow fspec_, Port out_)
-	{ return (SpecFlow)out_.sendReceive(new Message(MODIFY, null, null, fspec_)); }
-	
-	public static SpecFlow remove(int handle_, Port out_)
-	{ return (SpecFlow)out_.sendReceive(new Message(REMOVE, handle_)); }
-	
-	public static SpecFlow query(int handle_, Port out_)
-	{ return (SpecFlow)out_.sendReceive(new Message(QUERY, handle_)); }
-	
-	public static SpecFlow[] queryAll(Port out_)
-	{ return (SpecFlow[])out_.sendReceive(new Message(QUERY, -1)); }
-	
-	
-	// type
-	public static final int ADD = 0; // or modify/replace
-	public static final int MODIFY = 1;
-	public static final int REMOVE = 2;
-	public static final int QUERY = 3;
-	static final String[] TYPES = {"add", "modify", "remove", "query"};
-	
-	// no setter functions are needed for this class
-	public static class Message extends drcl.comp.Message
-	{
-		int type;
-		long[] tos;
-		long[] tosmask;
-		SpecFlow fspec;
-		int handle;
-		
-		public Message ()
-		{}
+  public SchedulerConfig()
+  { super(); }
+  
+  public SchedulerConfig(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "SchedulerConfiguration Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  public static SpecFlow add(long[] tos_, long[] tosmask_, SpecFlow fspec_, Port out_)
+  { return (SpecFlow)out_.sendReceive(new Message(ADD, tos_, tosmask_, fspec_)); }
+  
+  public static SpecFlow modify(SpecFlow fspec_, Port out_)
+  { return (SpecFlow)out_.sendReceive(new Message(MODIFY, null, null, fspec_)); }
+  
+  public static SpecFlow remove(int handle_, Port out_)
+  { return (SpecFlow)out_.sendReceive(new Message(REMOVE, handle_)); }
+  
+  public static SpecFlow query(int handle_, Port out_)
+  { return (SpecFlow)out_.sendReceive(new Message(QUERY, handle_)); }
+  
+  public static SpecFlow[] queryAll(Port out_)
+  { return (SpecFlow[])out_.sendReceive(new Message(QUERY, -1)); }
+  
+  
+  // type
+  public static final int ADD = 0; // or modify/replace
+  public static final int MODIFY = 1;
+  public static final int REMOVE = 2;
+  public static final int QUERY = 3;
+  static final String[] TYPES = {"add", "modify", "remove", "query"};
+  
+  // no setter functions are needed for this class
+  public static class Message extends drcl.comp.Message
+  {
+    int type;
+    long[] tos;
+    long[] tosmask;
+    SpecFlow fspec;
+    int handle;
+    
+    public Message ()
+    {}
 
-		// for ADD/MODIFY
-		public Message (int type_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
-		{
-			type = type_;
-			tos = tos_;
-			tosmask = tosmask_;
-			fspec = fspec_;
-		}
-		
-		// for REMOVE and QUERY
-		public Message (int type_, int handle_)
-		{
-			type = type_;
-			handle = handle_;
-		}
+    // for ADD/MODIFY
+    public Message (int type_, long[] tos_, long[] tosmask_, SpecFlow fspec_)
+    {
+      type = type_;
+      tos = tos_;
+      tosmask = tosmask_;
+      fspec = fspec_;
+    }
+    
+    // for REMOVE and QUERY
+    public Message (int type_, int handle_)
+    {
+      type = type_;
+      handle = handle_;
+    }
 
-		private Message (int type_, long[] tos_, long[] tosmask_, SpecFlow fspec_, int handle_)
-		{
-			type = type_;
-			tos = tos_;
-			tosmask = tosmask_;
-			fspec = fspec_;
-			handle = handle_;
-		}
+    private Message (int type_, long[] tos_, long[] tosmask_, SpecFlow fspec_, int handle_)
+    {
+      type = type_;
+      tos = tos_;
+      tosmask = tosmask_;
+      fspec = fspec_;
+      handle = handle_;
+    }
 
-		public int getType()
-		{ return type; }
+    public int getType()
+    { return type; }
 
-		public long[] getToS()
-		{ return tos; }
+    public long[] getToS()
+    { return tos; }
 
-		public long[] getToSMask()
-		{ return tosmask; }
+    public long[] getToSMask()
+    { return tosmask; }
 
-		public SpecFlow getFlowspec()
-		{ return fspec; }
+    public SpecFlow getFlowspec()
+    { return fspec; }
 
-		public int getHandle()
-		{ return handle; }
+    public int getHandle()
+    { return handle; }
 
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			type = that_.type;
-			tos = that_.tos == null? null: (long[]) that_.tos.clone();
-			tosmask = that_.tosmask == null? null: (long[]) that_.tosmask.clone();
-			fspec = that_.fspec == null? null: (SpecFlow)fspec.clone();
-			handle = that_.handle;
-		}
-		*/
-	
-		public Object clone()
-		{ return new Message(type, tos, tosmask, fspec, handle); }
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      type = that_.type;
+      tos = that_.tos == null? null: (long[]) that_.tos.clone();
+      tosmask = that_.tosmask == null? null: (long[]) that_.tosmask.clone();
+      fspec = that_.fspec == null? null: (SpecFlow)fspec.clone();
+      handle = that_.handle;
+    }
+    */
+  
+    public Object clone()
+    { return new Message(type, tos, tosmask, fspec, handle); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			switch (type) {
-			case ADD:
-				return "SCHEDULER_CONFIG:add" + separator_ + StringUtil.toString(tos)
-					+ "/" + StringUtil.toString(tosmask) + separator_ + fspec;
-			case MODIFY:
-				return "SCHEDULER_CONFIG:modify " + fspec;
-			case REMOVE:
-				return "SCHEDULER_CONFIG:remove " + handle;
-			case QUERY:
-				return "SCHEDULER_CONFIG:query " + handle;
-			default:
-				return "SCHEDULER_CONFIG:unknown";
-			}
-		}
-	}
+    public String toString(String separator_)
+    {
+      switch (type) {
+      case ADD:
+        return "SCHEDULER_CONFIG:add" + separator_ + StringUtil.toString(tos)
+          + "/" + StringUtil.toString(tosmask) + separator_ + fspec;
+      case MODIFY:
+        return "SCHEDULER_CONFIG:modify " + fspec;
+      case REMOVE:
+        return "SCHEDULER_CONFIG:remove " + handle;
+      case QUERY:
+        return "SCHEDULER_CONFIG:query " + handle;
+      default:
+        return "SCHEDULER_CONFIG:unknown";
+      }
+    }
+  }
 }

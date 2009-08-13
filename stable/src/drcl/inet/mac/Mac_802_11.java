@@ -81,11 +81,11 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /** Sets the MAC_TRACE_TIMER_ENABLED flag.  */
     public void set_MAC_TRACE_TIMER_ENABLED(boolean b_)  { MAC_TRACE_TIMER_ENABLED  = b_; };
     
-	/** Set PSM mode */
+  /** Set PSM mode */
     public void set_MAC_PSM(boolean b_) {psm_enabled_ = b_; if(psm_enabled_) psm_mode_ = PSM_PWR_SAVE;}
-	/** Enable PSM mode and set psm_mode_ to PSM_PWR_SAVE */
+  /** Enable PSM mode and set psm_mode_ to PSM_PWR_SAVE */
     public void enable_PSM() {psm_enabled_ = true; psm_mode_ = PSM_PWR_SAVE;}
-	/** Disable PSM mode */
+  /** Disable PSM mode */
     public void disable_PSM() {psm_enabled_ = false;}
 
     /** Sets the is_malicious flag. */ 
@@ -156,7 +156,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     private static final String DROP_MAC_BUFFER_FULL          = "BUF";
     
     /** Broadcast mac address. */
-    public static final long MAC_BROADCAST	 = -1;
+    public static final long MAC_BROADCAST   = -1;
     
     
     /** Broadcast mac address. Used in LL_Demo. */
@@ -171,46 +171,46 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                                               "MAC_ACK",
                                               "MAC_COLL"};
     
-	/** Idle state */
+  /** Idle state */
     public static final int MAC_IDLE     = 0x0000;
-	/** Polling state */
+  /** Polling state */
     public static final int MAC_POLLING  = 0x0001;
-	/** Recving state */
+  /** Recving state */
     public static final int MAC_RECV     = 0x0010;
-	/** Transmitting state */
+  /** Transmitting state */
     public static final int MAC_SEND     = 0x0100;
-	/** RTS sent */
+  /** RTS sent */
     public static final int MAC_RTS      = 0x0200;
-	/** CTS sent */
+  /** CTS sent */
     public static final int MAC_CTS      = 0x0400;
-	/** ACK sent */
+  /** ACK sent */
     public static final int MAC_ACK      = 0x0800;
-	/** Collision state */
+  /** Collision state */
     public static final int MAC_COLL     = 0x1000;
-	/** Beacon transmitted */
+  /** Beacon transmitted */
     public static final int MAC_BEACON   = 0x2000;
-	/** Inside ATIM window */
+  /** Inside ATIM window */
     public static final int MAC_ATIM     = 0x4000;
     
-	/** beaconing */
+  /** beaconing */
     public static final int MF_BEASON   = 0x0008; 
-	/** used as mask for control frame */
+  /** used as mask for control frame */
     public static final int MF_CONTROL  = 0x0010; 
-	/** Announce slot open for contension */
+  /** Announce slot open for contension */
     public static final int MF_SLOTS    = 0x001a; 
-	/** Request to send */
+  /** Request to send */
     public static final int MF_RTS      = 0x001b; 
-	/** Clear to send */
+  /** Clear to send */
     public static final int MF_CTS      = 0x001c; 
-	/** Acknowledgement */
+  /** Acknowledgement */
     public static final int MF_ACK      = 0x001d; 
-	/** contention free period end */
+  /** contention free period end */
     public static final int MF_CF_END   = 0x001e; 
-	/** Polling */
+  /** Polling */
     public static final int MF_POLL     = 0x001f; 
-	/** Used as a mask for data frame */
+  /** Used as a mask for data frame */
     public static final int MF_DATA     = 0x0020; 
-	/** Ack for data frame */
+  /** Ack for data frame */
     public static final int MF_DATA_ACK = 0x0021; 
     
     /**
@@ -286,19 +286,19 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         /* static */
         int    DSSS_CWMin                 = 31;
         int    DSSS_CWMax                 = 1023;
-        double DSSS_SlotTime              = 0.000020;	// 20us
-        double DSSS_CCATime	              = 0.000015;	// 15us
-        double DSSS_RxTxTurnaroundTime    = 0.000005;	// 5us
-        double DSSS_SIFSTime			  = 0.000010;	// 10us
-        int    DSSS_PreambleLength		  = 144;	    // 144 bits
-        int    DSSS_PLCPHeaderLength	  = 48;	        // 48 bits
+        double DSSS_SlotTime              = 0.000020;  // 20us
+        double DSSS_CCATime                = 0.000015;  // 15us
+        double DSSS_RxTxTurnaroundTime    = 0.000005;  // 5us
+        double DSSS_SIFSTime        = 0.000010;  // 10us
+        int    DSSS_PreambleLength      = 144;      // 144 bits
+        int    DSSS_PLCPHeaderLength    = 48;          // 48 bits
         
         int           CWMin;
         int           CWMax;
-        double	      SlotTime;
-        double	      CCATime;
-        double	      RxTxTurnaroundTime;
-        double	      SIFSTime;
+        double        SlotTime;
+        double        CCATime;
+        double        RxTxTurnaroundTime;
+        double        SIFSTime;
         int           PreambleLength;
         int           PLCPHeaderLength;
         
@@ -322,26 +322,26 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         * IEEE 802.11 Spec, section 11.4.4.2
         *      - default values for the MAC Attributes
         */
-        int MAC_RTSThreshold	        = 3000;		// bytes
-        int MAC_ShortRetryLimit		    = 7;   		// retransmittions
-        int MAC_LongRetryLimit		    = 4;	   	// retransmissions
-        int MAC_FragmentationThreshold	= 2346;		// bytes
-        int MAC_MaxTransmitMSDULifetime	= 512;		// time units
-        int MAC_MaxReceiveLifetime		= 512;		// time units
-		double MAC_BeaconPeriod = 0.100; // in second
-		double MAC_ATIMWindow = 0.008; //in second
+        int MAC_RTSThreshold          = 3000;    // bytes
+        int MAC_ShortRetryLimit        = 7;       // retransmittions
+        int MAC_LongRetryLimit        = 4;       // retransmissions
+        int MAC_FragmentationThreshold  = 2346;    // bytes
+        int MAC_MaxTransmitMSDULifetime  = 512;    // time units
+        int MAC_MaxReceiveLifetime    = 512;    // time units
+    double MAC_BeaconPeriod = 0.100; // in second
+    double MAC_ATIMWindow = 0.008; //in second
         
         int MAC_ATIMRetryLimit = 7;
         //     MACAddress;
-        //	   GroupAddresses;
+        //     GroupAddresses;
         int    RTSThreshold;
         int    ShortRetryLimit;
         int    LongRetryLimit;
         int    FragmentationThreshold;
         int    MaxTransmitMSDULifetime;
         int    MaxReceiveLifetime;
-        //	   ManufacturerID;
-        //	   ProductID;
+        //     ManufacturerID;
+        //     ProductID;
         
         int    TransmittedFragmentCount = 0;
         int    MulticastTransmittedFrameCount = 0;
@@ -360,28 +360,28 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         double ATIMWindow   = 0;
         
         public MAC_MIB() {
-			RTSThreshold            = MAC_RTSThreshold;
-			ShortRetryLimit         = MAC_ShortRetryLimit;
-			LongRetryLimit          = MAC_LongRetryLimit;
-			FragmentationThreshold  = MAC_FragmentationThreshold;
-			MaxTransmitMSDULifetime = MAC_MaxTransmitMSDULifetime;
-			MaxReceiveLifetime      = MAC_MaxReceiveLifetime;
-			BeaconPeriod 			= MAC_BeaconPeriod;
-			ATIMWindow   			= MAC_ATIMWindow;
+      RTSThreshold            = MAC_RTSThreshold;
+      ShortRetryLimit         = MAC_ShortRetryLimit;
+      LongRetryLimit          = MAC_LongRetryLimit;
+      FragmentationThreshold  = MAC_FragmentationThreshold;
+      MaxTransmitMSDULifetime = MAC_MaxTransmitMSDULifetime;
+      MaxReceiveLifetime      = MAC_MaxReceiveLifetime;
+      BeaconPeriod       = MAC_BeaconPeriod;
+      ATIMWindow         = MAC_ATIMWindow;
         }
     }
     
-	/** Set the RTS threshold (size of packet to transmit RTS) */
+  /** Set the RTS threshold (size of packet to transmit RTS) */
     public void setRTSThreshold(int rstthreshold_) {
         macmib_.RTSThreshold = rstthreshold_;
     }
     
-	/** Set the length of beacon interval */
+  /** Set the length of beacon interval */
     public void setBeaconInterval(double beacon_) {
         macmib_.BeaconPeriod = beacon_;
     }
 
-	/** Set the size of ATIM window */
+  /** Set the size of ATIM window */
     public void setATIMWindow(double atim_) {
         macmib_.ATIMWindow = atim_;
     }
@@ -402,7 +402,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /**
      * My MAC address
      */
-    long   macaddr_;		
+    long   macaddr_;    
     
     /**
      * Channel bit rate.
@@ -412,7 +412,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /**
      * MAC overhead.
      */
-    double delay_;		    
+    double delay_;        
     
     /**
      * Sets the channel bandwidth and calculates all related variables.
@@ -452,12 +452,12 @@ public class Mac_802_11 extends Module implements ActiveComponent {
      * Set the MAC address 
      *
      *@param addr_  the MAC address
-	 */
+   */
     public void   setMacAddress(long addr_) { macaddr_ = addr_; }
     
     /**
      * Get the Mac address
-	 */
+   */
     public long   getMacAddress( ) { return macaddr_; }
     
     private   int  ETHER_HDR_LEN;
@@ -596,10 +596,10 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     protected PHY_MIB phymib_;
     protected MAC_MIB macmib_;
     
-    IFTimer       if_timer_;		// interface timer, timeout when the transmission is finished
-    NavTimer      nav_timer_;	    // NAV timer
-    RxTimer       rx_timer_;		// incoming packets
-    TxTimer       tx_timer_;		// outgoing packets, timeout when no expected response received
+    IFTimer       if_timer_;    // interface timer, timeout when the transmission is finished
+    NavTimer      nav_timer_;      // NAV timer
+    RxTimer       rx_timer_;    // incoming packets
+    TxTimer       tx_timer_;    // outgoing packets, timeout when no expected response received
     
     DeferTimer    df_timer_;        // defer timer
     BackoffTimer  bf_timer_;        // backoff timer
@@ -614,27 +614,27 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /**
      * Network Allocation Vector.
      */
-    double		nav_;		
+    double    nav_;    
     
     /**
      * Incoming state (MAC_RECV or MAC_IDLE).
      */
-    int         rx_state_;	
+    int         rx_state_;  
     
     /**
      * Outgoing state.
      */
-    int         tx_state_;	
+    int         tx_state_;  
     
     /**
      * Transmitter is ACTIVE or not.
      */ 
-    boolean    	tx_active_;	 
+    boolean      tx_active_;   
     
     /**
      * MAC's current state.
      */
-    int         state_;	
+    int         state_;  
     
     // these three variables are defined here to keep some information pased from wirelessphy related to the packet being received.
     
@@ -680,26 +680,26 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /**
      * Contention Window.
      */
-    int         cw_;		// Contention Window
+    int         cw_;    // Contention Window
     
     /** STA Short Retry Count. */
-    int         ssrc_;		
+    int         ssrc_;    
     /** STA Long Retry Count. */
-    int         slrc_;		
+    int         slrc_;    
     /** Short Interface Space. */
-    double		sifs_;		
+    double    sifs_;    
     /** PCF Interframe Space. */
-    double		pifs_;		
+    double    pifs_;    
     /** DCF Interframe Space. */
-    double		difs_;		
+    double    difs_;    
     /** Extended Interframe Space. */
-    double		eifs_;		
+    double    eifs_;    
     
-    double		tx_sifs_;
-    double		tx_pifs_;
-    double		tx_difs_;
+    double    tx_sifs_;
+    double    tx_pifs_;
+    double    tx_difs_;
     
-    int	        min_frame_len_;
+    int          min_frame_len_;
     
     //Rong: added for power management 08/16/02
     boolean got_beacon_ = false;
@@ -715,14 +715,14 @@ public class Mac_802_11 extends Module implements ActiveComponent {
      */
 
     int psm_mode_;
-	/** PSM enabled and in power saving */
+  /** PSM enabled and in power saving */
     public final static int PSM_PWR_SAVE = 0;
-	/** PSM enabled but not in power saving */
+  /** PSM enabled but not in power saving */
     public final static int PSM_PWR_AWAKE = 1;
     
     boolean recvd_atim_   = false;
-	int initial_wake_count = 10;
-	int tx_bcast_atim_ = 0;
+  int initial_wake_count = 10;
+  int tx_bcast_atim_ = 0;
     int recvd_bcast_atim_ = 0;
     int recvd_ucast_atim_ = 0;
     int has_packet_tx_    = 0;
@@ -751,7 +751,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
     /* ============================================================
        Duplicate Detection state
        ============================================================ */
-    int    sta_seqno_;	// next seqno that I'll use
+    int    sta_seqno_;  // next seqno that I'll use
     Hashtable cache_;   //hashtable is used to record the recently received mac frame sequence number to detect the duplicate frames
     
     public Mac_802_11() {
@@ -778,10 +778,10 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         cache_ = new Hashtable();
        
-        if_timer_  = new IFTimer(this);		// interface timer
+        if_timer_  = new IFTimer(this);    // interface timer
         nav_timer_ = new NavTimer(this);    // NAV timer
-        rx_timer_  = new RxTimer(this);		// incoming packets
-        tx_timer_  = new TxTimer(this);		// outgoing packets
+        rx_timer_  = new RxTimer(this);    // incoming packets
+        tx_timer_  = new TxTimer(this);    // outgoing packets
         
         df_timer_  = new DeferTimer(this, phymib_.SlotTime);          // defer timer
         bf_timer_  = new BackoffTimer(this, phymib_.SlotTime);        // backoff timer
@@ -882,8 +882,8 @@ public class Mac_802_11 extends Module implements ActiveComponent {
             if (check_pktATIM() == 0) {
                 if (entryATIM_ != null)
                     entryATIM_.sent_atim_ = true;
-					if (entryATIM_.get_addr() == MAC_BROADCAST)
-						tx_bcast_atim_++;
+          if (entryATIM_.get_addr() == MAC_BROADCAST)
+            tx_bcast_atim_++;
                 return;
             }
         }
@@ -1029,8 +1029,8 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         trace("tbtt timer timeout", "TIMER");
 
-		if (initial_wake_count > 0)
-			initial_wake_count--;
+    if (initial_wake_count > 0)
+      initial_wake_count--;
         
         if (atim_timer_.busy())
             atim_timer_.stop();
@@ -1055,7 +1055,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         got_beacon_ = false;
         recvd_atim_ = false;
-		tx_bcast_atim_ = 0;
+    tx_bcast_atim_ = 0;
         recvd_bcast_atim_ = 0;
         recvd_ucast_atim_ = 0;
         has_packet_tx_ = 0;
@@ -1068,12 +1068,12 @@ public class Mac_802_11 extends Module implements ActiveComponent {
             this_entry = (BUFFER_ENTRY)e.nextElement();
 
             if (psm_buffer.size() > 20 && this_entry.age_ >= 2 && !(this_entry.get_addr() == MAC_BROADCAST && tx_bcast_atim_ > 0)) {
-            	psm_buffer.remove(this_entry);
+              psm_buffer.remove(this_entry);
 
                 if(this_entry.packet_ != null){
                     drop(this_entry.packet_, DROP_MAC_BUFFER_FULL);
-		            debug(DROP_MAC_BUFFER_FULL + " drop due to PSM" + " < " + this_entry.packet_.toString() + " >");
-		        }    
+                debug(DROP_MAC_BUFFER_FULL + " drop due to PSM" + " < " + this_entry.packet_.toString() + " >");
+            }    
 
                 if (this_entry == entryATIM_) {
                     entryATIM_ = null;
@@ -1105,8 +1105,8 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         atim_timer_.handle();
         
- 		atimrc = 0;       
-		if (pktBeacon_ != null) 
+     atimrc = 0;       
+    if (pktBeacon_ != null) 
             pktBeacon_ = null;
         
         
@@ -1215,12 +1215,12 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         tx_timer_.start(t);             // if this timer expires, check why no response is received
         downPort.doSending(p);           
 
-		if ((p.getFc().get_fc_type() == Mac_802_11_Frame_Control.MAC_Type_Management &&
-		     p.getFc().get_fc_subtype() == Mac_802_11_Frame_Control.MAC_Subtype_ATIM) ||
-		    (p.getFc().get_fc_type() == Mac_802_11_Frame_Control.MAC_Type_Control &&
-		     p.getFc().get_fc_subtype() == Mac_802_11_Frame_Control.MAC_Subtype_ACK)) {
-		    trace("TRANSMIT  <" + p.toString() + ">", "PACKET");
-		}
+    if ((p.getFc().get_fc_type() == Mac_802_11_Frame_Control.MAC_Type_Management &&
+         p.getFc().get_fc_subtype() == Mac_802_11_Frame_Control.MAC_Subtype_ATIM) ||
+        (p.getFc().get_fc_type() == Mac_802_11_Frame_Control.MAC_Type_Control &&
+         p.getFc().get_fc_subtype() == Mac_802_11_Frame_Control.MAC_Subtype_ACK)) {
+        trace("TRANSMIT  <" + p.toString() + ">", "PACKET");
+    }
         
         
     }
@@ -1264,16 +1264,16 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         switch ( p.getFc().get_fc_type() ) {
             case Mac_802_11_Frame_Control.MAC_Type_Management:
-			    switch( p.getFc().get_fc_subtype() ) {
-			    case Mac_802_11_Frame_Control.MAC_Subtype_Beacon:                
-					trace(why + " drop Beacon frame" + " < " + ((Mac_802_11_Beacon_Frame)p).toString() + " >", "PACKET");
-					break;
-	    		case Mac_802_11_Frame_Control.MAC_Subtype_ATIM:                
-					trace(why + " drop ATIM frame" + " < " + ((Mac_802_11_ATIM_Frame)p).toString() + " >", "PACKET");
-					break;
-	    		default:
-					break;
-	    		}
+          switch( p.getFc().get_fc_subtype() ) {
+          case Mac_802_11_Frame_Control.MAC_Subtype_Beacon:                
+          trace(why + " drop Beacon frame" + " < " + ((Mac_802_11_Beacon_Frame)p).toString() + " >", "PACKET");
+          break;
+          case Mac_802_11_Frame_Control.MAC_Subtype_ATIM:                
+          trace(why + " drop ATIM frame" + " < " + ((Mac_802_11_ATIM_Frame)p).toString() + " >", "PACKET");
+          break;
+          default:
+          break;
+          }
                 return;
             case Mac_802_11_Frame_Control.MAC_Type_Control:
                 switch( p.getFc().get_fc_subtype() ) {
@@ -1739,7 +1739,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         pktRTS_ = rf;
     }
     
-    private void sendCTS(long dst, int rts_duration)	{
+    private void sendCTS(long dst, int rts_duration)  {
         
         Mac_802_11_CTS_Frame cf;
         Mac_802_11_Frame_Control fc;
@@ -1824,14 +1824,14 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         _assert("Mac_802_11 RetransmitRTS()", "pktTx_ != null", (pktTx_ != null));
         _assert("Mac_802_11 RetransmitRTS()", "pktRTS_ != null", (pktRTS_ != null));
         
-		if (bf_timer_.busy() == true) 
-			debug("\n" + pktBeacon_ + pktATIM_ + "\n");
-			
+    if (bf_timer_.busy() == true) 
+      debug("\n" + pktBeacon_ + pktATIM_ + "\n");
+      
         _assert("Mac_802_11 RetransmitRTS()", "bf_timer_.busy() == false", (bf_timer_.busy() == false));
         
         macmib_.RTSFailureCount++;
         
-        ssrc_ = ssrc_ + 1;			// STA Short Retry Count
+        ssrc_ = ssrc_ + 1;      // STA Short Retry Count
         
         if (ssrc_ >= macmib_.ShortRetryLimit) {
             discard(pktRTS_, DROP_MAC_RETRY_COUNT_EXCEEDED);
@@ -1954,7 +1954,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         macmib_.ACKFailureCount++;
         atimrc++;
         if (atimrc > macmib_.MAC_ATIMRetryLimit) {
-			Packet removePkt_ = null;
+      Packet removePkt_ = null;
 
             macmib_.FailedCount++;
             discard(pktATIM_, DROP_MAC_ATIM_RETRY_COUNT);
@@ -1969,16 +1969,16 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                     psm_buffer.remove(this_entry);
                     //XXX: call back?
 
-					removePkt_ = this_entry.packet_;
+          removePkt_ = this_entry.packet_;
                     
                     drop(this_entry.packet_, DROP_MAC_RETRY_COUNT_EXCEEDED);
                     if (this_entry == entryATIM_)
                         entryATIM_ = null;
                     this_entry = null;
-	            }
-	            
-               	if(removePkt_ != null && brokenPort._isEventExportEnabled())
-                	brokenPort.exportEvent(EVENT_LINK_BROKEN, removePkt_.clone(), null);
+              }
+              
+                 if(removePkt_ != null && brokenPort._isEventExportEnabled())
+                  brokenPort.exportEvent(EVENT_LINK_BROKEN, removePkt_.clone(), null);
 
             }
         } else {
@@ -2043,7 +2043,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         
         /*
          * IEEE 802.11 specs, section 9.2.5.6
-         *	- update the NAV (Network Allocation Vector)
+         *  - update the NAV (Network Allocation Vector)
          */
         if ( pktRx_ instanceof Mac_802_11_RTS_Frame ) {
             src = ((Mac_802_11_RTS_Frame)pktRx_).getTa();
@@ -2117,7 +2117,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                     pktRx_ = null;
                     rx_resume();
 
-               		debug(macaddr_+" PSM disabled\n");
+                   debug(macaddr_+" PSM disabled\n");
 
                     return;
                 }
@@ -2129,7 +2129,7 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                         case Mac_802_11_Frame_Control.MAC_Subtype_ATIM:
                             recvATIM(pktRx_);
 
-                   		    trace("received ATIM frame" + " < " + ((Mac_802_11_ATIM_Frame)pktRx_).toString() + " > ", "PACKET");
+                           trace("received ATIM frame" + " < " + ((Mac_802_11_ATIM_Frame)pktRx_).toString() + " > ", "PACKET");
 
                             break;
                         default:
@@ -2222,8 +2222,8 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                 while(e != null && e.hasMoreElements()) {
                     BUFFER_ENTRY this_entry = (BUFFER_ENTRY)e.nextElement();
                     
-	                  if (new_entry.get_addr() == this_entry.get_addr() && this_entry.sent_atim_) {
-	                    	
+                    if (new_entry.get_addr() == this_entry.get_addr() && this_entry.sent_atim_) {
+                        
                         new_entry.sent_atim_ = this_entry.sent_atim_;
                         new_entry.recvd_ack_ = this_entry.recvd_ack_;
                         found = true;
@@ -2237,37 +2237,37 @@ public class Mac_802_11 extends Module implements ActiveComponent {
                     atim_scan();
                 }
             } 
-			else {
+      else {
             
-				if (!atim_timer_.busy()) { //outside ATIM window
-					Enumeration e = psm_buffer.elements();
-					while(e != null && e.hasMoreElements()) {
-						BUFFER_ENTRY this_entry = (BUFFER_ENTRY)e.nextElement();
-						if (dst_macaddr == this_entry.get_addr() && (this_entry.recvd_ack_ ||
-									(dst_macaddr == MAC_BROADCAST && this_entry.sent_atim_))) {
-							to_transmit = true;
-							break;
-						}
-					}
-				}
+        if (!atim_timer_.busy()) { //outside ATIM window
+          Enumeration e = psm_buffer.elements();
+          while(e != null && e.hasMoreElements()) {
+            BUFFER_ENTRY this_entry = (BUFFER_ENTRY)e.nextElement();
+            if (dst_macaddr == this_entry.get_addr() && (this_entry.recvd_ack_ ||
+                  (dst_macaddr == MAC_BROADCAST && this_entry.sent_atim_))) {
+              to_transmit = true;
+              break;
+            }
+          }
+        }
 
-				if(!to_transmit) { //inside ATIM window w/o beacon or outside ATIM window with receiver sleeping
-					BUFFER_ENTRY new_entry = new BUFFER_ENTRY(p, dst_macaddr, false, false, false, 0);
+        if(!to_transmit) { //inside ATIM window w/o beacon or outside ATIM window with receiver sleeping
+          BUFFER_ENTRY new_entry = new BUFFER_ENTRY(p, dst_macaddr, false, false, false, 0);
 
-					Enumeration e = psm_buffer.elements();
-					while(e != null && e.hasMoreElements()) {
-						BUFFER_ENTRY this_entry = (BUFFER_ENTRY)e.nextElement();
-						if (new_entry.get_addr() == this_entry.get_addr()) {
-							new_entry.sent_atim_ = this_entry.sent_atim_;
-							new_entry.recvd_ack_ = this_entry.recvd_ack_;
-							break;
-						}
-					}
+          Enumeration e = psm_buffer.elements();
+          while(e != null && e.hasMoreElements()) {
+            BUFFER_ENTRY this_entry = (BUFFER_ENTRY)e.nextElement();
+            if (new_entry.get_addr() == this_entry.get_addr()) {
+              new_entry.sent_atim_ = this_entry.sent_atim_;
+              new_entry.recvd_ack_ = this_entry.recvd_ack_;
+              break;
+            }
+          }
 
 
-					psm_buffer.addElement(new_entry);
-				}
-			}
+          psm_buffer.addElement(new_entry);
+        }
+      }
         }
         
         if (!psm_enabled_ || fastroute || to_transmit) {
@@ -2547,9 +2547,9 @@ public class Mac_802_11 extends Module implements ActiveComponent {
         // Backoff before sending again.
         rst_cw();
 
-		if (bf_timer_.busy() == true) {
-			debug("Mac state :" + tx_state_ + p+"\n");
-		}
+    if (bf_timer_.busy() == true) {
+      debug("Mac state :" + tx_state_ + p+"\n");
+    }
         
         
         _assert("Mac_802_11 recvACK()", "bf_timer_.busy() == false", (bf_timer_.busy() == false));

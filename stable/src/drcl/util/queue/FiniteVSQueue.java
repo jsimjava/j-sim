@@ -32,14 +32,14 @@ package drcl.util.queue;
  * Base implementation is provided by {@link FiniteVSQueueImpl}. */
 public interface FiniteVSQueue extends VariableSizeQueue
 {
-	public int getCapacity();
+  public int getCapacity();
 
-	public void setCapacity(int cap_);
+  public void setCapacity(int cap_);
 
-	/** Returns true if this queue is full. */
-	public boolean isFull();
+  /** Returns true if this queue is full. */
+  public boolean isFull();
 
-	/** Returns true if this queue is overflowed with the addition of
-	 * <code>size_</code>. */
-	public boolean isFull(int size_);
+  /** Returns true if this queue is overflowed with the addition of
+   * <code>size_</code>. */
+  public boolean isFull(int size_);
 }

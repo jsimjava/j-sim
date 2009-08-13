@@ -39,86 +39,86 @@ import java.util.*;
  */
 public class OSPF_LSack extends drcl.DrclObj
 {
-	protected final static int OSPF_LS_ACK_PKT_SIZE	= OSPF_LSA_Header.OSPF_LSA_HEADER_SIZE;
+  protected final static int OSPF_LS_ACK_PKT_SIZE  = OSPF_LSA_Header.OSPF_LSA_HEADER_SIZE;
 
-	protected int lsack_num;
-	protected Vector	LSA_hdr_list = new Vector();
+  protected int lsack_num;
+  protected Vector  LSA_hdr_list = new Vector();
 
-	public OSPF_LSack()
-	{}
+  public OSPF_LSack()
+  {}
 
-	public Object clone()
-	{
-		OSPF_LSack new_ = new OSPF_LSack();
-		new_.duplicate(this);
-		return new_;
-	}
+  public Object clone()
+  {
+    OSPF_LSack new_ = new OSPF_LSack();
+    new_.duplicate(this);
+    return new_;
+  }
 
-	public void duplicate(Object source_)
-	{
-		OSPF_LSack that_ = (OSPF_LSack)source_;
-		lsack_num = that_.lsack_num;
-		LSA_hdr_list.removeAllElements();
-		LSA_hdr_list.setSize(lsack_num);
-		for (int i=0; i<lsack_num; i++)
-			LSA_hdr_list.setElementAt(((OSPF_LSA_Header)that_.LSA_hdr_list.elementAt(i)).clone(), i); // clone header
-	}
+  public void duplicate(Object source_)
+  {
+    OSPF_LSack that_ = (OSPF_LSack)source_;
+    lsack_num = that_.lsack_num;
+    LSA_hdr_list.removeAllElements();
+    LSA_hdr_list.setSize(lsack_num);
+    for (int i=0; i<lsack_num; i++)
+      LSA_hdr_list.setElementAt(((OSPF_LSA_Header)that_.LSA_hdr_list.elementAt(i)).clone(), i); // clone header
+  }
 
-	protected OSPF_LSack ( int no )
-	{
-		/* create a OPSF_LSack object through 
-		   RecycleManager.reproduce() to improve the performance
-		   of simulator. For more details, refer to the RecycleManager 
-		   class. 
-		 */
-		// OSPF_LSack h_ = (OSPF_LSack)drcl.RecycleManager.reproduce(OSPF_LSack.class);
-		setlsahdr(no);
-	}
+  protected OSPF_LSack ( int no )
+  {
+    /* create a OPSF_LSack object through 
+       RecycleManager.reproduce() to improve the performance
+       of simulator. For more details, refer to the RecycleManager 
+       class. 
+     */
+    // OSPF_LSack h_ = (OSPF_LSack)drcl.RecycleManager.reproduce(OSPF_LSack.class);
+    setlsahdr(no);
+  }
 
-  	protected OSPF_LSack ( OSPF_LSA_Header lsh )
-	{
-		/* create a OPSF_LSack object through 
-		   RecycleManager.reproduce() to improve the performance
-		   of simulator. For more details, refer to the RecycleManager 
-		   class. 
-		 */
-		//OSPF_LSack h_ = (OSPF_LSack)drcl.RecycleManager.reproduce(OSPF_LSack.class);
-		this();
-		setlsahdr(lsh);
-	}
+    protected OSPF_LSack ( OSPF_LSA_Header lsh )
+  {
+    /* create a OPSF_LSack object through 
+       RecycleManager.reproduce() to improve the performance
+       of simulator. For more details, refer to the RecycleManager 
+       class. 
+     */
+    //OSPF_LSack h_ = (OSPF_LSack)drcl.RecycleManager.reproduce(OSPF_LSack.class);
+    this();
+    setlsahdr(lsh);
+  }
 
-	public String toString()
-	{ return "#lshs:" + lsack_num + (lsack_num>0 && lsack_num < 5? ",lshs:" + LSA_hdr_list: ""); }
-	
-	/**
-	 * create new LSAs for a recycle object
-	 */
-	private void setlsahdr( int no )
-	{
-		if ( LSA_hdr_list == null) {
-			LSA_hdr_list = new Vector(no);
-		} else {
-			LSA_hdr_list.removeAllElements();
-			LSA_hdr_list = null;
-			LSA_hdr_list = new Vector(no);
-		}
-		lsack_num = 0;
-	}
-	
-	private void setlsahdr( OSPF_LSA_Header lsh )
-	{
-		if ( LSA_hdr_list == null) {
-			LSA_hdr_list = new Vector(1);
-		} else {
-			LSA_hdr_list.removeAllElements();
-		}
-		LSA_hdr_list.addElement(lsh);
-		lsack_num = 1;
-	}
-	
-	protected void addlsahdr( OSPF_LSA_Header lsh )
-	{
-		LSA_hdr_list.addElement(lsh);
-		lsack_num++ ;
-	}
+  public String toString()
+  { return "#lshs:" + lsack_num + (lsack_num>0 && lsack_num < 5? ",lshs:" + LSA_hdr_list: ""); }
+  
+  /**
+   * create new LSAs for a recycle object
+   */
+  private void setlsahdr( int no )
+  {
+    if ( LSA_hdr_list == null) {
+      LSA_hdr_list = new Vector(no);
+    } else {
+      LSA_hdr_list.removeAllElements();
+      LSA_hdr_list = null;
+      LSA_hdr_list = new Vector(no);
+    }
+    lsack_num = 0;
+  }
+  
+  private void setlsahdr( OSPF_LSA_Header lsh )
+  {
+    if ( LSA_hdr_list == null) {
+      LSA_hdr_list = new Vector(1);
+    } else {
+      LSA_hdr_list.removeAllElements();
+    }
+    LSA_hdr_list.addElement(lsh);
+    lsack_num = 1;
+  }
+  
+  protected void addlsahdr( OSPF_LSA_Header lsh )
+  {
+    LSA_hdr_list.addElement(lsh);
+    lsack_num++ ;
+  }
 }

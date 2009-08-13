@@ -40,127 +40,127 @@ import drcl.util.StringUtil;
  */
 public class FileComponent extends Extension
 {
-	static final long FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED  = 1L << FLAG_UNDEFINED_START;
-	static final long FLAG_AUTO_FLUSH_ENABLED  = 1L << FLAG_UNDEFINED_START << 1;
-	static final long FLAG_TIMESTAMP_ENABLED  = 1L << FLAG_UNDEFINED_START << 2;
-	static final long FLAG_EVENT_FILTERING_ENABLED  = 1L << FLAG_UNDEFINED_START << 3;
-	static final long FLAG_WRITE_BINARY_ENABLED  = 1L << FLAG_UNDEFINED_START << 4;
-	{ setComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED | FLAG_AUTO_FLUSH_ENABLED, true); }
-	
-	public FileComponent()
-	{ super(); }
-	
-	public FileComponent(String id_)
-	{ super(id_); }
-	
-	OutputStream out = null;
+  static final long FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED  = 1L << FLAG_UNDEFINED_START;
+  static final long FLAG_AUTO_FLUSH_ENABLED  = 1L << FLAG_UNDEFINED_START << 1;
+  static final long FLAG_TIMESTAMP_ENABLED  = 1L << FLAG_UNDEFINED_START << 2;
+  static final long FLAG_EVENT_FILTERING_ENABLED  = 1L << FLAG_UNDEFINED_START << 3;
+  static final long FLAG_WRITE_BINARY_ENABLED  = 1L << FLAG_UNDEFINED_START << 4;
+  { setComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED | FLAG_AUTO_FLUSH_ENABLED, true); }
+  
+  public FileComponent()
+  { super(); }
+  
+  public FileComponent(String id_)
+  { super(id_); }
+  
+  OutputStream out = null;
 
-	public void open(String fname_)
-	{
-		try {
-			if (out != null) try { out.close(); } catch (Exception e_) {}
-			out = new FileOutputStream(fname_);
-		}
-		catch (Exception e_) {
-			error("open()", e_);
-		}
-	}
+  public void open(String fname_)
+  {
+    try {
+      if (out != null) try { out.close(); } catch (Exception e_) {}
+      out = new FileOutputStream(fname_);
+    }
+    catch (Exception e_) {
+      error("open()", e_);
+    }
+  }
 
-	public void close()
-	{
-		try {
-			if (out != null) out.close();
-		}
-		catch (Exception e_) {
-			error("close()", e_);
-		}
-	}
+  public void close()
+  {
+    try {
+      if (out != null) out.close();
+    }
+    catch (Exception e_) {
+      error("close()", e_);
+    }
+  }
 
-	protected synchronized void process(Object data_, Port inPort_) 
-	{
-		try {
-			if (out == null) {
-				return;
-			}
-			if (data_ instanceof ByteStreamContract.Message) {
-				ByteStreamContract.Message s_ = (ByteStreamContract.Message)data_;
-				// suppose FileComponent is just a listener,
-				// does not send reply to the send request
-				byte[] bytes_ = s_.getByteArray();
-				int offset_ = s_.getOffset();
-				int len_ = s_.getLength();
-				out.write(bytes_, offset_, len_);
-				if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
-					out.flush();
-			}
-			else if (getComponentFlag(FLAG_EVENT_FILTERING_ENABLED) != 0
-				&& data_ instanceof EventContract.Message) {
-				EventContract.Message s_ = (EventContract.Message)data_;
-				out.write((s_.getTime() + "\t" + s_.getEvent() + "\n").getBytes());
-				if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
-					out.flush();
-			}
-			else if (data_ != null) {
-				if (getComponentFlag(FLAG_TIMESTAMP_ENABLED) != 0) {
-					if (data_ instanceof byte[]) {
-						out.write((getTime() + "\t").getBytes());
-						out.write((byte[])data_);
-						out.write("\n".getBytes());
-					}
-					else
-						out.write((getTime() + "\t"
-							+ StringUtil.toString(data_) + "\n").getBytes());
-				}
-				else {
-					if (data_ instanceof byte[])
-						out.write((byte[])data_);
-					else if (getComponentFlag(
-									FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED) == 0
-						|| data_ instanceof String)
-						out.write(StringUtil.toString(data_).getBytes());
-					else 
-						out.write((StringUtil.toString(data_)
-												+ "\n").getBytes());
-				}
-				if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
-					out.flush();
-			}
-		}
-		catch (Exception e_) {
-			e_.printStackTrace();
-			error("close()", e_);
-		}
-	}
-	
-	/*
-	public void setWriteBinaryEnabled(boolean enabled_)
-	{ setComponentFlag(FLAG_WRITE_BINARY_ENABLED, enabled_); }
-	
-	public boolean isWriteBinaryEnabled()
-	{ return getComponentFlag(FLAG_WRITE_BINARY_ENABLED) != 0; }
-	*/
+  protected synchronized void process(Object data_, Port inPort_) 
+  {
+    try {
+      if (out == null) {
+        return;
+      }
+      if (data_ instanceof ByteStreamContract.Message) {
+        ByteStreamContract.Message s_ = (ByteStreamContract.Message)data_;
+        // suppose FileComponent is just a listener,
+        // does not send reply to the send request
+        byte[] bytes_ = s_.getByteArray();
+        int offset_ = s_.getOffset();
+        int len_ = s_.getLength();
+        out.write(bytes_, offset_, len_);
+        if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
+          out.flush();
+      }
+      else if (getComponentFlag(FLAG_EVENT_FILTERING_ENABLED) != 0
+        && data_ instanceof EventContract.Message) {
+        EventContract.Message s_ = (EventContract.Message)data_;
+        out.write((s_.getTime() + "\t" + s_.getEvent() + "\n").getBytes());
+        if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
+          out.flush();
+      }
+      else if (data_ != null) {
+        if (getComponentFlag(FLAG_TIMESTAMP_ENABLED) != 0) {
+          if (data_ instanceof byte[]) {
+            out.write((getTime() + "\t").getBytes());
+            out.write((byte[])data_);
+            out.write("\n".getBytes());
+          }
+          else
+            out.write((getTime() + "\t"
+              + StringUtil.toString(data_) + "\n").getBytes());
+        }
+        else {
+          if (data_ instanceof byte[])
+            out.write((byte[])data_);
+          else if (getComponentFlag(
+                  FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED) == 0
+            || data_ instanceof String)
+            out.write(StringUtil.toString(data_).getBytes());
+          else 
+            out.write((StringUtil.toString(data_)
+                        + "\n").getBytes());
+        }
+        if (getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0)
+          out.flush();
+      }
+    }
+    catch (Exception e_) {
+      e_.printStackTrace();
+      error("close()", e_);
+    }
+  }
+  
+  /*
+  public void setWriteBinaryEnabled(boolean enabled_)
+  { setComponentFlag(FLAG_WRITE_BINARY_ENABLED, enabled_); }
+  
+  public boolean isWriteBinaryEnabled()
+  { return getComponentFlag(FLAG_WRITE_BINARY_ENABLED) != 0; }
+  */
 
-	public void setAppendNewLineToObjectEnabled(boolean enabled_)
-	{ setComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED, enabled_); }
-	
-	public boolean isAppendNewLineToObjectEnabled()
-	{ return getComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED) != 0; }
-	
-	public void setAutoFlushEnabled(boolean enabled_)
-	{ setComponentFlag(FLAG_AUTO_FLUSH_ENABLED, enabled_); }
-	
-	public boolean isAutoFlushEnabled()
-	{ return getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0; }
-	
-	public void setTimestampEnabled(boolean enabled_)
-	{ setComponentFlag(FLAG_TIMESTAMP_ENABLED, enabled_); }
-	
-	public boolean isTimestampEnabled()
-	{ return getComponentFlag(FLAG_TIMESTAMP_ENABLED) != 0; }
-	
-	public void setEventFilteringEnabled(boolean enabled_)
-	{ setComponentFlag(FLAG_EVENT_FILTERING_ENABLED, enabled_); }
-	
-	public boolean isEventFilteringEnabled()
-	{ return getComponentFlag(FLAG_EVENT_FILTERING_ENABLED) != 0; }
+  public void setAppendNewLineToObjectEnabled(boolean enabled_)
+  { setComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED, enabled_); }
+  
+  public boolean isAppendNewLineToObjectEnabled()
+  { return getComponentFlag(FLAG_APPEND_NEW_LINE_TO_OBJECT_ENABLED) != 0; }
+  
+  public void setAutoFlushEnabled(boolean enabled_)
+  { setComponentFlag(FLAG_AUTO_FLUSH_ENABLED, enabled_); }
+  
+  public boolean isAutoFlushEnabled()
+  { return getComponentFlag(FLAG_AUTO_FLUSH_ENABLED) != 0; }
+  
+  public void setTimestampEnabled(boolean enabled_)
+  { setComponentFlag(FLAG_TIMESTAMP_ENABLED, enabled_); }
+  
+  public boolean isTimestampEnabled()
+  { return getComponentFlag(FLAG_TIMESTAMP_ENABLED) != 0; }
+  
+  public void setEventFilteringEnabled(boolean enabled_)
+  { setComponentFlag(FLAG_EVENT_FILTERING_ENABLED, enabled_); }
+  
+  public boolean isEventFilteringEnabled()
+  { return getComponentFlag(FLAG_EVENT_FILTERING_ENABLED) != 0; }
 }

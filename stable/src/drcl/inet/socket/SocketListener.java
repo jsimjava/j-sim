@@ -32,7 +32,7 @@ package drcl.inet.socket;
 /** Register on interested sockets to listen to events of data availability. */
 public interface SocketListener
 {
-	/** Called when new data just arrived on the socket.
-	 * @param available_ number of bytes that just arrived. */
-	public void dataAvailable(InetSocket socket_, int available_);
+  /** Called when new data just arrived on the socket.
+   * @param available_ number of bytes that just arrived. */
+  public void dataAvailable(InetSocket socket_, int available_);
 }

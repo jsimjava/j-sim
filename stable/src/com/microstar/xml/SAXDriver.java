@@ -65,8 +65,8 @@ public class SAXDriver
 
   private boolean seenDTDEvents = false;
 
-				// Encapsulate the default behaviour
-				// from HandlerBase
+        // Encapsulate the default behaviour
+        // from HandlerBase
   private EntityResolver entityResolver = base;
   private DTDHandler dtdHandler = base;
   private DocumentHandler documentHandler = base;
@@ -163,18 +163,18 @@ public class SAXDriver
 
     try {
       if (source.getCharacterStream() != null) {
-	parser.parse(source.getSystemId(),
-		     source.getPublicId(),
-		     source.getCharacterStream());
+  parser.parse(source.getSystemId(),
+         source.getPublicId(),
+         source.getCharacterStream());
       } else if (source.getByteStream() != null) {
-	parser.parse(source.getSystemId(),
-		     source.getPublicId(),
-		     source.getByteStream(),
-		     source.getEncoding());
+  parser.parse(source.getSystemId(),
+         source.getPublicId(),
+         source.getByteStream(),
+         source.getEncoding());
       } else {
-	parser.parse(source.getSystemId(),
-		     source.getPublicId(),
-		     source.getEncoding());
+  parser.parse(source.getSystemId(),
+         source.getPublicId(),
+         source.getEncoding());
       }
     } catch (SAXException e) {
       throw e;
@@ -182,7 +182,7 @@ public class SAXDriver
       throw new SAXException(e);
     } finally {
       try {
-	closeStreams(source);
+  closeStreams(source);
       } catch (Exception e) {};
     }
 
@@ -269,7 +269,7 @@ public class SAXDriver
     throws SAXException, IOException
   {
     InputSource source = entityResolver.resolveEntity(publicId,
-						      systemId);
+                  systemId);
 
     if (source == null) {
       return null;
@@ -280,8 +280,8 @@ public class SAXDriver
     } else {
       return source.getSystemId();
     }
-				// FIXME: no way to tell AElfred
-				// about a new public id.
+        // FIXME: no way to tell AElfred
+        // about a new public id.
   }
 
 
@@ -354,8 +354,8 @@ public class SAXDriver
   public void startElement (String elname)
     throws SAXException
   {
-				// We should deliver all DTD events
-				// before the first startElement event.
+        // We should deliver all DTD events
+        // before the first startElement event.
     if (!seenDTDEvents) {
       deliverDTDEvents();
       seenDTDEvents = true;
@@ -436,7 +436,7 @@ public class SAXDriver
     throws SAXException
   {
       errorHandler.fatalError(new SAXParseException(message, null,
-						    url, line, column));
+                url, line, column));
   }
 
 
@@ -455,7 +455,7 @@ public class SAXDriver
     Enumeration notationNames = parser.declaredNotations();
     Enumeration entityNames = parser.declaredEntities();
 
-				// First, report all notations.
+        // First, report all notations.
     while (notationNames.hasMoreElements()) {
       nname = (String)notationNames.nextElement();
       publicId = parser.getNotationPublicId(nname);
@@ -463,14 +463,14 @@ public class SAXDriver
       dtdHandler.notationDecl(nname, publicId, systemId);
     }
 
-				// Next, report all unparsed entities.
+        // Next, report all unparsed entities.
     while (entityNames.hasMoreElements()) {
       ename = (String)entityNames.nextElement();
       if (parser.getEntityType(ename) == XmlParser.ENTITY_NDATA) {
-	publicId = parser.getEntityPublicId(ename);
-	systemId = parser.getEntitySystemId(ename);
-	nname = parser.getEntityNotationName(ename);
-	dtdHandler.unparsedEntityDecl(ename, publicId, systemId, nname);
+  publicId = parser.getEntityPublicId(ename);
+  systemId = parser.getEntitySystemId(ename);
+  nname = parser.getEntityNotationName(ename);
+  dtdHandler.unparsedEntityDecl(ename, publicId, systemId, nname);
       }
     }
   }
@@ -533,7 +533,7 @@ public class SAXDriver
   {
     for (int i = 0; i < getLength(); i++) {
       if (name.equals(getName(i))) {
-	return getType(i);
+  return getType(i);
       }
     }
     return null;
@@ -544,7 +544,7 @@ public class SAXDriver
   {
     for (int i = 0; i < getLength(); i++) {
       if (name.equals(getName(i))) {
-	return getValue(i);
+  return getValue(i);
       }
     }
     return null;
@@ -558,7 +558,7 @@ public class SAXDriver
 
   public String getPublicId ()
   {
-    return null;		// TODO
+    return null;    // TODO
   }
 
   public String getSystemId ()

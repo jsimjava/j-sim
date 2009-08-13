@@ -40,39 +40,39 @@ This contract defines three services at the reactor:
 <dl>
 <dt> <code>IdentityAddition</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 0 (the "add" command),
-	<li> the set of identities (<code>long[]</code>) to be added, and
-	<li> the set of corresponding life periods (<code>double[]</code>).
-	</ol>
-	In response, the reactor adds the set of identities to its database and 
-	each identity will stay for the time specified in the corresponding period
-	and then removed.  One may specify a negative value or
-	<code>Double.NaN</code>
-	as the period value to have the corresponding identity <u>not</u> removed.
+  <ol>
+  <li> an integer of value 0 (the "add" command),
+  <li> the set of identities (<code>long[]</code>) to be added, and
+  <li> the set of corresponding life periods (<code>double[]</code>).
+  </ol>
+  In response, the reactor adds the set of identities to its database and 
+  each identity will stay for the time specified in the corresponding period
+  and then removed.  One may specify a negative value or
+  <code>Double.NaN</code>
+  as the period value to have the corresponding identity <u>not</u> removed.
 <dt> <code>IdentityRemoval</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 1 (the "remove" command) and
-	<li> the set of identities (<code>long[]</code>) to be removed.
-	</ol>
-	In response, the reactor removes the set of identities from its database.
+  <ol>
+  <li> an integer of value 1 (the "remove" command) and
+  <li> the set of identities (<code>long[]</code>) to be removed.
+  </ol>
+  In response, the reactor removes the set of identities from its database.
 <dt> <code>IdentityTimeoutQuery</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 2 (the "query" command) and
-	<li> the set of identities (<code>long[]</code>) in question.
-	</ol>
-	In response, the reactor sends back the set of time values (<code>double[]</code>),
-	each of which corresponds to the time when the corresponding identity will
-	be removed.
+  <ol>
+  <li> an integer of value 2 (the "query" command) and
+  <li> the set of identities (<code>long[]</code>) in question.
+  </ol>
+  In response, the reactor sends back the set of time values (<code>double[]</code>),
+  each of which corresponds to the time when the corresponding identity will
+  be removed.
 <dt> <code>SetDefaultIdentity</code>
 <dd> The initiator sends a message that consists of:
-	<ol>
-	<li> an integer of value 3 (the "setDefault" command) and
-	<li> the default identity (<code>long[]</code>); the first one is taken.
-	<li> the corresponding life period (<code>double[]</code>).
-	</ol>
+  <ol>
+  <li> an integer of value 3 (the "setDefault" command) and
+  <li> the default identity (<code>long[]</code>); the first one is taken.
+  <li> the corresponding life period (<code>double[]</code>).
+  </ol>
 </dl>
 This class also provides a set of static methods to faciliate conducting the
 above services (<code>add(..., Port)</code>, <code>remove(..., Port)</code> and
@@ -85,138 +85,138 @@ a protocol that is in charge of maintaining the identities of the node.
 */
 public class IDConfig extends Contract
 {
-	public static final IDConfig INSTANCE = new IDConfig();
+  public static final IDConfig INSTANCE = new IDConfig();
 
-	public IDConfig()
-	{ super(); }
-	
-	public IDConfig(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "IdentityConfiguration Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	public static void add(long id_, double timeout_, Port out_)
-	{ out_.sendReceive(new Message(ADD, new long[]{id_}, new double[]{timeout_})); }
-	
-	public static void add(long[] id_, double[] timeout_, Port out_)
-	{ out_.sendReceive(new Message(ADD, id_, timeout_)); }
-	
-	public static void remove(long id_, Port out_)
-	{ out_.sendReceive(new Message(REMOVE, new long[]{id_})); }
-	
-	public static void remove(long[] id_, Port out_)
-	{ out_.sendReceive(new Message(REMOVE, id_)); }
-	
-	public static double query(long id_, Port out_)
-	{
-		double[] o_ = (double[])out_.sendReceive(new Message(QUERY, new long[]{id_}));
-		return o_[0];
-	}
+  public IDConfig()
+  { super(); }
+  
+  public IDConfig(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "IdentityConfiguration Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  public static void add(long id_, double timeout_, Port out_)
+  { out_.sendReceive(new Message(ADD, new long[]{id_}, new double[]{timeout_})); }
+  
+  public static void add(long[] id_, double[] timeout_, Port out_)
+  { out_.sendReceive(new Message(ADD, id_, timeout_)); }
+  
+  public static void remove(long id_, Port out_)
+  { out_.sendReceive(new Message(REMOVE, new long[]{id_})); }
+  
+  public static void remove(long[] id_, Port out_)
+  { out_.sendReceive(new Message(REMOVE, id_)); }
+  
+  public static double query(long id_, Port out_)
+  {
+    double[] o_ = (double[])out_.sendReceive(new Message(QUERY, new long[]{id_}));
+    return o_[0];
+  }
 
-	public static void setDefault(long id_, Port out_)
-	{
-		out_.sendReceive(new Message(SET_DEFAULT, new long[]{id_},
-								new double[]{-1.0}));
-	}
-	
-	public static double[] query(long[] id_, Port out_)
-	{ return (double[])out_.sendReceive(new Message(QUERY, id_)); }
-	
-	public static Object createAddRequest(long id_)
-	{	return new Message(ADD, new long[]{id_}, new double[]{-1.0});	}
-	
-	public static Object createAddRequest(long id_, double timeout_)
-	{	return new Message(ADD, new long[]{id_}, new double[]{timeout_});	}
-	
-	public static Object createAddRequest(long[] id_, double[] timeout_)
-	{	return new Message(ADD, id_, timeout_);	}
-	
-	public static Object createRemoveRequest(long id_)
-	{	return new Message(REMOVE, new long[]{id_});	}
-	
-	public static Object createRemoveRequest(long[] id_)
-	{	return new Message(REMOVE, id_);	}
-	
-	public static Object createQueryRequest()
-	{	return new Message(QUERY, null);	}
-	
-	public static Object createQueryRequest(long id_)
-	{	return new Message(QUERY, new long[]{id_});	}
-	
-	public static Object createQueryRequest(long[] id_)
-	{	return new Message(QUERY, id_);	}
+  public static void setDefault(long id_, Port out_)
+  {
+    out_.sendReceive(new Message(SET_DEFAULT, new long[]{id_},
+                new double[]{-1.0}));
+  }
+  
+  public static double[] query(long[] id_, Port out_)
+  { return (double[])out_.sendReceive(new Message(QUERY, id_)); }
+  
+  public static Object createAddRequest(long id_)
+  {  return new Message(ADD, new long[]{id_}, new double[]{-1.0});  }
+  
+  public static Object createAddRequest(long id_, double timeout_)
+  {  return new Message(ADD, new long[]{id_}, new double[]{timeout_});  }
+  
+  public static Object createAddRequest(long[] id_, double[] timeout_)
+  {  return new Message(ADD, id_, timeout_);  }
+  
+  public static Object createRemoveRequest(long id_)
+  {  return new Message(REMOVE, new long[]{id_});  }
+  
+  public static Object createRemoveRequest(long[] id_)
+  {  return new Message(REMOVE, id_);  }
+  
+  public static Object createQueryRequest()
+  {  return new Message(QUERY, null);  }
+  
+  public static Object createQueryRequest(long id_)
+  {  return new Message(QUERY, new long[]{id_});  }
+  
+  public static Object createQueryRequest(long[] id_)
+  {  return new Message(QUERY, id_);  }
 
-	public static Object createSetDefaultRequest(long id_)
-	{	return new Message(SET_DEFAULT, new long[]{id_}, new double[]{-1.0}); }
-	
-	
-	// type
-	public static final int ADD = 0; // or modify/replace
-	public static final int REMOVE = 1;
-	public static final int QUERY = 2;
-	public static final int SET_DEFAULT = 3;
-	static final String[] TYPES = {"add", "remove", "query", "setDefault"};
-	
-	// no setter functions are needed for this class
-	public static class Message extends drcl.comp.Message
-	{
-		int type;
-		long[] ids;
-		double[] timeouts;
-		
-		public Message ()
-		{}
+  public static Object createSetDefaultRequest(long id_)
+  {  return new Message(SET_DEFAULT, new long[]{id_}, new double[]{-1.0}); }
+  
+  
+  // type
+  public static final int ADD = 0; // or modify/replace
+  public static final int REMOVE = 1;
+  public static final int QUERY = 2;
+  public static final int SET_DEFAULT = 3;
+  static final String[] TYPES = {"add", "remove", "query", "setDefault"};
+  
+  // no setter functions are needed for this class
+  public static class Message extends drcl.comp.Message
+  {
+    int type;
+    long[] ids;
+    double[] timeouts;
+    
+    public Message ()
+    {}
 
-		// for ADD and SET_DEFAULT
-		public Message (int type_, long[] ids_, double[] timeout_)
-		{
-			type = type_;
-			ids = ids_;
-			timeouts = timeout_;
-		}
-		
-		// for REMOVE and QUERY
-		public Message (int type_, long[] ids_)
-		{
-			type = type_;
-			ids = ids_;
-			timeouts = null;
-		}
+    // for ADD and SET_DEFAULT
+    public Message (int type_, long[] ids_, double[] timeout_)
+    {
+      type = type_;
+      ids = ids_;
+      timeouts = timeout_;
+    }
+    
+    // for REMOVE and QUERY
+    public Message (int type_, long[] ids_)
+    {
+      type = type_;
+      ids = ids_;
+      timeouts = null;
+    }
 
-		public int getType()
-		{ return type; }
+    public int getType()
+    { return type; }
 
-		public long[] getIDs()
-		{ return ids; }
+    public long[] getIDs()
+    { return ids; }
 
-		public double[] getTimeouts()
-		{ return timeouts; }
+    public double[] getTimeouts()
+    { return timeouts; }
 
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			type = that_.type;
-			ids = that_.ids == null? null: (long[]) that_.ids.clone();
-			if (type == ADD)
-				timeouts = that_.timeouts == null? null: (double[])that_.timeouts.clone();
-		}
-		*/
-	
-		public Object clone()
-		{ return new Message(type, ids, timeouts); }
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      type = that_.type;
+      ids = that_.ids == null? null: (long[]) that_.ids.clone();
+      if (type == ADD)
+        timeouts = that_.timeouts == null? null: (double[])that_.timeouts.clone();
+    }
+    */
+  
+    public Object clone()
+    { return new Message(type, ids, timeouts); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			return "IDCONFIG:" + TYPES[type] + separator_ + StringUtil.toString(ids)
-				+ (timeouts == null? "": separator_ + StringUtil.toString(timeouts));
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "IDCONFIG:" + TYPES[type] + separator_ + StringUtil.toString(ids)
+        + (timeouts == null? "": separator_ + StringUtil.toString(timeouts));
+    }
+  }
 }

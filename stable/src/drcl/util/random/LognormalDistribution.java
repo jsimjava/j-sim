@@ -33,72 +33,72 @@ import java.util.*;
 
 public class LognormalDistribution extends RandomNumberGenerator
 {
-	public String   getName()
-	{ return "Lognormal Distribution"; }
-	
-	double mean = 0.0, std = 1.0;
-	
-	public LognormalDistribution ()
-	{ super(); }
+  public String   getName()
+  { return "Lognormal Distribution"; }
+  
+  double mean = 0.0, std = 1.0;
+  
+  public LognormalDistribution ()
+  { super(); }
 
-	public LognormalDistribution (long normalSeed_)
-	{ super(normalSeed_); }
+  public LognormalDistribution (long normalSeed_)
+  { super(normalSeed_); }
 
-	public LognormalDistribution (double normalMean_, double normalStd_)
-	{ this(normalMean_, normalStd_, 0L); }
+  public LognormalDistribution (double normalMean_, double normalStd_)
+  { this(normalMean_, normalStd_, 0L); }
 
-	public LognormalDistribution (double normalMean_, double normalStd_,
-			long normalSeed_)
-	{
-		super(normalSeed_);
-		mean = normalMean_;
-		std = normalStd_;
-	}
-	
-	public double getMean()
-	{ return Math.exp(mean + std*std/2); }
-	
-	/** This method does not check overflow. */
-	public double nextDouble()
-	{ return Math.exp(r.nextGaussian() * std + mean); }
+  public LognormalDistribution (double normalMean_, double normalStd_,
+      long normalSeed_)
+  {
+    super(normalSeed_);
+    mean = normalMean_;
+    std = normalStd_;
+  }
+  
+  public double getMean()
+  { return Math.exp(mean + std*std/2); }
+  
+  /** This method does not check overflow. */
+  public double nextDouble()
+  { return Math.exp(r.nextGaussian() * std + mean); }
 
-	/** This method does not check overflow. */
-	public int nextInt()
-	{ return (int)Math.exp(r.nextGaussian() * std + mean); }
+  /** This method does not check overflow. */
+  public int nextInt()
+  { return (int)Math.exp(r.nextGaussian() * std + mean); }
 
-	/** This method does not check overflow. */
-	public long nextLong()
-	{ return (long)Math.exp(r.nextGaussian() * std + mean); }
+  /** This method does not check overflow. */
+  public long nextLong()
+  { return (long)Math.exp(r.nextGaussian() * std + mean); }
 
-	/** Sets the "normal" distribution mean for the lognormal distribution. */
-	public void setNormalMean(double m_)
-	{ mean = m_; }
+  /** Sets the "normal" distribution mean for the lognormal distribution. */
+  public void setNormalMean(double m_)
+  { mean = m_; }
 
-	/** Returns the "normal" distribution mean for the lognormal distribution.
-	 */
-	public double getNormalMean()
-	{ return mean; }
-	
-	/** Sets the "normal" distribution std for the lognormal distribution. */
-	public void setNormalStd(double std_)
-	{ std = std_; }
+  /** Returns the "normal" distribution mean for the lognormal distribution.
+   */
+  public double getNormalMean()
+  { return mean; }
+  
+  /** Sets the "normal" distribution std for the lognormal distribution. */
+  public void setNormalStd(double std_)
+  { std = std_; }
 
-	/** Returns the "normal" distribution std for the lognormal distribution. */
-	public double getNormalStd()
-	{ return std; }
+  /** Returns the "normal" distribution std for the lognormal distribution. */
+  public double getNormalStd()
+  { return std; }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Normal Mean = " + mean + "\n"
-			+  prefix_ + "Normal Std. = " + std ;
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Normal Mean = " + mean + "\n"
+      +  prefix_ + "Normal Std. = " + std ;
+  }
 
-	public String oneline()
-	{
-		return super.oneline()
-			+  ", normal_mean=" + mean
-			+  ", normal_std=" + std;
-	}
+  public String oneline()
+  {
+    return super.oneline()
+      +  ", normal_mean=" + mean
+      +  ", normal_std=" + std;
+  }
 }
 

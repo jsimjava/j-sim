@@ -49,16 +49,16 @@ packet event:
 <li> source and destination: also in the ID of the port at which packets arrive.
 <li> time: from {@link #getTime()}.
 <li> type: from {@link #getPacketType(Packet)}, by default,
-	it uses {@link Packet#getPacketType()}.
+  it uses {@link Packet#getPacketType()}.
 <li> extent: packet size from {@link Packet#getPacketSize()}.
 <li> conversation id: from {@link #getConversationID(Packet)},
-	a subclass should override this method
-	to provide this information, by default, this method returns null and this 
-	component does not output this field.
+  a subclass should override this method
+  to provide this information, by default, this method returns null and this 
+  component does not output this field.
 <li> id: uses {@link Packet#id} (the field is maintained by NamTrace).
 <li> attribute: from {@link #getColorID(Packet)},
-	a subclass should override this method to provide this information, 
-	by default, it always returns 0.
+  a subclass should override this method to provide this information, 
+  by default, it always returns 0.
 </ul>
 
 <p>In addition, this class provides a set of methods to facilitate outputting 
@@ -66,44 +66,44 @@ node, link, and queue events as well as configuring colors.
  */
 public class NamTrace extends drcl.comp.Extension
 {
-	Port out = addPort("output");
-	int hop, receive, drop, enque, deque;
-	boolean accounting = true;
-	boolean componentMessageFeedback = false;
-	Object lastComponentMessage = null; // to avoid loop back
-	long idcount = 0;
+  Port out = addPort("output");
+  int hop, receive, drop, enque, deque;
+  boolean accounting = true;
+  boolean componentMessageFeedback = false;
+  Object lastComponentMessage = null; // to avoid loop back
+  long idcount = 0;
 
-	public NamTrace()
-	{	this(null);	}
-	
-	public NamTrace(String id_)
-	{	super(id_);	}
-	
-	public void reset()
-	{
-		super.reset();
-		hop = receive = enque = deque = drop = 0;
-		idcount = 0;
-	}
+  public NamTrace()
+  {  this(null);  }
+  
+  public NamTrace(String id_)
+  {  super(id_);  }
+  
+  public void reset()
+  {
+    super.reset();
+    hop = receive = enque = deque = drop = 0;
+    idcount = 0;
+  }
 
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		NamTrace that_ = (NamTrace)source_;
-	}
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    NamTrace that_ = (NamTrace)source_;
+  }
 
-	public String info()
-	{
-		if (accounting)
-			return "   # enque events = " + enque + "\n"
-			     + "   # deque events = " + deque + "\n"
-			     + "     # hop events = " + hop + "\n"
-    			 + " # receive events = " + receive + "\n"
-    			 + "    # drop events = " + drop + "\n"
-    			 + "packet id counter = " + idcount + "\n";
-		else
-			return "Accounting is disabled.";
-	}
+  public String info()
+  {
+    if (accounting)
+      return "   # enque events = " + enque + "\n"
+           + "   # deque events = " + deque + "\n"
+           + "     # hop events = " + hop + "\n"
+           + " # receive events = " + receive + "\n"
+           + "    # drop events = " + drop + "\n"
+           + "packet id counter = " + idcount + "\n";
+    else
+      return "Accounting is disabled.";
+  }
 
 /*
 According to the NAM documentation, here is the format of a Packet Event line: 
@@ -114,7 +114,7 @@ According to the NAM documentation, here is the format of a Packet Event line:
 <type> is one of:
 h - Hop, packet started transmission from src_addt to dst_addr
 r - Receive, packet finished transmission and started to be received at the
-	destination 
+  destination 
 d - Drop, packets was dropped from the queue or link from src_addr to dst_addr 
 + - Enqueue, packet entered the queue from src_addr to dst_addr 
 - - Dequeue, packet left the queue from src_addr to dst_addr 
@@ -130,200 +130,200 @@ d - Drop, packets was dropped from the queue or link from src_addr to dst_addr
 */
 // src and dest are end node IDs of a link.
 
-	protected synchronized void process(Object data_, drcl.comp.Port inPort_) 
-	{
-		Packet p_;
-		if (data_ instanceof Packet)
-			p_ = (Packet) data_;
-		else if (data_ instanceof GarbageContract.Message) {
-			if (componentMessageFeedback && data_ != lastComponentMessage) {
-				lastComponentMessage = data_;
-				infoPort.doSending(data_);
-					// deliver the intercepted component messages
-			}
-			p_ = (Packet)((GarbageContract.Message)data_).getData();
-		}
-		else {
-			if (componentMessageFeedback && data_ != lastComponentMessage
-				&& data_ instanceof ComponentMessage) {
-				lastComponentMessage = data_;
-				infoPort.doSending(data_);
-					// deliver the intercepted component messages
-			}
-			return;
-		}
+  protected synchronized void process(Object data_, drcl.comp.Port inPort_) 
+  {
+    Packet p_;
+    if (data_ instanceof Packet)
+      p_ = (Packet) data_;
+    else if (data_ instanceof GarbageContract.Message) {
+      if (componentMessageFeedback && data_ != lastComponentMessage) {
+        lastComponentMessage = data_;
+        infoPort.doSending(data_);
+          // deliver the intercepted component messages
+      }
+      p_ = (Packet)((GarbageContract.Message)data_).getData();
+    }
+    else {
+      if (componentMessageFeedback && data_ != lastComponentMessage
+        && data_ instanceof ComponentMessage) {
+        lastComponentMessage = data_;
+        infoPort.doSending(data_);
+          // deliver the intercepted component messages
+      }
+      return;
+    }
 
-		if (accounting) {
-			switch (inPort_.id.charAt(0)) {
-			case 'r':
-				receive++; break;
-			case 'd':
-				drop++; break;
-			case '+':
-				enque++; break;
-			case '-':
-				deque++; break;
-			case 'h':
-				hop++; break;
-			default:
-				error("process()", "unrecognized event '"
-								+ inPort_.id.charAt(0) + "'");
-				return;
-			}
-		}
-		if (p_.id == 0) p_.id = ++idcount;
-		String conversationID_ = getConversationID(p_);
-		out.doSending(inPort_.id 
-				  + " -t " + getTime()
-				  + " -p " + getPacketType(p_)
-				  + " -e " + p_.size
-				  + (conversationID_ == null? "": " -c " + conversationID_)
-				  + " -i " + p_.id
-				  + " -a " + getColorID(p_) + "\n");
-	}
+    if (accounting) {
+      switch (inPort_.id.charAt(0)) {
+      case 'r':
+        receive++; break;
+      case 'd':
+        drop++; break;
+      case '+':
+        enque++; break;
+      case '-':
+        deque++; break;
+      case 'h':
+        hop++; break;
+      default:
+        error("process()", "unrecognized event '"
+                + inPort_.id.charAt(0) + "'");
+        return;
+      }
+    }
+    if (p_.id == 0) p_.id = ++idcount;
+    String conversationID_ = getConversationID(p_);
+    out.doSending(inPort_.id 
+          + " -t " + getTime()
+          + " -p " + getPacketType(p_)
+          + " -e " + p_.size
+          + (conversationID_ == null? "": " -c " + conversationID_)
+          + " -i " + p_.id
+          + " -a " + getColorID(p_) + "\n");
+  }
 
-	public String getConversationID(Packet p_)
-	{ return null; }
+  public String getConversationID(Packet p_)
+  { return null; }
 
-	public int getColorID(Packet p_)
-	{ return 0; }
+  public int getColorID(Packet p_)
+  { return 0; }
 
-	public String getPacketType(Packet p_)
-	{ return p_.getPacketType(); }
+  public String getPacketType(Packet p_)
+  { return p_.getPacketType(); }
 
-	/** Sets true to enable accounting of each type of event. */
-	public void setAccountingEnabled(boolean enabled_)
-	{ accounting = enabled_; }
+  /** Sets true to enable accounting of each type of event. */
+  public void setAccountingEnabled(boolean enabled_)
+  { accounting = enabled_; }
 
-	/** Returns true if accounting of each type of event is enabled. */
-	public boolean isAccountingEnabled()
-	{ return accounting; }
+  /** Returns true if accounting of each type of event is enabled. */
+  public boolean isAccountingEnabled()
+  { return accounting; }
 
-	/** Sets true to enable component message feedback through this 
-	 * component's infoport. */
-	public void setComponentMessageFeedbackEnabled(boolean enabled_)
-	{ componentMessageFeedback = enabled_; }
+  /** Sets true to enable component message feedback through this 
+   * component's infoport. */
+  public void setComponentMessageFeedbackEnabled(boolean enabled_)
+  { componentMessageFeedback = enabled_; }
 
-	/** Returns true if component message feedback through this component's 
-	 * infoport is enabled. */
-	public boolean isComponentMessageFeedbackEnabled()
-	{ return componentMessageFeedback; }
+  /** Returns true if component message feedback through this component's 
+   * infoport is enabled. */
+  public boolean isComponentMessageFeedbackEnabled()
+  { return componentMessageFeedback; }
 
-	
-	/** Adds a link event (complete form). */
-	public void addLink(double time_, long source_, long dest_, String state_,
-		String color_, String bandwidth_, String propagationDelay_,
-		String orientation_)
-	{
-		out.doSending("l -t " + time_ + " -s " + source_ + " -d " + dest_
-			+ " -S " + state_ + " -c " + color_ + " -r " + bandwidth_ + " -D "
-			+ propagationDelay_ + " -o " + orientation_ + "\n");
-	}
+  
+  /** Adds a link event (complete form). */
+  public void addLink(double time_, long source_, long dest_, String state_,
+    String color_, String bandwidth_, String propagationDelay_,
+    String orientation_)
+  {
+    out.doSending("l -t " + time_ + " -s " + source_ + " -d " + dest_
+      + " -S " + state_ + " -c " + color_ + " -r " + bandwidth_ + " -D "
+      + propagationDelay_ + " -o " + orientation_ + "\n");
+  }
 
-	/** Adds a (initial) link event. */
-	public void addLink(long source_, long dest_, String state_,
-		String bandwidth_, String propagationDelay_, String orientation_)
-	{
-		out.doSending("l -t * -s " + source_ + " -d " + dest_ + " -S " + state_
-			+ " -r " + bandwidth_ + " -D " + propagationDelay_
-			+ (orientation_ == null? "": " -o " + orientation_)
-			+ "\n");
-	}
+  /** Adds a (initial) link event. */
+  public void addLink(long source_, long dest_, String state_,
+    String bandwidth_, String propagationDelay_, String orientation_)
+  {
+    out.doSending("l -t * -s " + source_ + " -d " + dest_ + " -S " + state_
+      + " -r " + bandwidth_ + " -D " + propagationDelay_
+      + (orientation_ == null? "": " -o " + orientation_)
+      + "\n");
+  }
 
-	/** Adds a link (state changed) event. */
-	public void addLink(double time_, long source_, long dest_, String state_,
-					String color_)
-	{
-		out.doSending("l -t " + time_ + " -s " + source_ + " -d " + dest_
-			+ " -S " + state_ + " -c " + color_ + "\n");
-	}
+  /** Adds a link (state changed) event. */
+  public void addLink(double time_, long source_, long dest_, String state_,
+          String color_)
+  {
+    out.doSending("l -t " + time_ + " -s " + source_ + " -d " + dest_
+      + " -S " + state_ + " -c " + color_ + "\n");
+  }
 
-	/** Adds a node event (complete form). */
-	public void addNode(double time_, long source_, long dest_, String state_,
-				String shape_, String color_, String prevColor_, String label_)
-	{
-		// NAM does not accept -A flag now...
-		out.doSending("n -t " + time_ + " -s " + source_ + " -d " + dest_
-			+ " -S " + state_
-			//+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + " -A " + label_ + "\n");
-			+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + "\n");
-	}
+  /** Adds a node event (complete form). */
+  public void addNode(double time_, long source_, long dest_, String state_,
+        String shape_, String color_, String prevColor_, String label_)
+  {
+    // NAM does not accept -A flag now...
+    out.doSending("n -t " + time_ + " -s " + source_ + " -d " + dest_
+      + " -S " + state_
+      //+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + " -A " + label_ + "\n");
+      + " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + "\n");
+  }
 
-	/** Adds a (initial) node event. */
-	public void addNode(long source_, String state_, String shape_,
-					String color_, String label_)
-	{
-		// NAM does not accept -A flag now...
-		out.doSending("n -t * -s " + source_ + " -S " + state_
-			//+ " -v " + shape_ + " -c " + color_ + " -A " + label_ + "\n");
-			+ " -v " + shape_ + " -c " + color_ + "\n");
-	}
+  /** Adds a (initial) node event. */
+  public void addNode(long source_, String state_, String shape_,
+          String color_, String label_)
+  {
+    // NAM does not accept -A flag now...
+    out.doSending("n -t * -s " + source_ + " -S " + state_
+      //+ " -v " + shape_ + " -c " + color_ + " -A " + label_ + "\n");
+      + " -v " + shape_ + " -c " + color_ + "\n");
+  }
 
-	/** Adds a node (state changed) event. */
-	public void addNode(double time_, long source_, String state_,
-					String color_)
-	{
-		out.doSending("n -t " + time_ + " -s " + source_ + " -S " + state_ 
-						+ " -c " + color_ + "\n");
-	}
+  /** Adds a node (state changed) event. */
+  public void addNode(double time_, long source_, String state_,
+          String color_)
+  {
+    out.doSending("n -t " + time_ + " -s " + source_ + " -S " + state_ 
+            + " -c " + color_ + "\n");
+  }
 
-	/** Adds a node (state changed) event. */
-	public void addNode(double time_, long source_, String state_,
-			String shape_, String color_, String prevColor_, String label_)
-	{
-		// NAM does not accept -A flag now...
-		out.doSending("n -t " + time_ + " -s " + source_ + " -S " + state_
-			//+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + " -A " + label_ + "\n");
-			+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + "\n");
-	}
+  /** Adds a node (state changed) event. */
+  public void addNode(double time_, long source_, String state_,
+      String shape_, String color_, String prevColor_, String label_)
+  {
+    // NAM does not accept -A flag now...
+    out.doSending("n -t " + time_ + " -s " + source_ + " -S " + state_
+      //+ " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + " -A " + label_ + "\n");
+      + " -v " + shape_ + " -c " + color_ + " -o " + prevColor_ + "\n");
+  }
 
-	/** Adds a queue event. */
-	public void addQueue(double time_, long source_, long dest_, 
-					String attribute_)
-	{
-		out.doSending("n -t " + time_ + " -s " + source_ + " -d " + dest_
-						+ " -a " + attribute_ + "\n");
-	}
+  /** Adds a queue event. */
+  public void addQueue(double time_, long source_, long dest_, 
+          String attribute_)
+  {
+    out.doSending("n -t " + time_ + " -s " + source_ + " -d " + dest_
+            + " -a " + attribute_ + "\n");
+  }
 
-	/** Adds a queue event. */
-	public void addQueue(long source_, long dest_, String attribute_)
-	{
-		out.doSending("q -t * -s " + source_ + " -d " + dest_ + " -a " 
-						+ attribute_ + "\n");
-	}
+  /** Adds a queue event. */
+  public void addQueue(long source_, long dest_, String attribute_)
+  {
+    out.doSending("q -t * -s " + source_ + " -d " + dest_ + " -a " 
+            + attribute_ + "\n");
+  }
 
-	/** Adds a color configuration. */
-	public void addColor(double time_, int colorid_, String colorName_)
-	{
-		out.doSending("c -t " + time_ + " -i " + colorid_ + " -n " 
-						+ colorName_ + "\n");
-	}
+  /** Adds a color configuration. */
+  public void addColor(double time_, int colorid_, String colorName_)
+  {
+    out.doSending("c -t " + time_ + " -i " + colorid_ + " -n " 
+            + colorName_ + "\n");
+  }
 
-	/** Adds a color configuration. */
-	public void addColor(int colorid_, String colorName_)
-	{
-		out.doSending("c -t * -i " + colorid_ + " -n " + colorName_ + "\n");
-	}
+  /** Adds a color configuration. */
+  public void addColor(int colorid_, String colorName_)
+  {
+    out.doSending("c -t * -i " + colorid_ + " -n " + colorName_ + "\n");
+  }
 
-	/** Adds a set of colors . */
-	public void addColors(String[] colorNames_)
-	{
-		StringBuffer sb_ = new StringBuffer();
-		for (int i=0; i<colorNames_.length; i++)
-			sb_.append("c -t * -i " + i + " -n " + colorNames_[i] + "\n");
-		out.doSending(sb_.toString());
-	}
+  /** Adds a set of colors . */
+  public void addColors(String[] colorNames_)
+  {
+    StringBuffer sb_ = new StringBuffer();
+    for (int i=0; i<colorNames_.length; i++)
+      sb_.append("c -t * -i " + i + " -n " + colorNames_[i] + "\n");
+    out.doSending(sb_.toString());
+  }
 
-	/** Adds a set of preconfigured colors . */
-	public void addColors()
-	{
-		out.doSending(
-			"c -t * -i 0 -n red\n"
-			+ "c -t * -i 1 -n blue\n"
-			+ "c -t * -i 2 -n yellow\n"
-			+ "c -t * -i 3 -n green\n"
-			+ "c -t * -i 4 -n black\n"
-			+ "c -t * -i 5 -n orange\n"
-		);
-	}
+  /** Adds a set of preconfigured colors . */
+  public void addColors()
+  {
+    out.doSending(
+      "c -t * -i 0 -n red\n"
+      + "c -t * -i 1 -n blue\n"
+      + "c -t * -i 2 -n yellow\n"
+      + "c -t * -i 3 -n green\n"
+      + "c -t * -i 4 -n black\n"
+      + "c -t * -i 5 -n orange\n"
+    );
+  }
 }

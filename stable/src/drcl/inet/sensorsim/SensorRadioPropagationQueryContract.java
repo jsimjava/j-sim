@@ -55,26 +55,26 @@ public class SensorRadioPropagationQueryContract extends Contract
         return null;
     }
     
-	/** Constructs the query message */
+  /** Constructs the query message */
     public static SensorRadioPropagationQueryContract.Message constructQuery(double Pt_, double Xs_, double Ys_, double Zs_, double Xr_, double Yr_, double Zr_ ) 
     {
-	// Pt is included in the query, but Pr is not.
+  // Pt is included in the query, but Pr is not.
         return (new Message(Pt_, Xs_, Ys_, Zs_, Xr_, Yr_, Zr_));
     }
    
-	/** This class implements the underlying message of the contract. */ 
-    	public static class Message extends drcl.comp.Message 
-	{
+  /** This class implements the underlying message of the contract. */ 
+      public static class Message extends drcl.comp.Message 
+  {
         double Pt; // power with which the packet was sent
-		   // Pt is included in the request (i.e., query)
-	double Xs, Ys, Zs; // location of sender
-	double Xr, Yr, Zr; // location of receiver
+       // Pt is included in the request (i.e., query)
+  double Xs, Ys, Zs; // location of sender
+  double Xr, Yr, Zr; // location of receiver
         double Pr; // power with which the packet was received
-		   // Pr is included in the reply
+       // Pr is included in the reply
         
         public Message() {}
         
-	/** Constructs the query message */
+  /** Constructs the query message */
         public Message(double Pt_, double Xs_, double Ys_, double Zs_, double Xr_, double Yr_, double Zr_) {
             Pt = Pt_;
             Xs = Xs_; Ys = Ys_; Zs = Zs_;
@@ -89,14 +89,14 @@ public class SensorRadioPropagationQueryContract extends Contract
             Pr = Pr_;
         }
 
-	/** Constructs the reply message */       
+  /** Constructs the reply message */       
         public Message(double Pr_) {
             Pr = Pr_;
             Xs = 0.00; Ys = 0; Zs = 0; Xr = 0; Yr = 0;  Zr = 0;
             Pt = 0;
         }
         
-		/*
+    /*
         public void duplicate(Object source_)  {
             Message that_ = (Message)source_;
             Pt = that_.Pt; 
@@ -104,7 +104,7 @@ public class SensorRadioPropagationQueryContract extends Contract
             Xr = that_.Xr; Yr = that_.Yr; Zr = that_.Zr;
             Pr = that_.Pr; 
         }
-		*/
+    */
         
         public Object clone() {
             return new Message(Pt, Xs, Ys, Zs, Xr, Yr, Zr, Pr);

@@ -31,35 +31,35 @@ package drcl.inet.protocol.dv;
 /** Routing entry extension for {@link DV}. */
 public class DVExtension extends drcl.DrclObj
 {
-	boolean changed = false;
-	int metric = 0;
-	
-	public DVExtension ()
-	{}
+  boolean changed = false;
+  int metric = 0;
+  
+  public DVExtension ()
+  {}
 
-	public DVExtension (int metric_)
-	{
-		metric = metric_;
-	}
-	
-	public DVExtension (int metric_, boolean changed_)
-	{
-		metric = metric_;
-		changed = changed_;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		metric = ((DVExtension)source_).metric;
-		changed = ((DVExtension)source_).changed;
-	}
-	
-	public String toString()
-	{
-		String sMetric_ = metric == DV.INFINITY? 
-						  "INF": 
-						  (metric > DV.INFINITY? 
-						   "INF+" + (metric-DV.INFINITY): String.valueOf(metric));
-		return "metric:" + sMetric_ + (changed? "(changed)": "");
-	}
+  public DVExtension (int metric_)
+  {
+    metric = metric_;
+  }
+  
+  public DVExtension (int metric_, boolean changed_)
+  {
+    metric = metric_;
+    changed = changed_;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    metric = ((DVExtension)source_).metric;
+    changed = ((DVExtension)source_).changed;
+  }
+  
+  public String toString()
+  {
+    String sMetric_ = metric == DV.INFINITY? 
+              "INF": 
+              (metric > DV.INFINITY? 
+               "INF+" + (metric-DV.INFINITY): String.valueOf(metric));
+    return "metric:" + sMetric_ + (changed? "(changed)": "");
+  }
 }

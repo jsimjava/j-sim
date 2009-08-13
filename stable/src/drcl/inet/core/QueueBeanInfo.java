@@ -35,8 +35,8 @@ import java.beans.*;
 public class QueueBeanInfo extends SimpleBeanInfo {  
 
     public PropertyDescriptor[] getPropertyDescriptors()
-	{
-		return drcl.comp.Util.makePropertyDescriptors(new String[]{"capacity", "mode"},
-													  Queue.class, drcl.comp.Component.class);
+  {
+    return drcl.comp.Util.makePropertyDescriptors(new String[]{"capacity", "mode"},
+                            Queue.class, drcl.comp.Component.class);
     }
 }

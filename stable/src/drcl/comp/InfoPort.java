@@ -38,68 +38,68 @@ import drcl.comp.contract.*;
  */
 class InfoPort extends Port
 {
-	/** Constructor, default duplex port type. */
-	public InfoPort()
-	{ super(PortType_INOUT);	}
-	
-	/** Constructor, with specified port type. */
-	public InfoPort(int type_)
-	{ super(type_);	}
-	
-	/** Constructor, with specified port type and properties. */
-	public InfoPort(int type_, boolean exeBoundary_)
-	{ super(type_); }
-	
-		/*
-	protected final void doReceiving(Object data_, Port peer_, WorkerThread thread_)
-	{
-		// speicial handling of information request
-		// XXX:
-		if (host != null && host.infoPort == this) {
-			if (data_ == null) {
-				// query for configuration
-				// XXX:
-				doSending(new PropertyContract.Message(Util.getAllProperties(host)));
-				return; 
-			}
-			else if (data_ instanceof String) {
-				// query for configuration
-				doSending(new PropertyContract.Message(Util.getProperty(host, (String)data_)));
-				return; 
-			}
-			else if (data_ instanceof drcl.data.IntObj) {
-				int mask_ = ((drcl.data.IntObj)data_).value;
-				host.setComponentFlag(mask_ >> 1, (mask_ & 1) > 0);//get bit 0
-				doSending(new drcl.data.LongObj(host.getComponentFlag()));
-			}
-		}
-		super.doReceiving(data_, peer_, thread_);
-	}
-		*/
-	protected void doSending(Object data_, WorkerThread thread_)
-	{
-		if (outwire != null) {
-			for (PortPack tmp_ = outwire.inports; tmp_ != null;
-							tmp_ = tmp_.next) {
-				Port p_ = tmp_.port;
-				Component host_ = p_.host;
-				if (p_ == this || !host_.isEnabled()) continue;
+  /** Constructor, default duplex port type. */
+  public InfoPort()
+  { super(PortType_INOUT);  }
+  
+  /** Constructor, with specified port type. */
+  public InfoPort(int type_)
+  { super(type_);  }
+  
+  /** Constructor, with specified port type and properties. */
+  public InfoPort(int type_, boolean exeBoundary_)
+  { super(type_); }
+  
+    /*
+  protected final void doReceiving(Object data_, Port peer_, WorkerThread thread_)
+  {
+    // speicial handling of information request
+    // XXX:
+    if (host != null && host.infoPort == this) {
+      if (data_ == null) {
+        // query for configuration
+        // XXX:
+        doSending(new PropertyContract.Message(Util.getAllProperties(host)));
+        return; 
+      }
+      else if (data_ instanceof String) {
+        // query for configuration
+        doSending(new PropertyContract.Message(Util.getProperty(host, (String)data_)));
+        return; 
+      }
+      else if (data_ instanceof drcl.data.IntObj) {
+        int mask_ = ((drcl.data.IntObj)data_).value;
+        host.setComponentFlag(mask_ >> 1, (mask_ & 1) > 0);//get bit 0
+        doSending(new drcl.data.LongObj(host.getComponentFlag()));
+      }
+    }
+    super.doReceiving(data_, peer_, thread_);
+  }
+    */
+  protected void doSending(Object data_, WorkerThread thread_)
+  {
+    if (outwire != null) {
+      for (PortPack tmp_ = outwire.inports; tmp_ != null;
+              tmp_ = tmp_.next) {
+        Port p_ = tmp_.port;
+        Component host_ = p_.host;
+        if (p_ == this || !host_.isEnabled()) continue;
 
-				String prevState_ = thread_.state;
-		
-				try {
-					host_.process(data_, p_);
-				}
-				catch (Exception e_) {
-					drcl.Debug.error("process() data from infoport at " + p_);
-					e_.printStackTrace();
-				}
-		
-				// restore context
-				thread_.releaseAllLocks(host_);
-					// Don't hold locks across components!
-				thread_.state = prevState_;
-			}
-		}
-	}
+        String prevState_ = thread_.state;
+    
+        try {
+          host_.process(data_, p_);
+        }
+        catch (Exception e_) {
+          drcl.Debug.error("process() data from infoport at " + p_);
+          e_.printStackTrace();
+        }
+    
+        // restore context
+        thread_.releaseAllLocks(host_);
+          // Don't hold locks across components!
+        thread_.state = prevState_;
+      }
+    }
+  }
 }

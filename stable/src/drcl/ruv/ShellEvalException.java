@@ -30,86 +30,86 @@ package drcl.ruv;
 
 public class ShellEvalException extends Exception
 {
-	Exception e;
-	String msg; // msg does not co-exist with cmd and lineNum
-	String cmd, stacktrace;
-	int lineNum = -1; // line number
+  Exception e;
+  String msg; // msg does not co-exist with cmd and lineNum
+  String cmd, stacktrace;
+  int lineNum = -1; // line number
 
-	private ShellEvalException()
-	{ super(); }
-	
-	public ShellEvalException(String msg_)
-	{ super(msg_); msg = msg_; }
+  private ShellEvalException()
+  { super(); }
+  
+  public ShellEvalException(String msg_)
+  { super(msg_); msg = msg_; }
 
-	public ShellEvalException(Exception e_)
-	{ e = e_; }
-	
-	public ShellEvalException(String cmd_, Exception e_)
-	{ cmd = cmd_; e = e_; }
+  public ShellEvalException(Exception e_)
+  { e = e_; }
+  
+  public ShellEvalException(String cmd_, Exception e_)
+  { cmd = cmd_; e = e_; }
 
-	public ShellEvalException(String cmd_, Exception e_, String stacktrace_)
-	{ cmd = cmd_; e = e_; stacktrace = stacktrace_; }
-	
-	public ShellEvalException(String cmd_, Exception e_, int lineNum_)
-	{ cmd = cmd_; e = e_; lineNum = lineNum_; }
+  public ShellEvalException(String cmd_, Exception e_, String stacktrace_)
+  { cmd = cmd_; e = e_; stacktrace = stacktrace_; }
+  
+  public ShellEvalException(String cmd_, Exception e_, int lineNum_)
+  { cmd = cmd_; e = e_; lineNum = lineNum_; }
 
-	public ShellEvalException(String cmd_, Exception e_, String stacktrace_,
-					int lineNum_)
-	{ cmd = cmd_; e = e_; stacktrace = stacktrace_; lineNum = lineNum_; }
+  public ShellEvalException(String cmd_, Exception e_, String stacktrace_,
+          int lineNum_)
+  { cmd = cmd_; e = e_; stacktrace = stacktrace_; lineNum = lineNum_; }
 
-	public static ShellEvalException msg(String msg_, Exception e_)
-	{
-		ShellEvalException e = new ShellEvalException(msg_);
-		e.e = e_;
-		return e;
-	}
-	
-	public String toString()
-	{ return toString(null); }
+  public static ShellEvalException msg(String msg_, Exception e_)
+  {
+    ShellEvalException e = new ShellEvalException(msg_);
+    e.e = e_;
+    return e;
+  }
+  
+  public String toString()
+  { return toString(null); }
 
-	public String toString(StackTraceFilter f)
-	{
-		if (cmd == null) {
-			if (msg != null)
-				return msg + "\n" + _stackTrace(f);
-			else
-				return _stackTrace(f);
-		}
+  public String toString(StackTraceFilter f)
+  {
+    if (cmd == null) {
+      if (msg != null)
+        return msg + "\n" + _stackTrace(f);
+      else
+        return _stackTrace(f);
+    }
 
-		StringBuffer sb_ = new StringBuffer();
-		if (lineNum >= 0)
-			sb_.append("Line:" + lineNum + "  ");
-		sb_.append("Cmd:" + cmd + "\n");
+    StringBuffer sb_ = new StringBuffer();
+    if (lineNum >= 0)
+      sb_.append("Line:" + lineNum + "  ");
+    sb_.append("Cmd:" + cmd + "\n");
 
-		if (msg != null) sb_.append(msg + "\n");
+    if (msg != null) sb_.append(msg + "\n");
 
-		return sb_ + _stackTrace(f);
-	}
+    return sb_ + _stackTrace(f);
+  }
 
-	String _stackTrace(StackTraceFilter f)
-	{
-		if (stacktrace != null) return stacktrace;
-		if (f == null) return "";
-		Exception e_ = e == null? this: e;
-		return f.filter(e_);
-	}
+  String _stackTrace(StackTraceFilter f)
+  {
+    if (stacktrace != null) return stacktrace;
+    if (f == null) return "";
+    Exception e_ = e == null? this: e;
+    return f.filter(e_);
+  }
 
-	public void printStackTrace()
-	{ printStackTrace(java.lang.System.err); }
+  public void printStackTrace()
+  { printStackTrace(java.lang.System.err); }
 
-	public void printStackTrace(java.io.PrintStream ps)
-	{
-		if (stacktrace != null)
-			ps.println(stacktrace);
-		Exception e_ = e == null? this: e;
-		e_.printStackTrace(ps);
-	}
+  public void printStackTrace(java.io.PrintStream ps)
+  {
+    if (stacktrace != null)
+      ps.println(stacktrace);
+    Exception e_ = e == null? this: e;
+    e_.printStackTrace(ps);
+  }
 
-	public void printStackTrace(java.io.PrintWriter ps)
-	{
-		if (stacktrace != null)
-			ps.println(stacktrace);
-		Exception e_ = e == null? this: e;
-		e_.printStackTrace(ps);
-	}
+  public void printStackTrace(java.io.PrintWriter ps)
+  {
+    if (stacktrace != null)
+      ps.println(stacktrace);
+    Exception e_ = e == null? this: e;
+    e_.printStackTrace(ps);
+  }
 }

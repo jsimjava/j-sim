@@ -34,12 +34,12 @@ import java.beans.*;
 public class CoreServiceLayerBeanInfo extends SimpleBeanInfo {  
 
     public PropertyDescriptor[] getPropertyDescriptors()
-	{
-		try {
-			return Introspector.getBeanInfo(drcl.comp.Component.class).getPropertyDescriptors();
-		}
-		catch (IntrospectionException e_) {
-			return null;
-		}
+  {
+    try {
+      return Introspector.getBeanInfo(drcl.comp.Component.class).getPropertyDescriptors();
+    }
+    catch (IntrospectionException e_) {
+      return null;
+    }
     }
 }

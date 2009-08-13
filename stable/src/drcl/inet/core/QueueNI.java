@@ -39,63 +39,63 @@ import drcl.util.queue.FIFOQueue;
  */
 public abstract class QueueNI extends NI_LinkEmulation
 {
-	protected boolean byteMode = true;
-	Port dequeuePort = addPort(".deq", false);
+  protected boolean byteMode = true;
+  Port dequeuePort = addPort(".deq", false);
 
-	public QueueNI()
-	{	super();	}
-	
-	public QueueNI(String id_)
-	{	super(id_);	}
-	
-	public void duplicate(Object source_) 
-	{
-		super.duplicate(source_);
-		QueueNI that_ = (QueueNI)source_;
-		byteMode = that_.byteMode;
-	}
+  public QueueNI()
+  {  super();  }
+  
+  public QueueNI(String id_)
+  {  super(id_);  }
+  
+  public void duplicate(Object source_) 
+  {
+    super.duplicate(source_);
+    QueueNI that_ = (QueueNI)source_;
+    byteMode = that_.byteMode;
+  }
 
-	protected void transmit(Packet p)
-	{
-		if (dequeuePort.anyPeer())
-			dequeuePort.doSending(p);
-		double readyTime_ = getTime() + (double)(p.size << 3)/ bw;
-		forkAt(pullPort, this, readyTime_);
-		if (linkEmulation)
-			sendAt(downPort, p, readyTime_ + propDelay);
-		else
-			sendAt(downPort, p, readyTime_);
-	}
-	
-	public String info()
-	{
-		return super.info()
-			+ drcl.util.StringUtil.finalPortionClassName(getClass()) + ", in "
-			+ getMode() + " mode" + "\n"
-			+ "Occupied/Capacity = " + getSize() + "/" + getCapacity() + "\n";
-	}
+  protected void transmit(Packet p)
+  {
+    if (dequeuePort.anyPeer())
+      dequeuePort.doSending(p);
+    double readyTime_ = getTime() + (double)(p.size << 3)/ bw;
+    forkAt(pullPort, this, readyTime_);
+    if (linkEmulation)
+      sendAt(downPort, p, readyTime_ + propDelay);
+    else
+      sendAt(downPort, p, readyTime_);
+  }
+  
+  public String info()
+  {
+    return super.info()
+      + drcl.util.StringUtil.finalPortionClassName(getClass()) + ", in "
+      + getMode() + " mode" + "\n"
+      + "Occupied/Capacity = " + getSize() + "/" + getCapacity() + "\n";
+  }
 
-	/**
-	 * Sets the operation mode. Byte mode is the default and only acceptable mode.
-	 * @param mode_ either "packet" or "byte".
-	 */
-	public void setMode(String mode_)
-	{
-		byteMode = mode_.equals(drcl.inet.InetConstants.BYTE_MODE);
-	}
-	
-	public String getMode()
-	{
-		return byteMode? drcl.inet.InetConstants.BYTE_MODE:
-			drcl.inet.InetConstants.PACKET_MODE;
-	}
+  /**
+   * Sets the operation mode. Byte mode is the default and only acceptable mode.
+   * @param mode_ either "packet" or "byte".
+   */
+  public void setMode(String mode_)
+  {
+    byteMode = mode_.equals(drcl.inet.InetConstants.BYTE_MODE);
+  }
+  
+  public String getMode()
+  {
+    return byteMode? drcl.inet.InetConstants.BYTE_MODE:
+      drcl.inet.InetConstants.PACKET_MODE;
+  }
 
-	/** Sets the capacity of the queue. */
-	public abstract void setCapacity(int capacity_);
-	
-	/** Returns the capacity of the queue. */
-	public abstract int getCapacity();
-	
-	/** Returns the current size of the queue. */
-	public abstract int getSize();
+  /** Sets the capacity of the queue. */
+  public abstract void setCapacity(int capacity_);
+  
+  /** Returns the capacity of the queue. */
+  public abstract int getCapacity();
+  
+  /** Returns the current size of the queue. */
+  public abstract int getSize();
 }

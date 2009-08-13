@@ -33,47 +33,47 @@ package drcl.comp;
  */
 public abstract class Contract
 {
-	public static final int Role_INITIATOR = 0;
-	public static final int Role_PEER = 1;
-	public static final int Role_REACTOR = 2;
-	
-	int role = Role_PEER;
-	
-	public Contract()
-	{}
-	
-	public Contract(int role_)
-	{ setRole(role_); }
-	
-	public void setRole(int role_)
-	{
-		if (role_ < 0 || role_ > 2) return;
-		role = role_;
-	}
-	
-	public int getRole()
-	{ return role; }
-	
-	/**
-	 * Returns true if this contract matches <code>that_</code>.
-	 */
-	public boolean match(Contract that_)
-	{
-		if (this == that_) return true;
-		if (this instanceof ContractAny || that_ instanceof ContractAny) return true;
-		if (getClass().isAssignableFrom(that_.getClass()) && (that_.role+role) == 2)
-			return true;
-		else if (that_.role + role == 2) {
-			// XXX: compare content
-			// XXX: content format?
-			return false;
-		}
-		else
-			return false;
-	}
+  public static final int Role_INITIATOR = 0;
+  public static final int Role_PEER = 1;
+  public static final int Role_REACTOR = 2;
+  
+  int role = Role_PEER;
+  
+  public Contract()
+  {}
+  
+  public Contract(int role_)
+  { setRole(role_); }
+  
+  public void setRole(int role_)
+  {
+    if (role_ < 0 || role_ > 2) return;
+    role = role_;
+  }
+  
+  public int getRole()
+  { return role; }
+  
+  /**
+   * Returns true if this contract matches <code>that_</code>.
+   */
+  public boolean match(Contract that_)
+  {
+    if (this == that_) return true;
+    if (this instanceof ContractAny || that_ instanceof ContractAny) return true;
+    if (getClass().isAssignableFrom(that_.getClass()) && (that_.role+role) == 2)
+      return true;
+    else if (that_.role + role == 2) {
+      // XXX: compare content
+      // XXX: content format?
+      return false;
+    }
+    else
+      return false;
+  }
 
-	public abstract String getName();
-	
-	/** Returns the content of this contract (format?). */
-	public abstract Object getContractContent();
+  public abstract String getName();
+  
+  /** Returns the content of this contract (format?). */
+  public abstract Object getContractContent();
 }

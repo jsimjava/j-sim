@@ -41,32 +41,32 @@ import drcl.net.traffic.*;
  */
 public class Translator_PTSP_EA extends drcl.intserv.RspecTranslator
 {
-	/**
-	 */
-	public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
-	{
-		if (adspec_ == null || !(adspec_.tspec instanceof TrafficPeriodic) || 
-			qos_ == null) return null;
-		
-		// check e2e properties
-		if (!adspec_.check(qos_)) return null;
+  /**
+   */
+  public SpecR translate(SpecAd adspec_, QoSRequirement qos_)
+  {
+    if (adspec_ == null || !(adspec_.tspec instanceof TrafficPeriodic) || 
+      qos_ == null) return null;
+    
+    // check e2e properties
+    if (!adspec_.check(qos_)) return null;
 
-		int hop = adspec_.hop;
-		// max. queueing delay if we allow e2e delay to be the same as specified
-		// in the qos requirement
-		double qdelay_ = qos_.maxE2eDelay - adspec_.minPropDelay;
-		// check inter-packet jitter (= queueing delay) again
-		if (qdelay_ > qos_.maxIntPktJitter) qdelay_ = qos_.maxIntPktJitter;
-		
-		double D_ = qdelay_ / hop;
-		TrafficModel tspec_ = adspec_.tspec;
-		double P_ = ((TrafficPeriodic)tspec_).getPeriod();
-		int C_ = (int)(tspec_.getLoad() * P_ / 8.0);
-		
-		// XX: doesn't have much sense to have D_ > P_, intuitively,
-		// but not sure about this...
-		if (D_ > P_) D_ = P_;
-			
-		return new SpecR_PTSP(C_, P_, D_);
-	}
+    int hop = adspec_.hop;
+    // max. queueing delay if we allow e2e delay to be the same as specified
+    // in the qos requirement
+    double qdelay_ = qos_.maxE2eDelay - adspec_.minPropDelay;
+    // check inter-packet jitter (= queueing delay) again
+    if (qdelay_ > qos_.maxIntPktJitter) qdelay_ = qos_.maxIntPktJitter;
+    
+    double D_ = qdelay_ / hop;
+    TrafficModel tspec_ = adspec_.tspec;
+    double P_ = ((TrafficPeriodic)tspec_).getPeriod();
+    int C_ = (int)(tspec_.getLoad() * P_ / 8.0);
+    
+    // XX: doesn't have much sense to have D_ > P_, intuitively,
+    // but not sure about this...
+    if (D_ > P_) D_ = P_;
+      
+    return new SpecR_PTSP(C_, P_, D_);
+  }
 }

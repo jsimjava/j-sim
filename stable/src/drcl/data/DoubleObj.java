@@ -33,45 +33,45 @@ package drcl.data;
  */
 public class DoubleObj extends NumberObj
 {
-	public double value;
+  public double value;
 
-	public DoubleObj() {}
-	public DoubleObj(double v)
-	{	value = v;	}
+  public DoubleObj() {}
+  public DoubleObj(double v)
+  {  value = v;  }
 
-	public void setValue(double v) { value = v; }
-	public double  getValue()      { return value; }
+  public void setValue(double v) { value = v; }
+  public double  getValue()      { return value; }
 
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		else if (!(o instanceof DoubleObj)) return false;
-		DoubleObj that_ = (DoubleObj)o;
-		if (Double.isNaN(value) && Double.isNaN(that_.value)) return true;
-		return value == that_.value;
-	}
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    else if (!(o instanceof DoubleObj)) return false;
+    DoubleObj that_ = (DoubleObj)o;
+    if (Double.isNaN(value) && Double.isNaN(that_.value)) return true;
+    return value == that_.value;
+  }
 
-	public int hashCode() { return (int)value; }
-	
-	public void duplicate(Object source_)
-	{
-		value = ((DoubleObj)source_).value;
-	}
-	
-	/** Increases the double by delta_ and returns the new value. */
-	public double inc(double delta_)
-	{ 
-		value += delta_; 
-		return value;
-	}
-	
-	public String toString() { return value+""; }
+  public int hashCode() { return (int)value; }
+  
+  public void duplicate(Object source_)
+  {
+    value = ((DoubleObj)source_).value;
+  }
+  
+  /** Increases the double by delta_ and returns the new value. */
+  public double inc(double delta_)
+  { 
+    value += delta_; 
+    return value;
+  }
+  
+  public String toString() { return value+""; }
 
-	public byte byteValue() { return (byte)value; }
-	public float floatValue() { return (float)value; }
-	public double doubleValue() { return (double)value; }
-	public int intValue() { return (int)value; }
-	public long longValue() { return (long)value; }
-	public short shortValue() { return (short)value; }
+  public byte byteValue() { return (byte)value; }
+  public float floatValue() { return (float)value; }
+  public double doubleValue() { return (double)value; }
+  public int intValue() { return (int)value; }
+  public long longValue() { return (long)value; }
+  public short shortValue() { return (short)value; }
 }
 

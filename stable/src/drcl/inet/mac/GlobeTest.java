@@ -40,9 +40,9 @@ import java.text.*;
 
 public class GlobeTest {
 
-	/**
-	  * Main function running a test for Globe extracting routines.
-	  */
+  /**
+    * Main function running a test for Globe extracting routines.
+    */
     public static void main(String [] args) {
         
                    
@@ -76,7 +76,7 @@ public class GlobeTest {
       printData(nPoints, delta, sample,0);
       System.out.println("Please compare your results to those above");
       
-	  nPoints = 101;
+    nPoints = 101;
                 
       txLat = 40;
       txLon = -105;
@@ -87,24 +87,24 @@ public class GlobeTest {
         int result = globe.get_pfl(pfl);
         if (result != 0) {
             System.out.println("Wrong globe data or extraction routine " + result);
-			return;
+      return;
         }
 
         System.out.println("Here is your result:");
         printData((int) pfl[0], pfl[1], pfl,2);
-		
+    
 
-		boolean res = true;
-		for (int i = 0; i < nPoints; i++)
-			if (Math.abs(sample[i]- pfl[i+2]) > 1) 
-			{
-				res = false;
-				System.out.println("The " + i + "th result is different, difference: "
-						+ (sample[i]- pfl[i+2]));
-			}
-				 
-		if (res) 
-			System.out.println("The result is correct");
+    boolean res = true;
+    for (int i = 0; i < nPoints; i++)
+      if (Math.abs(sample[i]- pfl[i+2]) > 1) 
+      {
+        res = false;
+        System.out.println("The " + i + "th result is different, difference: "
+            + (sample[i]- pfl[i+2]));
+      }
+         
+    if (res) 
+      System.out.println("The result is correct");
         
       
     }

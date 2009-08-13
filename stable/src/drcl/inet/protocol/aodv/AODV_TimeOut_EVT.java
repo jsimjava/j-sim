@@ -42,61 +42,61 @@ import drcl.net.*;
  * @see AODV 
  * */ 
 public class AODV_TimeOut_EVT { 
-	public static final int AODV_TIMEOUT_BCAST_ID	= 0; 
-	public static final int AODV_TIMEOUT_HELLO		= 1; 
-	public static final int AODV_TIMEOUT_NBR		= 2; 
-	public static final int AODV_TIMEOUT_ROUTE		= 3; 
-	public static final int AODV_TIMEOUT_LOCAL_REPAIR	= 4; 
-	public static final int AODV_TIMEOUT_DELAY_FORWARD	= 5; 
-	public static final int AODV_TIMEOUT_DELAY_BROADCAST	= 6; 
-	static final String[] TIMEOUT_TYPES = {"BCAST_ID", "HELLO", "NBR", "ROUTE", "LOCAL_REPAIR", "DELAY_FORWARD", "DELAY_BROADCAST"}; 
-	 
-	int		EVT_Type; 
-	Object	EVT_Obj; 
-	drcl.comp.ACATimer handle; // for cancelling event 
+  public static final int AODV_TIMEOUT_BCAST_ID  = 0; 
+  public static final int AODV_TIMEOUT_HELLO    = 1; 
+  public static final int AODV_TIMEOUT_NBR    = 2; 
+  public static final int AODV_TIMEOUT_ROUTE    = 3; 
+  public static final int AODV_TIMEOUT_LOCAL_REPAIR  = 4; 
+  public static final int AODV_TIMEOUT_DELAY_FORWARD  = 5; 
+  public static final int AODV_TIMEOUT_DELAY_BROADCAST  = 6; 
+  static final String[] TIMEOUT_TYPES = {"BCAST_ID", "HELLO", "NBR", "ROUTE", "LOCAL_REPAIR", "DELAY_FORWARD", "DELAY_BROADCAST"}; 
+   
+  int    EVT_Type; 
+  Object  EVT_Obj; 
+  drcl.comp.ACATimer handle; // for cancelling event 
  
-	public String toString() 
-	{ return TIMEOUT_TYPES[EVT_Type] + ", " + EVT_Obj; } 
+  public String toString() 
+  { return TIMEOUT_TYPES[EVT_Type] + ", " + EVT_Obj; } 
  
-	/** 
-	 * Constructor 
-	 * @param tp_: Timeout type, now there is just RXT timeout 
-	 */ 
-	public AODV_TimeOut_EVT(int tp_) { 
-		EVT_Type = tp_; 
-	} 
+  /** 
+   * Constructor 
+   * @param tp_: Timeout type, now there is just RXT timeout 
+   */ 
+  public AODV_TimeOut_EVT(int tp_) { 
+    EVT_Type = tp_; 
+  } 
  
-	/** 
-	 * Constructor 
-	 * @param tp_: Timeout type, now there is just RXT timeout 
-	 * @param obj_: the associated object with the time out event 
-	 * (AODV_Interface, AODV_Neighbor or AODV_LSA) 
-	 */ 
-	public AODV_TimeOut_EVT(int tp_, Object obj_)  
-	{ 
-		EVT_Type = tp_; 
-		EVT_Obj  = obj_; 
-	} 
-		 
-	/** 
-	 * Functions to set or get information for a event 
-	 *  
-	 */ 
-	public void setEVT_Type(int tp_) { 
-		EVT_Type = tp_; 
-		return; 
-	} 
+  /** 
+   * Constructor 
+   * @param tp_: Timeout type, now there is just RXT timeout 
+   * @param obj_: the associated object with the time out event 
+   * (AODV_Interface, AODV_Neighbor or AODV_LSA) 
+   */ 
+  public AODV_TimeOut_EVT(int tp_, Object obj_)  
+  { 
+    EVT_Type = tp_; 
+    EVT_Obj  = obj_; 
+  } 
+     
+  /** 
+   * Functions to set or get information for a event 
+   *  
+   */ 
+  public void setEVT_Type(int tp_) { 
+    EVT_Type = tp_; 
+    return; 
+  } 
  
-	public int getEVT_Type() { 
-		return EVT_Type; 
-	} 
-		 
-	public void setObject(Object obj_) { 
-		EVT_Obj = obj_; 
-		return; 
-	} 
+  public int getEVT_Type() { 
+    return EVT_Type; 
+  } 
+     
+  public void setObject(Object obj_) { 
+    EVT_Obj = obj_; 
+    return; 
+  } 
  
-	public Object getObject() { 
-		return EVT_Obj; 
-	} 
+  public Object getObject() { 
+    return EVT_Obj; 
+  } 
 } 

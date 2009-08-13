@@ -32,35 +32,35 @@ package drcl.ruv;
  */ 
 public class Paths
 {
-	drcl.comp.Component base;
-	String[] paths;
-	Object object;
-	
-	public Paths (drcl.comp.Component base_, String path_)
-	{
-		base = base_;
-		paths = new String[] {path_};
-	}
-	
-	public Paths (drcl.comp.Component base_, String[] paths_)
-	{
-		base = base_;
-		paths = paths_;
-	}
-	
-	public Paths (Object object_)
-	{
-		object = object_;
-	}
-	
-	public Paths (Object[] bases_, String path_)
-	{
-		object = bases_;
-		paths = new String[] {path_};
-	}
-	
-	
-	
-	public String toString()
-	{ return "Base:" + base + ", paths:" + paths + ", object:" + object; }
+  drcl.comp.Component base;
+  String[] paths;
+  Object object;
+  
+  public Paths (drcl.comp.Component base_, String path_)
+  {
+    base = base_;
+    paths = new String[] {path_};
+  }
+  
+  public Paths (drcl.comp.Component base_, String[] paths_)
+  {
+    base = base_;
+    paths = paths_;
+  }
+  
+  public Paths (Object object_)
+  {
+    object = object_;
+  }
+  
+  public Paths (Object[] bases_, String path_)
+  {
+    object = bases_;
+    paths = new String[] {path_};
+  }
+  
+  
+  
+  public String toString()
+  { return "Base:" + base + ", paths:" + paths + ", object:" + object; }
 }

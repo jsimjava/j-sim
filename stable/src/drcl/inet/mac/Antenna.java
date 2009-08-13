@@ -315,7 +315,7 @@ public class Antenna extends drcl.comp.Component
 
             boreSight_dBi[i] = highestGain;
             boreSight_orient[i] = new Antenna.Orientation(highestAzimuth, 0);
-	    //System.out.println ("Pattern "+i + " boreSight_dBi= "+ boreSight_dBi[i] + " azimuth= " + boreSight_orient[i].azimuth);
+      //System.out.println ("Pattern "+i + " boreSight_dBi= "+ boreSight_dBi[i] + " azimuth= " + boreSight_orient[i].azimuth);
     
         } //endfor i        
 
@@ -326,7 +326,7 @@ public class Antenna extends drcl.comp.Component
     {
         if (boreSight_dBi==null) {
             System.out.println (this + " must initialize azimuth patterns first!");
-	    return false;
+      return false;
         } //endif
 
         int num = readPatterns (filename_, this, 1);
@@ -391,7 +391,7 @@ public class Antenna extends drcl.comp.Component
     } 
     
         /** Process incoming data
-	 	 * @param data_ = name of object to be initialized. 
+      * @param data_ = name of object to be initialized. 
          * 1. data_ = "height = ...", case insensitive         
          * 2. data_ = "omniGain_dBi = ...", case insensitive
          * 3. data_ = "azimuthPatterns = <filename_>", case insensitive

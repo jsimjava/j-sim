@@ -130,7 +130,7 @@ public class PlotFormatter extends JPanel {
             _saveConnected();
             _narrowQuery.addCheckBox("connected", "Connect",
                     ((Plot)plot).getConnected());
-			// DRCL: stepwise and wrapY
+      // DRCL: stepwise and wrapY
             _originalStepwise = ((Plot)plot).getStepwise();
             _narrowQuery.addCheckBox("stepwise", "Stepwise", _originalStepwise);
             _originalWrapY = ((Plot)plot).getWrapY();
@@ -215,13 +215,13 @@ public class PlotFormatter extends JPanel {
                     //    _plot.setYLog(_narrowQuery.booleanValue("ylog"));
                 } else if (name.equals("connected")) {
                     _setConnected(_narrowQuery.booleanValue("connected"));
-				//DRCL: stepwise and wrapY
+        //DRCL: stepwise and wrapY
                 } else if (name.equals("stepwise")) {
                     ((Plot)_plot).setStepwise(_narrowQuery.booleanValue("stepwise"));
-					_plot.repaint();
+          _plot.repaint();
                 } else if (name.equals("wrapY")) {
                     ((Plot)_plot).setWrapY(_narrowQuery.booleanValue("wrapY"));
-					_plot.repaint();
+          _plot.repaint();
                 }
                 _plot.repaint();
             }
@@ -246,15 +246,15 @@ public class PlotFormatter extends JPanel {
         // FIXME: log axis format temporarily disable, see above.
         // _plot.setXLog(_narrowQuery.booleanValue("xlog"));
         // _plot.setYLog(_narrowQuery.booleanValue("ylog"));
-		// DRCL: wrapY
-		_plot.setWrapY(_narrowQuery.booleanValue("wrapY"));
+    // DRCL: wrapY
+    _plot.setWrapY(_narrowQuery.booleanValue("wrapY"));
         if (_plot instanceof Plot) {
             Plot cplot = (Plot)_plot;
             cplot.setMarksStyle(_wideQuery.stringValue("marks"));
             cplot.setImpulses(_narrowQuery.booleanValue("stems"));
             _setConnected(_narrowQuery.booleanValue("connected"));
-			// DRCL:
-			cplot.setStepwise(_narrowQuery.booleanValue("stepwise"));
+      // DRCL:
+      cplot.setStepwise(_narrowQuery.booleanValue("stepwise"));
         }
         // FIXME: log axis format temporarily disable, see above.
         // String spec = _wideQuery.stringValue("xticks").trim();

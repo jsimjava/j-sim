@@ -126,10 +126,10 @@ public abstract class Top extends JFrame {
         // has been modified.
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-	    public void windowClosing(WindowEvent e) {
+      public void windowClosing(WindowEvent e) {
                 _close();
-	    }
-	});
+      }
+  });
 
         getContentPane().setLayout(new BorderLayout());
     }
@@ -164,14 +164,14 @@ public abstract class Top extends JFrame {
      *  @see #report(String, Exception)
      */
     public void report(Exception ex) {
-	report("", ex);
+  report("", ex);
     }
 
     /** Report a message to the user by displaying it in a status bar.
      *  @param message The message to report.
      */
     public void report(String message) {
-	_statusBar.setMessage(message);
+  _statusBar.setMessage(message);
     }
 
     /** Report an exception.  This pops up a window with the option
@@ -238,13 +238,13 @@ public abstract class Top extends JFrame {
             _fileMenuItems[5].setAccelerator(
                     KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
             // Print button disabled by default, unless this class implements
-	    // one of the JDK1.2 printing interfaces.
+      // one of the JDK1.2 printing interfaces.
             if(this instanceof Printable ||
                     this instanceof Pageable) {
-		_fileMenuItems[5].setEnabled(true);
-	    } else {
-		_fileMenuItems[5].setEnabled(false);
-	    }
+    _fileMenuItems[5].setEnabled(true);
+      } else {
+    _fileMenuItems[5].setEnabled(false);
+      }
 
             // Close button = ctrl-w.
             _fileMenuItems[6].setAccelerator(
@@ -284,7 +284,7 @@ public abstract class Top extends JFrame {
             // Add a status bar.
             getContentPane().add(_statusBar, BorderLayout.SOUTH);
         }
-	super.pack();
+  super.pack();
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -451,7 +451,7 @@ public abstract class Top extends JFrame {
         }
         int returnVal = fileDialog.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-	    _directory = fileDialog.getCurrentDirectory();
+      _directory = fileDialog.getCurrentDirectory();
             try {
                 // NOTE: It would be nice if it were possible to enter
                 // a URL in the file chooser, but Java's file chooser does
@@ -489,23 +489,23 @@ public abstract class Top extends JFrame {
      *  it.
      */
     protected void _print() {
-	PrinterJob job = PrinterJob.getPrinterJob();
-	if(this instanceof Pageable) {
-	    job.setPageable((Pageable)this);
-	} else if(this instanceof Printable) {
-	    PageFormat format = job.pageDialog(job.defaultPage());
-	    job.setPrintable((Printable)this, format);
-	} else {
-	    // can't print it.
-	    return;
-	}
-	if (job.printDialog()) {
-	    try {
-		job.print();
-	    } catch (Exception ex) {
-		MessageHandler.error("Printing Failed", ex);
-	    }
-	}
+  PrinterJob job = PrinterJob.getPrinterJob();
+  if(this instanceof Pageable) {
+      job.setPageable((Pageable)this);
+  } else if(this instanceof Printable) {
+      PageFormat format = job.pageDialog(job.defaultPage());
+      job.setPrintable((Printable)this, format);
+  } else {
+      // can't print it.
+      return;
+  }
+  if (job.printDialog()) {
+      try {
+    job.print();
+      } catch (Exception ex) {
+    MessageHandler.error("Printing Failed", ex);
+      }
+  }
     }
 
     /** Read the specified URL.

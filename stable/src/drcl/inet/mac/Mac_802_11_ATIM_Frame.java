@@ -47,13 +47,13 @@ public class Mac_802_11_ATIM_Frame extends Mac_802_11_Packet {
     long dst;
     
     /** Creates a new instance of Mac_802_11_ATIM_Frame 
-	  * @param fc_ - MAC frame control
-	  * @param duration_ - duration
-  	  * @param src_ - source MAC address
+    * @param fc_ - MAC frame control
+    * @param duration_ - duration
+      * @param src_ - source MAC address
       * @param dst_ - destination MAC address
-	  * @param fcs_ - frame check sequence
-	  * @param hszie_ - header size
-	  */
+    * @param fcs_ - frame check sequence
+    * @param hszie_ - header size
+    */
    public Mac_802_11_ATIM_Frame(Mac_802_11_Frame_Control fc_, int duration_, long src_, long dst_, int fcs_, int hsize_) {
         super();
         headerSize = hsize_;
@@ -62,15 +62,15 @@ public class Mac_802_11_ATIM_Frame extends Mac_802_11_Packet {
         duration = duration_;
         src = src_;
         dst = dst_;
-    	fcs = fcs_;        
+      fcs = fcs_;        
     }
     
-	/** Get source MAC address */
+  /** Get source MAC address */
     public long getSa() {
         return src;
     }
     
-	/** Get destination MAC address */
+  /** Get destination MAC address */
     public long getDa() {
         return dst;
     }

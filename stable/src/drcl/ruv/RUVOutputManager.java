@@ -36,136 +36,136 @@ import java.io.IOException;
  */
 public class RUVOutputManager extends OutputStream
 {
-	public static final PrintStream SYSTEM_OUT = java.lang.System.out;
-	public static final PrintStream SYSTEM_ERR = java.lang.System.err;
+  public static final PrintStream SYSTEM_OUT = java.lang.System.out;
+  public static final PrintStream SYSTEM_ERR = java.lang.System.err;
 
-	static RUVOutput[] rout = null;
-	static OutputStream[] sout= new OutputStream[]{SYSTEM_OUT, null};
+  static RUVOutput[] rout = null;
+  static OutputStream[] sout= new OutputStream[]{SYSTEM_OUT, null};
 
-	public static final RUVOutputManager onlyManager = new RUVOutputManager();
+  public static final RUVOutputManager onlyManager = new RUVOutputManager();
 
-	public static void activate()
-	{
-		PrintStream ps_ = new PrintStream(onlyManager);
-		java.lang.System.setOut(ps_);
-		java.lang.System.setErr(ps_);
-	}
+  public static void activate()
+  {
+    PrintStream ps_ = new PrintStream(onlyManager);
+    java.lang.System.setOut(ps_);
+    java.lang.System.setErr(ps_);
+  }
 
-	public static void deactivate()
-	{
-		java.lang.System.setOut(SYSTEM_OUT);
-		java.lang.System.setErr(SYSTEM_ERR);
-	}
+  public static void deactivate()
+  {
+    java.lang.System.setOut(SYSTEM_OUT);
+    java.lang.System.setErr(SYSTEM_ERR);
+  }
 
-	private RUVOutputManager()
-	{ super(); }
-	
+  private RUVOutputManager()
+  { super(); }
+  
     public void write(int b) throws IOException
-	{
-		out(new String(new byte[]{(byte)b}));
-	}
+  {
+    out(new String(new byte[]{(byte)b}));
+  }
 
     public void write(byte b[]) throws IOException
-	{
-		out(new String(b));
+  {
+    out(new String(b));
     }
 
     public void write(byte b[], int off, int len) throws IOException
-	{
-		if (b == null) {
-			throw new NullPointerException();
-		}
-		else if ((off < 0) || (off > b.length) || (len < 0) ||
-			((off + len) > b.length) || ((off + len) < 0)) {
-			throw new IndexOutOfBoundsException();
-		}
-		else if (len == 0)
-	    	return;
-		out(new String(b, off, len));
+  {
+    if (b == null) {
+      throw new NullPointerException();
     }
-	
-	void out(String msg_)
-	{
-		if (rout != null)
-			for (int i=0; i<rout.length; i++)
-				if (rout[i] != null)
-					rout[i].RUVOutput(msg_);
-		if (sout!= null) {
-			byte[] bytes_ = msg_.getBytes();
-			for (int i=0; i<sout.length; i++)
-				if (sout[i] != null)
-					try {
-						sout[i].write(bytes_);
-					}
-					catch (Exception e_) {}
-		}
-	}
-	
-	public static void addOutput(RUVOutput o_)
-	{
-		if (rout == null)
-			rout = new RUVOutput[2];
-		
-		for (int i=0; i<rout.length; i++)
-			if (rout[i] == null) {
-				rout[i] = o_;
-				return;
-			}
-		
-		RUVOutput[] tmp_ = new RUVOutput[rout.length + 2];
-		java.lang.System.arraycopy(rout, 0, tmp_, 0, rout.length);
-		rout = tmp_;
-		rout[rout.length-2] = o_;
-	}
-	
-	public static void addOutput(OutputStream o_)
-	{
-		if (sout == null)
-			sout = new OutputStream[2];
-		
-		for (int i=0; i<sout.length; i++)
-			if (sout[i] == null) {
-				sout[i] = o_;
-				return;
-			}
-		
-		OutputStream[] tmp_ = new OutputStream[sout.length + 2];
-		java.lang.System.arraycopy(sout, 0, tmp_, 0, sout.length);
-		sout = tmp_;
-		sout[sout.length-2] = o_;
-	}
+    else if ((off < 0) || (off > b.length) || (len < 0) ||
+      ((off + len) > b.length) || ((off + len) < 0)) {
+      throw new IndexOutOfBoundsException();
+    }
+    else if (len == 0)
+        return;
+    out(new String(b, off, len));
+    }
+  
+  void out(String msg_)
+  {
+    if (rout != null)
+      for (int i=0; i<rout.length; i++)
+        if (rout[i] != null)
+          rout[i].RUVOutput(msg_);
+    if (sout!= null) {
+      byte[] bytes_ = msg_.getBytes();
+      for (int i=0; i<sout.length; i++)
+        if (sout[i] != null)
+          try {
+            sout[i].write(bytes_);
+          }
+          catch (Exception e_) {}
+    }
+  }
+  
+  public static void addOutput(RUVOutput o_)
+  {
+    if (rout == null)
+      rout = new RUVOutput[2];
+    
+    for (int i=0; i<rout.length; i++)
+      if (rout[i] == null) {
+        rout[i] = o_;
+        return;
+      }
+    
+    RUVOutput[] tmp_ = new RUVOutput[rout.length + 2];
+    java.lang.System.arraycopy(rout, 0, tmp_, 0, rout.length);
+    rout = tmp_;
+    rout[rout.length-2] = o_;
+  }
+  
+  public static void addOutput(OutputStream o_)
+  {
+    if (sout == null)
+      sout = new OutputStream[2];
+    
+    for (int i=0; i<sout.length; i++)
+      if (sout[i] == null) {
+        sout[i] = o_;
+        return;
+      }
+    
+    OutputStream[] tmp_ = new OutputStream[sout.length + 2];
+    java.lang.System.arraycopy(sout, 0, tmp_, 0, sout.length);
+    sout = tmp_;
+    sout[sout.length-2] = o_;
+  }
 
-	public static void removeOutput(OutputStream o_)
-	{
-		if (sout== null) return;
-		for (int i=0; i<sout.length; i++)
-			if (sout[i] == o_) {
-				sout[i] = null; return;
-			}
-	}
+  public static void removeOutput(OutputStream o_)
+  {
+    if (sout== null) return;
+    for (int i=0; i<sout.length; i++)
+      if (sout[i] == o_) {
+        sout[i] = null; return;
+      }
+  }
 
-	public static void removeOutput(RUVOutput o_)
-	{
-		if (rout == null) return;
-		for (int i=0; i<rout.length; i++)
-			if (rout[i] == o_) {
-				rout[i] = null; return;
-			}
-	}
+  public static void removeOutput(RUVOutput o_)
+  {
+    if (rout == null) return;
+    for (int i=0; i<rout.length; i++)
+      if (rout[i] == o_) {
+        rout[i] = null; return;
+      }
+  }
 
-	/** Prints out the message on the standard output. */
-	public static void print(String s_)
-	{ SYSTEM_OUT.print(s_); }
+  /** Prints out the message on the standard output. */
+  public static void print(String s_)
+  { SYSTEM_OUT.print(s_); }
 
-	/** Prints out the message on the standard output. */
-	public static void println(String s_)
-	{ SYSTEM_OUT.println(s_); }
+  /** Prints out the message on the standard output. */
+  public static void println(String s_)
+  { SYSTEM_OUT.println(s_); }
 
-	/** Prints out the message on the standard err. */
-	public static void eprint(String s_)
-	{ SYSTEM_ERR.print(s_); }
+  /** Prints out the message on the standard err. */
+  public static void eprint(String s_)
+  { SYSTEM_ERR.print(s_); }
 
-	/** Prints out the message on the standard err. */
-	public static void eprintln(String s_)
-	{ SYSTEM_ERR.println(s_); }
+  /** Prints out the message on the standard err. */
+  public static void eprintln(String s_)
+  { SYSTEM_ERR.println(s_); }
 }

@@ -37,32 +37,32 @@ import drcl.data.*;
  */
 class ShellFoo extends Shell
 {
-	public ShellFoo() throws Exception
-	{ super(); }
+  public ShellFoo() throws Exception
+  { super(); }
 
-	public ShellFoo(String id_) throws Exception
-	{ super(id_);	}
+  public ShellFoo(String id_) throws Exception
+  { super(id_);  }
 
-	protected void init() throws ShellEvalException
-	{}
+  protected void init() throws ShellEvalException
+  {}
 
-	protected void setArguments(String[] args_) throws ShellEvalException
-	{} 
+  protected void setArguments(String[] args_) throws ShellEvalException
+  {} 
 
-	protected Object eval(String cmd_)
-			throws ShellEvalException, InterruptedException
-	{ return null; }
+  protected Object eval(String cmd_)
+      throws ShellEvalException, InterruptedException
+  { return null; }
 
-	protected boolean isCommandComplete(String cmd_)
-	{ return true; }
+  protected boolean isCommandComplete(String cmd_)
+  { return true; }
 
-	public void print(String msg_)
-	{ java.lang.System.out.print(msg_); }
-	
-	public void println(String msg_)
-	{ java.lang.System.out.println(msg_); }
-	
-	protected String _autocomplete(String cmd_, int pos_)
-			throws ShellEvalException
-	{ return ""; }
+  public void print(String msg_)
+  { java.lang.System.out.print(msg_); }
+  
+  public void println(String msg_)
+  { java.lang.System.out.println(msg_); }
+  
+  protected String _autocomplete(String cmd_, int pos_)
+      throws ShellEvalException
+  { return ""; }
 }

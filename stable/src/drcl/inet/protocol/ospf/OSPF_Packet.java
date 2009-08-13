@@ -47,55 +47,55 @@ import drcl.data.*;
   */
 public class OSPF_Packet extends drcl.net.Packet
 {
-	protected static final int OSPF_HEADER_LEN = 24;
+  protected static final int OSPF_HEADER_LEN = 24;
 
   /************************* PACKET VARIABLES **************************/
 
-	/** the type of this OSPF_Pkt_header */
-	private int Type;
+  /** the type of this OSPF_Pkt_header */
+  private int Type;
   
-	/** the identification of the router which sent this packet, chosen 
+  /** the identification of the router which sent this packet, chosen 
     * as the smallest of the IPaddress of all its interfaces
     */
-	private int Router_ID;
+  private int Router_ID;
   
-	/** the area to which this PACKET belongs */
-	private int Area_ID;
+  /** the area to which this PACKET belongs */
+  private int Area_ID;
     
-	/** constructs an OSPF_Pkt_header with a given type, router ID, area ID*/
-	protected OSPF_Packet(int type, int routerid, int areaid)
-	{
-		super(OSPF_HEADER_LEN);
-		Type        = type;
-		Router_ID   = routerid;
-		Area_ID     = areaid;
-	}
+  /** constructs an OSPF_Pkt_header with a given type, router ID, area ID*/
+  protected OSPF_Packet(int type, int routerid, int areaid)
+  {
+    super(OSPF_HEADER_LEN);
+    Type        = type;
+    Router_ID   = routerid;
+    Area_ID     = areaid;
+  }
   
-	protected int getType() { return Type; }
-	protected int getRouterID() { return Router_ID; }
-	protected int getAreaID() { return Area_ID; }
-	protected int getLength() { return size; }
+  protected int getType() { return Type; }
+  protected int getRouterID() { return Router_ID; }
+  protected int getAreaID() { return Area_ID; }
+  protected int getLength() { return size; }
 
-	public String getName()
-	{ return "OSPF"; }
+  public String getName()
+  { return "OSPF"; }
 
-	public String _toString(String separator_)
-	{
-		return OSPF.PKT_TYPES[Type] + separator_ + "router:" + Router_ID
-			+ separator_ + "area:" + Area_ID;
-	}
+  public String _toString(String separator_)
+  {
+    return OSPF.PKT_TYPES[Type] + separator_ + "router:" + Router_ID
+      + separator_ + "area:" + Area_ID;
+  }
 
-	/*
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		OSPF_Packet that_ = (OSPF_Packet)source_;
-		Type = that_.Type;
-		Router_ID = that_.Router_ID;
-		Area_ID = that_.Area_ID;
-	}
-	*/
+  /*
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    OSPF_Packet that_ = (OSPF_Packet)source_;
+    Type = that_.Type;
+    Router_ID = that_.Router_ID;
+    Area_ID = that_.Area_ID;
+  }
+  */
 
-	public Object clone()
-	{ return new OSPF_Packet(Type, Router_ID, Area_ID); }
-}	
+  public Object clone()
+  { return new OSPF_Packet(Type, Router_ID, Area_ID); }
+}  

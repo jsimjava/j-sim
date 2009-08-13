@@ -53,36 +53,36 @@ percentage(%).
 public class TrafficMonitor2 extends CountMonitor2
 {
 
-	/** ID of the port to export the packet-mode throughput events. */
-	public static final String PKT_COUNT_PORT_ID = "pktcount";
-	/** ID of the port to export the packet-mode packet-loss-rate events. */
-	public static final String PKT_LOSS_PORT_ID = "pktloss";
-	/** ID of the port to export the byte-mode throughput events. */
-	public static final String BYTE_COUNT_PORT_ID = "bytecount";
-	/** ID of the port to export the byte-mode packet-loss-rate events. */
-	public static final String BYTE_LOSS_PORT_ID = "byteloss";
-	
-	/** Name of the packet-mode throughput events. */
-	public static final String PKT_COUNT_EVENT = "Throughput (packet count)";
-	/** Name of the packet-mode packet-loss-rate events. */
-	public static final String PKT_LOSS_EVENT ="Packet Loss Rate(packet count)";
-	/** Name of the byte-mode throughput events. */
-	public static final String BYTE_COUNT_EVENT = "Throughput";
-	/** Name of the byte-mode packet-loss-rate events. */
-	public static final String BYTE_LOSS_EVENT = "Packet Loss (byte count)";
-	
-	{
-		setEventNames(PKT_COUNT_EVENT, PKT_LOSS_EVENT,
-						BYTE_COUNT_EVENT, BYTE_LOSS_EVENT);
-		objcountPort.setID(PKT_COUNT_PORT_ID);
-		objlossPort.setID(PKT_LOSS_PORT_ID);
-		sizecountPort.setID(BYTE_COUNT_PORT_ID);
-		sizelossPort.setID(BYTE_LOSS_PORT_ID);
-	}
-	
-	public TrafficMonitor2() 
-	{ super(); }
-	
-	public TrafficMonitor2(String id_)
-	{ super(id_); }
+  /** ID of the port to export the packet-mode throughput events. */
+  public static final String PKT_COUNT_PORT_ID = "pktcount";
+  /** ID of the port to export the packet-mode packet-loss-rate events. */
+  public static final String PKT_LOSS_PORT_ID = "pktloss";
+  /** ID of the port to export the byte-mode throughput events. */
+  public static final String BYTE_COUNT_PORT_ID = "bytecount";
+  /** ID of the port to export the byte-mode packet-loss-rate events. */
+  public static final String BYTE_LOSS_PORT_ID = "byteloss";
+  
+  /** Name of the packet-mode throughput events. */
+  public static final String PKT_COUNT_EVENT = "Throughput (packet count)";
+  /** Name of the packet-mode packet-loss-rate events. */
+  public static final String PKT_LOSS_EVENT ="Packet Loss Rate(packet count)";
+  /** Name of the byte-mode throughput events. */
+  public static final String BYTE_COUNT_EVENT = "Throughput";
+  /** Name of the byte-mode packet-loss-rate events. */
+  public static final String BYTE_LOSS_EVENT = "Packet Loss (byte count)";
+  
+  {
+    setEventNames(PKT_COUNT_EVENT, PKT_LOSS_EVENT,
+            BYTE_COUNT_EVENT, BYTE_LOSS_EVENT);
+    objcountPort.setID(PKT_COUNT_PORT_ID);
+    objlossPort.setID(PKT_LOSS_PORT_ID);
+    sizecountPort.setID(BYTE_COUNT_PORT_ID);
+    sizelossPort.setID(BYTE_LOSS_PORT_ID);
+  }
+  
+  public TrafficMonitor2() 
+  { super(); }
+  
+  public TrafficMonitor2(String id_)
+  { super(id_); }
 }

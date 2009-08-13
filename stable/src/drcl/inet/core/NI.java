@@ -36,64 +36,64 @@ import drcl.comp.queue.ActiveQueueContract;
  * Base class for modeling network interface card.
  */
 public abstract class NI extends drcl.comp.Component
-		implements InetCoreConstants
+    implements InetCoreConstants
 {
 
-	static {
-		setContract(NI.class, PULL_PORT_ID + "@",
-						new ActiveQueueContract(Contract.Role_INITIATOR));
-	}
-	
-	/** Port to pull data from data source (buffer).  */
-	protected Port pullPort = addPort(PULL_PORT_ID, false/*not removable*/);
+  static {
+    setContract(NI.class, PULL_PORT_ID + "@",
+            new ActiveQueueContract(Contract.Role_INITIATOR));
+  }
+  
+  /** Port to pull data from data source (buffer).  */
+  protected Port pullPort = addPort(PULL_PORT_ID, false/*not removable*/);
 
-	/** Port to send out packets. */
-	protected Port downPort = addPort(drcl.net.Module.PortGroup_DOWN, false);
+  /** Port to send out packets. */
+  protected Port downPort = addPort(drcl.net.Module.PortGroup_DOWN, false);
 
-	/** Bandwidth of this network interface. */
-	protected double bw = DEFAULT_BANDWIDTH;
-	
-	/** Maximum transmission unit.  Default is infinity. */
-	protected int mtu = DEFAULT_MTU;
-	
-	public NI()
-	{ super(); }
-	
-	public NI(String id_)
-	{ super(id_); }
-	
-	public void duplicate(Object source_) 
-	{
-		if (!(source_ instanceof NI)) return;
-		super.duplicate(source_);
-		NI that_ = (NI)source_;
-		bw = that_.bw;
-		mtu = that_.mtu;
-	}
-	
-	public String info()
-	{
-		return   "Bandwidth = " + bw + ",  MTU = " + mtu + "\n"
-			   + "State:" + (isReady()? "ready": "busy");
-	}
-	
-	/** Returns the bandwidth of this network interface. */
-	public double getBandwidth()
-	{ return bw; }
-	
-	/** Sets the bandwidth of this network interface. */
-	public void setBandwidth(double bw_)
-	{ bw = bw_; }
-	
-	/** Returns the MTU, not including packet header, of this network
-	 * interface. */
-	public int getMTU()
-	{ return mtu; }
-	
-	/** Sets the MTU, not including packet header, of this network interface. */
-	public void setMTU(int mtu_)
-	{ mtu = mtu_; }
-	
-	/** Returns true if the interface is ready to transmit more packets.  */
-	public abstract boolean isReady();
+  /** Bandwidth of this network interface. */
+  protected double bw = DEFAULT_BANDWIDTH;
+  
+  /** Maximum transmission unit.  Default is infinity. */
+  protected int mtu = DEFAULT_MTU;
+  
+  public NI()
+  { super(); }
+  
+  public NI(String id_)
+  { super(id_); }
+  
+  public void duplicate(Object source_) 
+  {
+    if (!(source_ instanceof NI)) return;
+    super.duplicate(source_);
+    NI that_ = (NI)source_;
+    bw = that_.bw;
+    mtu = that_.mtu;
+  }
+  
+  public String info()
+  {
+    return   "Bandwidth = " + bw + ",  MTU = " + mtu + "\n"
+         + "State:" + (isReady()? "ready": "busy");
+  }
+  
+  /** Returns the bandwidth of this network interface. */
+  public double getBandwidth()
+  { return bw; }
+  
+  /** Sets the bandwidth of this network interface. */
+  public void setBandwidth(double bw_)
+  { bw = bw_; }
+  
+  /** Returns the MTU, not including packet header, of this network
+   * interface. */
+  public int getMTU()
+  { return mtu; }
+  
+  /** Sets the MTU, not including packet header, of this network interface. */
+  public void setMTU(int mtu_)
+  { mtu = mtu_; }
+  
+  /** Returns true if the interface is ready to transmit more packets.  */
+  public abstract boolean isReady();
 }

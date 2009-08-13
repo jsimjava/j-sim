@@ -50,168 +50,168 @@ import drcl.net.Packet;
   */
 public class TC_meter extends Meter implements DFConstants
 {
-	int mode;   //single rate, two rate
-	long PIR; //Peak Information Rate
-	long PBS; //Peak Burst Size
-	long CIR; //Committed Information Rate
-	long CBS; //Commiteted Burst Size
-	transient long Tp = 0;  //Token Bucket for PIR
-	transient long Tc = 0;  //Token Bucket for CIR	
-	transient double lastimep = Double.NaN;
-	transient double lastimec = Double.NaN;
-	transient double idletime = Double.NaN, time = 0.0; // for debug
+  int mode;   //single rate, two rate
+  long PIR; //Peak Information Rate
+  long PBS; //Peak Burst Size
+  long CIR; //Committed Information Rate
+  long CBS; //Commiteted Burst Size
+  transient long Tp = 0;  //Token Bucket for PIR
+  transient long Tc = 0;  //Token Bucket for CIR  
+  transient double lastimep = Double.NaN;
+  transient double lastimec = Double.NaN;
+  transient double idletime = Double.NaN, time = 0.0; // for debug
 
-	public TC_meter()
-	{ super(); }
-	
-	public TC_meter(String mode_, long cbs, long cir, long pbs, long pir)
-	{
-		this();
-		setMode(mode_);
-		PIR = pir;
-		PBS = pbs;
-		CIR = cir;
-		CBS = cbs;
-	}
+  public TC_meter()
+  { super(); }
+  
+  public TC_meter(String mode_, long cbs, long cir, long pbs, long pir)
+  {
+    this();
+    setMode(mode_);
+    PIR = pir;
+    PBS = pbs;
+    CIR = cir;
+    CBS = cbs;
+  }
 
-	public void reset()
-	{
-		Tp = 0;  
-		Tc = 0;  
-		lastimep = Double.NaN;
-		time  = 0.0;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		TC_meter that_ = (TC_meter)source_;
-		PIR = that_.PIR;
-		PBS = that_.PBS;
-		CIR = that_.CIR;
-		CBS = that_.CBS;
-	}
-	
-	public String info(String prefix_)
-	{
-		return prefix_ + "TC_meter: " + MODES[mode] + ", cbucket=" + Tc + "/"
-			+ CBS + " cir=" + CIR + " lastimec=" + lastimec + "; pbucket=" + Tp + "/" + PBS + " pir="
-			+ PIR + " lastimep=" + lastimep
-			+ (isDebugEnabled()? ", token utilization="
-				+ (100.0 - idletime*100.0/time) + "%": "") +  "\n";
-	}
+  public void reset()
+  {
+    Tp = 0;  
+    Tc = 0;  
+    lastimep = Double.NaN;
+    time  = 0.0;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    TC_meter that_ = (TC_meter)source_;
+    PIR = that_.PIR;
+    PBS = that_.PBS;
+    CIR = that_.CIR;
+    CBS = that_.CBS;
+  }
+  
+  public String info(String prefix_)
+  {
+    return prefix_ + "TC_meter: " + MODES[mode] + ", cbucket=" + Tc + "/"
+      + CBS + " cir=" + CIR + " lastimec=" + lastimec + "; pbucket=" + Tp + "/" + PBS + " pir="
+      + PIR + " lastimep=" + lastimep
+      + (isDebugEnabled()? ", token utilization="
+        + (100.0 - idletime*100.0/time) + "%": "") +  "\n";
+  }
 
-	public void setPeakInformationRate(long pir)
-	{ PIR = pir; }
-	
-	public long getPeakInformationRate()
-	{ return PIR; }
+  public void setPeakInformationRate(long pir)
+  { PIR = pir; }
+  
+  public long getPeakInformationRate()
+  { return PIR; }
 
-	public void setPeakBurstSize(long pbs)
-	{ PBS = pbs; }
-	
-	public long getPeakBurstSize()
-	{ return PBS; }
+  public void setPeakBurstSize(long pbs)
+  { PBS = pbs; }
+  
+  public long getPeakBurstSize()
+  { return PBS; }
 
-	public void setCommittedInformationRate(long cir)
-	{ CIR = cir; }
+  public void setCommittedInformationRate(long cir)
+  { CIR = cir; }
 
-	public long getCommittedInformationRate()
-	{ return CIR; }
+  public long getCommittedInformationRate()
+  { return CIR; }
 
-	public void setCommittedBurstSize(long cbs)
-	{ CBS = cbs; }
+  public void setCommittedBurstSize(long cbs)
+  { CBS = cbs; }
 
-	public long getCommittedBurstSize()
-	{ return CBS; }
+  public long getCommittedBurstSize()
+  { return CBS; }
 
-	public void setDebugEnabled(boolean enabled_)
-	{
-		if (enabled_ && Double.isNaN(idletime))
-			idletime = 0.0;
-		else if (!enabled_) idletime = Double.NaN;
-	}
+  public void setDebugEnabled(boolean enabled_)
+  {
+    if (enabled_ && Double.isNaN(idletime))
+      idletime = 0.0;
+    else if (!enabled_) idletime = Double.NaN;
+  }
 
-	public boolean isDebugEnabled()
-	{ return !Double.isNaN(idletime); }
+  public boolean isDebugEnabled()
+  { return !Double.isNaN(idletime); }
 
-	public void setMode(String mode_)
-	{
-		if(mode_.equals(SINGLE_RATE)) 
-			mode = _SINGLE_RATE;
-		else if(mode_.equals(TWO_RATE))
-			mode = _TWO_RATE;
-		else 
-			drcl.Debug.error(mode_ + " not supported");
-	}
+  public void setMode(String mode_)
+  {
+    if(mode_.equals(SINGLE_RATE)) 
+      mode = _SINGLE_RATE;
+    else if(mode_.equals(TWO_RATE))
+      mode = _TWO_RATE;
+    else 
+      drcl.Debug.error(mode_ + " not supported");
+  }
 
-	public String getMode()
-	{ return MODES[mode]; }
-	
-	protected int measure(Packet p_, double now_)
-	{
-		if (Double.isNaN(lastimep))
-			lastimep = lastimec = now_;
-		double durationp_ = now_ - lastimep;
-		double durationc_ = now_ - lastimec;
-		long num_of_bit = p_.size<<3;
+  public String getMode()
+  { return MODES[mode]; }
+  
+  protected int measure(Packet p_, double now_)
+  {
+    if (Double.isNaN(lastimep))
+      lastimep = lastimec = now_;
+    double durationp_ = now_ - lastimep;
+    double durationc_ = now_ - lastimec;
+    long num_of_bit = p_.size<<3;
 
-		if (isDebugEnabled()) time = now_;
-		
-		/* update counter */
-		// two rate
-		if (mode == _TWO_RATE) {
-			long Tp_now_ = Tp + (long)(durationp_*PIR);
-			if(Tp_now_ > PBS) {
-				Tp = PBS;
-				lastimep = now_;
-			}
-			long Tc_now_ = Tc + (long)(durationc_*CIR);
-			if(Tc_now_ > CBS) {
-				if (isDebugEnabled()) idletime += ((double)(Tc-CBS)/CIR);
-				Tc = CBS;
-				lastimec = now_;
-			}
+    if (isDebugEnabled()) time = now_;
+    
+    /* update counter */
+    // two rate
+    if (mode == _TWO_RATE) {
+      long Tp_now_ = Tp + (long)(durationp_*PIR);
+      if(Tp_now_ > PBS) {
+        Tp = PBS;
+        lastimep = now_;
+      }
+      long Tc_now_ = Tc + (long)(durationc_*CIR);
+      if(Tc_now_ > CBS) {
+        if (isDebugEnabled()) idletime += ((double)(Tc-CBS)/CIR);
+        Tc = CBS;
+        lastimec = now_;
+      }
 
-			if(Tc >= num_of_bit) {
-				Tp -= num_of_bit;
-				Tc -= num_of_bit;
-				return GREEN;
-			}
-			else if(Tp >= num_of_bit){
-				Tp -= num_of_bit;			
-				return YELLOW;
-			}
-			else
-				return RED;
-		}
-		else{
-			//single rate
-			long Tc_now_ = Tc + (long)(durationc_*CIR);
-			if(Tc_now_ > CBS){
-				Tp += (Tc_now_ - CBS); Tc = CBS; lastimec = now_;
-				if(Tp > PBS) {
-					if (isDebugEnabled()) idletime += ((double)(Tp-PBS)/CIR);
-					Tp = PBS;
-				}
-			}
-			if(Tc >= num_of_bit){	
-				Tc -= num_of_bit;
-				return GREEN;
-			}
-			else if(Tp >= num_of_bit){
-				Tp -= num_of_bit;
-				return YELLOW;
-			}
-			return RED;
-		}
-	}
+      if(Tc >= num_of_bit) {
+        Tp -= num_of_bit;
+        Tc -= num_of_bit;
+        return GREEN;
+      }
+      else if(Tp >= num_of_bit){
+        Tp -= num_of_bit;      
+        return YELLOW;
+      }
+      else
+        return RED;
+    }
+    else{
+      //single rate
+      long Tc_now_ = Tc + (long)(durationc_*CIR);
+      if(Tc_now_ > CBS){
+        Tp += (Tc_now_ - CBS); Tc = CBS; lastimec = now_;
+        if(Tp > PBS) {
+          if (isDebugEnabled()) idletime += ((double)(Tp-PBS)/CIR);
+          Tp = PBS;
+        }
+      }
+      if(Tc >= num_of_bit){  
+        Tc -= num_of_bit;
+        return GREEN;
+      }
+      else if(Tp >= num_of_bit){
+        Tp -= num_of_bit;
+        return YELLOW;
+      }
+      return RED;
+    }
+  }
 
-	public void config(String mode, long cbs, long cir,  long pbs, long pir)
-	{
-		setMode(mode);
-		PIR = pir;
-		PBS = pbs;
-		CIR = cir;
-		CBS = cbs;
-	}
+  public void config(String mode, long cbs, long cir,  long pbs, long pir)
+  {
+    setMode(mode);
+    PIR = pir;
+    PBS = pbs;
+    CIR = cir;
+    CBS = cbs;
+  }
 }

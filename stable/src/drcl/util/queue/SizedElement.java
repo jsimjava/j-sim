@@ -30,15 +30,15 @@ package drcl.util.queue;
 
 class SizedElement extends _Element
 {
-	int size;
-	
-	public SizedElement (double key_, Object o_, int size_)
-	{
-		super(key_, o_);
-		size = size_;
-	}
+  int size;
+  
+  public SizedElement (double key_, Object o_, int size_)
+  {
+    super(key_, o_);
+    size = size_;
+  }
 
-	public int getSize()
-	{ return size; }
+  public int getSize()
+  { return size; }
 }
 

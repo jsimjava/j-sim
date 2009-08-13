@@ -35,148 +35,148 @@ import drcl.util.queue.TreeMapQueue;
 /** Maintains a set of timers. */
 public class TimerList
 { 
-	HashMap map; // key -> TimerStruct
-	TreeMapQueue qkey; // time -> key
-	ACATimer current;
+  HashMap map; // key -> TimerStruct
+  TreeMapQueue qkey; // time -> key
+  ACATimer current;
 
-	public TimerList()
-	{}
+  public TimerList()
+  {}
 
-	/** Returns the number of timers in the list. */
-	public int size()
-	{
-		if (map == null) return 0;
-		else return map.size();
-	}
+  /** Returns the number of timers in the list. */
+  public int size()
+  {
+    if (map == null) return 0;
+    else return map.size();
+  }
 
-	/** Sets a timer.  Use <code>timer_</code> as key. 
-	 * If the key exists, the timer is rescheduled. */
-	public void set(Port timerPort_, Object timer_, double time_)
-	{ set(timerPort_, timer_, timer_, time_); }
+  /** Sets a timer.  Use <code>timer_</code> as key. 
+   * If the key exists, the timer is rescheduled. */
+  public void set(Port timerPort_, Object timer_, double time_)
+  { set(timerPort_, timer_, timer_, time_); }
 
-	/** Sets a timer.  If key_ exists, the timer is rescheduled. */
-	public synchronized void set(Port timerPort_, Object key_, Object timer_,
-					double time_)
-	{
-		if (map == null) {
-			map = new HashMap();
-			qkey = new TreeMapQueue();
-		}
+  /** Sets a timer.  If key_ exists, the timer is rescheduled. */
+  public synchronized void set(Port timerPort_, Object key_, Object timer_,
+          double time_)
+  {
+    if (map == null) {
+      map = new HashMap();
+      qkey = new TreeMapQueue();
+    }
 
-		boolean set_ = (qkey.isEmpty() || qkey.firstKey() > time_);
+    boolean set_ = (qkey.isEmpty() || qkey.firstKey() > time_);
 
-		TimerStruct ts_ = (TimerStruct)map.get(key_);
-		if (ts_ != null) {
-			// reschedule
-			ts_.time = time_;
-			ts_.timer = timer_;
-		}
-		else {
-			ts_ = new TimerStruct(time_, timer_);
-			map.put(key_, ts_);
-			qkey.enqueue(time_, key_);
-		}
+    TimerStruct ts_ = (TimerStruct)map.get(key_);
+    if (ts_ != null) {
+      // reschedule
+      ts_.time = time_;
+      ts_.timer = timer_;
+    }
+    else {
+      ts_ = new TimerStruct(time_, timer_);
+      map.put(key_, ts_);
+      qkey.enqueue(time_, key_);
+    }
 
-		if (set_) {
-			if (current != null)
-				timerPort_.host.cancelFork(current);
-			current = timerPort_.host.forkAt(timerPort_, this, time_);
-		}
-	}
+    if (set_) {
+      if (current != null)
+        timerPort_.host.cancelFork(current);
+      current = timerPort_.host.forkAt(timerPort_, this, time_);
+    }
+  }
 
-	/** Retrieves the timer object. */
-	public synchronized Object get(Object key_)
-	{
-		if (map == null) return null;
-		TimerStruct ts_ = (TimerStruct)map.get(key_);
-		if (ts_ == null) return null;
-		else return ts_.timer;
-	}
+  /** Retrieves the timer object. */
+  public synchronized Object get(Object key_)
+  {
+    if (map == null) return null;
+    TimerStruct ts_ = (TimerStruct)map.get(key_);
+    if (ts_ == null) return null;
+    else return ts_.timer;
+  }
 
-	/** Returns true if the timer list contains the key. */
-	public synchronized boolean containsKey(Object key_)
-	{
-		if (map == null) return false;
-		return map.containsKey(key_);
-	}
+  /** Returns true if the timer list contains the key. */
+  public synchronized boolean containsKey(Object key_)
+  {
+    if (map == null) return false;
+    return map.containsKey(key_);
+  }
 
-	/** Returns the object of the timer that expires and activates next
-	 * if available.
-	 * Returns null if it is a false alarm. */
-	public synchronized Object timeout(Port timerPort_, double now_)
-	{
-		Object timer_ = null;
-		if (!qkey.isEmpty() && qkey.firstKey() <= now_) {
-			Object key_ = qkey.dequeue();
-			TimerStruct ts_ = (TimerStruct)map.remove(key_);
-			if (ts_.time <= now_)
-				timer_ = ts_.timer;
-			else {
-				// put it back to timer list
-				map.put(key_, ts_);
-				qkey.enqueue(ts_.time, key_);
-			}
-		}
-		if (!qkey.isEmpty())
-			current = timerPort_.host.forkAt(timerPort_, this, qkey.firstKey());
-		else
-			current = null;
-		return timer_;
-	}
+  /** Returns the object of the timer that expires and activates next
+   * if available.
+   * Returns null if it is a false alarm. */
+  public synchronized Object timeout(Port timerPort_, double now_)
+  {
+    Object timer_ = null;
+    if (!qkey.isEmpty() && qkey.firstKey() <= now_) {
+      Object key_ = qkey.dequeue();
+      TimerStruct ts_ = (TimerStruct)map.remove(key_);
+      if (ts_.time <= now_)
+        timer_ = ts_.timer;
+      else {
+        // put it back to timer list
+        map.put(key_, ts_);
+        qkey.enqueue(ts_.time, key_);
+      }
+    }
+    if (!qkey.isEmpty())
+      current = timerPort_.host.forkAt(timerPort_, this, qkey.firstKey());
+    else
+      current = null;
+    return timer_;
+  }
 
-	/** Cancels all the timers. */
-	public synchronized void cancelAll(Port timerPort_)
-	{
-		if (qkey == null) return;
-		qkey.reset();
-		map.clear();
-	}
+  /** Cancels all the timers. */
+  public synchronized void cancelAll(Port timerPort_)
+  {
+    if (qkey == null) return;
+    qkey.reset();
+    map.clear();
+  }
 
-	/** Returns the object of the timer. */
-	public synchronized Object cancel(Port timerPort_, Object key_)
-	{
-		if (qkey == null) return null;
-		TimerStruct ts_ = (TimerStruct)map.remove(key_);
-		if (ts_ == null)
-			return null;
-		qkey.remove(key_);
-		return ts_.timer;
-	}
+  /** Returns the object of the timer. */
+  public synchronized Object cancel(Port timerPort_, Object key_)
+  {
+    if (qkey == null) return null;
+    TimerStruct ts_ = (TimerStruct)map.remove(key_);
+    if (ts_ == null)
+      return null;
+    qkey.remove(key_);
+    return ts_.timer;
+  }
 
-	public String info(String prefix_)
-	{
-		if (map == null) return prefix_ + "none\n";
-		double[] timeouts_ = qkey.keys();
-		Object[] keys_ = qkey.retrieveAll();
-		StringBuffer sb_ = new StringBuffer();
-		for (int i=0; i<timeouts_.length; i++) {
-			TimerStruct ts_ = (TimerStruct)map.get(keys_[i]);
-			sb_.append(prefix_);
-			sb_.append(timeouts_[i]);
-			sb_.append(":");
-			sb_.append(ts_.time);
-			sb_.append("--");
-			sb_.append(ts_.timer);
-			sb_.append("\n");
-		}
-		return sb_ + prefix_ + "activated = " + current + "\n";
-	}
+  public String info(String prefix_)
+  {
+    if (map == null) return prefix_ + "none\n";
+    double[] timeouts_ = qkey.keys();
+    Object[] keys_ = qkey.retrieveAll();
+    StringBuffer sb_ = new StringBuffer();
+    for (int i=0; i<timeouts_.length; i++) {
+      TimerStruct ts_ = (TimerStruct)map.get(keys_[i]);
+      sb_.append(prefix_);
+      sb_.append(timeouts_[i]);
+      sb_.append(":");
+      sb_.append(ts_.time);
+      sb_.append("--");
+      sb_.append(ts_.timer);
+      sb_.append("\n");
+    }
+    return sb_ + prefix_ + "activated = " + current + "\n";
+  }
 
-	class TimerStruct
-	{
-		double time;
-		Object timer;
-		boolean beenSet; // true if has been set; reserved
+  class TimerStruct
+  {
+    double time;
+    Object timer;
+    boolean beenSet; // true if has been set; reserved
 
-		TimerStruct(double time_, Object timer_)
-		{
-			time = time_;
-			timer = timer_;
-		}
+    TimerStruct(double time_, Object timer_)
+    {
+      time = time_;
+      timer = timer_;
+    }
 
-		public String toString()
-		{
-			return time + ":" + (beenSet? "set,":"") + timer;
-		}
-	}
+    public String toString()
+    {
+      return time + ":" + (beenSet? "set,":"") + timer;
+    }
+  }
 }

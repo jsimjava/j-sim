@@ -33,128 +33,128 @@ import java.util.*;
 
 public class LognormalParetoDistribution extends RandomNumberGenerator
 {
-	public String   getName()
-	{ return "Lognormal-body Pareto-tail Distribution"; }
-	
-	ParetoDistribution pareto;
-	double mean = 0.0, std = 1.0;
-	double cutoff = 0.0;
-	
-	public LognormalParetoDistribution ()
-	{ super(); pareto = new ParetoDistribution(); }
+  public String   getName()
+  { return "Lognormal-body Pareto-tail Distribution"; }
+  
+  ParetoDistribution pareto;
+  double mean = 0.0, std = 1.0;
+  double cutoff = 0.0;
+  
+  public LognormalParetoDistribution ()
+  { super(); pareto = new ParetoDistribution(); }
 
-	public LognormalParetoDistribution (long normalSeed_)
-	{ super(normalSeed_); pareto = new ParetoDistribution(); }
+  public LognormalParetoDistribution (long normalSeed_)
+  { super(normalSeed_); pareto = new ParetoDistribution(); }
 
-	public LognormalParetoDistribution (double normalMean_, double normalStd_,
-			double cutoff_, double paretoScale_, double paretoShape_)
-	{ this(normalMean_, normalStd_, cutoff_, paretoScale_, paretoShape_, 
-					0L, 0L); }
+  public LognormalParetoDistribution (double normalMean_, double normalStd_,
+      double cutoff_, double paretoScale_, double paretoShape_)
+  { this(normalMean_, normalStd_, cutoff_, paretoScale_, paretoShape_, 
+          0L, 0L); }
 
-	public LognormalParetoDistribution (double normalMean_, double normalStd_,
-			double cutoff_, double paretoScale_, double paretoShape_,
-			long normalSeed_, long paretoSeed_)
-	{
-		super(normalSeed_);
-		mean = normalMean_;
-		std = normalStd_;
-		cutoff = (Math.log(cutoff_) - mean) / std;
-		pareto = new ParetoDistribution(paretoScale_, paretoShape_,
-						paretoSeed_);
-	}
-	
-	public double nextDouble()
-	{
-		double tmp_ = r.nextGaussian();
-		if (tmp_ < cutoff)
-			return Math.exp(tmp_ * std + mean);
-		else
-			return pareto.nextDouble();
-	}
+  public LognormalParetoDistribution (double normalMean_, double normalStd_,
+      double cutoff_, double paretoScale_, double paretoShape_,
+      long normalSeed_, long paretoSeed_)
+  {
+    super(normalSeed_);
+    mean = normalMean_;
+    std = normalStd_;
+    cutoff = (Math.log(cutoff_) - mean) / std;
+    pareto = new ParetoDistribution(paretoScale_, paretoShape_,
+            paretoSeed_);
+  }
+  
+  public double nextDouble()
+  {
+    double tmp_ = r.nextGaussian();
+    if (tmp_ < cutoff)
+      return Math.exp(tmp_ * std + mean);
+    else
+      return pareto.nextDouble();
+  }
 
-	public int nextInt()
-	{
-		double tmp_ = r.nextGaussian();
-		if (tmp_ < cutoff)
-			return (int)Math.exp(tmp_ * std + mean);
-		else
-			return pareto.nextInt();
-	}
+  public int nextInt()
+  {
+    double tmp_ = r.nextGaussian();
+    if (tmp_ < cutoff)
+      return (int)Math.exp(tmp_ * std + mean);
+    else
+      return pareto.nextInt();
+  }
 
-	public long nextLong()
-	{
-		double tmp_ = r.nextGaussian();
-		if (tmp_ < cutoff)
-			return (long)Math.exp(tmp_ * std + mean);
-		else
-			return pareto.nextLong();
-	}
+  public long nextLong()
+  {
+    double tmp_ = r.nextGaussian();
+    if (tmp_ < cutoff)
+      return (long)Math.exp(tmp_ * std + mean);
+    else
+      return pareto.nextLong();
+  }
 
-	/** Sets the "normal" distribution mean for the lognormal distribution. */
-	public void setNormalMean(double m_)
-	{
-		cutoff = getCutOff();
-		mean = m_;
-		setCutOff(cutoff);
-	}
+  /** Sets the "normal" distribution mean for the lognormal distribution. */
+  public void setNormalMean(double m_)
+  {
+    cutoff = getCutOff();
+    mean = m_;
+    setCutOff(cutoff);
+  }
 
-	/** Returns the "normal" distribution mean for the lognormal distribution. 
-	 */
-	public double getNormalMean()
-	{ return mean; }
-	
-	/** Sets the "normal" distribution std for the lognormal distribution. */
-	public void setNormalStd(double std_)
-	{
-		cutoff = getCutOff();
-		std = std_;
-		setCutOff(cutoff);
-	}
+  /** Returns the "normal" distribution mean for the lognormal distribution. 
+   */
+  public double getNormalMean()
+  { return mean; }
+  
+  /** Sets the "normal" distribution std for the lognormal distribution. */
+  public void setNormalStd(double std_)
+  {
+    cutoff = getCutOff();
+    std = std_;
+    setCutOff(cutoff);
+  }
 
-	/** Returns the "normal" distribution std for the lognormal distribution. */
-	public double getNormalStd()
-	{ return std; }
+  /** Returns the "normal" distribution std for the lognormal distribution. */
+  public double getNormalStd()
+  { return std; }
 
-	/** Sets the cut-off point in the lognormal distribution. */
-	public void setCutOff(double cutoff_)
-	{
-		cutoff = (Math.log(cutoff_) - mean ) / std;
-	}
+  /** Sets the cut-off point in the lognormal distribution. */
+  public void setCutOff(double cutoff_)
+  {
+    cutoff = (Math.log(cutoff_) - mean ) / std;
+  }
 
-	/** Returns the cut-off point in the lognormal distribution. */
-	public double getCutOff()
-	{
-		return Math.exp(cutoff * std + mean);
-	}
+  /** Returns the cut-off point in the lognormal distribution. */
+  public double getCutOff()
+  {
+    return Math.exp(cutoff * std + mean);
+  }
 
-	public void setParetoScale(double scale_)
-	{ pareto.setScale(scale_); }
+  public void setParetoScale(double scale_)
+  { pareto.setScale(scale_); }
 
-	public double getParetoScale()
-	{ return pareto.getScale(); }
+  public double getParetoScale()
+  { return pareto.getScale(); }
 
-	public void setParetoShape(double shape_)
-	{ pareto.setShape(shape_); }
+  public void setParetoShape(double shape_)
+  { pareto.setShape(shape_); }
 
-	public double getParetoShape()
-	{ return pareto.getShape(); }
+  public double getParetoShape()
+  { return pareto.getShape(); }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Normal Mean = " + mean + "\n"
-			+  prefix_ + "Normal Std. = " + std + "\n"
-			+  prefix_ + "Lognormal Cut-off = " + getCutOff() + "\n"
-			+ pareto.info(prefix_);
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Normal Mean = " + mean + "\n"
+      +  prefix_ + "Normal Std. = " + std + "\n"
+      +  prefix_ + "Lognormal Cut-off = " + getCutOff() + "\n"
+      + pareto.info(prefix_);
+  }
 
-	public String oneline()
-	{
-		return super.oneline()
-			+  ", normal_mean=" + mean
-			+  ", normal_std=" + std
-			+  ", lognormal_cutoff=" + getCutOff() + ", "
-			+ pareto.oneline();
-	}
+  public String oneline()
+  {
+    return super.oneline()
+      +  ", normal_mean=" + mean
+      +  ", normal_std=" + std
+      +  ", lognormal_cutoff=" + getCutOff() + ", "
+      + pareto.oneline();
+  }
 }
 

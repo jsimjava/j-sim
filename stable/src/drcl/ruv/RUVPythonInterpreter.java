@@ -36,20 +36,20 @@ import drcl.comp.Port;
 
 class RUVPythonInterpreter extends PythonInterpreter
 {
-	Port result; // for outputing result
-	String cmd;
-	PyObject cmdCode;
+  Port result; // for outputing result
+  String cmd;
+  PyObject cmdCode;
 
     public RUVPythonInterpreter(Port result_)
-	{
+  {
         super();
-		result = result_;
+    result = result_;
     }
 
     public RUVPythonInterpreter(Port result_, PyObject locals)
-	{
+  {
         super(locals);
-		result = result_;
+    result = result_;
     }
 
     /**
@@ -104,22 +104,22 @@ class RUVPythonInterpreter extends PythonInterpreter
         // Case 2
         if (code == Py.None) {
             return true;
-		}
+    }
         // Case 3
         //runcode(code);
-		cmd = source;
-		cmdCode = code;
+    cmd = source;
+    cmdCode = code;
         return false;
     }
 
-	/**
-	 */
+  /**
+   */
     public void runcode(String cmd_) {
         try {
-			if (cmd != cmd_) {
-				if (runsource(cmd_, "<stdin>")) // not complete
-					return;
-			}
+      if (cmd != cmd_) {
+        if (runsource(cmd_, "<stdin>")) // not complete
+          return;
+      }
             exec(cmdCode);
         } catch (PyException exc) {
             if (Py.matchException(exc, Py.SystemExit)) throw exc;
@@ -128,12 +128,12 @@ class RUVPythonInterpreter extends PythonInterpreter
     }
 
     public void showexception(PyException exc)
-	{ if (result != null) result.doSending(exc); }
+  { if (result != null) result.doSending(exc); }
 
     public void write(String data)
-	{
+  {
         //Py.stderr.write(data);
-		if (result != null) result.doSending(data);
+    if (result != null) result.doSending(data);
     }
 
     /** Pause the current code, sneak an exception raiser into

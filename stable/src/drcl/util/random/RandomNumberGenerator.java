@@ -32,73 +32,73 @@ import java.util.Random;
 
 public abstract class RandomNumberGenerator extends drcl.DrclObj
 {
-	// the followings must be included in child class
+  // the followings must be included in child class
 
-	public abstract String   getName();
+  public abstract String   getName();
 
-	public abstract double nextDouble();
-	public abstract int    nextInt();
-	public abstract long   nextLong();
+  public abstract double nextDouble();
+  public abstract int    nextInt();
+  public abstract long   nextLong();
 
-	
-	protected Random r;
-	protected long seed = 0;
+  
+  protected Random r;
+  protected long seed = 0;
 
-	public RandomNumberGenerator()
-	{ this(0); }
+  public RandomNumberGenerator()
+  { this(0); }
 
-	public RandomNumberGenerator(long seed_)
-	{ super(); seed = seed_; r = new Random(seed); }
+  public RandomNumberGenerator(long seed_)
+  { super(); seed = seed_; r = new Random(seed); }
 
-	/**
-	 * Resets the generator .
-	 */
-	public void reset() 
-	{
-		r.setSeed(seed);
-	}
+  /**
+   * Resets the generator .
+   */
+  public void reset() 
+  {
+    r.setSeed(seed);
+  }
 
-	public void duplicate(Object source_)
-	{
-		seed = ((RandomNumberGenerator)source_).seed;
-		r    = new Random(seed);
-	}
-	
-	public void setSeed(long seed_)
-	{
-		seed = seed_;
-		r.setSeed(seed);
-	}
-	
-	public long getSeed() { return seed; }
+  public void duplicate(Object source_)
+  {
+    seed = ((RandomNumberGenerator)source_).seed;
+    r    = new Random(seed);
+  }
+  
+  public void setSeed(long seed_)
+  {
+    seed = seed_;
+    r.setSeed(seed);
+  }
+  
+  public long getSeed() { return seed; }
 
-	public String info()
-	{ return info(""); }
+  public String info()
+  { return info(""); }
 
-	public double getMean()
-	{ return Double.NaN; }
+  public double getMean()
+  { return Double.NaN; }
 
-	public double getStd()
-	{ return Double.NaN; }
+  public double getStd()
+  { return Double.NaN; }
 
-	public String info(String prefix_)
-	{
-		return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass())
-				+ "\n"
-				+ prefix_ + "Seed = " + seed + "\n"
-				+ prefix_ + "Mean = " + getMean() + "\n"
-				+ prefix_ + " Std = " + getStd() + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return prefix_ + drcl.util.StringUtil.finalPortionClassName(getClass())
+        + "\n"
+        + prefix_ + "Seed = " + seed + "\n"
+        + prefix_ + "Mean = " + getMean() + "\n"
+        + prefix_ + " Std = " + getStd() + "\n";
+  }
 
-	public String toString()
-	{ return oneline(); }
+  public String toString()
+  { return oneline(); }
 
-	public String oneline()
-	{
-		return drcl.util.StringUtil.finalPortionClassName(getClass())
-				+ ", Seed=" + seed
-				+ ", Mean = " + getMean()
-				+ ", Std = " + getStd();
-	}
+  public String oneline()
+  {
+    return drcl.util.StringUtil.finalPortionClassName(getClass())
+        + ", Seed=" + seed
+        + ", Mean = " + getMean()
+        + ", Std = " + getStd();
+  }
 }
 

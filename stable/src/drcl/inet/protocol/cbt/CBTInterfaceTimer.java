@@ -33,39 +33,39 @@ package drcl.inet.protocol.cbt;
  * upstream-expire-timer and downstream-expire-timer. */
 public class CBTInterfaceTimer extends CBTTimer
 { 
-	public int ifindex;
-	public CBTPacket echoRequest;
-	public int ntries;
+  public int ifindex;
+  public CBTPacket echoRequest;
+  public int ntries;
 
-	public CBTInterfaceTimer()
-	{}
+  public CBTInterfaceTimer()
+  {}
 
-	public CBTInterfaceTimer(int type_, int if_)
-	{
-		type = type_;
-		ifindex = if_;
-	}
+  public CBTInterfaceTimer(int type_, int if_)
+  {
+    type = type_;
+    ifindex = if_;
+  }
 
-	/** For creating echo-rtx-timer. */
-	public CBTInterfaceTimer(int type_, int if_, CBTPacket echoReq_,
-					int ntries_)
-	{
-		type = type_;
-		ifindex = if_;
-		echoRequest = echoReq_;
-		ntries = ntries_;
-	}
+  /** For creating echo-rtx-timer. */
+  public CBTInterfaceTimer(int type_, int if_, CBTPacket echoReq_,
+          int ntries_)
+  {
+    type = type_;
+    ifindex = if_;
+    echoRequest = echoReq_;
+    ntries = ntries_;
+  }
 
-	public boolean equals(Object o)
-	{
-		if (!(o instanceof CBTInterfaceTimer)) return false;
-		// no need to compare echoRequest
-		return type == ((CBTTimer)o).type
-			&& ifindex == ((CBTInterfaceTimer)o).ifindex;
-	}
+  public boolean equals(Object o)
+  {
+    if (!(o instanceof CBTInterfaceTimer)) return false;
+    // no need to compare echoRequest
+    return type == ((CBTTimer)o).type
+      && ifindex == ((CBTInterfaceTimer)o).ifindex;
+  }
 
-	public String toString()
-	{ return CBTConstants.TIMER_TYPES[type] + ":" + ifindex
-			+ (echoRequest == null?
-							"," + ntries + "--" + echoRequest: ""); }
+  public String toString()
+  { return CBTConstants.TIMER_TYPES[type] + ":" + ifindex
+      + (echoRequest == null?
+              "," + ntries + "--" + echoRequest: ""); }
 }

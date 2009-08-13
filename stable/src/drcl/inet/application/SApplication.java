@@ -51,61 +51,61 @@ import drcl.comp.lib.bytestream.ByteStreamPeer;
 public class SApplication  extends drcl.net.Module
 {
     public SApplication()
-	{	super();  }
-	
+  {  super();  }
+  
     public SApplication(String id_)
-	{	super(id_);   }
+  {  super(id_);   }
 
-	ByteStreamPeer helper = new ByteStreamPeer(downPort);
-	
-	public InputStream getInputStream()
-	{	return helper.getInputStream();	}
-	
-	public OutputStream getOutputStream()
-	{	return helper.getOutputStream();	}
-	
-	public String info()
-	{
-		return "ByteStreamPeer:" + helper.info() + "\n";
-	}
+  ByteStreamPeer helper = new ByteStreamPeer(downPort);
+  
+  public InputStream getInputStream()
+  {  return helper.getInputStream();  }
+  
+  public OutputStream getOutputStream()
+  {  return helper.getOutputStream();  }
+  
+  public String info()
+  {
+    return "ByteStreamPeer:" + helper.info() + "\n";
+  }
 
     /**
      * Sends <code>len_</code> bytes of <em>pseudo</em>-data through the down port.
      * @param len_   size of the data to send.
      */
     protected void send(int len_) throws IOException
-	{ helper.send(null, len_); }
-	
+  { helper.send(null, len_); }
+  
     /**
      * Sends <code>len_</code> bytes of data from <code>buffer_</code> through the down port.
-	 * <em>Pseudo</em>-data is sent if <code>buffer_</code> is null.
+   * <em>Pseudo</em>-data is sent if <code>buffer_</code> is null.
      * @param buffer_  where is put the data to be sent.
      * @param len_   size of the data to send.
      */
     protected void send(byte[] buffer_, int len_) throws IOException
-	{	helper.send(buffer_, len_);    }
-	
+  {  helper.send(buffer_, len_);    }
+  
     /**
      * Receives whatever is currently available through the down port.
-	 * No real data is received.
+   * No real data is received.
      * @return the number of bytes received. 0 if EOF is encountered.
      */
     protected int receive() throws IOException
-	{ return helper.receive(null, -1); }
-	
+  { return helper.receive(null, -1); }
+  
     /**
      * Receives <code>size_</code> bytes of data through the down port.
-	 * No real data is received.
-	 * If <code>size_</code> is greater than 0, this method will be blocked until exactly
-	 * the amount of data is available.
-	 * If <code>size_</code> is less than 0, then the method will grab all the data
-	 * available right now.
+   * No real data is received.
+   * If <code>size_</code> is greater than 0, this method will be blocked until exactly
+   * the amount of data is available.
+   * If <code>size_</code> is less than 0, then the method will grab all the data
+   * available right now.
      * @param size of data expected to receive.
      * @return the number of bytes received. 0 if EOF is encountered.
      */
     protected int receive(int size_) throws IOException
-	{ return helper.receive(null, size_); }
-	
+  { return helper.receive(null, size_); }
+  
     /**
      * Receives a buffer of data through the down port.
      * This method will be blocked until the buffer is filled.
@@ -113,37 +113,37 @@ public class SApplication  extends drcl.net.Module
      * @return the number of bytes received. 0 if EOF is encountered.
      */
     protected int receive(byte[] buffer_) throws IOException
-	{ return helper.receive(buffer_, buffer_.length); }
+  { return helper.receive(buffer_, buffer_.length); }
 
     /**
      * Receives a maximun of <code>size_</code> data through the down port.
-	 * No real data is received if <code>buffer_</code> is null.
-	 * If <code>size_</code> is greater than 0, this method will be blocked until exactly
-	 * the amount of data is filled to the buffer.
-	 * If <code>size_</code> is less than 0, then the method will grab all the data
-	 * available right now till the buffer is full.
+   * No real data is received if <code>buffer_</code> is null.
+   * If <code>size_</code> is greater than 0, this method will be blocked until exactly
+   * the amount of data is filled to the buffer.
+   * If <code>size_</code> is less than 0, then the method will grab all the data
+   * available right now till the buffer is full.
      * @param buffer_ the buffer to store the incoming data.
      * @param size of data expected to receive.
      * @return the number of bytes received. 0 if EOF is encountered.
      */
     protected int receive(byte[] buffer_, int size_) throws IOException
-	{ return helper.receive(buffer_, size_); }
+  { return helper.receive(buffer_, size_); }
 
-	protected void process(Object data_, Port inPort_)
-	{
-		helper.handle((ByteStreamContract.Message)data_);
-	}
+  protected void process(Object data_, Port inPort_)
+  {
+    helper.handle((ByteStreamContract.Message)data_);
+  }
 
-	// for testing
-	public void interrupt()
-	{ interruptReceive(new IOException("read() being interrupted")); }
+  // for testing
+  public void interrupt()
+  { interruptReceive(new IOException("read() being interrupted")); }
 
-	/** Interrupts a receive() with an exception.
-	 * The process that is blocked by receive() will be interrupted
-	 * with the given exception. 
-	 */
-	protected void interruptReceive(IOException e)
-	{
-		helper.interruptReceiving(e);
-	}
+  /** Interrupts a receive() with an exception.
+   * The process that is blocked by receive() will be interrupted
+   * with the given exception. 
+   */
+  protected void interruptReceive(IOException e)
+  {
+    helper.interruptReceiving(e);
+  }
 }

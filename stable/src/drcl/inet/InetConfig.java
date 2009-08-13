@@ -35,6 +35,6 @@ Defines Inet global configuration.
  */
 public class InetConfig
 {
-	/** Address scheme. */
-	public static Address Addr = Address.DEFAULT_ADDRESS;
+  /** Address scheme. */
+  public static Address Addr = Address.DEFAULT_ADDRESS;
 }

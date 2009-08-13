@@ -31,14 +31,14 @@ package drcl.comp;
 /** The base class for implementing a message. */
 public abstract class Message implements drcl.ObjectCloneable
 {
-	/** Returns the associated contract of this message. */
-	public abstract Contract getContract();
+  /** Returns the associated contract of this message. */
+  public abstract Contract getContract();
 
-	public String toString()
-	{ return toString("--"); }
+  public String toString()
+  { return toString("--"); }
 
-	/** Prints the content of the message by separating each field with the separator string. */
-	public abstract String toString(String separator_);
+  /** Prints the content of the message by separating each field with the separator string. */
+  public abstract String toString(String separator_);
 
-	public abstract Object clone();
+  public abstract Object clone();
 }

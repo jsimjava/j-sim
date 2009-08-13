@@ -45,8 +45,8 @@ multicast group.
 <li> Event type: (<code>JOIN</code> or <code>LEAVE</code>),
 <li> Multicast group: the host network joins/leaves,
 <li> Index of the interface: at which that host network is connected to this router.
-	The index may be less than zero if the router is multihomed and it joins/leaves
-	itself.
+  The index may be less than zero if the router is multihomed and it joins/leaves
+  itself.
 </ol>
 
 <p>This class provides a set of static methods to faciliate constructing
@@ -58,112 +58,112 @@ the event object ({@link #createJoinEvent(long, int) createJoinEvent()s} and
 */
 public class McastHostEvent extends Contract
 {
-	public static final McastHostEvent INSTANCE = new McastHostEvent();
+  public static final McastHostEvent INSTANCE = new McastHostEvent();
 
-	public McastHostEvent()
-	{ super(); }
-	
-	public McastHostEvent(int role_)
-	{ super(role_); }
-	
-	public String getName()
-	{ return "McastHostEvent Contract"; }
-	
-	public Object getContractContent()
-	{ return null; }
-	
-	/** Returns the JOIN event message. */
-	public static Message createJoinEvent(long group_, int ifindex_)
-	{ return new Message(JOIN, 0, 0, group_, ifindex_); }
-	
-	/** Returns the JOIN event message. */
-	public static Message createJoinEvent(long src_, long group_, int ifindex_)
-	{ return new Message(JOIN, src_, -1, group_, ifindex_); }
-	
-	/** Returns the JOIN event message. */
-	public static Message createJoinEvent(long src_, long srcmask_, long group_, int ifindex_)
-	{ return new Message(JOIN, src_, srcmask_, group_, ifindex_); }
-	
-	/** Returns the LEAVE event message. */
-	public static Message createLeaveEvent(long group_, int ifindex_)
-	{ return new Message(LEAVE, 0, 0, group_, ifindex_); }
-	
-	/** Returns the LEAVE event message. */
-	public static Message createLeaveEvent(long src_, long group_, int ifindex_)
-	{ return new Message(LEAVE, src_, -1, group_, ifindex_); }
-	
-	/** Returns the LEAVE event message. */
-	public static Message createLeaveEvent(long src_, long srcmask_, long group_, int ifindex_)
-	{ return new Message(LEAVE, src_, srcmask_, group_, ifindex_); }
-	
-	public static final int JOIN  = 0;
-	public static final int LEAVE = 1;
-	static final String[] TYPES = {"join", "leave"};
-	
-	public static class Message extends drcl.comp.Message
-	{
-		int type, ifindex;
-		long group, src, srcmask;
-		
-		public Message ()
-		{}
-		
-		public Message (int type_, long src_, long srcmask_, long group_, int ifindex_)
-		{
-			type = type_;
-			group = group_;
-			src = src_;
-			srcmask = srcmask_;
-			ifindex = ifindex_;
-		}
-		
-		/** Returns true if the message is a join event. */
-		public boolean isJoin()
-		{ return type == JOIN; }
-	
-		/** Returns true if the event struct is a leave event. */
-		public boolean isLeave()
-		{ return type == LEAVE; }
+  public McastHostEvent()
+  { super(); }
+  
+  public McastHostEvent(int role_)
+  { super(role_); }
+  
+  public String getName()
+  { return "McastHostEvent Contract"; }
+  
+  public Object getContractContent()
+  { return null; }
+  
+  /** Returns the JOIN event message. */
+  public static Message createJoinEvent(long group_, int ifindex_)
+  { return new Message(JOIN, 0, 0, group_, ifindex_); }
+  
+  /** Returns the JOIN event message. */
+  public static Message createJoinEvent(long src_, long group_, int ifindex_)
+  { return new Message(JOIN, src_, -1, group_, ifindex_); }
+  
+  /** Returns the JOIN event message. */
+  public static Message createJoinEvent(long src_, long srcmask_, long group_, int ifindex_)
+  { return new Message(JOIN, src_, srcmask_, group_, ifindex_); }
+  
+  /** Returns the LEAVE event message. */
+  public static Message createLeaveEvent(long group_, int ifindex_)
+  { return new Message(LEAVE, 0, 0, group_, ifindex_); }
+  
+  /** Returns the LEAVE event message. */
+  public static Message createLeaveEvent(long src_, long group_, int ifindex_)
+  { return new Message(LEAVE, src_, -1, group_, ifindex_); }
+  
+  /** Returns the LEAVE event message. */
+  public static Message createLeaveEvent(long src_, long srcmask_, long group_, int ifindex_)
+  { return new Message(LEAVE, src_, srcmask_, group_, ifindex_); }
+  
+  public static final int JOIN  = 0;
+  public static final int LEAVE = 1;
+  static final String[] TYPES = {"join", "leave"};
+  
+  public static class Message extends drcl.comp.Message
+  {
+    int type, ifindex;
+    long group, src, srcmask;
+    
+    public Message ()
+    {}
+    
+    public Message (int type_, long src_, long srcmask_, long group_, int ifindex_)
+    {
+      type = type_;
+      group = group_;
+      src = src_;
+      srcmask = srcmask_;
+      ifindex = ifindex_;
+    }
+    
+    /** Returns true if the message is a join event. */
+    public boolean isJoin()
+    { return type == JOIN; }
+  
+    /** Returns true if the event struct is a leave event. */
+    public boolean isLeave()
+    { return type == LEAVE; }
 
-		/** Returns the group field from the event struct. */
-		public long getGroup()
-		{ return group; }
-	
-		/** Returns the source field from the event struct. */
-		public long getSource()
-		{ return src; }
-	
-		/** Returns the source field from the event struct. */
-		public long getSourceMask()
-		{ return srcmask; }
-	
-		/** Returns the interface index from the event struct. */
-		public int getIfIndex()
-		{ return ifindex; }
-	
-		/*
-		public void duplicate(Object source_)
-		{
-			Message that_ = (Message)source_;
-			type = that_.type;
-			group = that_.group;
-			src = that_.src;
-			srcmask = that_.srcmask;
-			ifindex = that_.ifindex;
-		}
-		*/
-	
-		public Object clone()
-		{ return new Message(type, src, srcmask, group, ifindex); }
+    /** Returns the group field from the event struct. */
+    public long getGroup()
+    { return group; }
+  
+    /** Returns the source field from the event struct. */
+    public long getSource()
+    { return src; }
+  
+    /** Returns the source field from the event struct. */
+    public long getSourceMask()
+    { return srcmask; }
+  
+    /** Returns the interface index from the event struct. */
+    public int getIfIndex()
+    { return ifindex; }
+  
+    /*
+    public void duplicate(Object source_)
+    {
+      Message that_ = (Message)source_;
+      type = that_.type;
+      group = that_.group;
+      src = that_.src;
+      srcmask = that_.srcmask;
+      ifindex = that_.ifindex;
+    }
+    */
+  
+    public Object clone()
+    { return new Message(type, src, srcmask, group, ifindex); }
 
-		public Contract getContract()
-		{ return INSTANCE; }
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public String toString(String separator_)
-		{
-			return "MCAST_HOST:" + TYPES[type] + separator_ + "src:" + src
-				+ separator_ + "srcmask:" + srcmask + separator_ + "group:" + group
-				+ separator_ + "if:" + ifindex;
-		}
-	}
+    public String toString(String separator_)
+    {
+      return "MCAST_HOST:" + TYPES[type] + separator_ + "src:" + src
+        + separator_ + "srcmask:" + srcmask + separator_ + "group:" + group
+        + separator_ + "if:" + ifindex;
+    }
+  }
 }

@@ -41,79 +41,79 @@ import drcl.net.Address;
  */
 public class NetAddress extends drcl.DrclObj
 {
-	long addr; 
-	long mask;
-	
-	public NetAddress ()
-	{}
+  long addr; 
+  long mask;
+  
+  public NetAddress ()
+  {}
 
-	public NetAddress (long addr_, long mask_)
-	{
-		addr = addr_;
-		mask = mask_;
-	}
-	
-	/**
-	 * @param nmaskbits number of 0's in the mask.
-	 */
-	public NetAddress (long addr_, int nmaskbits_)
-	{
-		addr = addr_;
-		mask = getMask(nmaskbits_);
-	}
-	
-	public static long getMask(int nmaskbits_)
-	{ return -1 << nmaskbits_; }
-	
-	public static int getNumMaskBits(long mask_)
-	{
-		long probe_ = 1;
-		for (int i=0; i<64; i++) {
-			if ((probe_ & mask_) > 0) return i;
-			probe_ <<= 1;
-		}
-		return 64;
-	}
-	
-	public long getAddress()
-	{ return addr; }
-	
-	public void setAddress(long a_)
-	{ addr = a_; }
-	
-	public long getMask()
-	{ return mask; }
-	
-	public void setMask(long m_)
-	{ mask = m_; }
-	
-	public long getMaskedAddress()
-	{ return addr & mask; }
-	
-	public void duplicate(Object source_)
-	{
-		NetAddress that_ = (NetAddress)source_;
-		addr = that_.addr;
-		mask = that_.mask;
-	}
-	
-	public boolean equals(Object o_)
-	{
-		if (o_ == this) return true;
-		if (o_ instanceof NetAddress) {
-			NetAddress that_ = (NetAddress)o_;
-			return addr == that_.addr && mask == that_.mask;
-		}
-		else return false;
-	}
-	
-	public String toString()
-	{
-		return "<" + addr + "," + mask + ">";
-	}
-	
-	public String print(Address addr_)
-	{
-		return "<" + addr_.ltos(addr) + "," + addr_.ltos(mask) + ">";
-	}
+  public NetAddress (long addr_, long mask_)
+  {
+    addr = addr_;
+    mask = mask_;
+  }
+  
+  /**
+   * @param nmaskbits number of 0's in the mask.
+   */
+  public NetAddress (long addr_, int nmaskbits_)
+  {
+    addr = addr_;
+    mask = getMask(nmaskbits_);
+  }
+  
+  public static long getMask(int nmaskbits_)
+  { return -1 << nmaskbits_; }
+  
+  public static int getNumMaskBits(long mask_)
+  {
+    long probe_ = 1;
+    for (int i=0; i<64; i++) {
+      if ((probe_ & mask_) > 0) return i;
+      probe_ <<= 1;
+    }
+    return 64;
+  }
+  
+  public long getAddress()
+  { return addr; }
+  
+  public void setAddress(long a_)
+  { addr = a_; }
+  
+  public long getMask()
+  { return mask; }
+  
+  public void setMask(long m_)
+  { mask = m_; }
+  
+  public long getMaskedAddress()
+  { return addr & mask; }
+  
+  public void duplicate(Object source_)
+  {
+    NetAddress that_ = (NetAddress)source_;
+    addr = that_.addr;
+    mask = that_.mask;
+  }
+  
+  public boolean equals(Object o_)
+  {
+    if (o_ == this) return true;
+    if (o_ instanceof NetAddress) {
+      NetAddress that_ = (NetAddress)o_;
+      return addr == that_.addr && mask == that_.mask;
+    }
+    else return false;
+  }
+  
+  public String toString()
+  {
+    return "<" + addr + "," + mask + ">";
+  }
+  
+  public String print(Address addr_)
+  {
+    return "<" + addr_.ltos(addr) + "," + addr_.ltos(mask) + ">";
+  }
 }

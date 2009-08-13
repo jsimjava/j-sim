@@ -34,51 +34,51 @@ import java.util.*;
 
 public class GaussianDistribution extends RandomNumberGenerator
 {
-	public String   getName()           { return "Gaussian Distribution"; }
-	
-	public GaussianDistribution (double mean_, double std_)
-	{ this(mean_, std_, 0L); }
+  public String   getName()           { return "Gaussian Distribution"; }
+  
+  public GaussianDistribution (double mean_, double std_)
+  { this(mean_, std_, 0L); }
 
-	public GaussianDistribution (double mean_, double std_, long seed_)
-	{
-		this(seed_);
-		mean = mean_;
-		std = std_;
-	}
-	
-	double mean = 0.0, std = 1.0;
-	
-	public GaussianDistribution()
-	{ super(); }
+  public GaussianDistribution (double mean_, double std_, long seed_)
+  {
+    this(seed_);
+    mean = mean_;
+    std = std_;
+  }
+  
+  double mean = 0.0, std = 1.0;
+  
+  public GaussianDistribution()
+  { super(); }
 
-	public GaussianDistribution(long seed_)
-	{ super(seed_); }
-	
-	public double nextDouble()
-	{
-		return r.nextGaussian() * std + mean;
-	}
+  public GaussianDistribution(long seed_)
+  { super(seed_); }
+  
+  public double nextDouble()
+  {
+    return r.nextGaussian() * std + mean;
+  }
 
-	public int nextInt()
-	{	return (int) nextDouble();	}
+  public int nextInt()
+  {  return (int) nextDouble();  }
 
-	public long nextLong()
-	{	return (long) nextDouble();	}
+  public long nextLong()
+  {  return (long) nextDouble();  }
 
-	public void setMean(double m_) { mean = m_; }
-	public double getMean() { return mean; }
-	
-	public void setStd(double std_) { std = std_; }
-	public double getStd() { return std; }
+  public void setMean(double m_) { mean = m_; }
+  public double getMean() { return mean; }
+  
+  public void setStd(double std_) { std = std_; }
+  public double getStd() { return std; }
 
-	public String info(String prefix_)
-	{
-		return super.info(prefix_)
-			+  prefix_ + "Mean = " + mean + "\n"
-			+  prefix_ + "Std. = " + std + "\n";
-	}
+  public String info(String prefix_)
+  {
+    return super.info(prefix_)
+      +  prefix_ + "Mean = " + mean + "\n"
+      +  prefix_ + "Std. = " + std + "\n";
+  }
 
-	public String oneline()
-	{ return super.oneline() + ", mean=" + mean + ", std.=" + std; }
+  public String oneline()
+  { return super.oneline() + ", mean=" + mean + ", std.=" + std; }
 }
 

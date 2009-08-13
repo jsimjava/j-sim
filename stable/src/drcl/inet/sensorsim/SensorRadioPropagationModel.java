@@ -41,37 +41,37 @@ public abstract class SensorRadioPropagationModel extends drcl.net.Module
     /**  Port that receives signal strength query */
     protected Port queryPort = this.addServerPort(".query");
 
-	{
-        	removeDefaultUpPort();
-        	removeDefaultDownPort();
-        	removeTimerPort();
-	}
+  {
+          removeDefaultUpPort();
+          removeDefaultDownPort();
+          removeTimerPort();
+  }
 
     public SensorRadioPropagationModel()
-	{
-		super();
-	}
+  {
+    super();
+  }
 
     public SensorRadioPropagationModel(String id_)
-	{
-		super(id_);
-	}
+  {
+    super(id_);
+  }
 
- 	protected synchronized void processOther(Object data_, Port inPort_)
-	{		
+   protected synchronized void processOther(Object data_, Port inPort_)
+  {    
         if (inPort_ != queryPort) {
-			super.processOther(data_, inPort_);
-			return;
-		}
+      super.processOther(data_, inPort_);
+      return;
+    }
         
         if ( ! (data_ instanceof SensorRadioPropagationQueryContract.Message) ) { 
             error(data_, "processOther()", inPort_, "unrecognized data type");
-			return;
-		}
+      return;
+    }
         processReceivedSignalStrengthQuery(data_);
     }    
 
-	/** Replies with the calculated received signal strength  */
+  /** Replies with the calculated received signal strength  */
     protected synchronized void processReceivedSignalStrengthQuery(Object data_) {
         double Pr = calculateReceivedSignalStrength(data_);
         queryPort.doSending(new SensorRadioPropagationQueryContract.Message(Pr));
@@ -84,7 +84,7 @@ public abstract class SensorRadioPropagationModel extends drcl.net.Module
         return 1.0;
     }    
     
-   	public String info() { 
+     public String info() { 
         return "SensorRadioPropagationModel" + "\n"; 
     }      
 

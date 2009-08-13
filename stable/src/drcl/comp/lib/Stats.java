@@ -37,70 +37,70 @@ import drcl.data.*;
  */
 public class Stats extends Component
 {
-	double sum = 0.0;
-	double varsum = 0.0;
-	long count = 0;
-	boolean outenabled = false;
-	Port outmean = addPort("mean", false);
-	Port outstd = addPort("std", false);
-	
-	public Stats()
-	{ super(); }
+  double sum = 0.0;
+  double varsum = 0.0;
+  long count = 0;
+  boolean outenabled = false;
+  Port outmean = addPort("mean", false);
+  Port outstd = addPort("std", false);
+  
+  public Stats()
+  { super(); }
 
-	public Stats(String id_)
-	{ super(id_); }
+  public Stats(String id_)
+  { super(id_); }
 
-	public double getMean()
-	{ return sum / count; }
+  public double getMean()
+  { return sum / count; }
 
-	// ???
-	public double getStd()
-	{
-		double mean_ = getMean();
-		return Math.sqrt(varsum / count - mean_*mean_);
-	}
+  // ???
+  public double getStd()
+  {
+    double mean_ = getMean();
+    return Math.sqrt(varsum / count - mean_*mean_);
+  }
 
-	public boolean isOutputEnabled()
-	{ return outenabled; }
+  public boolean isOutputEnabled()
+  { return outenabled; }
 
-	public void setOutputEnabled(boolean enabled_)
-	{ outenabled = enabled_; }
+  public void setOutputEnabled(boolean enabled_)
+  { outenabled = enabled_; }
 
-	public void reset()
-	{
-		super.reset();
-		sum = varsum = 0.0;
-		count = 0;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-		Stats that_ = (Stats) source_;
-		outenabled = that_.outenabled;
-	}
+  public void reset()
+  {
+    super.reset();
+    sum = varsum = 0.0;
+    count = 0;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+    Stats that_ = (Stats) source_;
+    outenabled = that_.outenabled;
+  }
 
-	public String info()
-	{
-		return " Mean = " + getMean() + "\n"
-				+ "  Std = " + getStd() + "\n"
-				+ "Count = " + count + "\n"
-				+ "Output Enabled: " + outenabled + "\n";
-	}
-	
-	protected void process(Object data_, Port inPort_)
-	{
-		double v = data_ instanceof Double?
-				((Double)data_).doubleValue(): ((DoubleObj)data_).value;
-		sum += v;
-		varsum += v*v;
-		count ++;
+  public String info()
+  {
+    return " Mean = " + getMean() + "\n"
+        + "  Std = " + getStd() + "\n"
+        + "Count = " + count + "\n"
+        + "Output Enabled: " + outenabled + "\n";
+  }
+  
+  protected void process(Object data_, Port inPort_)
+  {
+    double v = data_ instanceof Double?
+        ((Double)data_).doubleValue(): ((DoubleObj)data_).value;
+    sum += v;
+    varsum += v*v;
+    count ++;
 
-		if (outenabled) {
-			double mean_ = sum / count;
-			double std_ = Math.sqrt(varsum / count - mean_*mean_);
-			outmean.doSending(new double[]{count, mean_});
-			outstd.doSending(new double[]{count, std_});
-		}
-	}
+    if (outenabled) {
+      double mean_ = sum / count;
+      double std_ = Math.sqrt(varsum / count - mean_*mean_);
+      outmean.doSending(new double[]{count, mean_});
+      outstd.doSending(new double[]{count, std_});
+    }
+  }
 }

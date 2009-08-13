@@ -30,6 +30,6 @@ package drcl.util.queue;
 
 public interface Element
 {
-	public Object getObject();
-	public int getSize();
+  public Object getObject();
+  public int getSize();
 }

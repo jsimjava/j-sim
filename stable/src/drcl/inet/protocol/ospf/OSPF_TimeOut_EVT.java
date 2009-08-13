@@ -37,77 +37,77 @@ import drcl.net.*;
  * @see OSPF
  * */
 public class OSPF_TimeOut_EVT {
-	public static final int OSPF_TIMEOUT_HELLO				= 0;
-	public static final int OSPF_TIMEOUT_LS_REFRESH			= 1;
-	public static final int OSPF_TIMEOUT_LSMAXAGE_REACH		= 2;
-	public static final int OSPF_TIMEOUT_ACK_DELAY_REACH	= 3;
-	public static final int OSPF_TIMEOUT_NBR_INACTIVE		= 4;
-	public static final int OSPF_TIMEOUT_DBDESC_RETRANS		= 5;
-	public static final int OSPF_TIMEOUT_LSUPDATE_RETRANS	= 6;
-	public static final int OSPF_TIMEOUT_LSREQ_RETRANS		= 7;
-	public static final int OSPF_TIMEOUT_DELAY_FLOOD		= 8;
-	static final String[] TIMEOUT_TYPES = {
-		"HELLO", "LS_REFRESH", "MAXAGE_REACHED", "DELAY_ACK",
-		"NBR_INACTIVE", "DBDESC_RETX", "LSA_RETX", "LSREQ_RETX", "DELAY_FLOOD"};
-	
-	int		EVT_Type;
-	Object	EVT_Obj;
-	drcl.comp.ACATimer handle; // for cancelling event
+  public static final int OSPF_TIMEOUT_HELLO        = 0;
+  public static final int OSPF_TIMEOUT_LS_REFRESH      = 1;
+  public static final int OSPF_TIMEOUT_LSMAXAGE_REACH    = 2;
+  public static final int OSPF_TIMEOUT_ACK_DELAY_REACH  = 3;
+  public static final int OSPF_TIMEOUT_NBR_INACTIVE    = 4;
+  public static final int OSPF_TIMEOUT_DBDESC_RETRANS    = 5;
+  public static final int OSPF_TIMEOUT_LSUPDATE_RETRANS  = 6;
+  public static final int OSPF_TIMEOUT_LSREQ_RETRANS    = 7;
+  public static final int OSPF_TIMEOUT_DELAY_FLOOD    = 8;
+  static final String[] TIMEOUT_TYPES = {
+    "HELLO", "LS_REFRESH", "MAXAGE_REACHED", "DELAY_ACK",
+    "NBR_INACTIVE", "DBDESC_RETX", "LSA_RETX", "LSREQ_RETX", "DELAY_FLOOD"};
+  
+  int    EVT_Type;
+  Object  EVT_Obj;
+  drcl.comp.ACATimer handle; // for cancelling event
 
-	public String toString()
-	{ return TIMEOUT_TYPES[EVT_Type] + ", " + EVT_Obj; }
+  public String toString()
+  { return TIMEOUT_TYPES[EVT_Type] + ", " + EVT_Obj; }
 
-	/**
-	 * Constructor
-	 * @param tp_: Timeout type, now there is just RXT timeout
-	 */
-	public OSPF_TimeOut_EVT(int tp_) {
-		EVT_Type = tp_;
-	}
+  /**
+   * Constructor
+   * @param tp_: Timeout type, now there is just RXT timeout
+   */
+  public OSPF_TimeOut_EVT(int tp_) {
+    EVT_Type = tp_;
+  }
 
-	/**
-	 * Constructor
-	 * @param tp_: Timeout type, now there is just RXT timeout
-	 * @param obj_: the associated object with the time out event
-	 * (OSPF_Interface, OSPF_Neighbor or OSPF_LSA)
-	 */
-	public OSPF_TimeOut_EVT(int tp_, Object obj_) 
-	{
-		EVT_Type = tp_;
-		EVT_Obj  = obj_;
-	}
-		
-	/**
-	 * Functions to set or get information for a event
-	 * 
-	 */
-	public void setEVT_Type(int tp_) {
-		EVT_Type = tp_;
-		return;
-	}
+  /**
+   * Constructor
+   * @param tp_: Timeout type, now there is just RXT timeout
+   * @param obj_: the associated object with the time out event
+   * (OSPF_Interface, OSPF_Neighbor or OSPF_LSA)
+   */
+  public OSPF_TimeOut_EVT(int tp_, Object obj_) 
+  {
+    EVT_Type = tp_;
+    EVT_Obj  = obj_;
+  }
+    
+  /**
+   * Functions to set or get information for a event
+   * 
+   */
+  public void setEVT_Type(int tp_) {
+    EVT_Type = tp_;
+    return;
+  }
 
-	public int getEVT_Type() {
-		return EVT_Type;
-	}
-		
-	public void setObject(Object obj_) {
-		EVT_Obj = obj_;
-		return;
-	}
+  public int getEVT_Type() {
+    return EVT_Type;
+  }
+    
+  public void setObject(Object obj_) {
+    EVT_Obj = obj_;
+    return;
+  }
 
-	public Object getObject() {
-		return EVT_Obj;
-	}
+  public Object getObject() {
+    return EVT_Obj;
+  }
 
-	// Tyan: 05/08/2001, add this for cancelling LS_REFRESH timeout
-	public boolean equals(Object o_)
-	{
-		if (o_ == this) return true;
-		if (EVT_Type != OSPF_TIMEOUT_LS_REFRESH
-			|| !(o_ instanceof OSPF_TimeOut_EVT))
-			return false;
+  // Tyan: 05/08/2001, add this for cancelling LS_REFRESH timeout
+  public boolean equals(Object o_)
+  {
+    if (o_ == this) return true;
+    if (EVT_Type != OSPF_TIMEOUT_LS_REFRESH
+      || !(o_ instanceof OSPF_TimeOut_EVT))
+      return false;
 
-		OSPF_TimeOut_EVT that_ = (OSPF_TimeOut_EVT)o_;
-		return EVT_Type == that_.EVT_Type && EVT_Obj == that_.EVT_Obj;
-	}
+    OSPF_TimeOut_EVT that_ = (OSPF_TimeOut_EVT)o_;
+    return EVT_Type == that_.EVT_Type && EVT_Obj == that_.EVT_Obj;
+  }
 }

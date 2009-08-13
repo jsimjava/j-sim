@@ -41,18 +41,18 @@ import drcl.comp.*;
  * @author Ye Ge
  */
 public class TxTimer extends Mac_802_11_Timer {
-	public TxTimer(Mac_802_11 h) { 
-		super(h); 
-		o_.setType(MacTimeoutEvt.Tx_timeout); 
-	}
+  public TxTimer(Mac_802_11 h) { 
+    super(h); 
+    o_.setType(MacTimeoutEvt.Tx_timeout); 
+  }
 
     /**
      * Handles TxTimer timeout event. This method is called in Mac_802_11 class.
      */
-	public void handle( ) {       
-		busy_ = false;
-	    paused_ = false;
-	    stime = 0.0;
-	    rtime = 0.0;
-	}
+  public void handle( ) {       
+    busy_ = false;
+      paused_ = false;
+      stime = 0.0;
+      rtime = 0.0;
+  }
 }

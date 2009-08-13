@@ -47,37 +47,37 @@ import drcl.comp.Contract;
  */
 public class PropertyContract extends Contract
 {
-	public static final PropertyContract INSTANCE = new PropertyContract();
+  public static final PropertyContract INSTANCE = new PropertyContract();
 
-	public String getName()
-	{ return "ACA Property Message Format"; }
+  public String getName()
+  { return "ACA Property Message Format"; }
 
-	public Object getContractContent()
-	{ return null; }
+  public Object getContractContent()
+  { return null; }
 
-	public static class Message extends ComponentMessage
-	{
-		Object property;
-	
-		public Message(Object property_)
-		{
-			property = property_;
-		}
-	
-		public Object getProperty()
-		{ return property; }
-	
-		public Contract getContract()
-		{ return INSTANCE; }
+  public static class Message extends ComponentMessage
+  {
+    Object property;
+  
+    public Message(Object property_)
+    {
+      property = property_;
+    }
+  
+    public Object getProperty()
+    { return property; }
+  
+    public Contract getContract()
+    { return INSTANCE; }
 
-		public Object clone()
-		{
-			return new Message(property instanceof drcl.ObjectCloneable?
-							((drcl.ObjectCloneable)property).clone():
-							property);
-		}
+    public Object clone()
+    {
+      return new Message(property instanceof drcl.ObjectCloneable?
+              ((drcl.ObjectCloneable)property).clone():
+              property);
+    }
 
-		public String toString(String separator_)
-		{ return "PROPERTY" + separator_ + property; }
-	}
+    public String toString(String separator_)
+    { return "PROPERTY" + separator_ + property; }
+  }
 }

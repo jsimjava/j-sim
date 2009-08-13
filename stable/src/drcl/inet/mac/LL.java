@@ -135,11 +135,11 @@ public class LL extends drcl.net.Module
 
     public String getName() { return "LinkLayer"; }
     
-	public void duplicate(Object source_)
-	{ 
-		super.duplicate(source_);
+  public void duplicate(Object source_)
+  { 
+    super.duplicate(source_);
         LL that_ = (LL) source_;
-	}    
+  }    
 
     // tempprary solution 
     
@@ -181,7 +181,7 @@ public class LL extends drcl.net.Module
      * Processes packets arriving from upper layer.
      */
     protected synchronized void dataArriveAtUpPort(Object data_,  drcl.comp.Port upPort_) 
-	{
+  {
         if ( !( data_ instanceof InetPacket) )  {
             error("dataArriveAtUpPort", "LL only expects InetPackets from upPort.");
             return;
@@ -192,13 +192,13 @@ public class LL extends drcl.net.Module
         InetPacket pkt = (InetPacket) data_;
 
         if (pktarrival._isEventExportEnabled())
-			pktarrival.exportEvent(EVENT_PKT_ARRIVAL, pkt, "from local up port " + upPort_.getID()); 
+      pktarrival.exportEvent(EVENT_PKT_ARRIVAL, pkt, "from local up port " + upPort_.getID()); 
         
         long dst, src;
         
         ////////////////////////////////////////////////////////////////////////////////////
-    	// Modified by Will
-    	//dst = pkt.getDestination();   // temporary solution,
+      // Modified by Will
+      //dst = pkt.getDestination();   // temporary solution,
         // the correct destination ipaddr should be the next hop node's ip address instead of the final destination of this pkt
         dst = pkt.getNextHop();   // correct solution,
         //debug("LL recv new pkt from upport: " + pkt + " nexthop "+ dst);
@@ -211,7 +211,7 @@ public class LL extends drcl.net.Module
         if ( dst != Address.ANY_ADDR ) 
             dst = pkt.getNextHop(); 
 
-    	src = pkt.getSource();
+      src = pkt.getSource();
         
         long src_macaddr, dst_macaddr;
         //System.out.println("src = " + src + ",  dst = " + dst);        
@@ -221,7 +221,7 @@ public class LL extends drcl.net.Module
             //System.out.println("gocha  dst_macaddr = " + Mac_802_11.MAC_BROADCAST);        
             LLPacket llpkt = new LLPacket(dst_macaddr, src_macaddr, pkt.size, pkt);
             downPort.doSending(llpkt);
-    	    //debug("LL pkt " + llpkt);
+          //debug("LL pkt " + llpkt);
         }
         else {
             src_macaddr = myMacAddr;  // temporary solution for performance reason, no need to query the mac address.
@@ -235,7 +235,7 @@ public class LL extends drcl.net.Module
     /**
      * Processes packets arriving from lower layer (MAC layer).
      */
-	protected synchronized void dataArriveAtMacPort(Object data_) 
+  protected synchronized void dataArriveAtMacPort(Object data_) 
     {
         if ( data_ instanceof InetPacket ) {
             //debug("LL recv new pkt from macport: " + ((InetPacket) data_));
@@ -245,8 +245,8 @@ public class LL extends drcl.net.Module
             ARPContract.Message msg = new ARPContract.Message(ARPContract.Message.ARP_Input, data_);
             arpPort.doSending(msg);  
         }
-		return;
-	}
+    return;
+  }
     
     /**
      * Processes packets received from the arpPort.
@@ -257,17 +257,17 @@ public class LL extends drcl.net.Module
         if ( msg.getOpCode() == ARPContract.Message.ARP_ResolveReply || msg.getOpCode() == ARPContract.Message.ARP_Send_Hold 
              || msg.getOpCode() == ARPContract.Message.ARP_Send_Reply || msg.getOpCode() == ARPContract.Message.ARP_Send_Request )
             downPort.doSending(msg.getPkt());
-		return;
-	}
+    return;
+  }
     
-  	protected synchronized void processOther(Object data_, Port inPort_)
-	{
-		String portid_ = inPort_.getID();
+    protected synchronized void processOther(Object data_, Port inPort_)
+  {
+    String portid_ = inPort_.getID();
     
         if (portid_.equals(MAC_PORT_ID)) {
-    	    if (!(data_ instanceof ARPPacket || data_ instanceof InetPacket)) {
-               	error(data_, "processOther()", inPort_, "unknown object at node " + this.myMacAddr);
-               	return;
+          if (!(data_ instanceof ARPPacket || data_ instanceof InetPacket)) {
+                 error(data_, "processOther()", inPort_, "unknown object at node " + this.myMacAddr);
+                 return;
             }
             dataArriveAtMacPort(data_);
             return;
@@ -283,7 +283,7 @@ public class LL extends drcl.net.Module
             }    
         }
         super.processOther(data_, inPort_);
-	}  
+  }  
 }    
     
     

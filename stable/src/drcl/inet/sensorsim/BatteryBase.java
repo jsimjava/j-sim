@@ -37,100 +37,100 @@ import drcl.comp.*;
 */
 public abstract class BatteryBase extends drcl.comp.Component
 {
-  	/** Number of Maximum Components using the battery */
-	public static final int MAX_COMPONENT    = 10;  
-	public static final String batteryOut   = "batteryOut";
-	public static final String battery = "battery" ;
-	public static final String FORK_PORT = "forkPort";
+    /** Number of Maximum Components using the battery */
+  public static final int MAX_COMPONENT    = 10;  
+  public static final String batteryOut   = "batteryOut";
+  public static final String battery = "battery" ;
+  public static final String FORK_PORT = "forkPort";
 
-	// Power Consumers
-	public static final int RADIO_MODEL   	 = 0;  
-	public static final int CPU_MODEL   	 = 1;  
-	public static final int SENSOR_MODEL	 = 2;  	
+  // Power Consumers
+  public static final int RADIO_MODEL      = 0;  
+  public static final int CPU_MODEL      = 1;  
+  public static final int SENSOR_MODEL   = 2;    
 
-	Port batteryOutPort = addPort(batteryOut);
-	Port batteryPort = addPort(battery);
-	Port forkPort = addForkPort(FORK_PORT);
+  Port batteryOutPort = addPort(batteryOut);
+  Port batteryPort = addPort(battery);
+  Port forkPort = addForkPort(FORK_PORT);
 
-	/** Initial Total Energy of the battery */
-	double totalEnergy;
+  /** Initial Total Energy of the battery */
+  double totalEnergy;
 
-	/** Instantaneous Remaining Energy */
-	double energy_;
+  /** Instantaneous Remaining Energy */
+  double energy_;
 
-	/** Battery ID */
-	int batteryID;
+  /** Battery ID */
+  int batteryID;
 
-	double [] powerRating = new double [MAX_COMPONENT];
-	double [] currentRating = new double [MAX_COMPONENT];
+  double [] powerRating = new double [MAX_COMPONENT];
+  double [] currentRating = new double [MAX_COMPONENT];
 
-	public void initialize()
-	{
-		energy_ = totalEnergy = 0.0 ;
-		for ( int i = 0 ; i < MAX_COMPONENT ; i++ )
-		{
-			powerRating[i] = 0.0 ;
-			currentRating[i] = 0.0 ;
-		}
-	}
+  public void initialize()
+  {
+    energy_ = totalEnergy = 0.0 ;
+    for ( int i = 0 ; i < MAX_COMPONENT ; i++ )
+    {
+      powerRating[i] = 0.0 ;
+      currentRating[i] = 0.0 ;
+    }
+  }
 
-	public void initialize(double energy)
-	{
-		energy_ = totalEnergy = energy ;
-		for ( int i = 0 ; i < MAX_COMPONENT ; i++ )
-		{
-			powerRating[i] = 0.0 ;
-			currentRating[i] = 0.0 ;
-		}
-	}
+  public void initialize(double energy)
+  {
+    energy_ = totalEnergy = energy ;
+    for ( int i = 0 ; i < MAX_COMPONENT ; i++ )
+    {
+      powerRating[i] = 0.0 ;
+      currentRating[i] = 0.0 ;
+    }
+  }
 
-	public BatteryBase()
-	{
-		super("batteryModel");
-		initialize();
-	}
-	
-	public BatteryBase(double energy)
-	{
-		super("batteryModel");
-		initialize(energy);
-	}
+  public BatteryBase()
+  {
+    super("batteryModel");
+    initialize();
+  }
+  
+  public BatteryBase(double energy)
+  {
+    super("batteryModel");
+    initialize(energy);
+  }
 
-	public void setBatteryID(int id)
-	{	
-		batteryID = id ;
-	}
+  public void setBatteryID(int id)
+  {  
+    batteryID = id ;
+  }
 
-	// needs to be implemented by the derived class
-	public int changeCurrent(double d, int i)
-	{	return 1 ;	}
+  // needs to be implemented by the derived class
+  public int changeCurrent(double d, int i)
+  {  return 1 ;  }
 
-	/** Sets the energy level of the battery */
-	public int setEnergy(double energy)
-	{
-		energy_ = energy;
-		return 1;
-	}
+  /** Sets the energy level of the battery */
+  public int setEnergy(double energy)
+  {
+    energy_ = energy;
+    return 1;
+  }
 
-	/** Gets the energy */
-	public double energy()
-	{
-		return energy_ ;
-	}
+  /** Gets the energy */
+  public double energy()
+  {
+    return energy_ ;
+  }
 
-	/** Gets the energy that has been spent so far */
-	public double energySpent()
-	{
-		return (totalEnergy - energy_) ;
-	}
+  /** Gets the energy that has been spent so far */
+  public double energySpent()
+  {
+    return (totalEnergy - energy_) ;
+  }
 
-	public double energyPercent()
-	{
-		return (energy_*100.0/totalEnergy) ;
-	}
+  public double energyPercent()
+  {
+    return (energy_*100.0/totalEnergy) ;
+  }
 
-	public boolean isDead()
-	{
-		return	false ;
-	}
+  public boolean isDead()
+  {
+    return  false ;
+  }
 }

@@ -39,69 +39,69 @@ import drcl.net.*;
  */ 
 public class AODV_RREQ 
 { 
-	public final static int	RREQ_GRAT_RREP = 0x80;
-	public final static int INTEGER_SIZE    = 4;
-	
-	public int	rq_type;	/* Packet Type */	
-	/* XXX: unimplemented */
-	public int	rq_j_flag;		
-	/* XXX: unimplemented */
-	public int	rq_r_flag;	
-	/* XXX: unimplemented */
-	public int	rq_g_flag;	
-	/* XXX: unimplemented */
-	public int	rq_d_flag;  
-	/* XXX: unimplemented */
- 	public int	rq_u_flag; 
-	/* Hop Count */
-	public int	rq_hop_count;  
-	/** Broadcast ID */ 
- 	public int	rq_bcast_id;    
-	/** Destination IP Address */
-	public long	rq_dst;
-	/** Destination Sequence Number */ 
-	public int	rq_dst_seqno;
-	/** Source IP Address */ 
-	public long	rq_src; 
-	/** Source Sequence Number*/ 
-	public int	rq_src_seqno;
-	/** when REQUEST sent; used to compute route discovery latency */
-	public double	rq_timestamp;
+  public final static int  RREQ_GRAT_RREP = 0x80;
+  public final static int INTEGER_SIZE    = 4;
+  
+  public int  rq_type;  /* Packet Type */  
+  /* XXX: unimplemented */
+  public int  rq_j_flag;    
+  /* XXX: unimplemented */
+  public int  rq_r_flag;  
+  /* XXX: unimplemented */
+  public int  rq_g_flag;  
+  /* XXX: unimplemented */
+  public int  rq_d_flag;  
+  /* XXX: unimplemented */
+   public int  rq_u_flag; 
+  /* Hop Count */
+  public int  rq_hop_count;  
+  /** Broadcast ID */ 
+   public int  rq_bcast_id;    
+  /** Destination IP Address */
+  public long  rq_dst;
+  /** Destination Sequence Number */ 
+  public int  rq_dst_seqno;
+  /** Source IP Address */ 
+  public long  rq_src; 
+  /** Source Sequence Number*/ 
+  public int  rq_src_seqno;
+  /** when REQUEST sent; used to compute route discovery latency */
+  public double  rq_timestamp;
 
-	public int size() {  		
-		int sz = 0; 
-		sz = 6 * INTEGER_SIZE; // besed on AODV draft version 13
-		return sz;
-	}
+  public int size() {      
+    int sz = 0; 
+    sz = 6 * INTEGER_SIZE; // besed on AODV draft version 13
+    return sz;
+  }
  
-	public int ls_req_num; 
-	public Vector req_list = new Vector(); 
+  public int ls_req_num; 
+  public Vector req_list = new Vector(); 
  
-	public AODV_RREQ() 
-	{} 
+  public AODV_RREQ() 
+  {} 
  
-	public Object clone() 
-	{ 
-		AODV_RREQ new_ = new AODV_RREQ(); 
-		new_.duplicate(this); 
-		return new_; 
-	} 
+  public Object clone() 
+  { 
+    AODV_RREQ new_ = new AODV_RREQ(); 
+    new_.duplicate(this); 
+    return new_; 
+  } 
  
-	public void duplicate(Object source_) 
-	{ 
-		AODV_RREQ that_ = (AODV_RREQ)source_; 
-		rq_type = that_.rq_type;
-		rq_hop_count = that_.rq_hop_count;
-		rq_bcast_id = that_.rq_bcast_id;
-		rq_dst = that_.rq_dst;
-		rq_dst_seqno = that_.rq_dst_seqno;
-		rq_src = that_.rq_src;
-		rq_src_seqno = that_.rq_src_seqno;
-		rq_timestamp = that_.rq_timestamp;
-	} 
+  public void duplicate(Object source_) 
+  { 
+    AODV_RREQ that_ = (AODV_RREQ)source_; 
+    rq_type = that_.rq_type;
+    rq_hop_count = that_.rq_hop_count;
+    rq_bcast_id = that_.rq_bcast_id;
+    rq_dst = that_.rq_dst;
+    rq_dst_seqno = that_.rq_dst_seqno;
+    rq_src = that_.rq_src;
+    rq_src_seqno = that_.rq_src_seqno;
+    rq_timestamp = that_.rq_timestamp;
+  } 
  
-	public String toString() 
-	{ 
-		return "type: " + rq_type + " dst: " + rq_dst + " dst_seq: " + rq_dst_seqno + " src: " + rq_src + " src_seq: " + rq_src_seqno + "bcast_id: " + rq_bcast_id + " time: " + rq_timestamp + " hops: " + rq_hop_count; 
-	} 
+  public String toString() 
+  { 
+    return "type: " + rq_type + " dst: " + rq_dst + " dst_seq: " + rq_dst_seqno + " src: " + rq_src + " src_seq: " + rq_src_seqno + "bcast_id: " + rq_bcast_id + " time: " + rq_timestamp + " hops: " + rq_hop_count; 
+  } 
 } 

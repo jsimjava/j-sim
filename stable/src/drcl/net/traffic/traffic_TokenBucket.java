@@ -50,81 +50,81 @@ package drcl.net.traffic;
  */
 public class traffic_TokenBucket extends TrafficModel implements TrafficPeriodic
 {
-	public double outRate = Double.POSITIVE_INFINITY;
-		// output rate of this shaper; bps
-	public int tokenGenRate; // token generation rate; bps
-	public int bucketSize;  // byte
-	public int initBucketSize; // byte
-	public int mtu; // byte
+  public double outRate = Double.POSITIVE_INFINITY;
+    // output rate of this shaper; bps
+  public int tokenGenRate; // token generation rate; bps
+  public int bucketSize;  // byte
+  public int initBucketSize; // byte
+  public int mtu; // byte
 
-	public traffic_TokenBucket()
-	{}
+  public traffic_TokenBucket()
+  {}
 
-	public traffic_TokenBucket(int bsize_, int initbsize_, int trate_,
-				double outrate_, int mtu_)
-	{ set(bsize_, initbsize_, trate_, outrate_, mtu_); }
+  public traffic_TokenBucket(int bsize_, int initbsize_, int trate_,
+        double outrate_, int mtu_)
+  { set(bsize_, initbsize_, trate_, outrate_, mtu_); }
 
-	public void set(int bsize_, int initbsize_, int trate_, double outrate_,
-				int mtu_)
-	{
-		tokenGenRate = trate_;
-		bucketSize = bsize_;
-		initBucketSize = initbsize_;
-		outRate = outrate_;
-		mtu = Math.min(bsize_, mtu_);
-	}
-		
-	public double getPeriod() { return (double)(bucketSize << 3) / tokenGenRate; }
-	
-	public double getLoad() { return tokenGenRate; }
+  public void set(int bsize_, int initbsize_, int trate_, double outrate_,
+        int mtu_)
+  {
+    tokenGenRate = trate_;
+    bucketSize = bsize_;
+    initBucketSize = initbsize_;
+    outRate = outrate_;
+    mtu = Math.min(bsize_, mtu_);
+  }
+    
+  public double getPeriod() { return (double)(bucketSize << 3) / tokenGenRate; }
+  
+  public double getLoad() { return tokenGenRate; }
 
-	public int getBurst() { return bucketSize; }
-	
-	public TrafficModel merge(TrafficModel that_)
-	{
-		if (!(that_ instanceof traffic_TokenBucket)) return null;
-		
-		traffic_TokenBucket thatTraffic_ = (traffic_TokenBucket) that_;
-		if (bucketSize < thatTraffic_.bucketSize) bucketSize = thatTraffic_.bucketSize;
-		if (initBucketSize < thatTraffic_.initBucketSize) initBucketSize = thatTraffic_.initBucketSize;
-		if (outRate < thatTraffic_.outRate) outRate = thatTraffic_.outRate;
-		if (tokenGenRate < thatTraffic_.tokenGenRate) tokenGenRate = thatTraffic_.tokenGenRate;
-		return this;
-	}
-	
-	public void duplicate(Object source_)
-	{
-		if (!(source_ instanceof traffic_TokenBucket)) return;
-		traffic_TokenBucket that_ = (traffic_TokenBucket) source_;
-		outRate = that_.outRate;
-		tokenGenRate = that_.tokenGenRate;
-		bucketSize = that_.bucketSize;
-		initBucketSize = that_.initBucketSize;
-	}
-	
-	public String oneline()
-	{
-		return getClass().getName() + ":bucketSize=" + bucketSize + "(init "
-			+ initBucketSize + "), tokenGenRate=" + tokenGenRate + ", outRate="
-			+ outRate;
-	}
-	
-	//
-	static void ___PROPERTY___() {}
-	//
-	
-	public void setOutputRate(double rate_) { outRate = rate_; }
-	public double getOutputRate() { return outRate; }
-	
-	public void setTokenGenRate(int rate_) { tokenGenRate = rate_; }
-	public int getTokenGenRate() { return tokenGenRate; }
-	
-	public void setBucketSize(int size_) { bucketSize = size_; }
-	public int getBucketSize() { return bucketSize; }
-	
-	public void setInitBucketSize(int size_) { initBucketSize = size_; }
-	public int getInitBucketSize() { return initBucketSize; }
-	
-	public int getMTU()	{ 	return mtu;	}
-	public void setMTU(int mtu_) 	{ mtu = mtu_; }
+  public int getBurst() { return bucketSize; }
+  
+  public TrafficModel merge(TrafficModel that_)
+  {
+    if (!(that_ instanceof traffic_TokenBucket)) return null;
+    
+    traffic_TokenBucket thatTraffic_ = (traffic_TokenBucket) that_;
+    if (bucketSize < thatTraffic_.bucketSize) bucketSize = thatTraffic_.bucketSize;
+    if (initBucketSize < thatTraffic_.initBucketSize) initBucketSize = thatTraffic_.initBucketSize;
+    if (outRate < thatTraffic_.outRate) outRate = thatTraffic_.outRate;
+    if (tokenGenRate < thatTraffic_.tokenGenRate) tokenGenRate = thatTraffic_.tokenGenRate;
+    return this;
+  }
+  
+  public void duplicate(Object source_)
+  {
+    if (!(source_ instanceof traffic_TokenBucket)) return;
+    traffic_TokenBucket that_ = (traffic_TokenBucket) source_;
+    outRate = that_.outRate;
+    tokenGenRate = that_.tokenGenRate;
+    bucketSize = that_.bucketSize;
+    initBucketSize = that_.initBucketSize;
+  }
+  
+  public String oneline()
+  {
+    return getClass().getName() + ":bucketSize=" + bucketSize + "(init "
+      + initBucketSize + "), tokenGenRate=" + tokenGenRate + ", outRate="
+      + outRate;
+  }
+  
+  //
+  static void ___PROPERTY___() {}
+  //
+  
+  public void setOutputRate(double rate_) { outRate = rate_; }
+  public double getOutputRate() { return outRate; }
+  
+  public void setTokenGenRate(int rate_) { tokenGenRate = rate_; }
+  public int getTokenGenRate() { return tokenGenRate; }
+  
+  public void setBucketSize(int size_) { bucketSize = size_; }
+  public int getBucketSize() { return bucketSize; }
+  
+  public void setInitBucketSize(int size_) { initBucketSize = size_; }
+  public int getInitBucketSize() { return initBucketSize; }
+  
+  public int getMTU()  {   return mtu;  }
+  public void setMTU(int mtu_)   { mtu = mtu_; }
 }

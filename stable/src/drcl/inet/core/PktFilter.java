@@ -34,56 +34,56 @@ import drcl.net.*;
 /**
  * <ul>
  * <li>Ports: (otherwise listed in <code>drcl.net.Module</code>)
- *		<ul>
- *		<li>"up"/"down" port group: follows Below Packet Dispatcher Contract.
- *		<li>"config@service" port: follows PktFilter Configuration Contract.
- *		<li>".trace" port: packet arrival/transmission/departure, on/off events.
- *		</ul>
+ *    <ul>
+ *    <li>"up"/"down" port group: follows Below Packet Dispatcher Contract.
+ *    <li>"config@service" port: follows PktFilter Configuration Contract.
+ *    <li>".trace" port: packet arrival/transmission/departure, on/off events.
+ *    </ul>
  * </ul>
  */
 public class PktFilter extends Module implements InetCoreConstants
 {
-	{
-		upPort.setType(Port.PortType_IN);
-		downPort.setType(Port.PortType_OUT);
-	}
+  {
+    upPort.setType(Port.PortType_IN);
+    downPort.setType(Port.PortType_OUT);
+  }
 
-	/** For a subclass to create the configuration port for other components to configure this component. */
-	public Port createConfigPort()
-	{ return addServerPort(CONFIG_PORT_ID); }
-	
-	public PktFilter()
-	{ super(); }
-	
-	public PktFilter(String id_)
-	{ super(id_); }
-	
-	/**
-	 * The callback which handles the event when a packet arrives at the up port.
-	 * Default behavior is relay the packet to the down port.
-	 */
-	protected void dataArriveAtUpPort(Object data_, Port upPort_)
-	{	downPort.doLastSending(data_);	}
-	
-	/**
-	 * The callback which handles the event when a packet arrives at the down port.
-	 * Default behavior is relay the packet to the up port.
-	 */
-	protected void dataArriveAtDownPort(Object data_, Port downPort_)
-	{	upPort.doLastSending(data_);	}
-	
-	
-	/**
-	 * Query/configure requests arrive here.
-	 */
-	protected void processOther(Object data_, Port inPort_)
-	{
-	}
-	
-	public void duplicate(Object source_)
-	{
-		super.duplicate(source_);
-	}
+  /** For a subclass to create the configuration port for other components to configure this component. */
+  public Port createConfigPort()
+  { return addServerPort(CONFIG_PORT_ID); }
+  
+  public PktFilter()
+  { super(); }
+  
+  public PktFilter(String id_)
+  { super(id_); }
+  
+  /**
+   * The callback which handles the event when a packet arrives at the up port.
+   * Default behavior is relay the packet to the down port.
+   */
+  protected void dataArriveAtUpPort(Object data_, Port upPort_)
+  {  downPort.doLastSending(data_);  }
+  
+  /**
+   * The callback which handles the event when a packet arrives at the down port.
+   * Default behavior is relay the packet to the up port.
+   */
+  protected void dataArriveAtDownPort(Object data_, Port downPort_)
+  {  upPort.doLastSending(data_);  }
+  
+  
+  /**
+   * Query/configure requests arrive here.
+   */
+  protected void processOther(Object data_, Port inPort_)
+  {
+  }
+  
+  public void duplicate(Object source_)
+  {
+    super.duplicate(source_);
+  }
 }
 
 
