@@ -43,7 +43,7 @@ import drcl.comp.contract.*;
  * @see Component
  * @see Wire
  */
-public class Port extends drcl.DrclObj
+public class Port extends drcl.DrclObj implements Handler
 {
   /** Set to true to make ports created from now execution boundary.*/
   public static boolean EXECUTION_BOUNDARY = true;
@@ -61,15 +61,12 @@ public class Port extends drcl.DrclObj
   /** The <i>fork</i> port type */
   public final static int PortType_FORK = 5;
 
+  public static final Object SEND_RCV_REQUEST = "SEND_RCV_REQ";
+
   final static String[] PortType_ALL = new String[]{
     "IN&OUT", "IN", "OUT", "SERVER", "EVENT", "FORK"
   };
 
-
-  //
-  private  void ___FLAG___() {}
-  //
-  
   // Mask of the port type encoded in the port flag, default is PortType_INOUT
   static final int Flag_TYPE        = 7; // first 3 bits
   // Bit mask of the "execution boundary" flag, default is on
@@ -117,7 +114,7 @@ public class Port extends drcl.DrclObj
   // separate this from other flags for performance reason
   boolean flagTraceData = false;
   
-  public static final Object SEND_RCV_REQUEST = "SEND_RCV_REQ";
+  private Handler handler = this;
 
   //
   private void ___CONSTRUCTOR_INIT___() {}
@@ -835,6 +832,10 @@ public class Port extends drcl.DrclObj
 
   //public static boolean DEBUG = false;
 
+  public void process(Object data_, Port inPort_) {
+    host.process(data_, inPort_);
+  }
+
   /** Internal implementation of doSending() */
   protected void doSending(Object data_, WorkerThread thread_)
   {
@@ -889,7 +890,7 @@ public class Port extends drcl.DrclObj
         if (p_.flagTraceData)
           host_.trace(Component.Trace_DATA, p_, data_);
         try {
-          host_.process(data_, p_);
+          p_.handler.process(data_, p_);
         }
         catch (Exception e_) {
           if (host_.isErrorNoticeEnabled()) 
@@ -998,7 +999,7 @@ public class Port extends drcl.DrclObj
           if (p_.flagTraceData)
             host_.trace(Component.Trace_DATA, p_, data_);
           try {
-            host_.process(data_, p_);
+            p_.handler.process(data_, p_);
           }
           catch (Exception e_) {
             if (host_.isErrorNoticeEnabled()) 
