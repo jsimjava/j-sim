@@ -119,6 +119,29 @@ public class Port extends drcl.DrclObj implements Handler
   //
   private void ___CONSTRUCTOR_INIT___() {}
   //
+
+  public static class Builder {
+    private Port port = new Port();;
+
+    public Builder setType(int type_) {
+      port.setType(type_);
+      return this;
+    }
+
+    public Builder setHandler(Handler h) {
+      port.handler = h;
+      return this;
+    }
+
+    public Builder setExecutionBoundary(boolean b) {
+      port.setExecutionBoundary(b);
+      return this;
+    }
+
+    public Port create() {
+      return port;
+    }
+  }
   
   /** Constructor, default duplex port type. */
   public Port()
@@ -137,6 +160,10 @@ public class Port extends drcl.DrclObj implements Handler
   
   public final void reset()
   {
+  }
+
+  void setHandler(Handler h) {
+    handler = h;
   }
   
   //
