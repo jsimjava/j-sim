@@ -32,7 +32,7 @@ package drcl.net.traffic;
 <code>TrafficAssistant</code> is a utility class which helps to get the
 corresponding {@link TrafficShaper} or {@link TrafficSourceComponent}
 from a {@link TrafficModel}.
-           
+
 <p>To ease the task, TrafficAssistant expects:
 <ol>
 <li>The name of a traffic model class starts with "traffic_".

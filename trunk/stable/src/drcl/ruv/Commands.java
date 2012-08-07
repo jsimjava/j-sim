@@ -1904,7 +1904,7 @@ public class Commands
     } else if ("attach_simulator".equals(cmd_)) {
       return "attach_simulator ?-aq? ?<#threads allowed> | event? <path1> ?<path2>...?\n"
         + "     Attaches a default simulation runtime to components specified in the path(s).\n"
-        + "     If # of threads allowed is not specified, the runtime creates as many threads\n"
+        + "     If # of threads allowed is not specified, the runtime creates as many threads\n"
         + "     as possible if needed.\n"
         + "Options:\n"
         + "     -a      Match all hidden components.\n"
