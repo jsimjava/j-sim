@@ -1,0 +1,3 @@
+JSIM=`pwd`
+JSIMSCRIPT=$JSIM/jars/tcl.zip:$JSIM/jars/jython.jar
+export CLASSPATH=.:$CLASSPATH:$JSIM/classes:$JSIMSCRIPT
