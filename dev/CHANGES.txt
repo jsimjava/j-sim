@@ -1,0 +1,699 @@
+J-Sim CHANGES
+
+02/20/2004 J-Sim v1.3 release
+- drcl.inet.mac.RadioPropagationModel
+  - added "isCartesian"
+  - drcl.inet.mac.WirelessPhy modified accordingly
+
+02/17/2004 J-Sim v1.3 beta-2
+- drcl.comp.AWorkerThread.run(): fixed a bug that creates racing condition
+  after a thread cannot get more tasks from runtime but before it goes to
+  recycle(), another thread may produce new tasks (but no workforce is
+  available because the former thread is not recycled yet, the new tasks are
+  all put in ready queue) in the ready queue without the thread knowing it,
+  so when the former thread is recycled, the runtime stops with tasks in the
+  ready queue
+  solution: getTask() and recycle() need to be atomic
+- drcl.comp.lib.bytestream.ByteStreamPeer: added exceptionThrownForSend/Receive
+  and interruptSend() as to interruptReceive() to interrupt blocked send()
+  and receive(); remove code that checks if currentThread is a workerThread
+- updated drcl.Debug for the bug-reporting email address
+- added drcl.data.XYData
+- drcl.comp.tool.Plotter:
+  - add code to accept XYData (plot is fixed but dataset are dynamically added)
+    - plotID is obtained from the port group ID, dataset ID is created 
+      automatically and is associated with XYData.getID()
+  - add setStepwise(int PlotID, boolean)
+- drcl.comp.io.FileComponent: make use of drcl.util.StringUtil to print out
+  more complex data structures
+- drcl.comp.ACARuntime:
+  - added SuspendHooks and RunHooks
+  - ARuntime and drcl.sim.event.SESimulator modified accordingly
+
+02/05/2004 J-Sim v1.3 beta-1
+- Integrated wireless and sensorsim extensions
+  - packages added: drcl.inet.mac, drcl.inet.sensorsim, drcl.inet.protocol.aodv
+  - PktDispatcher.setRouteBackFlag --> setRouteBackEnabled
+  - ObjectDuplicable --> ObjectCloneable for Message and drcl.net.Packet
+- Integrated CBT package at drcl.inet.protocol.cbt
+  - added drcl.inet.application.McastTestApp
+  - added script/drcl/inet/cbt/cbt.tcl for testing
+- drcl.inet.protocol.dv:
+  - DVPacket: removed "size"
+  - DV: added static int getDVPacketSize() to be used outside the dv package
+  - created script/drcl/inet/dv/DVFake.java and dvfake.tcl to test it
+- drcl.net.graph:
+  - Link:
+    - make it unidirectional (associated with only cost);
+      it can be used as directional or un-directional link
+    - added "cost", "marked" and "directional"
+    - added new constructors
+  - ShortestPathTree: make "cost" part of result but need to get it with a
+    separate call getCost()
+  - move LinkCost to drcl.inet.tool.
+  - drcl.inet.InetUtil and drcl.inet.tool.routing_msp2 modified accordingly
+  - tested with script/drcl/inet/cbt/cbt.tcl
+- drcl.net.graph: deal with parallel links between nodes
+  - Link: added interface index information
+    between nodes; new constructor for specifying interface indices
+    - added disconnect()
+  - LinkCost:
+    - removed the one using node indices only
+    - added cost(int, Link)
+  - Node: added linksInList(), better performance than links()
+    - added removeLink()
+  - ShortestPathTree: revised accordingly
+    - now the results of a run consist of three arrays: parent indices,
+      parent node interface indices and interface indices
+  - drcl.inet.InetUtil.setupRoutes() and drcl.inet.tool.routing_msp2 revised
+    accordingly
+  - tested with script/drcl/inet/cbt/cbt.tcl
+- added CBT to the root Makefile
+- update make/Makefile to Java 1.4 (including -source 1.4 option)
+- add "$sim stop" in script/drcl/inet/queue/*.tcl for results to be repeatable
+  in different runs
+- changed "ObjectDuplicable" to"ObjectCloneable" wherever it is appropriate:
+  - drcl.inet.Link
+  - drcl.comp.lib.Relay
+  - drcl.inet.transport.TCPPacket/UDPPacket
+- drcl.inet.Link, drcl.comp.lib.Relay:
+  - revised to make sure the original copy of data_ is sent at the "last" port
+- added drcl.comp.lib.SimpleReceiver: print whatever received to stdout
+- tcl.lang: added RegexpCmdDrcl and RegsubDrcl which take advantage of
+  java.util.regex.
+  - RegexpCmd: modified init() to point the commands to the new classes above
+  - removed RegsubCmd, TclRegexp and the sublabs.brazil.util.regexp package
+  - Util.regExpMatch(): modified to use java.util.regex
+- drcl.ruv.drcl.tcl: have "grep" also use java.util.regex
+- drcl.inet.socket.TCP_full.info(): take advantage of drcl.inet.InetConfig.Addr
+  to beautify the print-out
+- drcl.inet.socket.InetSocket.aCloseFinished(): remove the debug output
+- drcl.inet.core.CoreServiceLayer.info(): sort out interface info according to
+  interface indices
+- drcl.ruv.CommandTask.run(): should synchronized on shell to prevent the 
+  result from deallocated in the interpreter
+- drcl.inet.socket.InetSocket.aCloseFinished(): add code to disconnect dataPort
+  before remove it from the application component
+- drcl.inet.socket.TCP_socket: make closing 3-bit flag, each indicating 
+  application send close, application recv close and peer send close
+  so the TCP can react properly for both normal operation and error handling
+- drcl.ruv.TclGateway: fixed the problem that it cannot be used without the
+  RUV system.
+- fixed drcl.ruv.WaitUntil(Shell, String, Object) where no synchronized
+  before lock.wait()
+- fixed '!!!' in drcl.tcl if the most specific class is not accessible
+  (not public)
+- drcl.inet.socket
+  - TCP_full.reset(): should disconnect and remove UP group ports
+  - TCP_socket.dataArriveAtDownPort(): if closing and getSendingBuffer()
+    is empty AND packet is an ack (which just emptied the sending buffer)
+    then notify calling thread to send out FIN
+- drcl.comp.Port: add correct trace print-out at places (shadow, send-receive)
+- drcl.comp.Port:
+  - fixed doReceiving(): should consider InClients only
+  (the fix on 01/06/2004 on Util is not necessary)
+  - added getConceptualClients/ConceptualInClients/ConceptualOutClients
+  - clean up code and write comments
+- added "stop components/classes" to drcl.comp.Util.exploreFlat(...)
+  - added "-stop" option to the "explore" RUV command
+  - drcl.ruv.Commands.explore(...) is modified accordingly
+- added drcl.inet.InetConfig.Addr
+  - address scheme for Inet
+  - remove address association from drcl.net.Module and all subclasses
+- beatifying printout from drcl.inet.CoreServiceLayer, involving
+  Identity, RT, InterfaceInfo and NetworkAddress
+- make drcl.comp.Message implement ObjectCloneable instead of DrclObj
+  - related code changes on all subclasses
+- drcl.ruv.SystemMonitor
+  - direct only error messages to stderr; otherwise to stdout
+- drcl.inet.tool.routing_msp2/drcl.inet.InetUtil.setupRoutes()
+  - added new methods to allow input of arbitrary node addresses
+- fixed a bug in drcl.ruv.ShellTcl.eval(BufferedReader):
+  should synchronize on the component when accessing the actual Interpreter
+  (had problem with IBM's SDK)
+- drcl.inet.InetUtil.configureFlat(): revised the code of calculating mask
+  in the case of preserving node addresses; method comments are also revised;
+  tested with script/drcl/inet/inetutil1.tcl
+- drcl.comp.Port: fixed getInClients() and getOutClients() where it should
+  get InClients from inwire.getInPorts() and OutClients from
+  outwire.getOutPorts()
+- drcl.comp.Util.inject(): now injecting data to a shadow port sends the data
+  to all "in" clients of that port (it used to just sending data to the host
+  component of that port no matter if it is shadow or not)
+- drcl.inet.core.queue.MQueue:
+  - added setClassifier()/getClassifier()
+  - fixed links between it and QueueLogics for setCapacity()
+  - added capacity overflow check at the beginning of enqueue()
+- added drcl.diffserv.Classifiers for creating pkt classifiers to classify
+  AF packets
+- added drcl.inet.tool.PktMonitor for tracking TCP pkt of specific seq#
+- added drcl.diffserv.tool.DFFlowPktCounter for counting pkts in DF classes
+- added script/drcl/diffserv/diffserv_ex5.tcl
+- added drcl.inet.core.queue.PreemptPriorityQueue
+  - PriorityQueue does not preempt lower-priorty pkts when queue is full
+- fixed a bug in drcl.inet.core.queue.PriorityQueue.enqueue()
+  where drop_front should dequeue from the queue of the level, not from
+  the overall queue
+- added drcl.inet.InetUtil.traceRoute()/traceRouteInObj()
+- added drcl.inet.TraceRTPkt/TraceRT: trace route pkt
+  - added drcl.inet.Node.traceRoute()/traceRouteInObj()
+  - drcl.inet.core.PktDispatcher modified to support TraceRTPkt
+  - drcl.inet.InetConstants: added ID_TRACE_RT and PID_TRACE_RT
+- added drcl.xssdl package: XML Software System Description Language
+- src/tcl/lang/library/init.tcl: saved in the "unix" format
+- drcl.ruv.ShellTcl: remove DrclChannel, not used anymore (?); may be restored
+  for J-Sim to work in applet (e.g., puts)
+- working on new CSLBuilder class (drcl.inet.core.CSLBuilder2)
+  (not finished yet)
+- drcl.tcl: "pwd" now returns the path instead of printing out directly
+  - one can "grab" the result of "pwd"
+  - works in applet
+- tcl.lang.ReflectException: put stackTrace in the result
+- drcl.ruv.Dterm/RUVOutputManager/Shell/System:
+  tcl.lang.BlendExtension/FuncSig/JavaImportCmd/JavaInvoke:
+  - added check for SecurityException in order to work in applet
+- drcl.inet.core.CoreServiceLayer: interface info printout added "physical
+  interfaces" to avoid confusion
+- drcl.inet.core.PktDispatcher: added StackOverflowError check for detecting
+  routing self-looping on VIFs
+- drcl.inet.core.CoreServiceLayer: setupVIFs(): add if to Hello when mtu<0
+- integrated with Jacl v1.3
+  - improved FuncSig.matchSignature() for matching String to primitive types
+    (same improvement from v1.2.6)
+- drcl.inet.protocol.dv.DV: 
+  - added "interface set" so DV can work on only selected interfaces
+  - added "operation mode" so DV can work on either physical or virtual
+    (tunnel) ifs
+  - (interface set + virtual mode) is tested with script/drcl/inet/dv/dv3.tcl
+  - DVPacket: now implement drcl.ObjectCloneable only
+- drcl.inet.Node: add addDefaultRoute() (for end host)
+- drcl.inet.InetPacket:
+  - new constructor for 'nexthop'
+  - new toString() to include 'nexthop'
+- drcl.inet.contract.PktSending:
+  - new getBcastPack() for 'nexthop'
+- drcl.inet.Protocol:
+  - new broadcast() for 'nexthop'
+- integrated with drcl.inet.mac.* and drcl.inet.protocol.aodv.* and
+  drcl.inet.sensorsim:
+  - comment out duplicate() from all Packet subclasses
+  - MobilityModel: change some fields to protected
+- added drcl.ruv.TclAction for executing a Tcl script in response to a
+  received signal; tested with script/drcl/inet/tcp/test_ftp2.tcl
+  (in response to Marek Malowidzki's proposal)
+- drcl.inet.application.ftp/ftpd: fixed reset() where super.reset() is not
+  called; add notify@ port to ftpd to notify of end of transfer.
+- drcl.inet.transport.TCPb:
+  - fixed the bug at the receiving side where it does not use the same local
+    addr as the sending side
+- added drcl.inet.TclComponent to allow developing simulation code in Tcl;
+  tested with script/drcl/inet/tclcomponent.tcl
+- drcl.net.tool.TrafficMonitor*/drcl.comp.tool.CountMonitor*:
+  make output times align with window size (winSize) so it's not dependent on
+  arrival time of first data
+- revised drcl.inet/inet2.html on how negative number can be used to specify
+  an adjacency matrix
+- fixed drcl.inet.Link.attach(): separate two consecutive calls to
+  findAvailable() that caused the peer ports connected to the same port.
+  (reported by Amund Kvalbein)
+- tcl.lang:
+  - fixed handling backslash-newline for DOS format where the char sequence is
+    \\\r\n, all codes now using backslash()
+  - added RegexpCmdDrcl and RegsubCmdDrcl based on java.util.regexp in JDK1.4
+  - RegexpCmd.init(): based on JDK version ("java.version") and
+    install appropriate command
+- drcl.inet.NodeBuilder: format and polish build() using loops to deal with
+  same group of ports for clarity
+- fixed drcl.inet.core.Identity.getIDs()
+- drcl.ruv: take advantage again the stackTrace returned back from Tcl
+  because the actual exception is caught by Tcl but encapsulated in
+  TclException so the actual stack trace is only saved as Tcl result
+  (it.getResult())
+- fixed a bug in PktDispatcher.broadcast()/forward() where InetPackets should
+  be cloned including extension (clone()) instead of just _clone()
+- added "Stop Hook" to ACARuntime and subclasses
+- drcl.ruv.WaitUntil added a constructor to install itself as "stop hook"
+- fixed drcl.inet.core.ni.DropTailPointopointNI/drcl.inet.core.queue.DropTail
+  where not all queue size change events are reported
+- added drcl.net.traffic.traffic_PoissonVariableSize/tsPoissonVariableSize
+  and tested with script/drcl/net/mm1.tcl, mg1.tcl
+- added drcl.comp.tool.RunningAverage for getting average # of pkts in queue
+- added "delay" to drcl.comp.lib.RNG for delaying outputs of each value
+  for simulation runtime
+- Identity.getDefaultID(): just return defaultIdentity
+  defaultIdentity is set to NULL_ADDR initially
+- modified drcl.inet.tool.routing_msp2 to have the option not installing
+  RT entries but returning the interfaces information
+- added drcl.net.traffic.traffic_Poisson/tsPoisson and a testing script
+  traffic_poisson.tcl under script/
+- fix problem in drcl.net.traffic.TrafficAssistant where the converting 
+  class name for traffic component did not consider package name
+- drcl.net.graph.Relaxer: added excludeStub()/includeStub() to not showing
+  stub nodes
+  - added AdjMatrixVis.visualize(int[][], boolean excludeStub) accordingly
+- instead of fixing CSLBuilder (see 7/22/2003 bug), I fixed 
+  drcl.inet.core.PktDispatcher.__createMTUs() where I avoided using
+  downPorts as reference; moreover, I added a commonMTU in fragmentPack
+  to fix the problem where PktDispatcher does not know the number of 
+  interfaces it has (downPorts is not reliable)
+- fixed drcl.inet.core.PktDispatcher._fragmentOutput(): it was a mess and
+  it didn't work (the test before did not reveal the problems...)
+- fixed drcl.net.tool.TrafficMonitor2 and drcl.comp.tool.DataMonitor2
+  where they may output NaN for loss rate
+- bug in drcl.inet.core.CSLBuilder: should assign MTUs to PktDispatcher 
+  after all the down ports are created
+- add drcl.util.MemoryMonitor (based on code from Java2d demo)
+- memory leak in drcl.net.graph.ShortestPathTree?
+  turned out that it is (RTEntry + BitSet) that take a lot of memory
+  because the number is in the order of n^2 where n is # of nodes
+- drcl.net.graph.LinkCost:
+  - added costIf(nodeID_, if_)
+  - change cost(int, int) to cost(long, long)
+- drcl.net.graph.TopologyVisRelaxer: make "shake" a toggle button and
+  invoke large 'step'
+- drcl.net.graph.Relaxer/TopologyVisRelaxer
+  - fine tune Relaxer and tested with CSL with up to 5 interfaces 
+    - misc/visualization/csl*.brite
+  - enhanced TopologyVisRelaxer with "Stablize" and "Step"
+- drcl.net.traffic: rewrite traffic source components for better random
+  number generation implementation
+  - tsParetoOnOff and tsExpOnOff are rewritten for precise modeling
+    (they used to be approximation for better performance)
+- drcl.comp.tool.CountMonitor/CountMonitor2 are enhanced
+  - script/drcl/net/*.tcl are modified using CountMonitor
+- add drcl.comp.tool.PlotPlain: similar to Plotter but writes data to files
+  in plain format (time, value)
+- revised the "release" procedure in build.xml, the new one does pretty much
+  all the things automatically
+- added drcl.comp.tool.TimerList for managing timeouts
+- added drcl.inet.InetUtil.getAdjMatrixFromFile()
+- modified drcl.ruv.System so that RUVOutputManager is not activated when
+  in uninteractive mode
+- integrate topology generator code to j-sim:drcl.net.graph.*
+  - made drcl.net.graph.ShortestPathTree works with the package
+- fixed drcl.comp.Component.removeAllComponents(): should call 
+  removeComponent() to clean up things for each child component
+- added drcl.ruv.WaitUntil so that main execution can be blocked until the 
+  simulation is stopped
+- drcl.ruv.System: add waitUntilStopped() to help running several simulations
+    in sequence
+- for dynamic adding interfaces to a node:
+  - drcl.inet.core.PktDispatcher: add resetCache()
+  - drcl.inet.core.CSLBuilder: call pd.resetCache() after creating it
+- drcl.inet.core.PktDispatcher: add ROUTE_BACK flag to allow pkt to be
+  forwarded back to the incoming interface, for wireless PktDispatcher
+- drcl.inet.core.Hello: making staticMode effective in timeout() so that 
+  Hello may go into static after simulation starts
+- added drcl.net.graph.LinkCost to route setup API:
+  drcl.inet.tool.routing_msp2.setup(network_, adjMatrix, linkcost)
+- added drcl.inet.InetUtil.setupRoutes(network, adjMatrix, linkcost)
+  to take advantage the new API
+- Wire.split() now returns the new wire
+- Port.disconnectPeers() now discard wire if no port is on it
+- added drcl.net.graph (Node, ShortestPathTree, LinkCost)
+- added drcl.inet.tool.routing_msp2 to take advantage of ShortestPathTree
+  to set up all unicast routes in one call
+- added drcl.inet.InetUtil.setupRoutes(network, adjMatrix) to take advantage
+  of the new routine
+- all is tested with script/drcl/inet/test_static.tcl
+- ptolemy: fix Plot: comment out codes that repaint when add or remove points
+  this is problematic because it disables double buffering of swing
+- drcl.inet.transport.TCPSink: 
+  - problem?  getAvailableReceivingBuffers() shouldn't count in fragments
+  - remove global "TS" and add aTS_ argument to ack_syn_fin()
+  - performance tuning in recv()
+    - use receivedSeq to update rcv_nxt
+- drcl.diffserv.TrafficConditioner: added "addDefaultProfile" for adding
+  profile for BE traffic handling, especially for signaling/routing protocols'
+  packets
+
+01/14/2004 patch1.2.1-10
+- drcl.inet.socket.TCP_full: lock() causes deadlock for a loop-back request
+  - TCP_socket: added a PRE_LISTEN state, deal with it at ACCEPT and
+    SYN packet handling
+  - TCP_full: when setting up loop-back request and before entering 
+    TCP_socket.dataArriveAtUpPort(), set TCP_socket's state to PRE_LISTEN
+- drcl.inet.transport.TCP.info(): add code to deal with "state" out of
+  STATES's bound
+
+11/20/2003 patch1.2.1-9
+- drcl.inet.socket: complete the function of request queue
+  - SocketContract/SocketConstants: added LISTEN type and message construct
+  - InetSocket/SocketMaster: implemented listen()
+  - TCP_full:
+    - HalfTCPKey added "forBuffer"; mapHalfTCP shared by halfTCP and request
+      buffer
+    - added setRequestBuffer(...), getRequestBuffer() and related code to
+      add request to the buffer
+    - loop back queued request when accept command arrives
+    - rewrite dataArriveDownPort() to include processing of looped-back request
+    - use HashMap instead of Hashtable
+  - test script: script/drcl/inet/socket/sockettest4.tcl
+- drcl.util.queue:
+  - added FiniteQueue, FiniteQueueImpl, FiniteFIFOQueue
+
+10/16/2003 patch1.2.1-8
+- drcl.net.graph.*:
+  - added readers for topologies in the Brite and ALT formats.
+- drcl.inet.InetUtil: added getAdjMatrixFromFile(String) to get adjMatrix
+  from a topology file. (7/7/2003)
+
+8/26/2003 patch1.2.1-7
+- drcl.ruv:
+  - added TclGateway to access RUV with Tcl commands in other shell environment
+    such as ShellPython
+  - added WaitUntil(Shell, String) and modified wait_until in drcl.tcl
+    to use that, now wait_until has no restriction on whether it is executed
+    in nested commands
+  - modified Shell.eval() and alike so that they return Object 
+    instead of String as results
+  - exception handling is rewrote with ShellEvalException; make Shell throw
+    appropriate exception when parsing/evaluation error occurs
+  - added StackTraceFilter (Shell implements) to make stack trace print-out
+    more compact and relevant
+- drcl.inet.InetUtil._setupInterfaceInfo()
+  - modified to use Port.getAncestors() instead of getPeers()
+- also includes all previous patches
+
+8/11/2003 patch1.2.1-6
+- added drcl.data.NumberObj; modified IntObj, LongObj and DoubleObj
+- added drcl.comp.tool.Countable,RunningAverage for calculating running avg;
+- removed default Random in drcl.net.traffic.TrafficSourceComponent and
+  added setSeed(seed) in reset(); subclasses are modified accordingly including
+  tsExpOnOff, tsFixedPoints, tsParetoOnOff, tsPeakRate
+- fixed a bug in TrafficAssistant where it didn't include package name when
+  looking for matching traffic source component
+- fixed a bug in drcl.inet.core.ni.DropTailPointopointNI where some queue length
+  events were not reported through .q@ port
+- added script/drcl/net/mm1.tcl, an example of M/M/1 queue
+
+7/10/2003 patch1.2.1-5-updated
+  (The changes below enhance the APIs for getting port/connection information)
+- added drcl.comp.Component.isDirectlyRelatedTo(Component)
+- drcl.comp.Port: 
+  - extending the definition of a shadow port to any "ancestor" component;
+    use it to check shadow connection
+  - several methods are revised: getPeers(), getInPeers(), getOutPeers(),
+    getShadows(), getInShadows(), getOutShadows()
+  - added getConceptualInPeers()
+  - added getAncestors(), getInAncestors(), getOutAncestors()
+- drcl.comp.Wire: added getRealPorts(), getRealInPorts(), getRealOutPorts(),
+  getShadowPorts(), getShadowInPorts(), getShadowOutPorts(),
+  getRealPortsExcept(), getShadowPortsExcept()
+
+7/8/2003 patch1.2.1-5
+- fix a bug in drcl.comp.Component._duplicateIn() and _duplicateOut()
+  where pclone_'s wires should be disconnected first in case wires exist before
+  the duplicate operation.
+- fix a bug in drcl.comp.Wire._removeInAll() and _removeOutAll() that stops
+  from processing along the port linked list.
+
+6/2/2003 patch1.2.1-applet
+- fix drcl.ruv.* and tcl.lang.* to make JavaSim run in applets
+  (this fix has little effect when running J-Sim as application but
+   is considered "experimental" when running as applet as we have not tested
+   it extensively in the applet environment)
+
+4/30/2003 patch1.2.1-4
+- fix a bug in drcl.inet.protocol.ospf.OSPF which prevents neighbor state
+  transitioned from loading to full.
+
+4/25/2003
+- release jacl source at the "patch" section
+
+2/14/2003 patch1.2.1-3
+- fix a bug in drcl.sim.event.SEThread.lock() which may cause 
+  NullPointerException when Component.lock() is invoked
+- fix a bug in drcl.inet.transport.TCPSink which fails TCP connection when
+  the receiving buffer is overflowed at the arrival of last outstanding segment
+  - if receiving buffer overflowed, ack with AWND=0 is sent back.  but if
+    that was the last outstanding segment, then sender does not know when
+    the receiver will reopen AWND again...
+  - fix: need to send ack when AWND back from zero
+- add drcl.util.scalar.LongSpace.getLongInterval(int)
+- add drcl.util.scalar.IntSpace.getIntInterval(int)
+
+1/13/2003 patch1.2.1-2
+- fix a bug in drcl.inet.core.PktDispatcher's VIF checking
+
+1/8/2003 patch1.2.1-1
+- fix some minor cases where a disabled components still receives.
+
+12/12/2002 J-Sim v1.2.1
+- drcl.comp.Component: fixed setDebugEnabledAt() for possible integer overflow
+- drcl.comp.tool.Plotter: fix for throwing exception when getting a plot
+  (getPlot()) that does not exist yet
+- drcl.inet.InetUtil: fixed javadoc errors
+- drcl.inet.Protocol: fix the debug printout in routeQueryHandler()
+- drcl.inet.core.QueueNI: javadoc
+- drcl.inet.core.queue.PriorityQueue:
+  - improved output of info()
+  - added getQueue() for accessing subqueue
+- drcl.inet.protocol.dvmrp.DVMRP: fix the problem where a sender and a receiver
+  connects to the same router and if the receiver joins first, the packets
+  from the sender wouldn't be flooded to the network
+- drcl.inet.socket: fix a bug where a socket-close sent from application 
+  immediately follows data transmission, the 'close' command closes the socket
+  right away with outstanding segments; a new 'establish' msg is introduced to
+  SocketContract and several classes are involved: SocketContract, 
+  SocketConstants, InetSocket, JavaSimSocketImpl, SocketMaster and TCP_Socket.
+- drcl.inet.TCP/TCPSink: fix bugs in setMSS()
+- drcl.net.Address: improved printout format of multicast addresses
+- added drcl.inet.application.FileSource for finite bulk transfer
+
+10/2002 J-Sim v1.2
+- added "ant" build file, see "build.xml".
+- drcl.sim.event is completed
+- drcl.comp:
+  - rewrote Wire and related classes for better performance
+  - code tuning: avoid calling Thread.currentThread()
+  - ACARuntime: added newTasks()
+  - drcl.comp.Util:
+    - rewrote getLinks() for better performance
+    - added exploreFlat() and explore(targets)
+      - drcl.ruv.CommandOption: added "flat" option for the "explore" command
+      - drcl.ruv.Commands: added code to "explore" to use exploreFlat() and
+        explore(targets)
+    - operate(): take advantage of ACARuntime.newTasks()
+  - drcl.comp.tool.Plotter: added set/getRedrawProbability() 
+  - AWorkerThread.unlock(): fix the bug where it may notify a "waiting" thread
+    instead of threads that are waiting for the lock
+  - Port.set(group, id) did not take into account "removable"; if the port is
+    not removable then the port will end up in two groups
+- drcl.inet:
+  - added drcl.inet.protocol.ospf.QoS_OSPF: QoS extension to OSPF
+  - InetUtil: 
+    - added setupRoute() and setupBRoute() for setting up routes between
+      neighboring nodes.
+    - configureFlat(): added "reassingNodeID" flag to force InetUtil not to
+      reassign node ID
+  - drcl.inet.socket: 
+    - rename: JavaSimSocket to JavaSimSocketImpl
+    - JavaSimSocketImpl: made compilable with JDK1.4 but not with 1.3 anymore
+    - added code to close socket asynchronously
+    - added nonblocking API (accept, connect, close)
+    - classes added: InetSocket, SocketApplication, NonblockingSocketHandler, 
+      SocketMaster
+    - TCP_socket:
+	  - "connecting" should be off when receiving a FIN or a CLOSE
+    - TCP_full: 
+	  - did not handle simultaneous SYNs correctly
+  - drcl.inet.core:
+    - merged PktDispatcher, RT and Identity; now PktDispatcher directly invokes
+      RT and Identity
+    - added QueueNI and core.ni.DropTailPointopointNI and make this the default
+	  queue and ni component when building a CSL
+    - fixed PktDispatcher.broadcast(): pp_[i] does not correspond to "i@down"
+    - added core.queue.PriorityQueue
+  - drcl.inet.Node: add link emulation interface
+  - rewrote drcl.inet.tool.routing_mspf.setup() for better performance and
+    to be able to set up routes between nodes that are not in the same 
+    network container.
+  - drcl.inet.transport
+    - TCP:
+      - CWND, MAXCWND: changed from double to int
+      - avoid sending fragment packets (pkts with size < MSS)
+	    - use last_seq to identify significant/effective acks
+		- check if sending fragment is necessary
+		- increase sbuffer to AWND+MSS to prevent sending fragments when CWND
+          reaches the limit
+      - fix minors in reset()/resetRXTTimer()
+    - TCPSink:
+      - fix rbuffer handling when size < MSS and got retransmitted in full MSS
+  - drcl.inet.application.SUDPApplication implemnets timeout() instead of
+    processing fork event in processOther()
+  - drcl.inet.contract.RTLookup: add a new message format which allows 
+    InetPacket and incoming interface being passed to routing protocol when
+    route entry is not found for the packet
+- drcl.net:
+  - Packet: added explicit query API for different supports:
+    isPacketCountSupported(), isByteCountSupported() and isTimeStampSupported()
+    - implementation: if the packet body is another packet, the query is passed
+      to the encapsulated packet
+  - drcl.net.traffic:
+    - added TimestampedFooPacket
+    - TrafficSourceComponent: added a timestamp flag; if enabled, 
+      TimestampedFooPackets are generated instead of just FooPackets
+    - TrafficAssistent is enhanced at exception handling
+  - drcl.net.tool:
+    - added Countable
+    - TrafficMonitor classes now take Countable as inputs so it can handle
+      anything that implements this interface; drcl.net.Packet is made to
+      implement it 
+  - Address is modified to print out address in decimal, dotted-decimal or hex
+    according to the value; drcl.inet.InetPacket is modified to take advantage
+    of this
+- drcl.util.StringUtil: added hexToLong(), toDottedDecimal() and 
+  dottedDecimalToLong()
+- drcl.ruv:
+  - drcl.ruv.CommandOption: mixed up with "-s" and "-d"
+  - ShellTcl can now get a more precise exception message from 
+    tcl.lang.Reflection (stack trace being added in the result as well)
+  - tcl.lang.ReflectObject.findInReflectTable()/addToReflectTable()/
+    removeFromReflectTable() where they use hashCode() attempting to generate
+    unique numbers for objects which is not true.
+  - drcl.tcl: __rt_common_: cast rt_ to most specific class
+- drcl.data.BitSet:
+  - rewrote nbset()/getSetBitIndices()/getUnsetBitIndices for better performance
+  - fix set(): call setSize() instead of enlarge()
+- drcl.util.queue is re-organized:
+  - expand Queue (class) to Queue, VariableSizeQueue, FiniteVSQueue (interface)
+    and their base implementations (QueueImpl, VariableSizeQueueImpl and
+    FiniteVSQueueImpl); subclasses are created/modified accordingly
+- other bug fixes:
+  - drcl.util.queue.TreeMapQueue: reset()
+  - drcl.util.scalar.IntSpace/LongSpace.checkoutGreater()/checkoutSmaller()
+  - drcl.diffserv.HQS: it calls pickEligibleQueue in both firstElement()
+    and dequeue() but firstElement() should not alter the internal states as
+    for dequeue(); fix: passing a flag to pickEligibleQueue to indicate
+    whether it is a dequeue() or not
+  - drcl.comp.lib.bytestream.ByteStreamPeer.inputStream.read(): argument could
+    be null
+  - drcl.data.Map.createMapKey(): should use set() instead of xor() to make
+    the bits all 1's
+- fixes due to JDK implementation changes from 1.3 to 1.4:
+  - drcl.inet.socket.SocketImpl.bind(): bind() is called for server sockets
+    only in 1.3 but for both server and client sockets in 1.4
+  - drcl.comp.lib.bytestream.ByteStreamPeer: input stream implementation
+
+10/19/2001 J-Sim v1.0 (formerly known as JavaSim)
+- drcl.comp is re-worked for better performance:
+  - The timer API in Component is revised (fork()/forkAt()/send()/sendAt())
+    all affected components are revised
+- now drcl.ruv.System accepts script arguments
+- drcl.inet:
+  - add InetUtil.configureFlat() and more createTrafficSource() methods
+- drcl.net:
+  - traffic.TrafficComponent: make downPort OUT type
+  - traffic.TrafficShaperComponent: make upPort IN type
+  - tool.TrafficMonitor*: now recognizes
+    drcl.comp.contract.GarbageContract.Message.
+- integrate with Python:
+  - upgraded to jython2.1a3
+  - drcl.ruv.Commands: add more toRef() methods and mkdir() methods
+    to facilitate building scenarios in Python
+- experimental:
+  - add switching and label switching capability to drcl.inet.core.PktDispatcher
+  - drcl.sim.event: sequential discrete event simulation engine
+- bug fixes:
+  - drcl.inet.socket.TCP_full
+  - drcl.ruv.ShellPython
+  - drcl.inet.protocol.ospf.OSPF
+  - drcl.inet.application.fspd
+
+8/3/2001 Pre-release8
+- adopts BSD-like license
+- integrated Jython2.0, added drcl.ruv.ShellPython.
+- added package drcl.inet.socket for running real applications on JavaSim
+  (preliminary), also drcl.inet.transport.TCPb
+- added drcl.inet.core.sIGMP for hosts doing multicasting (experimental)
+  - revised affected classes and scripts
+- revised drcl.inet.NodeBuilder so that multiple instances of a protocol class
+  can exist in a node with different protocol IDs
+- revised drcl.diffserv
+- added callback drcl.net.Module.timeout(Object)
+- added drcl.comp.Handler, made WrapperComponent a Handler
+- drcl.comp.Port.sendReceive() now can be called in a non-workerthread thread,
+  (this is however deadlock prone)
+- rewrote drcl.comp.ForkManagerDefault/ForkManagerLocal to adapt to low system
+  time resolution
+- added New-Reno to drcl.inet.transport.TCP, Vegas and SACK were rewritten
+- bug fixes:
+  - drcl.comp.Component.send()
+  - drcl.inet.core.PktDispatcher: shouldn't loop back when router alert is set
+  - drcl.inet.protocol.dvmrp.DVMRP: didn't graft the "group" entry in
+    mcastHostJoinHandler()
+  - drcl.inet.core.ni.PointopointNI: was too time-sensitive, couldn't run in
+    real time
+  - deadlock between drcl.ruv.CommandTask and drcl.comp.WorkerManager
+  - drcl.comp.WorkerManager
+    - reset() in case a WorkerThread is the one resetting
+	- systemBecomesInactive: set state to INACTIVE only when RUNNING
+  - drcl.comp.Port.duplicate(): copy only flags
+- other classes revised:
+  - drcl.util.scalar.LongSpace/IntSpace
+  - drcl.net.traffic.TraceInput: TCPTrace --> SimpleTrace
+  - drcl.inet.transport.UDP
+
+7/3/2001 Pre-release7
+- rewrote runtime to avoid thread synchronization for better performance
+  (performance improved up to 5 times)
+- drcl.comp.Component: added delay send APIs, send() and sendAt()
+- remove "block" semantics from drcl.comp.lib.bytestream.ByteStreamContract to 
+  allow implementing nonblock bytestream components:
+  drcl.inet.application.BulkSource/BulkSink
+- rewrote all the contract classes (got rid of Struct)
+- drcl.inet.NodeBuilder: added "node map" to control building a node;
+  added loadmap() and more build() methods to include the "map" argument
+  - test scripts are all revised to take advantage of "node map"
+- ruv output subsystem is re-organized
+- drcl.ruv.Term: added setTerminalOutputEnabled()
+  - drcl.ruv.System: added "-n" option
+- other classes revised:
+  - drcl.net.tool.NamTrace
+  - drcl.net.traffic.tsTokenBucket
+  - drcl.net.Address
+  - drcl.inet.InetUtil: added setNamTraceOn()
+  - drcl.inet.core.NI/ni.PointopointNI
+  - drcl.comp.Port
+  - drcl.comp.io.Stdout/FileComponent
+  - drcl.ruv.Dterm
+
+6/4/2001 Pre-release5/6 (Internal releases)
+- added drcl.net.tool.NamTrace, drcl.inet.tool.NamTrace
+- rewrote contract classes, packages affected:drcl.comp, drcl.comp.queue,
+  drcl.comp.lib.bytestream, drcl.inet (and subpackages), drcl.ruv.
+- rewrote drcl.net.Packet, removed drcl.net.PacketHeader/PacketBody
+  affected packages: drcl.net, drcl.inet (and subpackages)
+- changes in drcl.comp:
+  - Trace can now be controlled port-wise
+  - add drcl.comp.contract.DoubleEventContract
+- changes in drcl.net:
+  - added FooPacket
+  - added traffic.traffic_OnOff and traffic.tsOnOff
+  - several traffic classes are tuned up for better performance
+- changes in drcl.inet:
+  - added InetConstants and core.InetConstants for better constant control
+  - changes in protocol.ospf: more bugs fixed
+  - changes in CoreServiceLayer, core: removed port grouping
+    to save space
+  - transport.TCP/TCPSink: 
+    - bugs fixed
+	- added NS_COMPATIBLE flag for RENO
+- added drcl.intserv (not incorporated in yet)
+- changes in drcl.ruv:
+  - Dterm in previous releases is renamed as DtermAWT, now Dterm is
+    javax.swing.JFrame
+  - more bugs fixed
+  - "setflag": added trace control with "-at", added "-only" for debug flag
+- miscellaneous changes
+  - drcl.comp.tool.Plotter
+  - drcl.comp.io.FileComponent: add timestamp option
+
+4/29/2001 Pre-release4.2
+- Re-organize the directories and incorporate "GNU-Make" makefiles to
+  facilitate compiling the sources.
+- More bugs are fixed.
+- drcl.inet.protocol.ospf.* are revised.
+- RUV system commands are enhanced for better usability.
+

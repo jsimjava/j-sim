@@ -1,0 +1,345 @@
+
+Create nodes...
+Node build...
+Attach simulator...
+Setting debug flags for OSPF ...
+NEIGHBOR@| EVENT--0.010192--/ospftest/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n5/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n2/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n6/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n5/csl/hello/.if@--Neighbor Up--NEIGHBOR:<10,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n11/csl/hello/.if@--Neighbor Up--NEIGHBOR:<10,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n15/csl/hello/.if@--Neighbor Up--NEIGHBOR:<10,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n6/csl/hello/.if@--Neighbor Up--NEIGHBOR:<11,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n10/csl/hello/.if@--Neighbor Up--NEIGHBOR:<11,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n12/csl/hello/.if@--Neighbor Up--NEIGHBOR:<11,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n16/csl/hello/.if@--Neighbor Up--NEIGHBOR:<11,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n7/csl/hello/.if@--Neighbor Up--NEIGHBOR:<12,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n11/csl/hello/.if@--Neighbor Up--NEIGHBOR:<12,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n13/csl/hello/.if@--Neighbor Up--NEIGHBOR:<12,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n17/csl/hello/.if@--Neighbor Up--NEIGHBOR:<12,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n8/csl/hello/.if@--Neighbor Up--NEIGHBOR:<13,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n12/csl/hello/.if@--Neighbor Up--NEIGHBOR:<13,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n14/csl/hello/.if@--Neighbor Up--NEIGHBOR:<13,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n18/csl/hello/.if@--Neighbor Up--NEIGHBOR:<13,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n9/csl/hello/.if@--Neighbor Up--NEIGHBOR:<14,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n13/csl/hello/.if@--Neighbor Up--NEIGHBOR:<14,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n19/csl/hello/.if@--Neighbor Up--NEIGHBOR:<14,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n10/csl/hello/.if@--Neighbor Up--NEIGHBOR:<15,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n16/csl/hello/.if@--Neighbor Up--NEIGHBOR:<15,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n20/csl/hello/.if@--Neighbor Up--NEIGHBOR:<15,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n11/csl/hello/.if@--Neighbor Up--NEIGHBOR:<16,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n15/csl/hello/.if@--Neighbor Up--NEIGHBOR:<16,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n17/csl/hello/.if@--Neighbor Up--NEIGHBOR:<16,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n21/csl/hello/.if@--Neighbor Up--NEIGHBOR:<16,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n12/csl/hello/.if@--Neighbor Up--NEIGHBOR:<17,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n16/csl/hello/.if@--Neighbor Up--NEIGHBOR:<17,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n18/csl/hello/.if@--Neighbor Up--NEIGHBOR:<17,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n22/csl/hello/.if@--Neighbor Up--NEIGHBOR:<17,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n13/csl/hello/.if@--Neighbor Up--NEIGHBOR:<18,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n17/csl/hello/.if@--Neighbor Up--NEIGHBOR:<18,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n19/csl/hello/.if@--Neighbor Up--NEIGHBOR:<18,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n23/csl/hello/.if@--Neighbor Up--NEIGHBOR:<18,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n14/csl/hello/.if@--Neighbor Up--NEIGHBOR:<19,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n18/csl/hello/.if@--Neighbor Up--NEIGHBOR:<19,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n24/csl/hello/.if@--Neighbor Up--NEIGHBOR:<19,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<2,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<2,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n7/csl/hello/.if@--Neighbor Up--NEIGHBOR:<2,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n15/csl/hello/.if@--Neighbor Up--NEIGHBOR:<20,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n21/csl/hello/.if@--Neighbor Up--NEIGHBOR:<20,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n16/csl/hello/.if@--Neighbor Up--NEIGHBOR:<21,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n20/csl/hello/.if@--Neighbor Up--NEIGHBOR:<21,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n22/csl/hello/.if@--Neighbor Up--NEIGHBOR:<21,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n17/csl/hello/.if@--Neighbor Up--NEIGHBOR:<22,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n21/csl/hello/.if@--Neighbor Up--NEIGHBOR:<22,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n23/csl/hello/.if@--Neighbor Up--NEIGHBOR:<22,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n18/csl/hello/.if@--Neighbor Up--NEIGHBOR:<23,-1>--if:3
+NEIGHBOR@| EVENT--0.010192--/ospftest/n22/csl/hello/.if@--Neighbor Up--NEIGHBOR:<23,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n24/csl/hello/.if@--Neighbor Up--NEIGHBOR:<23,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n19/csl/hello/.if@--Neighbor Up--NEIGHBOR:<24,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n23/csl/hello/.if@--Neighbor Up--NEIGHBOR:<24,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n2/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n4/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n8/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<4,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n9/csl/hello/.if@--Neighbor Up--NEIGHBOR:<4,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<5,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n6/csl/hello/.if@--Neighbor Up--NEIGHBOR:<5,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n10/csl/hello/.if@--Neighbor Up--NEIGHBOR:<5,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<6,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n5/csl/hello/.if@--Neighbor Up--NEIGHBOR:<6,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n7/csl/hello/.if@--Neighbor Up--NEIGHBOR:<6,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n11/csl/hello/.if@--Neighbor Up--NEIGHBOR:<6,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n2/csl/hello/.if@--Neighbor Up--NEIGHBOR:<7,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n6/csl/hello/.if@--Neighbor Up--NEIGHBOR:<7,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n8/csl/hello/.if@--Neighbor Up--NEIGHBOR:<7,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n12/csl/hello/.if@--Neighbor Up--NEIGHBOR:<7,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<8,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n7/csl/hello/.if@--Neighbor Up--NEIGHBOR:<8,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n9/csl/hello/.if@--Neighbor Up--NEIGHBOR:<8,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n13/csl/hello/.if@--Neighbor Up--NEIGHBOR:<8,-1>--if:0
+NEIGHBOR@| EVENT--0.010192--/ospftest/n4/csl/hello/.if@--Neighbor Up--NEIGHBOR:<9,-1>--if:1
+NEIGHBOR@| EVENT--0.010192--/ospftest/n8/csl/hello/.if@--Neighbor Up--NEIGHBOR:<9,-1>--if:2
+NEIGHBOR@| EVENT--0.010192--/ospftest/n14/csl/hello/.if@--Neighbor Up--NEIGHBOR:<9,-1>--if:0
+DEBUG| 0.010192| /ospftest/n0/ospf/| NEIGHBOR_UP_EVENT: <1,-1> at if 0
+DEBUG| 0.010192| /ospftest/n0/ospf/| Neighbor 1's state changed: DOWN->INIT, NeighborUp
+DEBUG| 0.010192| /ospftest/n0/ospf/| NEIGHBOR_UP_EVENT: <5,-1> at if 1
+DEBUG| 0.010192| /ospftest/n0/ospf/| Neighbor 5's state changed: DOWN->INIT, NeighborUp
+DEBUG| 0.020554666666666666| /ospftest/n0/ospf/| Neighbor 1's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 0.020554666666666666| /ospftest/n0/ospf/| Neighbor 5's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 0.030832| /ospftest/n0/ospf/| Neighbor 1's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 0.030832| /ospftest/n0/ospf/| Neighbor 5's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 0.051386666666666664| /ospftest/n0/ospf/| Neighbor 1's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 0.051386666666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.051386666666666664| /ospftest/n0/ospf/| Neighbor 5's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 0.051386666666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.061898666666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.061898666666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.07241066666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.07292266666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.07292266666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.08292266666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.08343466666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.08343466666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.08394666666666666| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.09343466666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.09394666666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.09441599999999999| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.09492799999999998| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.09543999999999998| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.10394666666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.10394666666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.10492799999999998| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.10548266666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.11497066666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.11548266666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.11599466666666663| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.12548266666666663| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.12599466666666664| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.14576| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 4.061898666666667| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:1,cost:1,neighbors:[5,adjacent,#lsa_retrans:4,lsa_retrans:[from:1,header:<origin:1,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:2,metric:1>], from:1,header:<origin:2,seq#:INIT,age:2,birth: -2,installed: 0>,#links:1,links:[<neighbor:3,metric:1>], from:1,header:<origin:3,seq#:INIT,age:3,birth: -3,installed: 0>,#links:1,links:[<neighbor:4,metric:1>], from:1,header:<origin:4,seq#:INIT,age:4,birth: -4,installed: 0>,#links:1,links:[<neighbor:9,metric:1>]]]
+DEBUG| 4.061898666666667| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,#lsa_retrans:4,lsa_retrans:[from:5,header:<origin:5,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:10,metric:1>], from:5,header:<origin:10,seq#:INIT,age:2,birth: -2,installed: 0>,#links:1,links:[<neighbor:11,metric:1>], from:5,header:<origin:15,seq#:INIT,age:3,birth: -3,installed: 0>,#links:1,links:[<neighbor:16,metric:1>], from:5,header:<origin:20,seq#:INIT,age:4,birth: -4,installed: 0>,#links:1,links:[<neighbor:21,metric:1>]]]
+DEBUG| 5.051386666666667| /ospftest/n0/ospf/| __timeout__ DELAY_FLOOD, id:1,#ls=25,#ifs:2,#vertex:1
+DEBUG| 5.061941333333333| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.061941333333333| /ospftest/n0/ospf/| 0 Add Route Entry 1, 1_{0}, cost 1, lsa from:1,header:<origin:1,seq#:INIT+2,age:6,birth: -1,installed: 5>,#links:3,links:[<neighbor:0,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 5.061941333333333| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.061941333333333| /ospftest/n0/ospf/| 0 Add Route Entry 5, 5_{1}, cost 1, lsa from:5,header:<origin:5,seq#:INIT+2,age:6,birth: -1,installed: 5>,#links:3,links:[<neighbor:0,metric:1>, <neighbor:10,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 5.072496| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.072496| /ospftest/n0/ospf/| 0 Add Route Entry 10, 5_{1}, cost 2, lsa from:5,header:<origin:10,seq#:INIT+2,age:7,birth: -2,installed: 5>,#links:3,links:[<neighbor:11,metric:1>, <neighbor:15,metric:1>, <neighbor:5,metric:1>]
+DEBUG| 5.072496| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.072496| /ospftest/n0/ospf/| 0 Add Route Entry 2, 1_{0}, cost 2, lsa from:1,header:<origin:2,seq#:INIT+2,age:7,birth: -2,installed: 5>,#links:3,links:[<neighbor:1,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 5.073072| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.073072| /ospftest/n0/ospf/| 0 Add Route Entry 6, 1_{0}, cost 2, lsa from:5,header:<origin:6,seq#:INIT+3,age:7,birth: -2,installed: 5>,#links:4,links:[<neighbor:1,metric:1>, <neighbor:11,metric:1>, <neighbor:5,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 5.083050666666667| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.083050666666667| /ospftest/n0/ospf/| 0 Add Route Entry 15, 5_{1}, cost 3, lsa from:5,header:<origin:15,seq#:INIT+2,age:8,birth: -3,installed: 5>,#links:3,links:[<neighbor:10,metric:1>, <neighbor:16,metric:1>, <neighbor:20,metric:1>]
+DEBUG| 5.083050666666667| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.083050666666667| /ospftest/n0/ospf/| 0 Add Route Entry 3, 1_{0}, cost 3, lsa from:1,header:<origin:3,seq#:INIT+2,age:8,birth: -3,installed: 5>,#links:3,links:[<neighbor:2,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 5.083647999999999| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.083647999999999| /ospftest/n0/ospf/| 0 Add Route Entry 11, 1_{0}, cost 3, lsa from:5,header:<origin:11,seq#:INIT+3,age:8,birth: -3,installed: 5>,#links:4,links:[<neighbor:10,metric:1>, <neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 5.084223999999999| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.084223999999999| /ospftest/n0/ospf/| 0 Add Route Entry 7, 1_{0}, cost 3, lsa from:1,header:<origin:7,seq#:INIT+3,age:8,birth: -3,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 5.093519999999999| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.093519999999999| /ospftest/n0/ospf/| 0 Add Route Entry 4, 1_{0}, cost 4, lsa from:1,header:<origin:4,seq#:INIT+1,age:9,birth: -4,installed: 5>,#links:2,links:[<neighbor:3,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 5.093519999999999| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.093519999999999| /ospftest/n0/ospf/| 0 Add Route Entry 20, 5_{1}, cost 4, lsa from:5,header:<origin:20,seq#:INIT+1,age:9,birth: -4,installed: 5>,#links:2,links:[<neighbor:15,metric:1>, <neighbor:21,metric:1>]
+DEBUG| 5.094138666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.094138666666665| /ospftest/n0/ospf/| 0 Add Route Entry 12, 1_{0}, cost 4, lsa from:5,header:<origin:12,seq#:INIT+3,age:9,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 5.094714666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.094714666666665| /ospftest/n0/ospf/| 0 Add Route Entry 16, 1_{0}, cost 4, lsa from:5,header:<origin:16,seq#:INIT+3,age:9,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:15,metric:1>, <neighbor:17,metric:1>, <neighbor:21,metric:1>]
+DEBUG| 5.095226666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.095226666666665| /ospftest/n0/ospf/| 0 Add Route Entry 8, 1_{0}, cost 4, lsa from:1,header:<origin:8,seq#:INIT+3,age:9,birth: -4,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 5.10416| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.10416| /ospftest/n0/ospf/| 0 Add Route Entry 21, 1_{0}, cost 5, lsa from:5,header:<origin:21,seq#:INIT+2,age:10,birth: -5,installed: 5>,#links:3,links:[<neighbor:16,metric:1>, <neighbor:20,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 5.104714666666667| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.104714666666667| /ospftest/n0/ospf/| 0 Add Route Entry 9, 1_{0}, cost 5, lsa from:1,header:<origin:9,seq#:INIT+2,age:10,birth: -5,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 5.1047786666666655| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.1047786666666655| /ospftest/n0/ospf/| 0 Add Route Entry 13, 1_{0}, cost 5, lsa from:5,header:<origin:13,seq#:INIT+3,age:10,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 5.105375999999998| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.105375999999998| /ospftest/n0/ospf/| 0 Add Route Entry 17, 1_{0}, cost 5, lsa from:5,header:<origin:17,seq#:INIT+3,age:10,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:18,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 5.114714666666667| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.114714666666667| /ospftest/n0/ospf/| 0 Add Route Entry 14, 1_{0}, cost 6, lsa from:1,header:<origin:14,seq#:INIT+2,age:11,birth: -6,installed: 5>,#links:3,links:[<neighbor:13,metric:1>, <neighbor:19,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 5.114714666666667| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.114714666666667| /ospftest/n0/ospf/| 0 Add Route Entry 22, 1_{0}, cost 6, lsa from:5,header:<origin:22,seq#:INIT+2,age:11,birth: -6,installed: 5>,#links:3,links:[<neighbor:17,metric:1>, <neighbor:21,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 5.116911999999998| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.116911999999998| /ospftest/n0/ospf/| 0 Add Route Entry 18, 1_{0}, cost 6, lsa from:1,header:<origin:18,seq#:INIT+3,age:11,birth: -6,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:19,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 5.125269333333334| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.125269333333334| /ospftest/n0/ospf/| 0 Add Route Entry 19, 1_{0}, cost 7, lsa from:5,header:<origin:19,seq#:INIT+2,age:12,birth: -7,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 5.125269333333334| /ospftest/n0/ospf/| 0 Add Route Entry 24, 1_{0}, cost 8, lsa from:5,header:<origin:24,seq#:INIT,age:13,birth: -8,installed: 0>,#links:1,links:[<neighbor:19,metric:1>]
+DEBUG| 5.125824000000001| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.125824000000001| /ospftest/n0/ospf/| 0 Add Route Entry 23, 1_{0}, cost 7, lsa from:5,header:<origin:23,seq#:INIT+2,age:12,birth: -7,installed: 5>,#links:3,links:[<neighbor:18,metric:1>, <neighbor:22,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 5.145930666666665| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 9.061941333333333| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,#lsa_retrans:3,lsa_retrans:[from:-,header:<origin:0,seq#:INIT+1,age:5,birth: 0,installed: 0>,#links:2,links:[<neighbor:1,metric:1>, <neighbor:5,metric:1>], from:5,header:<origin:5,seq#:INIT+2,age:6,birth: -1,installed: 5>,#links:3,links:[<neighbor:0,metric:1>, <neighbor:10,metric:1>, <neighbor:6,metric:1>], from:5,header:<origin:20,seq#:INIT+1,age:9,birth: -4,installed: 5>,#links:2,links:[<neighbor:15,metric:1>, <neighbor:21,metric:1>]]]
+DEBUG| 9.061941333333333| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:1,cost:1,neighbors:[5,adjacent,#lsa_retrans:5]
+----- /ospftest/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:(<1,-1>), timeouts:(55.010192), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<5,-1>), timeouts:(55.010192), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=24
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,10,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(7)	timeout:NaN
+   (0,2,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(11)	timeout:NaN
+   (0,6,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(7)	timeout:NaN
+   (0,15,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(8)	timeout:NaN
+   (0,3,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(12)	timeout:NaN
+   (0,11,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(8)	timeout:NaN
+   (0,7,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(8)	timeout:NaN
+   (0,4,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(13)	timeout:NaN
+   (0,20,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(13)	timeout:NaN
+   (0,12,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(9)	timeout:NaN
+   (0,16,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(9)	timeout:NaN
+   (0,8,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(9)	timeout:NaN
+   (0,21,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(10)	timeout:NaN
+   (0,9,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(10)	timeout:NaN
+   (0,13,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(10)	timeout:NaN
+   (0,17,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(10)	timeout:NaN
+   (0,14,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(11)	timeout:NaN
+   (0,22,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(11)	timeout:NaN
+   (0,18,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+3),age(11)	timeout:NaN
+   (0,19,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(12)	timeout:NaN
+   (0,24,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(8),seq(INIT+1),age(13)	timeout:NaN
+   (0,23,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(12)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+
+
+Disconnect link n0 -- n1 at 30.0 sim secs 
+NEIGHBOR@| EVENT--70.0--/ospftest/n0/csl/hello/.if@--Neighbor Down--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--70.0--/ospftest/n1/csl/hello/.if@--Neighbor Down--NEIGHBOR:<0,-1>--if:0
+DEBUG| 70.0| /ospftest/n0/ospf/| NEIGHBOR DOWN EVENT: <1,-1>
+DEBUG| 70.0| /ospftest/n0/ospf/| Neighbor 1's state changed: FULL->DOWN, > NeighborDown <
+DEBUG| 70.0| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 1: 5-{1}, cost 3, lsa from:1,header:<origin:1,seq#:INIT+2,age:71,birth: -1,installed: 5>,#links:3,links:[<neighbor:0,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 2: 5-{1}, cost 4, lsa from:1,header:<origin:2,seq#:INIT+2,age:72,birth: -2,installed: 5>,#links:3,links:[<neighbor:1,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 6: 5-{1}, cost 2, lsa from:5,header:<origin:6,seq#:INIT+3,age:72,birth: -2,installed: 5>,#links:4,links:[<neighbor:1,metric:1>, <neighbor:11,metric:1>, <neighbor:5,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 3: 5-{1}, cost 5, lsa from:1,header:<origin:3,seq#:INIT+2,age:73,birth: -3,installed: 5>,#links:3,links:[<neighbor:2,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 11: 5-{1}, cost 3, lsa from:5,header:<origin:11,seq#:INIT+3,age:73,birth: -3,installed: 5>,#links:4,links:[<neighbor:10,metric:1>, <neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 7: 5-{1}, cost 3, lsa from:1,header:<origin:7,seq#:INIT+3,age:73,birth: -3,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 4: 5-{1}, cost 6, lsa from:1,header:<origin:4,seq#:INIT+1,age:74,birth: -4,installed: 5>,#links:2,links:[<neighbor:3,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 12: 5-{1}, cost 4, lsa from:5,header:<origin:12,seq#:INIT+3,age:74,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 16: 5-{1}, cost 4, lsa from:5,header:<origin:16,seq#:INIT+3,age:74,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:15,metric:1>, <neighbor:17,metric:1>, <neighbor:21,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 8: 5-{1}, cost 4, lsa from:1,header:<origin:8,seq#:INIT+3,age:74,birth: -4,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 21: 5-{1}, cost 5, lsa from:5,header:<origin:21,seq#:INIT+2,age:75,birth: -5,installed: 5>,#links:3,links:[<neighbor:16,metric:1>, <neighbor:20,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 9: 5-{1}, cost 5, lsa from:1,header:<origin:9,seq#:INIT+2,age:75,birth: -5,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 13: 5-{1}, cost 5, lsa from:5,header:<origin:13,seq#:INIT+3,age:75,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 17: 5-{1}, cost 5, lsa from:5,header:<origin:17,seq#:INIT+3,age:75,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:18,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 14: 5-{1}, cost 6, lsa from:1,header:<origin:14,seq#:INIT+2,age:76,birth: -6,installed: 5>,#links:3,links:[<neighbor:13,metric:1>, <neighbor:19,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 22: 5-{1}, cost 6, lsa from:5,header:<origin:22,seq#:INIT+2,age:76,birth: -6,installed: 5>,#links:3,links:[<neighbor:17,metric:1>, <neighbor:21,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 18: 5-{1}, cost 6, lsa from:1,header:<origin:18,seq#:INIT+3,age:76,birth: -6,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:19,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 19: 5-{1}, cost 7, lsa from:5,header:<origin:19,seq#:INIT+2,age:77,birth: -7,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 24: 5-{1}, cost 8, lsa from:5,header:<origin:24,seq#:INIT+1,age:78,birth: -8,installed: 5>,#links:2,links:[<neighbor:19,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 70.0| /ospftest/n0/ospf/| 0 Update Route Entry to 23: 5-{1}, cost 7, lsa from:5,header:<origin:23,seq#:INIT+2,age:77,birth: -7,installed: 5>,#links:3,links:[<neighbor:18,metric:1>, <neighbor:22,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 70.03179200000002| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 74.03179200000002| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:1,cost:1,neighbors:[5,adjacent,no_retrans]
+----- /ospftest/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:<null>, timeouts:double[0], MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<5,-1>), timeouts:(125.010192), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=24
+   (0,1,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(3)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,10,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(72)	timeout:NaN
+   (0,2,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+2),age(72)	timeout:NaN
+   (0,6,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(72)	timeout:NaN
+   (0,15,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(73)	timeout:NaN
+   (0,3,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(73)	timeout:NaN
+   (0,11,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(73)	timeout:NaN
+   (0,7,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(73)	timeout:NaN
+   (0,4,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(6),seq(INIT+1),age(74)	timeout:NaN
+   (0,20,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(74)	timeout:NaN
+   (0,12,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(74)	timeout:NaN
+   (0,16,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(74)	timeout:NaN
+   (0,8,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(74)	timeout:NaN
+   (0,21,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(75)	timeout:NaN
+   (0,9,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(75)	timeout:NaN
+   (0,13,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(75)	timeout:NaN
+   (0,17,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(75)	timeout:NaN
+   (0,14,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(76)	timeout:NaN
+   (0,22,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(76)	timeout:NaN
+   (0,18,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(6),seq(INIT+3),age(76)	timeout:NaN
+   (0,19,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(77)	timeout:NaN
+   (0,24,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(8),seq(INIT+1),age(78)	timeout:NaN
+   (0,23,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(77)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+
+
+Re-connect link n0 -- n1 at 100.0 sim secs 
+NEIGHBOR@| EVENT--100.010192--/ospftest/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--100.010192--/ospftest/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+DEBUG| 100.010192| /ospftest/n0/ospf/| NEIGHBOR_UP_EVENT: <1,-1> at if 0
+DEBUG| 100.010192| /ospftest/n0/ospf/| Neighbor 1's state changed: DOWN->INIT, NeighborUp
+DEBUG| 100.02055466666667| /ospftest/n0/ospf/| Neighbor 1's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 100.030832| /ospftest/n0/ospf/| Neighbor 1's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 100.05672000000001| /ospftest/n0/ospf/| Neighbor 1's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 100.05672000000001| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 1: 1-{0}, cost 1, lsa from:1,header:<origin:1,seq#:INIT+4,age:1,birth: 99,installed: 100>,#links:3,links:[<neighbor:0,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 2: 1-{0}, cost 2, lsa from:1,header:<origin:2,seq#:INIT+2,age:102,birth: -2,installed: 5>,#links:3,links:[<neighbor:1,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 6: 1-{0}, cost 2, lsa from:5,header:<origin:6,seq#:INIT+3,age:102,birth: -2,installed: 5>,#links:4,links:[<neighbor:1,metric:1>, <neighbor:11,metric:1>, <neighbor:5,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 3: 1-{0}, cost 3, lsa from:1,header:<origin:3,seq#:INIT+2,age:103,birth: -3,installed: 5>,#links:3,links:[<neighbor:2,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 11: 1-{0}, cost 3, lsa from:5,header:<origin:11,seq#:INIT+3,age:103,birth: -3,installed: 5>,#links:4,links:[<neighbor:10,metric:1>, <neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:6,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 7: 1-{0}, cost 3, lsa from:1,header:<origin:7,seq#:INIT+3,age:103,birth: -3,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:2,metric:1>, <neighbor:6,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 4: 1-{0}, cost 4, lsa from:1,header:<origin:4,seq#:INIT+1,age:104,birth: -4,installed: 5>,#links:2,links:[<neighbor:3,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 12: 1-{0}, cost 4, lsa from:5,header:<origin:12,seq#:INIT+3,age:104,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:7,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 16: 1-{0}, cost 4, lsa from:5,header:<origin:16,seq#:INIT+3,age:104,birth: -4,installed: 5>,#links:4,links:[<neighbor:11,metric:1>, <neighbor:15,metric:1>, <neighbor:17,metric:1>, <neighbor:21,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 8: 1-{0}, cost 4, lsa from:1,header:<origin:8,seq#:INIT+3,age:104,birth: -4,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:3,metric:1>, <neighbor:7,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 21: 1-{0}, cost 5, lsa from:5,header:<origin:21,seq#:INIT+2,age:105,birth: -5,installed: 5>,#links:3,links:[<neighbor:16,metric:1>, <neighbor:20,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 9: 1-{0}, cost 5, lsa from:1,header:<origin:9,seq#:INIT+2,age:105,birth: -5,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:4,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 13: 1-{0}, cost 5, lsa from:5,header:<origin:13,seq#:INIT+3,age:105,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:8,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 17: 1-{0}, cost 5, lsa from:5,header:<origin:17,seq#:INIT+3,age:105,birth: -5,installed: 5>,#links:4,links:[<neighbor:12,metric:1>, <neighbor:16,metric:1>, <neighbor:18,metric:1>, <neighbor:22,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 14: 1-{0}, cost 6, lsa from:1,header:<origin:14,seq#:INIT+2,age:106,birth: -6,installed: 5>,#links:3,links:[<neighbor:13,metric:1>, <neighbor:19,metric:1>, <neighbor:9,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 22: 1-{0}, cost 6, lsa from:5,header:<origin:22,seq#:INIT+2,age:106,birth: -6,installed: 5>,#links:3,links:[<neighbor:17,metric:1>, <neighbor:21,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 18: 1-{0}, cost 6, lsa from:1,header:<origin:18,seq#:INIT+3,age:106,birth: -6,installed: 5>,#links:4,links:[<neighbor:13,metric:1>, <neighbor:17,metric:1>, <neighbor:19,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 19: 1-{0}, cost 7, lsa from:5,header:<origin:19,seq#:INIT+2,age:107,birth: -7,installed: 5>,#links:3,links:[<neighbor:14,metric:1>, <neighbor:18,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 24: 1-{0}, cost 8, lsa from:5,header:<origin:24,seq#:INIT+1,age:108,birth: -8,installed: 5>,#links:2,links:[<neighbor:19,metric:1>, <neighbor:23,metric:1>]
+DEBUG| 100.07755200000003| /ospftest/n0/ospf/| 0 Update Route Entry to 23: 1-{0}, cost 7, lsa from:5,header:<origin:23,seq#:INIT+2,age:107,birth: -7,installed: 5>,#links:3,links:[<neighbor:18,metric:1>, <neighbor:22,metric:1>, <neighbor:24,metric:1>]
+DEBUG| 104.07755200000003| /ospftest/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,#lsa_retrans:1,lsa_retrans:[from:-,header:<origin:0,seq#:INIT+3,age:0,birth: 100,installed: 100>,#links:2,links:[<neighbor:1,metric:1>, <neighbor:5,metric:1>]]]
+----- /ospftest/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:(<1,-1>), timeouts:(225.010192), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<5,-1>), timeouts:(225.010192), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=24
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(5)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,10,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(102)	timeout:NaN
+   (0,2,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(102)	timeout:NaN
+   (0,6,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(102)	timeout:NaN
+   (0,15,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(103)	timeout:NaN
+   (0,3,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(103)	timeout:NaN
+   (0,11,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(103)	timeout:NaN
+   (0,7,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(103)	timeout:NaN
+   (0,4,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(104)	timeout:NaN
+   (0,20,0)(0,-1,0)   	5-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(104)	timeout:NaN
+   (0,12,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(104)	timeout:NaN
+   (0,16,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(104)	timeout:NaN
+   (0,8,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+3),age(104)	timeout:NaN
+   (0,21,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(105)	timeout:NaN
+   (0,9,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+2),age(105)	timeout:NaN
+   (0,13,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(105)	timeout:NaN
+   (0,17,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(5),seq(INIT+3),age(105)	timeout:NaN
+   (0,14,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(106)	timeout:NaN
+   (0,22,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+2),age(106)	timeout:NaN
+   (0,18,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(6),seq(INIT+3),age(106)	timeout:NaN
+   (0,19,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(107)	timeout:NaN
+   (0,24,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(8),seq(INIT+1),age(108)	timeout:NaN
+   (0,23,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(7),seq(INIT+2),age(107)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1500000.0, MTU=2147483647, LinkEmu=false
+
+
+Simulation time : 200.0 sec

@@ -1,0 +1,412 @@
+create nodes...
+build...
+simulator...
+NEIGHBOR@| EVENT--0.001288--/test/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<5,-1>--if:3
+NEIGHBOR@| EVENT--0.001288--/test/n4/csl/hello/.if@--Neighbor Up--NEIGHBOR:<5,-1>--if:2
+NEIGHBOR@| EVENT--0.001288--/test/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<4,-1>--if:2
+NEIGHBOR@| EVENT--0.001288--/test/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<4,-1>--if:2
+NEIGHBOR@| EVENT--0.001288--/test/n5/csl/hello/.if@--Neighbor Up--NEIGHBOR:<4,-1>--if:1
+NEIGHBOR@| EVENT--0.001288--/test/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:2
+NEIGHBOR@| EVENT--0.001288--/test/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:1
+NEIGHBOR@| EVENT--0.001288--/test/n4/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:1
+NEIGHBOR@| EVENT--0.001288--/test/n5/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:0
+NEIGHBOR@| EVENT--0.001288--/test/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<2,-1>--if:1
+NEIGHBOR@| EVENT--0.001288--/test/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--0.001288--/test/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:1
+NEIGHBOR@| EVENT--0.001288--/test/n4/csl/hello/.if@--Neighbor Up--NEIGHBOR:<1,-1>--if:0
+NEIGHBOR@| EVENT--0.001288--/test/n1/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--0.001288--/test/n2/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--0.001288--/test/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+DEBUG| 0.001288| /test/n0/ospf/| NEIGHBOR_UP_EVENT: <3,-1> at if 2
+DEBUG| 0.001288| /test/n0/ospf/| Neighbor 3's state changed: DOWN->INIT, NeighborUp
+DEBUG| 0.001288| /test/n0/ospf/| NEIGHBOR_UP_EVENT: <2,-1> at if 1
+DEBUG| 0.001288| /test/n0/ospf/| Neighbor 2's state changed: DOWN->INIT, NeighborUp
+DEBUG| 0.001288| /test/n0/ospf/| NEIGHBOR_UP_EVENT: <1,-1> at if 0
+DEBUG| 0.001288| /test/n0/ospf/| Neighbor 1's state changed: DOWN->INIT, NeighborUp
+DEBUG| 0.0028320000000000003| /test/n0/ospf/| Neighbor 1's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 0.0028320000000000003| /test/n0/ospf/| Neighbor 2's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 0.0028320000000000003| /test/n0/ospf/| Neighbor 3's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 0.004248| /test/n0/ospf/| Neighbor 3's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 0.004248| /test/n0/ospf/| Neighbor 2's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 0.004248| /test/n0/ospf/| Neighbor 1's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 0.0070799999999999995| /test/n0/ospf/| Neighbor 3's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 0.0070799999999999995| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.0070799999999999995| /test/n0/ospf/| Neighbor 2's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 0.0070799999999999995| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.0070799999999999995| /test/n0/ospf/| Neighbor 1's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 0.0070799999999999995| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.008847999999999998| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.008847999999999998| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.010615999999999997| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.011031999999999997| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 0.011031999999999997| /test/n0/ospf/| 0 Add Route Entry 2, 2_{1}, cost 1, lsa from:2,header:<origin:2,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:0,metric:1>]
+DEBUG| 0.012151999999999996| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 4.008848| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:2,cost:1,neighbors:[3,adjacent,#lsa_retrans:1,lsa_retrans:[from:2,header:<origin:2,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:0,metric:1>]]]
+DEBUG| 4.008848| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,#lsa_retrans:1,lsa_retrans:[from:2,header:<origin:2,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:0,metric:1>]]]
+DEBUG| 4.011032| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:1,cost:1,neighbors:[2,adjacent,#lsa_retrans:4,lsa_retrans:[from:3,header:<origin:3,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:5,metric:1>], from:1,header:<origin:1,seq#:INIT,age:1,birth: -1,installed: 0>,#links:1,links:[<neighbor:4,metric:1>], from:3,header:<origin:4,seq#:INIT,age:2,birth: -2,installed: 0>,#links:1,links:[<neighbor:5,metric:1>], from:3,header:<origin:5,seq#:INIT,age:2,birth: -2,installed: 0>,#links:1,links:[<neighbor:3,metric:1>]]]
+DEBUG| 5.00708| /test/n0/ospf/| __timeout__ DELAY_FLOOD, id:1,#ls=6,#ifs:3,#vertex:2
+DEBUG| 5.0089120000000005| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.0089120000000005| /test/n0/ospf/| 0 Add Route Entry 1, 1_{0}, cost 1, lsa from:1,header:<origin:1,seq#:INIT+2,age:6,birth: -1,installed: 5>,#links:3,links:[<neighbor:4,metric:1>, <neighbor:3,metric:1>, <neighbor:0,metric:1>]
+DEBUG| 5.0089440000000005| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.0089440000000005| /test/n0/ospf/| 0 Add Route Entry 3, 3_{2}, cost 1, lsa from:3,header:<origin:3,seq#:INIT+3,age:6,birth: -1,installed: 5>,#links:4,links:[<neighbor:5,metric:1>, <neighbor:4,metric:1>, <neighbor:1,metric:1>, <neighbor:0,metric:1>]
+DEBUG| 5.0089440000000005| /test/n0/ospf/| 0 Add Route Entry 5, 3_{2}, cost 2, lsa from:3,header:<origin:5,seq#:INIT,age:7,birth: -2,installed: 0>,#links:1,links:[<neighbor:3,metric:1>]
+DEBUG| 5.010744000000001| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 5.010744000000001| /test/n0/ospf/| 0 Add Route Entry 4, 3_{2}, cost 2, lsa from:1,header:<origin:4,seq#:INIT+2,age:7,birth: -2,installed: 5>,#links:3,links:[<neighbor:5,metric:1>, <neighbor:3,metric:1>, <neighbor:1,metric:1>]
+DEBUG| 5.012376000000001| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 9.008912| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,#lsa_retrans:1,lsa_retrans:[from:-,header:<origin:0,seq#:INIT+2,age:5,birth: 0,installed: 0>,#links:3,links:[<neighbor:3,metric:1>, <neighbor:2,metric:1>, <neighbor:1,metric:1>]]]
+DEBUG| 9.008944| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:2,cost:1,neighbors:[3,adjacent,#lsa_retrans:1,lsa_retrans:[from:-,header:<origin:0,seq#:INIT+2,age:5,birth: 0,installed: 0>,#links:3,links:[<neighbor:3,metric:1>, <neighbor:2,metric:1>, <neighbor:1,metric:1>]]]
+----- /test/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:(<1,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<2,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<0,-1>, peers:(<3,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=5
+   (0,2,0)(0,-1,0)   	2-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT),age(6)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(10)	timeout:NaN
+   (0,5,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+1),age(11)	timeout:NaN
+   (0,4,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(11)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n1/ -----:
+Node: 1
+Interface index ----- interface info
+0 ----- type:0, local:<1,-1>, peers:(<0,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<1,-1>, peers:(<3,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<1,-1>, peers:(<4,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   1	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,2,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT),age(7)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(6)	timeout:NaN
+   (0,5,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+1),age(7)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n2/ -----:
+Node: 2
+Interface index ----- interface info
+0 ----- type:0, local:<2,-1>, peers:(<0,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   2	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(6)	timeout:NaN
+   (0,1,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(7)	timeout:NaN
+   (0,3,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(7)	timeout:NaN
+   (0,5,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+1),age(8)	timeout:NaN
+   (0,4,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(8)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n3/ -----:
+Node: 3
+Interface index ----- interface info
+0 ----- type:0, local:<3,-1>, peers:(<0,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<3,-1>, peers:(<1,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<3,-1>, peers:(<4,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+3 ----- type:0, local:<3,-1>, peers:(<5,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   3	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{3}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(10)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(6)	timeout:NaN
+   (0,2,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT),age(7)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(6)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   3: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n4/ -----:
+Node: 4
+Interface index ----- interface info
+0 ----- type:0, local:<4,-1>, peers:(<1,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<4,-1>, peers:(<3,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<4,-1>, peers:(<5,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   4	timeout --
+Routing Table: #Entries=5
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(10)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(6)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(10)	timeout:NaN
+   (0,0,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(7)	timeout:NaN
+   (0,2,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(8)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n5/ -----:
+Node: 5
+Interface index ----- interface info
+0 ----- type:0, local:<5,-1>, peers:(<3,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<5,-1>, peers:(<4,-1>), timeouts:(55.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   5	timeout --
+Routing Table: #Entries=5
+   (0,3,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(6)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(6)	timeout:NaN
+   (0,1,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(7)	timeout:NaN
+   (0,0,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(7)	timeout:NaN
+   (0,2,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(8)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+Disconnect n0 -- n3
+NEIGHBOR@| EVENT--70.0--/test/n3/csl/hello/.if@--Neighbor Down--NEIGHBOR:<0,-1>--if:0
+NEIGHBOR@| EVENT--70.0--/test/n0/csl/hello/.if@--Neighbor Down--NEIGHBOR:<3,-1>--if:2
+DEBUG| 70.0| /test/n0/ospf/| NEIGHBOR DOWN EVENT: <3,-1>
+DEBUG| 70.0| /test/n0/ospf/| Neighbor 3's state changed: FULL->DOWN, > NeighborDown <
+DEBUG| 70.0| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 70.0| /test/n0/ospf/| 0 Update Route Entry to 3: 1-{0}, cost 2, lsa from:3,header:<origin:3,seq#:INIT+3,age:71,birth: -1,installed: 5>,#links:4,links:[<neighbor:5,metric:1>, <neighbor:4,metric:1>, <neighbor:1,metric:1>, <neighbor:0,metric:1>]
+DEBUG| 70.0| /test/n0/ospf/| 0 Update Route Entry to 5: 1-{0}, cost 3, lsa from:3,header:<origin:5,seq#:INIT+1,age:72,birth: -2,installed: 5>,#links:2,links:[<neighbor:4,metric:1>, <neighbor:3,metric:1>]
+DEBUG| 70.0| /test/n0/ospf/| 0 Update Route Entry to 4: 1-{0}, cost 2, lsa from:1,header:<origin:4,seq#:INIT+2,age:72,birth: -2,installed: 5>,#links:3,links:[<neighbor:5,metric:1>, <neighbor:3,metric:1>, <neighbor:1,metric:1>]
+DEBUG| 70.00395200000001| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 74.00395200000001| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:0,cost:1,neighbors:[1,adjacent,no_retrans]
+----- /test/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:(<1,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<2,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<0,-1>, peers:<null>, timeouts:double[0], MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=5
+   (0,2,0)(0,-1,0)   	2-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT),age(71)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,3,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+4),age(6)	timeout:NaN
+   (0,5,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+1),age(72)	timeout:NaN
+   (0,4,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(72)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n1/ -----:
+Node: 1
+Interface index ----- interface info
+0 ----- type:0, local:<1,-1>, peers:(<0,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<1,-1>, peers:(<3,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<1,-1>, peers:(<4,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   1	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(5)	timeout:NaN
+   (0,2,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT),age(72)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(5)	timeout:NaN
+   (0,5,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+1),age(72)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n2/ -----:
+Node: 2
+Interface index ----- interface info
+0 ----- type:0, local:<2,-1>, peers:(<0,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   2	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+3),age(1)	timeout:NaN
+   (0,1,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(72)	timeout:NaN
+   (0,3,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+4),age(3)	timeout:NaN
+   (0,5,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(4),seq(INIT+1),age(73)	timeout:NaN
+   (0,4,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(73)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n3/ -----:
+Node: 3
+Interface index ----- interface info
+0 ----- type:0, local:<3,-1>, peers:<null>, timeouts:double[0], MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<3,-1>, peers:(<1,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<3,-1>, peers:(<4,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+3 ----- type:0, local:<3,-1>, peers:(<5,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   3	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	1-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(2)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{3}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(71)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,2,0)(0,-1,0)   	1-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(72)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   3: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n4/ -----:
+Node: 4
+Interface index ----- interface info
+0 ----- type:0, local:<4,-1>, peers:(<1,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<4,-1>, peers:(<3,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<4,-1>, peers:(<5,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   4	timeout --
+Routing Table: #Entries=5
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(1)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(71)	timeout:NaN
+   (0,0,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+3),age(6)	timeout:NaN
+   (0,2,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(73)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n5/ -----:
+Node: 5
+Interface index ----- interface info
+0 ----- type:0, local:<5,-1>, peers:(<3,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<5,-1>, peers:(<4,-1>), timeouts:(125.001288), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   5	timeout --
+Routing Table: #Entries=5
+   (0,3,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(1)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(71)	timeout:NaN
+   (0,1,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(72)	timeout:NaN
+   (0,0,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT+3),age(3)	timeout:NaN
+   (0,2,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(4),seq(INIT),age(73)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+Connect n0 -- n3
+NEIGHBOR@| EVENT--100.001288--/test/n0/csl/hello/.if@--Neighbor Up--NEIGHBOR:<3,-1>--if:2
+NEIGHBOR@| EVENT--100.001288--/test/n3/csl/hello/.if@--Neighbor Up--NEIGHBOR:<0,-1>--if:0
+DEBUG| 100.001288| /test/n0/ospf/| NEIGHBOR_UP_EVENT: <3,-1> at if 2
+DEBUG| 100.001288| /test/n0/ospf/| Neighbor 3's state changed: DOWN->INIT, NeighborUp
+DEBUG| 100.00283200000001| /test/n0/ospf/| Neighbor 3's state changed: INIT->EXSTART, Form_Adjacency
+DEBUG| 100.00424800000002| /test/n0/ospf/| Neighbor 3's state changed: EXSTART->XCHG, NegotiationDone
+DEBUG| 100.00900000000001| /test/n0/ospf/| Neighbor 3's state changed: XCHG->FULL, Requestlist Empty
+DEBUG| 100.00900000000001| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 100.01228000000003| /test/n0/ospf/|    ospf_spf_calculate: running Dijkstra for area 1
+DEBUG| 100.01228000000003| /test/n0/ospf/| 0 Update Route Entry to 3: 3-{2}, cost 1, lsa from:3,header:<origin:3,seq#:INIT+5,age:1,birth: 99,installed: 100>,#links:4,links:[<neighbor:5,metric:1>, <neighbor:4,metric:1>, <neighbor:1,metric:1>, <neighbor:0,metric:1>]
+DEBUG| 100.01228000000003| /test/n0/ospf/| 0 Update Route Entry to 5: 3-{2}, cost 2, lsa from:3,header:<origin:5,seq#:INIT+1,age:102,birth: -2,installed: 5>,#links:2,links:[<neighbor:4,metric:1>, <neighbor:3,metric:1>]
+DEBUG| 100.01228000000003| /test/n0/ospf/| 0 Update Route Entry to 4: 3-{2}, cost 2, lsa from:1,header:<origin:4,seq#:INIT+2,age:102,birth: -2,installed: 5>,#links:3,links:[<neighbor:5,metric:1>, <neighbor:3,metric:1>, <neighbor:1,metric:1>]
+DEBUG| 104.01228000000003| /test/n0/ospf/| __timeout__ DELAY_ACK, area:0,if_id:2,cost:1,neighbors:[3,adjacent,#lsa_retrans:1,lsa_retrans:[from:-,header:<origin:0,seq#:INIT+4,age:0,birth: 100,installed: 100>,#links:3,links:[<neighbor:3,metric:1>, <neighbor:2,metric:1>, <neighbor:1,metric:1>]]]
+----- /test/n0/ -----:
+Node: 0
+Interface index ----- interface info
+0 ----- type:0, local:<0,-1>, peers:(<1,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<0,-1>, peers:(<2,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<0,-1>, peers:(<3,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   0	timeout --
+Routing Table: #Entries=5
+   (0,2,0)(0,-1,0)   	2-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT),age(101)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+5),age(5)	timeout:NaN
+   (0,5,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+1),age(102)	timeout:NaN
+   (0,4,0)(0,-1,0)   	3-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(102)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n1/ -----:
+Node: 1
+Interface index ----- interface info
+0 ----- type:0, local:<1,-1>, peers:(<0,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<1,-1>, peers:(<3,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<1,-1>, peers:(<4,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   1	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(5)	timeout:NaN
+   (0,2,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT),age(102)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+5),age(1)	timeout:NaN
+   (0,5,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(2),seq(INIT+1),age(102)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n2/ -----:
+Node: 2
+Interface index ----- interface info
+0 ----- type:0, local:<2,-1>, peers:(<0,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   2	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(1)	timeout:NaN
+   (0,1,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(102)	timeout:NaN
+   (0,3,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+5),age(2)	timeout:NaN
+   (0,5,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+1),age(103)	timeout:NaN
+   (0,4,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT+2),age(103)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n3/ -----:
+Node: 3
+Interface index ----- interface info
+0 ----- type:0, local:<3,-1>, peers:(<0,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<3,-1>, peers:(<1,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<3,-1>, peers:(<4,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+3 ----- type:0, local:<3,-1>, peers:(<5,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   3	timeout --
+Routing Table: #Entries=5
+   (0,0,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+4),age(5)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{3}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(101)	timeout:NaN
+   (0,1,0)(0,-1,0)   	1-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,2,0)(0,-1,0)   	0-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT),age(102)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   3: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n4/ -----:
+Node: 4
+Interface index ----- interface info
+0 ----- type:0, local:<4,-1>, peers:(<1,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<4,-1>, peers:(<3,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+2 ----- type:0, local:<4,-1>, peers:(<5,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   4	timeout --
+Routing Table: #Entries=5
+   (0,1,0)(0,-1,0)   	1-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,3,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+5),age(1)	timeout:NaN
+   (0,5,0)(0,-1,0)   	5-{2}	ROUTER,INTRA_AREA,cost(1),seq(INIT+1),age(101)	timeout:NaN
+   (0,0,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+4),age(2)	timeout:NaN
+   (0,2,0)(0,-1,0)   	3-{1}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(103)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   2: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
+----- /test/n5/ -----:
+Node: 5
+Interface index ----- interface info
+0 ----- type:0, local:<5,-1>, peers:(<3,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+1 ----- type:0, local:<5,-1>, peers:(<4,-1>), timeouts:(225.00128800000002), MTU=2147483647, BW=-1.0, buffer=-1
+Identity: #Identities=1
+   5	timeout --
+Routing Table: #Entries=5
+   (0,3,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(1),seq(INIT+5),age(1)	timeout:NaN
+   (0,4,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(1),seq(INIT+2),age(101)	timeout:NaN
+   (0,1,0)(0,-1,0)   	4-{1}	ROUTER,INTRA_AREA,cost(2),seq(INIT+2),age(102)	timeout:NaN
+   (0,0,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(2),seq(INIT+4),age(2)	timeout:NaN
+   (0,2,0)(0,-1,0)   	3-{0}	ROUTER,INTRA_AREA,cost(3),seq(INIT),age(103)	timeout:NaN
+Interfaces:
+   0: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+   1: BufferMode=byte, BufferSize=2147483647, Bandwidth=1000000.0, MTU=2147483647, LinkEmu=false
+
