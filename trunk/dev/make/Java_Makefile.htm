@@ -1,0 +1,779 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0035)http://www.geosoft.no/javamake.html -->
+<HTML><HEAD><TITLE>Java Makefile</TITLE>
+<META content="Geotechnical Software Services" name=Author>
+<META 
+content="java, makefile, make, compile, gnumake, nmake, gnu, source, destination, directory, jar, archive, build, depend, dependency, dependencies, package, class, .java, .class, rmi, jni, stub, skeleton, clean, root, javac, javah, rmic, javadoc, options, classdir, download, geosoft, geotechnical, software, service, stavanger, norway" 
+name=Keywords>
+<META 
+content="A simple, but yet complete make setup for Java. Includes dependency handling and support for building class files, JAR archives, JNI interfaces, RMI stub and skeletons, Javadoc documentation and more." 
+name=Description>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Java_Makefile_files/style.css" type=text/css rel=STYLESHEET>
+<META content="MSHTML 5.50.4134.600" name=GENERATOR></HEAD>
+<BODY>
+<TABLE cellSpacing=0 cellPadding=5 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=smalltitle>Java </TD></TR></TBODY></TABLE>
+<P>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD width="90%">
+      <CENTER>
+      <H1>A Complete Makefile Setup for Java</H1></CENTER>
+      <CENTER><I>Geotechnical Software Services </I></CENTER>
+      <CENTER><I>Version 2.1, August 2000 </I></CENTER>
+      <CENTER><I>Copyright © 2000 </I></CENTER></TD>
+    <TD width="10%"><IMG alt=JavaCup hspace=30 
+      src="Java_Makefile_files/java.gif" align=right vspace=10> 
+</TD></TR></TBODY></TABLE>
+<UL>
+  <LI><A href="#Introduction">Introduction </A>
+  <LI><A 
+  href="#Organizing the Development">Organizing 
+  the Development </A>
+  <LI><A href="#Prerequisites">Prerequisites 
+  </A>
+  <LI><A href="#The Makefiles">The Makefiles 
+  </A>
+  <LI><A href="#Running Make">Running Make 
+  </A>
+  <LI><A 
+  href="#A Package Makefile Generator">A 
+  Package Makefile Generator </A>
+  <LI><A 
+  href="#Incremental Development">Incremental 
+  Development </A>
+  <LI><A href="#Download">Download 
+</A></LI></UL><!--
+*******************************************************************************
+   Introduction
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name=Introduction></A>Introduction </H2>
+<P>The last few years integrated development environments (IDE) have become 
+popular for software development. IDE's provides the developer with all the 
+tools required for the development task such as <EM>file manager</EM>, 
+<EM>version control system</EM>, <EM>modeling tools</EM>, <EM>editor</EM>, 
+<EM>compiler</EM>, <EM>debugger</EM>, <EM>user interface builder</EM>, 
+<EM>execution environment</EM>, <EM>profiler</EM> and <EM>performance analyzing 
+tools</EM>. In particular the user interface builder part of IDE's has proved 
+useful, and is the backbone of IDE's like VisualBasic, Delphi, VisualC++, 
+VisualCafé to name a few. </P>
+<P>In many cases however, it is far more efficient to do code development in a 
+pure terminal oriented environment. This is done to avoid the vast overhead of 
+the IDE itself, to achieve better control of the development process and to be 
+able to choose development tools like editors and debuggers on an individual 
+basis. For these reasons it is not uncommon to divide projects into UI modules 
+and non-UI modules, and use IDE's only on the former. </P>
+<P>Doing development in a pure environment requires a powerful make setup to be 
+efficient. The makefile setup provided here is powerful yet simple. It was 
+created to support large scale multi-platform development, but is equally well 
+suited for the single source file project. </P>
+<P>The makefiles in this document uses <EM>GnuMake</EM> syntax. GnuMake is the 
+default make system on the Linux platform, it is available on all UNIX 
+platforms, and a Microsoft Windows version can be downloaded from <A 
+href="http://www.edv.agrar.tu-muenchen.de/~syring/win32/UnxUtils.html">here</A>. 
+(Look for the file <B>UnxUtils.zip</B>. Download and unpack it, and make sure 
+the <B>wbin/</B> directory becomes part of your path.) The actual <EM>make</EM> 
+command in GnuMake is sometimes called <B>gnumake</B> and sometime just 
+<B>make</B> (as is the case on Linux). In this document the latter is used 
+consistently. </P><!--
+*******************************************************************************
+   Organizing the Development
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name="Organizing the Development"></A>Organizing the Development </H2>
+<P>There are no constraints on how a Java development project should be 
+organized within a file system, but the setup that is suggested here is both 
+intuitive, scalable and easy to maintain. The makefile setup below depends on 
+this directory structure in order to work. </P>
+<P>Some directory is chosen to be the development root directory (denoted 
+JAVA_DEV_ROOT below), and underneath it are the following subdirectories: </P>
+<P><PRE>$JAVA_DEV_ROOT/src
+              /classes
+              /jars
+              /bin
+              /docs
+              /html
+              /make
+</PRE>
+<P></P>
+<P>The <B>src/</B> directory holds the Java source (.java) files. If you intend 
+to develop software for the world market and your organization has a domain 
+name, the domain name should be reflected in the directory structure beneath the 
+source directory. For the Adobe (adobe.com) organization for instance this 
+becomes: </P>
+<P><PRE>$JAVA_DEV_ROOT/src/com/adobe<BR>
+</PRE>
+<P></P>
+<P>The reflected domain name as part of the directory structure ensures that 
+Java classes are world wide unique. For in-house development projects or for a 
+development for a particular customer, this part of the directory structure can 
+be omitted. </P>
+<P>Underneath this directory, packages can be organized in containers according 
+to the projects at hand. A typical setup might be: </P>
+<P><PRE>$JAVA_DEV_ROOT/src/com/adobe/illustrator/ui/window/
+                            /illustrator/ui/dialogs/
+                            /illustrator/ui/print/
+                            /illustrator/ui/print/postscipt/
+                            /illustrator/ui/print/pdf/
+                            /framemaker/editor/.../...
+                            /framemaker/editor/.../...
+                            /...
+</PRE>
+<P></P>
+<P>Package names for source files within a given directory must always reflect 
+the name indicated by the directory structure. For instance the source file </P>
+<P><PRE>$JAVA_DEV_ROOT/src/no/geosoft/directory/Test.java<BR>
+</PRE>
+<P></P>
+<P>must be part of the package no.geosoft.directory, and thus the first 
+statement of the file must be </P>
+<P><PRE>package no.geosoft.directory;
+</PRE>
+<P></P>
+<P>Consequently, moving files and directories around within the source tree 
+requires quite some updating on the source files themselves and spending some 
+time planning the directory setup up front can save a lot of effort. </P>
+<P>The <B>classes/</B> directory contains target files produced by the source 
+files, and the directory structure will be identical to the src tree. </P>
+<P>The <B>jars/</B> directory contains all .jar archives in use. This includes 
+3rd-party .jar files that should be copied here manually, and produced .jar 
+files that will be put here automatically by make. It would be tempting to 
+divide between your own .jar files and 3-rd party ones, but if you want to run 
+your application through a .jar file you've made, all .jar files must be located 
+in the same directory. Under UNIX both can be achieved by using symbolic links. 
+</P>
+<P>The <B>bin/</B> directory can be used for convenience scripts for launching 
+Java applications etc. This directory is not referred to by the make system and 
+is optional. A developer will typically run an application by <B>make run</B> 
+anyway. More on this below. </P>
+<P>The <B>docs/</B> directory will hold all output from the Javadoc 
+documentation tool. The sub directory structure is automatically created by 
+Javadoc and is similar to the one in the <B>src/</B> and <B>classes/</B> 
+directory. The entry point for the HTML browser will be the file 
+<B>$JAVA_DEV_ROOT/docs/index.html</B>. </P>
+<P>The <B>html/</B> directory should contain scratch .html files for testing 
+Java applets. This directory is the applet equivalent of the bin directory for 
+applications. The html directory is not referred to by the make system and is 
+optional. </P>
+<P>The <B>make/</B> directory will hold the common (project independent) 
+makefile shown below, optional scripts, make log files etc. </P><!--
+*******************************************************************************
+   Prerequisites
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name=Prerequisites></A>Prerequisites</H2>
+<P>The following three environment variables has to be set prior to the use of 
+the make system given below: </P>
+<UL>
+  <LI><B>JAVA_HOME</B> - Pointing to the Java distribution that is being used, 
+  for instance <TT>/usr/local/jdk1.3</TT>. All Java tools used by the make 
+  system is referred to through this pointer, thus changing to a different Java 
+  version is as simple as resetting this variable. <BR><BR>
+  <LI><B>JAVA_DEV_ROOT</B> - Pointing to the development root directory as 
+  described above. <BR><BR>
+  <LI><B>IS_UNIX</B> - Should be set to true if the development platform is UNIX 
+  and left unset (default) if it is not. This variable is needed for the sole 
+  purpose of getting the file separator token used by the Java tools correct. 
+  (It is ; on MS-Windows and : on UNIX.) </LI></UL><!--
+*******************************************************************************
+   The Makefiles
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name="The Makefiles"></A>The Makefiles</H2>
+<P>There are four different makefiles involved. These are: </P>
+<UL>
+  <LI><B>Package Makefile</B> - One for each package, located within the package 
+  directory, and containing the list of source files that constitute the 
+  package. <BR><BR>
+  <LI><B>Jar Makefile</B> - One for each .jar archive to be produced, located 
+  within the jars directory, and containing the list of packages that constitute 
+  the archive. Jar makefiles are optional. <BR><BR>
+  <LI><B>Project Makefile</B> - Located at $JAVA_DEV_ROOT/, listing all packages 
+  and jar files that constitute the project, the executable class as well as 
+  Javadoc details. <BR><BR>
+  <LI><B>Main Makefile</B> - Located in the <TT>$JAVA_DEV_ROOT/make/</TT> 
+  directory and containing all the fine details about how to produce targets 
+  from source. This is the heart and the brain of the entire make system. 
+  <BR><BR></LI></UL>
+<H3><A name="Package Makefile"></A>Package Makefile</H3>
+<P>The package makefile should be called <EM>Makefile</EM> and should be located 
+within the package directory. An example package makefile is shown below: 
+</P><BR>
+<P><PRE>PACKAGE = no.geosoft.directory
+
+SOURCE  = \
+	Directory.java \
+	Entry.java \
+	Folder.java \
+	Item.java \
+	Test.java \
+	folder.gif \
+	item.gif \
+
+RMI_SOURCE =
+
+MAIN       = Test
+
+include $(JAVA_DEV_ROOT)/Makefile
+</PRE>
+<P></P><BR><BR>
+<P>The <TT>PACKAGE</TT> entry indicates the package name. According to the 
+package name, the example file above is found at 
+$JAVA_DEV_ROOT/src/no/geosoft/directory/Makefile. </P>
+<P>The <TT>SOURCE</TT> entry lists all the source files. .java files will be 
+passed to the Java compiler and all other files (like the .gif files above) will 
+be copied unprocessed to the <B>classes/</B> tree. </P>
+<P>The <TT>RMI_SOURCE</TT> entry is optional and list all .java files that are 
+to be passed to the rmi compiler. Note that these files must also be listed 
+under the <TT>SOURCE</TT> entry. </P>
+<P>The <TT>MAIN</TT> entry is optional and indicates which class contains the 
+<TT>main()</TT> method. Leave open if none of them do. </P>
+<H3><A name="Jar Makefile"></A>Jar Makefile</H3>
+<P>Jar makefiles are only used if files from the class tree are to be archived 
+into jar files. A jar file can contain the entire classes tree or a subset of 
+it, and there can be more than one jar file, each archiving its own part of the 
+classes tree. A jar makefile should be called <EM>Makefile.archive.jar</EM> 
+where <EM>archive</EM> is the name of the actual archive. Jar makefiles should 
+be located in the <B>jars/</B> directory. </P>
+<P>An example jar makefile is shown below: </P><BR>
+<P><PRE>JAR_CONTENT = \
+       no/geosoft/directory \
+
+MANIFEST = Manifest.directory.jar
+
+include $(JAVA_DEV_ROOT)/Makefile
+</PRE>
+<P></P><BR><BR>
+<P>The <TT>JAR_CONTENT</TT> entry lists all package directories that are to be 
+included in the archive. Only the root directory needs to be specified if all 
+sub directories (i.e packages) are to be included. </P>
+<P>For each archive, a <EM>manifest</EM> file must always be present. The 
+manifest file for an archive should be located alongside the makefile in the 
+<B>jars/</B> directory and be indicated by the <TT>MANIFEST</TT> entry. </P>
+<H3><A name="Project Makefile"></A>Project Makefile</H3>
+<P>The project makefile lists all packages and jar archives that constitutes the 
+project. The project makefile is mandatory since it is included by the package 
+makefiles. </P>
+<P>An example project makefile is shown below: </P>
+<P><PRE><CODE class=comment>
+#*********************************************************************
+#
+#  (C) 2000 Geotecnical Software Services - GeoSoft
+# 
+#*********************************************************************
+</CODE>
+PACKAGES = \
+	no.geosoft.directory \
+	no.geosoft.user \
+	no.geosoft.access \
+
+NODOC_PACKAGES = \
+
+JARS = \
+	directory.jar \
+
+JARS_3RDPARTY = \
+	mysql.jar \
+	jcarnac.jar \
+
+MAIN_CLASS     = Test
+MAIN_PACKAGE   = no.geosoft.directory
+MAIN_JAR       = directory.jar
+
+RUN_PARAMETERS = 
+
+<TT class=comment>
+#*********************************************************************
+#
+# Javadoc
+#
+#*********************************************************************
+</TT>
+WINDOWTITLE = 'Geotachnical Software Services - API Specification'
+DOCTITLE    = 'GeoSoft API'
+HEADER      = 'GeoSoft API'
+BOTTOM      = '&lt;font size="-1"&gt;Copyright &amp;copy; 2000 - Geotechnical Software Services &nbsp; &nbsp; 
+              &lt;a href="http://geosoft.no"&gt;geosoft.no&lt;/a&gt;&lt;/font&gt;'
+
+include $(JAVA_DEV_ROOT)/make/Makefile
+</PRE>
+<P></P><BR><BR>
+<P>The <TT>PACKAGES</TT> entry lists all the packages that are governed by this 
+makefile. This set is also the packages that will be documented by Javadoc. </P>
+<P>The project might consist of directories with no .java files in them (for 
+instance an images/ directory consisting of .gif files). This directory is still 
+a "package" in the sense that it has to be processed by make, but Javadoc is not 
+able to handle it and will in fact crash if it is encountered. Therefore, such 
+"packages" needs to be listed under the <TT>NODOC_PACKAGES</TT>. </P>
+<P>The <TT>JARS</TT> entry lists all the jar archives that the project is 
+responsible for, while the <TT>JARS_3RDPARTY</TT> entry lists all 3rd party 
+archives that are referred to. </P>
+<P>The <TT>MAIN_CLASS</TT>, <TT>MAIN_PACKAGE</TT> and <TT>MAIN_JAR</TT> are 
+being used for identifying the entry point when running a program. The 
+<TT>RUN_PARAMETERS</TT> entry consist of options that are passed to the 
+executable when it is started. </P>
+<P>The Javadoc entries are optional and used for decoration of the produced 
+Javadoc documentation. </P>
+<H3><A name="Main Makefile"></A>Main Makefile</H3>
+<P>The Main makefile is the heart and brain of the make setup, and should be 
+located in the <B>make/</B> directory and be called <EM>Makefile</EM>. It is not 
+executed directly, but rather included by the project makefile. This makefile 
+contains everything needed to build the project described in the other makefiles 
+and it is rather complex. However, it it is written once and for all, and can to 
+a large extent be left alone as is. </P>
+<P>The Main Makefile is shown below: </P><PRE><CODE class=comment>
+#***************************************************************************
+#
+#  (C) 2000 Geotechnical Software Services - GeoSoft
+#
+#***************************************************************************
+
+#***************************************************************************
+#
+#  Section 1: Directories.
+#
+#***************************************************************************
+</CODE>
+CLASS_DIR        = $(JAVA_DEV_ROOT)/classes
+DOC_DIR          = $(JAVA_DEV_ROOT)/docs
+MAKE_DIR         = $(JAVA_DEV_ROOT)/make
+JAR_DIR          = $(JAVA_DEV_ROOT)/jars
+
+ifdef JAVA_DEV_LOCAL
+SOURCE_DIR       = $(JAVA_DEV_LOCAL)/src
+LOCAL_CLASS_DIR  = $(JAVA_DEV_LOCAL)/classes
+DESTINATION      = $(JAVA_DEV_LOCAL)/classes
+else
+SOURCE_DIR       = $(JAVA_DEV_ROOT)/src
+DESTINATION      = $(JAVA_DEV_ROOT)/classes
+endif
+
+JAVA_BIN         = $(JAVA_HOME)/bin
+
+<TT class=comment>
+#***************************************************************************
+#
+#  Section 2. Tools and options.
+#
+#***************************************************************************
+</TT>
+JAVA     = java
+JAVAC    = javac
+JAVAH    = javah
+RMIC     = rmic
+JAR      = jar
+DEBUG    = jdb
+DELETE   = rm -f
+COPY     = cp
+JINDENT  = Jindent
+PROFILER = -Xrunhprof
+MAKEDIR  = mkdir.exe -p
+PRINT    = @echo
+JAVADOC  = javadoc
+CHMOD    = chmod.exe
+
+ifdef IS_UNIX
+SEP = :
+else
+SEP = ;
+endif
+
+EMPTY            =
+SPACE            = $(EMPTY) $(EMPTY)
+
+LOCAL_JARTMP     = $(patsubst %,$(JAR_DIR)/%,$(JARS))
+LOCAL_JARLIST    = $(subst $(SPACE),$(SEP),$(LOCAL_JARTMP))
+
+OTHER_JARTMP     = $(patsubst %,$(JAR_DIR)/%,$(JARS_3RDPARTY))
+OTHER_JARLIST    = $(subst $(SPACE),$(SEP),$(OTHER_JARTMP))
+
+JRE              = $(JAVA_HOME)/jre/lib/rt.jar
+
+SOURCEPATH       = $(SOURCE_DIR)
+CLASSPATH        = $(JRE)$(SEP)$(LOCAL_CLASS_DIR)$(SEP)$(CLASS_DIR)$(SEP)$(LOCAL_JARLIST)$(SEP)$(OTHER_JARLIST)
+
+JAVAC_OPTIONS    = -d $(DESTINATION) -classpath $(CLASSPATH) -sourcepath $(SOURCEPATH) -deprecation
+JAVA_OPTIONS     = -classpath $(CLASSPATH) 
+RMIC_OPTIONS     = -d $(CLASS_DIR) -classpath $(CLASSPATH)
+JAR_OPTIONS      = -cvmf
+JINDENT_OPTIONS  = -p $(MAKE_DIR)/style.jin
+PROFILER_OPTIONS = cpu=samples,depth=6
+
+JAVADOC_OPTIONS  = \
+	-d $(DOC_DIR) \
+	-sourcepath $(SOURCE_DIR) \
+	-classpath $(CLASSPATH) \
+	-author \
+	-package \
+	-use \
+	-splitIndex \
+	-version \
+	-windowtitle $(WINDOWTITLE) \
+	-doctitle $(DOCTITLE) \
+	-header $(HEADER) \
+	-bottom $(BOTTOM)
+
+
+<TT class=comment>
+#***************************************************************************
+#
+#  Section 3. Rules and dependencies.
+#
+#  This section defines the exact rules for creating a target file from
+#  a (set of) source file(s). The rules can be quite complex and the
+#  makefile syntax is not extreamly readable. A quick crash course:
+#
+#  target : depends
+#    rule
+#
+#  target  - the parameter given to make: What to build
+#  depends - file or other targets target depends on
+#  rule    - how to create target
+#  $(VAR)  - environment variable or variable defined above
+#  $@      - Current target
+#  $*      - Current target without extension
+#  $&lt;      - Current dependency
+#
+#***************************************************************************
+</TT>
+
+PACKAGE_LOC     = $(subst .,/,$(PACKAGE))
+PACKAGE_DIR     = $(DESTINATION)/$(PACKAGE_LOC)
+JAVA_FILES      = $(filter  %.java,$(SOURCE))
+NONJAVA_FILES   = $(patsubst %.java,,$(SOURCE))
+CLASS_FILES     = $(JAVA_FILES:%.java=$(PACKAGE_DIR)/%.class)
+OTHER_FILES     = $(NONJAVA_FILES:%=$(PACKAGE_DIR)/%)
+JNI_CLASS_FILES = $(JNI_SOURCE:%.java=$(PACKAGE_DIR)/%.class)
+JNI_HEADERS     = $(JNI_SOURCE:%.java=%.h)
+RMI_CLASS_FILES = $(RMI_SOURCE:%.java=$(PACKAGE_DIR)/%.class)
+RMI_STUB_FILES  = $(RMI_SOURCE:%.java=$(PACKAGE_DIR)/%_Stub.class)
+RMI_SKEL_FILES  = $(RMI_SOURCE:%.java=$(PACKAGE_DIR)/%_Skel.class)
+ALL_CLASS_FILES = $(CLASS_FILES) $(RMI_STUB_FILES) $(RMI_SKEL_FILES)
+JAR_CONTENT_CMD = $(patsubst %,-C $(CLASS_DIR) %,$(JAR_CONTENT))
+
+<TT class=comment>
+# Make a list of all packages involved</TT>
+ifdef PACKAGE
+PACKAGE_LIST    = $(subst .,/,$(PACKAGE))
+MAIN_CLASS      = $(MAIN)
+MAIN_PACKAGE    = $(PACKAGE)
+else
+PACKAGE_LIST    = $(subst .,/,$(PACKAGES)) $(subst .,/,$(NODOC_PACKAGES))
+endif
+
+PLIST_CLEAN     = $(patsubst %,$(SOURCE_DIR)/%/.clean,$(PACKAGE_LIST))
+PLIST_BUILD     = $(patsubst %,$(SOURCE_DIR)/%/.build,$(PACKAGE_LIST))
+
+<TT class=comment>
+# Rule 0. Applied when make is called without targets. Invokes rule 10.</TT>
+default : buildall
+
+<TT class=comment>
+# Rule 1. Building a .class file from a .java file</TT>
+$(PACKAGE_DIR)/%.class :: $(SOURCE_DIR)/$(PACKAGE_LOC)/%.java
+	$(JAVA_BIN)/$(JAVAC) $(JAVAC_OPTIONS) $&lt; 
+
+<TT class=comment>
+# Rule 2. Building a .class file from a .java file. Invokes rule 1.</TT>
+%.class : $(SOURCE_DIR)/$(PACKAGE_LOC)/%.java
+	$(MAKE) -k $(PACKAGE_DIR)/$@
+
+<TT class=comment>
+# Rule 3. Building a JNI .h stub file from a .class file</TT>
+$(SOURCE_DIR)/$(PACKAGE_LOC)/%.h : $(PACKAGE_DIR)/%.class
+	$(JAVA_BIN)/$(JAVAH) $(JAVAH_OPTIONS) $(PACKAGE).$*
+
+<TT class=comment>
+# Rule 4. Building a JNI .h stub file from a class file. Invokes rule 3.</TT>
+%.h : %.class
+	$(MAKE) -k $(SOURCE_DIR)/$(PACKAGE_LOC)/$@
+
+<TT class=comment>
+# Rule 5. Building an RMI _Stub.class file from a .class file </TT>
+$(PACKAGE_DIR)/%_Stub.class :: $(PACKAGE_DIR)/%.class
+	$(JAVA_BIN)/$(RMIC) $(RMIC_OPTIONS) $(PACKAGE).$*
+
+<TT class=comment>
+# Rule 6. Building an RMI _Skel.class file from a .class file</TT>
+$(PACKAGE_DIR)/%_Skel.class :: $(PACKAGE_DIR)/%.class
+	$(JAVA_BIN)/$(RMIC) $(RMIC_OPTIONS) $(PACKAGE).$*
+
+<TT class=comment>
+# Rule 7. Building an RMI _Stub.class file from a .class file. Invokes rule 5.</TT>
+%_Stub.class : %.class
+	$(MAKE) -k $(PACKAGE_DIR)/$@
+
+<TT class=comment>
+# Rule 8. Building an RMI _Skel.class file from a .class file. Invokes rule 6.</TT>
+%_Skel.class : %.class
+	$(MAKE) -k $(PACKAGE_DIR)/$@
+
+<TT class=comment>
+# Rule 9. Default behaviour within a package: Simply copy the object from src
+# to classes. Note that the location of this rule is important. It must be after
+# the package specifics.</TT>
+$(PACKAGE_DIR)/% :: $(SOURCE_DIR)/$(PACKAGE_LOC)/%
+#	$(MAKEDIR) $(PACKAGE_DIR)
+	$(COPY) $&lt; $@
+	$(CHMOD) u+rw $@
+
+<TT class=comment>
+# Rule 10. Build class files rmi stub and skeletons and process all other source</TT>
+all : $(CLASS_FILES) $(RMI_STUB_FILES) $(RMI_SKEL_FILES) $(OTHER_FILES)
+
+<TT class=comment>
+# Rule 11. Build JNI .h files. Invokes rule 4.</TT>
+jni       : $(JNI_CLASS_FILES) $(JNI_HEADERS)
+
+<TT class=comment>
+# Rule 12. Build RMI stubs and skeleton files. Invokes rule 7. and rule 8.</TT>
+rmi       : $(RMI_CLASS_FILES) $(RMI_STUB_FILES) $(RMI_SKEL_FILES)
+
+<TT class=comment>
+# Rule 13. Remove all produced files (except javadoc)</TT>
+cleanall :
+	$(DELETE) $(PACKAGE_DIR)/*.class $(OTHER_FILES) $(JNI_HEADERS)
+
+<TT class=comment>
+# Rule 14. Change ".clean" tag to "Makefile", thus call the package makefile which
+# in turn recalls this makefile with target cleanall (rule 13).</TT>
+%.clean :
+	$(MAKE) -k -f $(subst .clean,Makefile,$@) cleanall
+
+<TT class=comment>
+# Rule 15: Call rule 14 for every package directory</TT>
+clean : $(PLIST_CLEAN)
+	$(PRINT) Done clean.
+
+<TT class=comment>
+# Rule 16. Change ".build" tag to "Makefile", thus call the package makefile which
+# in turn recalls this makefile with target all (rule 10).</TT>
+%.build :
+	$(MAKE) -k -f $(subst .build,Makefile,$@) all
+
+<TT class=comment>
+# Rule 17. Call rule 16 for every package</TT>
+buildall : $(PLIST_BUILD)		
+	$(PRINT) Done build.
+
+<TT class=comment>
+# Rule 18. Build a jar file. $* strips the last phony .JAR extension.</TT>
+%.JAR :
+	$(DELETE) $(JAR_DIR)/$*
+	$(JAVA_BIN)/$(JAR) $(JAR_OPTIONS) $(JAR_DIR)/$(MANIFEST) \
+		$(JAR_DIR)/$* $(JAR_CONTENT_CMD)
+#	$(JAVA_BIN)/$(JAR) -i $(JAR_DIR)/$@
+
+<TT class=comment>
+# Rule 19. Create given jar file by invoking its Makefile which triggers rule 18</TT>
+%.jar :
+	$(MAKE) -k -f $(patsubst %,$(JAR_DIR)/Makefile.%,$@) $@.JAR
+
+<TT class=comment>
+# Rule 20. Create all jar files by invoking rule 19</TT>
+jar : $(JARS)
+	$(PRINT) Done jars.
+
+<TT class=comment>
+# Rule 21. Build javadoc for all listed packages</TT>
+javadoc :
+	$(PRINT) $(PACKAGES) &gt; $(JAVA_DEV_ROOT)/packages.tmp
+	$(JAVA_BIN)/$(JAVADOC) $(JAVADOC_OPTIONS) @$(JAVA_DEV_ROOT)/packages.tmp
+	$(DELETE) $(JAVA_DEV_ROOT)/packages.tmp
+	$(PRINT) Done JavaDoc.
+
+<TT class=comment>
+# Rule 22. Run application using classes tree</TT>
+run :
+	$(JAVA_BIN)/$(JAVA) $(JAVA_OPTIONS) $(MAIN_PACKAGE).$(MAIN_CLASS) \
+		$(RUN_PARAMETERS)
+
+<TT class=comment>
+# Rule 23. Run application using jar archive</TT>
+runjar :
+	$(JAVA_BIN)/$(JAVA) -jar $(JAR_DIR)/$(MAIN_JAR) $(RUN_PARAMETERS)
+
+<TT class=comment>
+# Rule 24. Run debugger</TT>
+debug :
+	$(JAVA_BIN)/$(DEBUG) $(JAVA_OPTIONS) $(PACKAGE).$(MAIN)
+
+<TT class=comment>
+# Rule 25. Run the auto indentation tool. Experimental setup. </TT>
+indent :
+	$(JAVA_BIN)/$(JAVA) -classpath $(JAR_3RDPARY_DIR)/Jindent.jar \
+		$(JINDENT) $(JINDENT_OPTIONS) -f "*.java"
+
+<TT class=comment>
+# Rule 26. Run profiler.</TT>
+profile :
+	$(JAVA_BIN)/$(JAVA) $(PROFILER):$(PROFILER_OPTIONS) $(JAVA_OPTIONS) \
+		$(PACKAGE).$(MAIN)
+
+<TT class=comment>
+# Rule 27. A combination of steps used for automatic building</TT>
+complete : clean buildall jar javadoc
+</PRE><BR><!--
+*******************************************************************************
+   Running make
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name="Running Make"></A>Running Make</H2>
+<P>Using the make system is quite simple. You will run it from either the 
+package level or from the project level. </P>
+<P>The following commands can be applied from the package level (i.e when 
+standing in a given package directory):<BR><BR><TT><B>&nbsp;&nbsp; make 
+</B></TT>- Process all source files in given package<BR><BR><TT><B>&nbsp;&nbsp; 
+make clean </B></TT>- Remove all produced files of given 
+package<BR><BR><TT><B>&nbsp;&nbsp; make SomeFile.class </B></TT>- Produce a 
+specific file.<BR><BR></P>
+<P>The following commands can be applied from the project level (i.e while 
+standing in the <TT>$JAVA_DEV_ROOT/</TT> directory):<BR><BR><TT><B>&nbsp;&nbsp; 
+make</B></TT> - Process all source files in all 
+packages<BR><BR><TT><B>&nbsp;&nbsp; make clean</B></TT> - Remove all produced 
+files in all packages<BR><BR><TT><B>&nbsp;&nbsp; make jar</B></TT> - Create all 
+specified jar files<BR><BR><TT><B>&nbsp;&nbsp; make SomeJar.jar</B></TT> - 
+Create a specific jar file<BR><BR><TT><B>&nbsp;&nbsp; make javadoc</B></TT> - 
+Create documentation for entire project<BR><BR><TT><B>&nbsp;&nbsp; make 
+run</B></TT> - Run application using the classes tree<BR><BR><TT><B>&nbsp;&nbsp; 
+make runjar</B></TT> - Run application through jar file<BR><BR></P>
+<P>Make will make sure that only target files that are outdated will be 
+processed. This is after all the basic idea behind make. Note however that to 
+make a jar archive, the associated classes files must first be made explicitly. 
+Building a jar archive will not trigger any make on the package level. This is 
+true for the targets <EM>run</EM>, <EM>runjar</EM> and <EM>javadoc</EM> as well. 
+</P>
+<P>When creating Javadoc, an optional <EM>package description</EM> can be 
+included for each package. To have this, create an <B>overview.html</B> HTML 
+file in the package directory, and it will automatically be part of the final 
+documentation. </P><!--
+*******************************************************************************
+   A Package Makefile Generator
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name="A Package Makefile Generator"></A>A Package Makefile Generator</H2>
+<P>A package makefile is typically nothing but a listing of the .java files of 
+the directory together with the package name. This can easily be generated 
+automatically and the following script do just that. The script should be run 
+while standing in the package directory. </P><BR>
+<P><PRE>set file        = Makefile 
+
+set cwd         = `pwd`
+
+set pattern     = `echo $JAVA_DEV_ROOT/src/ | sed "s/\//\\\//g"`
+
+set package_loc = `echo $cwd | sed "s/\${pattern}//g"`
+set package     = `echo $package_loc | sed "s/\//\./g"`
+
+rm -f $file
+touch $file
+
+echo "PACKAGE     = $package" &gt;&gt; $file
+
+echo '' &gt;&gt; $file
+
+echo 'SOURCE      = \' &gt;&gt; $file
+
+foreach sourcefile (`ls *.java *.gif *.jpg`)
+    echo "\t ${sourcefile} \\" &gt;&gt; $file
+end
+
+echo '' &gt;&gt; $file
+echo 'RMI_SOURCE  =' &gt;&gt; $file
+echo '' &gt;&gt; $file
+echo 'MAIN        =' &gt;&gt; $file
+echo '' &gt;&gt; $file
+echo '' &gt;&gt; $file
+echo 'include $(JAVA_DEV_ROOT)/Makefile' &gt;&gt; $file
+echo '' &gt;&gt; $file
+</PRE>
+<P></P><BR><BR>
+<P>Note that the RMI and the MAIN tag cannot be set automatically and, if 
+required, these should be added after the script has been run. </P><!--
+*******************************************************************************
+   Incremental Development
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name="Incremental Development"></A>Incremental Development</H2>
+<P>In a multi-developer environment the actual instance of the directory 
+structure suggested above will be the <EM>official</EM> baseline of a project. 
+</P>
+<P>In addition to this, each developer will typically manage a <EM>delta</EM> 
+baseline in his own local area containing updates to the official project with 
+changes and additions not yet released to the official version. </P>
+<P>The make setup above was created for handling such a setup. </P>
+<P>First thing that needs to be done is to define the environment variable, 
+<B>JAVA_DEV_LOCAL</B> pointing to the delta baseline directory. </P>
+<P>The <TT>JAVA_DEV_LOCAL</TT> directory should have a <B>src/</B> and a 
+<B>classes/</B> sub directory. The <B>src/</B> directory should contain a copy 
+of <EM>the part</EM> of the official <B>src/</B> directory the developer is 
+working on; Typically one or a few packages. For each of these packages the 
+associated makefile must be present, but edited to contain only the source files 
+present. </P>
+<P>In addition to this, the project makefile should be present at 
+<TT>JAVA_DEV_LOCAL</TT> but edited so that it contains only the packages present 
+in the delta baseline. </P>
+<P>With this in place, make can be run on the local baseline in the same way as 
+on the official baseline as described above. Some of the targets does not make 
+sense locally. These includes making jars, running jars (make runjar) or making 
+Javadoc. </P>
+<P>Managing a delta baseline like this is done simply by manipulating the 
+classpath option of the java tools. By specifying the local classes directory 
+before the official one, the local take precedence and are thus overriding the 
+official code. </P><!--
+*******************************************************************************
+   Download
+*******************************************************************************
+-->
+<HR SIZE=1>
+
+<H2><A name=Download></A>Download</H2>
+<P>To get hold of the make files described in this document either cut-paste 
+them directly from the browser or select from the entries below. Note that 
+makefiles require <EM>rules</EM> to be indented by a tab character, and a 
+cut-pasted version of the makefiles will have these as spaces instead. </P>
+<P>&nbsp; &nbsp; <A href="http://www.geosoft.no/Makefile.Package">Package 
+Makefile</A> </P>
+<P>&nbsp; &nbsp; <A href="http://www.geosoft.no/Makefile.Jar">Jar Makefile</A> 
+</P>
+<P>&nbsp; &nbsp; <A href="http://www.geosoft.no/Makefile.Project">Project 
+Makefile</A> </P>
+<P>&nbsp; &nbsp; <A href="http://www.geosoft.no/Makefile.Main">Main Makefile</A> 
+</P>
+<P>&nbsp; &nbsp; <A href="http://www.geosoft.no/makemake.csh">makemake.csh</A> 
+</P><!--
+*******************************************************************************
+   Footer common for all pages 
+*******************************************************************************
+--><BR><BR>
+<HR SIZE=1>
+
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <CENTER class=footnote>© 2001 Geotechnical Software Services. All rights 
+      reserved. <BR>This page is maintained by <A 
+      href="mailto:webmaster@geosoft.no">webmaster@geosoft.no</A> </CENTER></TD>
+    <TD vAlign=bottom><A href="http://www.w3.org/"><IMG 
+      alt="HTML4.0 Compliant" hspace=0 src="Java_Makefile_files/vh40.gif" 
+      align=right border=0> </A></TD></TR></TBODY></TABLE></BODY></HTML>

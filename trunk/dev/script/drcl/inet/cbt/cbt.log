@@ -1,0 +1,48 @@
+create nodes...
+build...
+set up unicast routes
+simulator...
+FC@| EVENT--0.060576000000000005--/test/n52/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??--0--CBT-NaN--
+FC@| EVENT--0.060576000000000005--/test/n52/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??--0--CBT-NaN,(0,-101,0)(0,-1,0):??-0-CBT-NaN)--(graft)
+FC@| EVENT--0.08078933333333334--/test/n51/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-0,2,3-CBT-NaN--
+FC@| EVENT--0.10100266666666667--/test/n0/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-0,1,3-CBT-NaN--
+FC@| EVENT--0.10100266666666667--/test/n16/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+DEBUG| 0.12115200000000001| /test/h1/app/| JOIN to group -101
+DEBUG| 0.12115200000000001| /test/h2/app/| JOIN to group -101
+DEBUG| 0.12115200000000001| /test/h17/app/| JOIN to group -101
+FC@| EVENT--20.060576--/test/n52/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0-CBT-NaN,(0,-101,0)(0,-1,0):??-0,1-CBT-NaN)--(graft)
+FC@| EVENT--20.080789333333335--/test/n53/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-0,1-CBT-NaN--
+FC@| EVENT--20.10100266666667--/test/n8/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+DEBUG| 20.121152000000002| /test/h9/app/| JOIN to group -101
+DEBUG| 30.0| /test/h25/app/| SEND to -101: test_data, size=1300
+DEBUG| 30.108159999999998| /test/h9/app/| RECEIVE from -101: test_data, size=1300
+DEBUG| 30.162239999999997| /test/h1/app/| RECEIVE from -101: test_data, size=1300
+DEBUG| 30.162239999999997| /test/h2/app/| RECEIVE from -101: test_data, size=1300
+DEBUG| 30.162239999999997| /test/h17/app/| RECEIVE from -101: test_data, size=1300
+FC@| EVENT--40.040362666666674--/test/n53/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0,1-CBT-NaN,(0,-101,0)(0,-1,0):??-0,1,2-CBT-NaN)--(graft)
+FC@| EVENT--40.06057600000001--/test/n24/csl/rt/.rt_mcast@--RT Entry Added--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+DEBUG| 40.08072533333335| /test/h25/app/| JOIN to group -101
+DEBUG| 50.0| /test/h2/app/| SEND to -101: test_data_2, size=1100
+DEBUG| 50.0| /test/h2/app/| RECEIVE from -101: test_data_2, size=1100
+DEBUG| 50.051946666666666| /test/h1/app/| RECEIVE from -101: test_data_2, size=1100
+DEBUG| 50.10389333333333| /test/h17/app/| RECEIVE from -101: test_data_2, size=1100
+DEBUG| 50.15584| /test/h9/app/| RECEIVE from -101: test_data_2, size=1100
+DEBUG| 50.15584| /test/h25/app/| RECEIVE from -101: test_data_2, size=1100
+FC@| EVENT--60.020149333333336--/test/n0/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0,1,3-CBT-NaN,(0,-101,0)(0,-1,0):??-1,3-CBT-NaN)--(prune)
+DEBUG| 60.04029866666667| /test/h1/app/| LEAVE group -101
+DEBUG| 60.04029866666667| /test/h2/app/| LEAVE group -101
+FC@| EVENT--60.040362666666674--/test/n51/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0,2,3-CBT-NaN,(0,-101,0)(0,-1,0):??-2,3-CBT-NaN)--(prune)
+FC@| EVENT--66.02014933333334--/test/n0/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-1,3-CBT-NaN--
+DEBUG| 80.04029866666667| /test/h9/app/| LEAVE group -101
+DEBUG| 80.04029866666667| /test/h25/app/| LEAVE group -101
+FC@| EVENT--80.04036266666667--/test/n53/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0,1,2-CBT-NaN,(0,-101,0)(0,-1,0):??-0,2-CBT-NaN)--(prune)
+FC@| EVENT--80.060576--/test/n52/csl/rt/.rt_mcast@--RT Entry Modified--((0,-101,0)(0,-1,0):??-0,1-CBT-NaN,(0,-101,0)(0,-1,0):??-0-CBT-NaN)--(prune)
+FC@| EVENT--86.02014933333334--/test/n24/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+FC@| EVENT--86.02014933333334--/test/n8/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+FC@| EVENT--86.04036266666667--/test/n53/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-0,2-CBT-NaN--
+DEBUG| 90.0| /test/h1/app/| SEND to -101: test_data_3, size=1200
+DEBUG| 90.10602666666665| /test/h17/app/| RECEIVE from -101: test_data_3, size=1200
+DEBUG| 100.04029866666667| /test/h17/app/| LEAVE group -101
+FC@| EVENT--100.060576--/test/n52/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-0-CBT-NaN--
+FC@| EVENT--106.02014933333334--/test/n16/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-1,2-CBT-NaN--
+FC@| EVENT--106.04036266666667--/test/n51/csl/rt/.rt_mcast@--RT Entry Removed--(0,-101,0)(0,-1,0):??-2,3-CBT-NaN--

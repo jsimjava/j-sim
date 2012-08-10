@@ -1,0 +1,133 @@
+create topology...
+create builders...
+build...
+setup static routes...
+Set up TrafficMonitor & Plotter...
+simulation begins...
+GARBAGE| 10.652176000000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq11264--AWND:0--TS10.351276800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 11.101776000000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq12288--AWND:0--TS10.800876800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 11.550926400000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq12800--AWND:0--TS11.250476800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 11.551376000000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq13312--AWND:0--TS11.250476800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.000526400000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq13824--AWND:0--TS11.700076800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.000976000000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq14336--AWND:0--TS11.700076800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.450126400000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq14848--AWND:0--TS12.149676800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.450576000000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq15360--AWND:0--TS12.149676800000003__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.899726400000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq15872--AWND:0--TS12.599276800000004__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 12.900176000000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq16384--AWND:0--TS12.599276800000004__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 13.349326400000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq16896--AWND:0--TS13.048876800000004__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 13.349776000000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq17408--AWND:0--TS13.048876800000004__<EMPTY_BODY>__>__| forced drop
+start h1
+50.0
+GARBAGE| 59.789348799999786| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq44032--AWND:0--TS59.48844959999978__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 60.23849919999978| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq44544--AWND:0--TS59.93804959999978__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 60.688099199999776| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq45056--AWND:0--TS60.387649599999776__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 62.48649919999976| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq6656--AWND:0--TS62.18604959999976__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 62.486948799999766| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq7168--AWND:0--TS62.18604959999976__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 66.98249919999974| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq10752--AWND:0--TS66.68204959999974__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 66.98294879999973| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq11264--AWND:0--TS66.68204959999974__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 67.43209919999974| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq11776--AWND:0--TS67.13164959999975__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 67.43254879999974| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq12288--AWND:0--TS67.13164959999975__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 67.88169919999974| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq12800--AWND:0--TS67.58124959999975__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 67.88214879999974| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq13312--AWND:0--TS67.58124959999975__<EMPTY_BODY>__>__| forced drop
+start h2
+100.0
+GARBAGE| 108.16337599999984| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq64512--AWND:0--TS107.86292639999985__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 112.20977599999988| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq26624--AWND:0--TS111.90932639999988__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 114.9073759999999| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq68096--AWND:0--TS114.6069263999999__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 117.60497599999992| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq30208--AWND:0--TS117.30452639999993__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 141.43377600000025| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq18432--AWND:0--TS141.13332640000024__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 147.7281760000003| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq22016--AWND:0--TS147.4277264000003__<EMPTY_BODY>__>__| forced drop
+150.0
+GARBAGE| 150.42577600000033| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq79360--AWND:0--TS150.12532640000032__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 153.12337600000035| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq41472--AWND:0--TS152.82292640000034__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 187.74257600000064| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq33280--AWND:0--TS187.44212640000063__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 190.44017600000066| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq96256--AWND:0--TS190.13972640000065__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 193.13777600000068| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq58368--AWND:0--TS192.83732640000068__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 194.9361760000007| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq35328--AWND:0--TS194.6357264000007__<EMPTY_BODY>__>__| random drop
+200.0
+GARBAGE| 225.95857600000096| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq113152--AWND:0--TS225.65812640000095__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 229.105776000001| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq75264--AWND:0--TS228.80532640000098__<EMPTY_BODY>__>__| forced drop
+250.0
+GARBAGE| 261.0278256000011| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq51712--AWND:0--TS260.72692640000105__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 265.9729760000008| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq130048--AWND:0--TS265.6725264000008__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 271.3681760000005| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq92160--AWND:0--TS271.0677264000005__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 279.0113760000001| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq94720--AWND:0--TS278.71092640000006__<EMPTY_BODY>__>__| random drop
+300.0
+GARBAGE| 301.49137599999887| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq68608--AWND:0--TS301.19092639999883__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 304.1889759999987| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq146944--AWND:0--TS303.8885263999987__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 328.91697599999736| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq156672--AWND:0--TS328.6165263999973__<EMPTY_BODY>__>__| random drop
+GARBAGE| 337.9094255999969| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq84992--AWND:0--TS337.60852639999683__<EMPTY_BODY>__>__| random drop
+GARBAGE| 341.0566255999967| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq110592--AWND:0--TS340.75572639999666__<EMPTY_BODY>__>__| forced drop
+350.0
+GARBAGE| 371.17937599999505| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq98304--AWND:0--TS370.878926399995__<EMPTY_BODY>__>__| random drop
+GARBAGE| 376.1254255999948| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq173056--AWND:0--TS375.82452639999474__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 381.0705759999945| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq127488--AWND:0--TS380.77012639999447__<EMPTY_BODY>__>__| forced drop
+400.0
+GARBAGE| 408.04702559999305| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq111104--AWND:0--TS407.746126399993__<EMPTY_BODY>__>__| random drop
+GARBAGE| 419.7361759999924| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq189952--AWND:0--TS419.43572639999235__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 424.23217599999214| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq144384--AWND:0--TS423.9317263999921__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 448.5105759999908| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq199680--AWND:0--TS448.21012639999077__<EMPTY_BODY>__>__| random drop
+450.0
+GARBAGE| 451.65777599999063| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq127488--AWND:0--TS451.3573263999906__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 466.9441759999898| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq161280--AWND:0--TS466.64372639998976__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 488.9745759999886| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq211968--AWND:0--TS488.67412639998855__<EMPTY_BODY>__>__| random drop
+GARBAGE| 491.67217599998844| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq144384--AWND:0--TS491.3717263999884__<EMPTY_BODY>__>__| forced drop
+500.0
+GARBAGE| 507.85777599998755| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq178176--AWND:0--TS507.5573263999875__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 529.438575999988| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq185856--AWND:0--TS529.138126399988__<EMPTY_BODY>__>__| random drop
+GARBAGE| 532.1361759999882| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq228352--AWND:0--TS531.8357263999882__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 534.8337759999883| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq161280--AWND:0--TS534.5333263999884__<EMPTY_BODY>__>__| forced drop
+550.0
+GARBAGE| 559.1121759999901| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq238592--AWND:0--TS558.8117263999901__<EMPTY_BODY>__>__| random drop
+GARBAGE| 573.9489759999911| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq178176--AWND:0--TS573.6485263999912__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 576.6470255999914| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq202240--AWND:0--TS576.3461263999914__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 596.8785759999928| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq251392--AWND:0--TS596.5781263999928__<EMPTY_BODY>__>__| random drop
+stop h0
+600.0
+GARBAGE| 616.2118255999942| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq194560--AWND:0--TS615.9109263999942__<EMPTY_BODY>__>__| random drop
+GARBAGE| 619.3585759999944| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq219136--AWND:0--TS619.0581263999944__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 640.0406255999959| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq267776--AWND:0--TS639.7397263999959__<EMPTY_BODY>__>__| random drop
+650.0
+GARBAGE| 659.3729759999973| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq209920--AWND:0--TS659.0725263999973__<EMPTY_BODY>__>__| random drop
+GARBAGE| 662.9697759999975| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq236032--AWND:0--TS662.6693263999975__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 683.202225599999| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq284160--AWND:0--TS682.901326399999__<EMPTY_BODY>__>__| random drop
+700.0
+GARBAGE| 702.9841760000004| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq226816--AWND:0--TS702.6837264000004__<EMPTY_BODY>__>__| random drop
+GARBAGE| 707.0305760000007| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq252928--AWND:0--TS706.7301264000007__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 708.3793760000008| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq291840--AWND:0--TS708.0789264000008__<EMPTY_BODY>__>__| random drop
+GARBAGE| 735.8049760000027| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq240640--AWND:0--TS735.5045264000028__<EMPTY_BODY>__>__| random drop
+GARBAGE| 745.2465760000034| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq268800--AWND:0--TS744.9461264000034__<EMPTY_BODY>__>__| random drop
+750.0
+GARBAGE| 755.1382256000041| /ex1/n3/csl/q3/| sz562(INET)sz20--src:0--dest:5--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq308224--AWND:0--TS754.8373264000041__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 778.5169760000058| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq256512--AWND:0--TS778.2165264000058__<EMPTY_BODY>__>__| random drop
+GARBAGE| 797.4006256000072| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq294400--AWND:0--TS797.0997264000072__<EMPTY_BODY>__>__| forced drop
+800.0
+GARBAGE| 801.8961760000075| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq297984--AWND:0--TS801.5957264000075__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 826.1750256000092| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq287744--AWND:0--TS825.8741264000092__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 845.9574256000107| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq301568--AWND:0--TS845.6565264000106__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 848.6550256000108| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq314368--AWND:0--TS848.3541264000108__<EMPTY_BODY>__>__| forced drop
+850.0
+GARBAGE| 875.6305760000128| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq318464--AWND:0--TS875.3301264000128__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 878.328176000013| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq331264--AWND:0--TS878.027726400013__<EMPTY_BODY>__>__| forced drop
+900.0
+GARBAGE| 905.3041760000149| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq335360--AWND:0--TS905.0037264000149__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 908.0017760000151| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq348160--AWND:0--TS907.7013264000151__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 934.977776000017| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq352256--AWND:0--TS934.677326400017__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 937.6753760000172| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq365056--AWND:0--TS937.3749264000172__<EMPTY_BODY>__>__| forced drop
+950.0
+GARBAGE| 964.6513760000191| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq369152--AWND:0--TS964.3509264000191__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 967.3489760000193| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq381952--AWND:0--TS967.0485264000193__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 994.3249760000213| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq386048--AWND:0--TS994.0245264000213__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 997.0225760000214| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq398848--AWND:0--TS996.7221264000215__<EMPTY_BODY>__>__| forced drop
+stop h1
+1000.0
+GARBAGE| 1023.9985760000234| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq402944--AWND:0--TS1023.6981264000234__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 1026.696176000023| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq415744--AWND:0--TS1026.395726400023__<EMPTY_BODY>__>__| forced drop
+1050.0
+GARBAGE| 1053.672176000018| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq419840--AWND:0--TS1053.3717264000181__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 1056.3697760000175| /ex1/n3/csl/q3/| sz562(INET)sz20--src:1--dest:6--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq432640--AWND:0--TS1056.0693264000176__<EMPTY_BODY>__>__| forced drop
+1100.0
+GARBAGE| 1103.5782256000089| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq463360--AWND:0--TS1103.277326400009__<EMPTY_BODY>__>__| forced drop
+GARBAGE| 1138.1974256000026| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq502784--AWND:0--TS1137.8965264000028__<EMPTY_BODY>__>__| forced drop
+1150.0
+GARBAGE| 1172.8166255999963| /ex1/n3/csl/q3/| sz562(INET)sz20--src:2--dest:7--prot:6--TTL:2/255--ToS:#0--label:0__<sz542(TCP)sz30--s:0--d:0--seq542208--AWND:0--TS1172.5157263999965__<EMPTY_BODY>__>__| forced drop

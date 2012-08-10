@@ -1,0 +1,774 @@
+create nodes...
+build...
+Configuring interfaces...
+set up VIFs...
+simulator...
+DEBUG| 12.000789333333332| /test/n8/dvmrp/| NEIGHBOR UP EVENT: <0,-8> at 2
+DEBUG| 12.000789333333332| /test/n24/dvmrp/| NEIGHBOR UP EVENT: <0,-8> at 2
+DEBUG| 12.000789333333332| /test/n0/dvmrp/| NEIGHBOR UP EVENT: <16,-8> at 3
+DEBUG| 12.000789333333332| /test/n24/dvmrp/| NEIGHBOR UP EVENT: <16,-8> at 4
+DEBUG| 12.000789333333332| /test/n0/dvmrp/| NEIGHBOR UP EVENT: <24,-8> at 4
+DEBUG| 12.000789333333332| /test/n8/dvmrp/| NEIGHBOR UP EVENT: <24,-8> at 3
+DEBUG| 12.001087999999998| /test/n0/dvmrp/| NEIGHBOR UP EVENT: <8,-8> at 2
+DEBUG| 12.001087999999998| /test/n24/dvmrp/| NEIGHBOR UP EVENT: <8,-8> at 3
+DEBUG| 12.001087999999998| /test/n16/dvmrp/| NEIGHBOR UP EVENT: <0,-8> at 2
+DEBUG| 12.001087999999998| /test/n16/dvmrp/| NEIGHBOR UP EVENT: <24,-8> at 3
+DEBUG| 16.002197333333328| /test/n8/dvmrp/| Initial route from neighbor: 0-(0,0,0)(0,-8,0)   0(2)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002197333333328| /test/n24/dvmrp/| Initial route from neighbor: 0-(0,0,0)(0,-8,0)   0(2)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002197333333328| /test/n0/dvmrp/| Initial route from neighbor: 16-(0,16,0)(0,-8,0)   16(3)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002197333333328| /test/n24/dvmrp/| Initial route from neighbor: 16-(0,16,0)(0,-8,0)   16(4)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002197333333328| /test/n0/dvmrp/| Initial route from neighbor: 24-(0,24,0)(0,-8,0)   24(4)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002197333333328| /test/n8/dvmrp/| Initial route from neighbor: 24-(0,24,0)(0,-8,0)   24(3)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002944| /test/n0/dvmrp/| Initial route from neighbor: 8-(0,8,0)(0,-8,0)   8(2)   metric:1(changed)--dependents:(){}
+DEBUG| 16.002944| /test/n24/dvmrp/| Initial route from neighbor: 8-(0,8,0)(0,-8,0)   8(3)   metric:1(changed)--dependents:(){}
+DEBUG| 16.003327999999996| /test/n16/dvmrp/| Initial route from neighbor: 0-(0,0,0)(0,-8,0)   0(2)   metric:1(changed)--dependents:(){}
+DEBUG| 16.003327999999996| /test/n16/dvmrp/| Initial route from neighbor: 24-(0,24,0)(0,-8,0)   24(3)   metric:1(changed)--dependents:(){}
+DEBUG| 21.002197333333328| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 21.002197333333328| /test/n24/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 21.002197333333328| /test/n0/dvmrp/| TRIGGERED UPDATE: # of changed entries = 3
+DEBUG| 21.003327999999996| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 23.00364799999999| /test/n8/dvmrp/| Initial route from neighbor: 24-(0,16,0)(0,-8,0)   24(3)   metric:2(changed)--dependents:(){}
+DEBUG| 23.004373333333323| /test/n16/dvmrp/| Initial route from neighbor: 24-(0,8,0)(0,-8,0)   24(3)   metric:2(changed)--dependents:(){}
+DEBUG| 28.00364799999999| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 28.004373333333323| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 50.0: Stabilized routes:
+----- /test/n0/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-8,0)   	??-{}	metric:0--dependents:(8,16,24){2,3,4}	timeout:NaN
+(0,16,0)(0,-8,0)   	16-{3}	metric:1--dependents:(){}	timeout:170.00539733333332
+(0,24,0)(0,-8,0)   	24-{4}	metric:1--dependents:(){}	timeout:163.003648
+(0,8,0)(0,-8,0)   	8-{2}	metric:1--dependents:(){}	timeout:170.004672
+
+----- /test/n16/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,16,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,24){2,3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:163.00437333333332
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:163.00437333333332
+(0,8,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:163.00437333333332
+
+----- /test/n24/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,24,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,8,16){2,3,4}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:163.003648
+(0,16,0)(0,-8,0)   	16-{4}	metric:1--dependents:(8){3}	timeout:170.00539733333332
+(0,8,0)(0,-8,0)   	8-{3}	metric:1--dependents:(16){4}	timeout:170.004672
+
+----- /test/n8/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,8,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,24){2,3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:163.003648
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:163.003648
+(0,16,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:163.003648
+
+
+DEBUG| 72.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 72.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 72.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 72.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 100.0: The link between n0 and n50 fails.
+DEBUG| 132.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 132.00108799999998| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 132.00108799999998| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 132.00108799999998| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 140.0| /test/n0/dvmrp/| NEIGHBOR DOWN EVENT: <8,-8> at 2
+DEBUG| 140.0| /test/n0/dvmrp/| hold-down (0,8,0)(0,-8,0):8-2-metric:INF(changed)--dependents:(){}-260.0 due to NEIGHBOR TIMEOUT: 8
+DEBUG| 140.0| /test/n0/dvmrp/| NEIGHBOR DOWN EVENT: <16,-8> at 3
+DEBUG| 140.0| /test/n0/dvmrp/| hold-down (0,16,0)(0,-8,0):16-3-metric:INF(changed)--dependents:(){}-260.0 due to NEIGHBOR TIMEOUT: 16
+DEBUG| 140.0| /test/n16/dvmrp/| NEIGHBOR DOWN EVENT: <0,-8> at 2
+DEBUG| 140.0| /test/n16/dvmrp/| hold-down (0,0,0)(0,-8,0):0-2-metric:INF(changed)--dependents:(){}-260.0 due to NEIGHBOR TIMEOUT: 0
+DEBUG| 140.0| /test/n8/dvmrp/| NEIGHBOR DOWN EVENT: <0,-8> at 2
+DEBUG| 140.0| /test/n8/dvmrp/| hold-down (0,0,0)(0,-8,0):0-2-metric:INF(changed)--dependents:(){}-260.0 due to NEIGHBOR TIMEOUT: 0
+DEBUG| 145.0| /test/n0/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 145.0| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 145.0| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 160.0: Transitional state after link failure:
+----- /test/n0/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){4}	timeout:NaN
+(0,16,0)(0,-8,0)   	16-{3}	metric:INF--dependents:(){}	timeout:260.0
+(0,24,0)(0,-8,0)   	24-{4}	metric:1--dependents:(){}	timeout:274.0025386666666
+(0,8,0)(0,-8,0)   	8-{2}	metric:INF--dependents:(){}	timeout:260.0
+
+----- /test/n16/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,16,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:INF--dependents:(){}	timeout:260.0
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:274.00326399999994
+(0,8,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:274.00326399999994
+
+----- /test/n24/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,24,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,8,16){2,3,4}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:287.00123733333334
+(0,16,0)(0,-8,0)   	16-{4}	metric:1--dependents:(8){3}	timeout:287.001024
+(0,8,0)(0,-8,0)   	8-{3}	metric:1--dependents:(16){4}	timeout:287.001536
+
+----- /test/n8/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,8,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:INF--dependents:(){}	timeout:260.0
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:274.0025386666666
+(0,16,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:274.0025386666666
+
+
+DEBUG| 192.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 192.00108799999998| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 192.00108799999998| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 192.00108799999998| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 194.00253866666662| /test/n0/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,16,0)(0,-8,0):16-3-metric:INF--dependents:(){}-260.0
+		--->24-metric:2(changed)--dependents:(){}
+DEBUG| 194.00253866666662| /test/n0/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-8,0):8-2-metric:INF--dependents:(){}-260.0
+		--->24-metric:2(changed)--dependents:(){}
+DEBUG| 194.00253866666662| /test/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-8,0):0-2-metric:INF--dependents:(){}-260.0
+		--->24-metric:2(changed)--dependents:(){}
+DEBUG| 194.00326399999994| /test/n16/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-8,0):0-2-metric:INF--dependents:(){}-260.0
+		--->24-metric:2(changed)--dependents:(){}
+DEBUG| 199.00253866666662| /test/n0/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 199.00253866666662| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 199.00326399999994| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 220.0: Stabilized routes after link failure:
+----- /test/n0/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){4}	timeout:NaN
+(0,16,0)(0,-8,0)   	24-{4}	metric:2--dependents:(){}	timeout:334.0025386666666
+(0,24,0)(0,-8,0)   	24-{4}	metric:1--dependents:(){}	timeout:334.0025386666666
+(0,8,0)(0,-8,0)   	24-{4}	metric:2--dependents:(){}	timeout:334.0025386666666
+
+----- /test/n16/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,16,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){3}	timeout:NaN
+(0,0,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:334.00326399999994
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:334.00326399999994
+(0,8,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:334.00326399999994
+
+----- /test/n24/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,24,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,8,16){2,3,4}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(8,16){3,4}	timeout:341.00377599999996
+(0,16,0)(0,-8,0)   	16-{4}	metric:1--dependents:(0,8){2,3}	timeout:341.0042879999999
+(0,8,0)(0,-8,0)   	8-{3}	metric:1--dependents:(0,16){2,4}	timeout:341.0035626666666
+
+----- /test/n8/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,8,0)(0,-8,0)   	??-{}	metric:0--dependents:(24){3}	timeout:NaN
+(0,0,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:334.0025386666666
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:334.0025386666666
+(0,16,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:334.0025386666666
+
+
+DEBUG| 252.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 252.00108799999998| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 252.00108799999998| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 252.00108799999998| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 270.0: DV's at n0 and n50 are about to discover NEIGHBOR-DOWN.
+DEBUG| 271.00019199999997| /test/n0/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n8/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n16/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n24/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n51/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n50/dv/| REGULAR UPDATE
+DEBUG| 271.00019199999997| /test/n52/dv/| REGULAR UPDATE
+DEBUG| 272.00113066666665| /test/n50/dv/| NeighborTimeout:0,272.00113066666665
+DEBUG| 272.00113066666665| /test/n50/dv/| hold-down (0,0,0)(0,-1,0):0-0-metric:INF(changed)-392.00113066666665 due to neighbor timeout
+DEBUG| 272.00113066666665| /test/n0/dv/| NeighborTimeout:50,272.00113066666665
+DEBUG| 272.00113066666665| /test/n0/dv/| hold-down (0,50,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665 due to neighbor timeout
+DEBUG| 272.00113066666665| /test/n0/dv/| hold-down (0,16,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665 due to neighbor timeout
+DEBUG| 272.00113066666665| /test/n0/dv/| hold-down (0,8,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665 due to neighbor timeout
+DEBUG| 272.00113066666665| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,50,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665
+		--->51-metric:2(changed)
+DEBUG| 272.00113066666665| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,16,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665
+		--->51-metric:3(changed)
+DEBUG| 272.00113066666665| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-1,0):50-0-metric:INF(changed)-392.00113066666665
+		--->51-metric:3(changed)
+DEBUG| 272.00113066666665| /test/n50/dv/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-1,0):0-0-metric:INF(changed)-392.00113066666665
+		--->51-metric:2(changed)
+DEBUG| 277.00113066666665| /test/n50/dv/| TRIGGERED UPDATE
+DEBUG| 277.00113066666665| /test/n0/dv/| TRIGGERED UPDATE
+DEBUG| 278.001536| /test/n8/dv/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-1,0):50-0-metric:2-NaN
+		--->metric:3(changed)
+DEBUG| 278.001536| /test/n16/dv/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-1,0):50-0-metric:2-NaN
+		--->metric:3(changed)
+>>>>> Time 280.0: DV's have adapted themselves to the new topology.
+>>>>>             The virtual topology starts changing back due to the recovery of unicast routes.
+DEBUG| 283.001088| /test/n8/dvmrp/| NEIGHBOR UP EVENT: <0,-8> at 2
+DEBUG| 283.001088| /test/n0/dvmrp/| NEIGHBOR UP EVENT: <16,-8> at 3
+DEBUG| 283.00138666666663| /test/n0/dvmrp/| NEIGHBOR UP EVENT: <8,-8> at 2
+DEBUG| 283.00138666666663| /test/n16/dvmrp/| NEIGHBOR UP EVENT: <0,-8> at 2
+DEBUG| 289.0041599999999| /test/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-8,0):24-3-metric:2--dependents:(){}-394.0025386666666
+		--->0-metric:1(changed)--dependents:(){}
+DEBUG| 289.0041599999999| /test/n0/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,16,0)(0,-8,0):24-4-metric:2--dependents:(){}-394.0025386666666
+		--->16-metric:1(changed)--dependents:(){}
+DEBUG| 289.0048853333332| /test/n0/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-8,0):24-4-metric:2--dependents:(){}-394.0025386666666
+		--->8-metric:1(changed)--dependents:(){}
+DEBUG| 289.0048853333332| /test/n16/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-8,0):24-3-metric:2--dependents:(){}-394.00326399999994
+		--->0-metric:1(changed)--dependents:(){}
+DEBUG| 294.0041599999999| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 294.0041599999999| /test/n0/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 294.0048853333332| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+>>>>> Time 300.0: Stablized routes after link recovery:
+----- /test/n0/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-8,0)   	??-{}	metric:0--dependents:(8,16,24){2,3,4}	timeout:NaN
+(0,16,0)(0,-8,0)   	16-{3}	metric:1--dependents:(){}	timeout:437.00642133333326
+(0,24,0)(0,-8,0)   	24-{4}	metric:1--dependents:(){}	timeout:394.0025386666666
+(0,8,0)(0,-8,0)   	8-{2}	metric:1--dependents:(){}	timeout:437.00569599999994
+
+----- /test/n16/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,16,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,24){2,3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:437.00663466666646
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:394.00326399999994
+(0,8,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:394.00326399999994
+
+----- /test/n24/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,24,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,8,16){2,3,4}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:436.00663466666646
+(0,16,0)(0,-8,0)   	16-{4}	metric:1--dependents:(8){3}	timeout:436.00590933333325
+(0,8,0)(0,-8,0)   	8-{3}	metric:1--dependents:(16){4}	timeout:436.00518399999993
+
+----- /test/n8/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,8,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,24){2,3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:437.0060159999998
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:394.0025386666666
+(0,16,0)(0,-8,0)   	24-{3}	metric:2--dependents:(){}	timeout:394.0025386666666
+
+
+DEBUG| 312.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 312.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 312.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 312.001088| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 343.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 343.00138666666663| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 343.00138666666663| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 350.0: Simulation stops.  Resume for testing prune and graft.
+>>>>> Time 350.0: Recover the link between n0 and n50.
+                  (Just for restoring the original topology, does not affect DVMRP's.)
+DEBUG| 351.000192| /test/n50/dv/| NEIGHBOR UP EVENT: <0,-1> at 0
+DEBUG| 351.000192| /test/n0/dv/| NEIGHBOR UP EVENT: <50,-1> at 0
+DEBUG| 353.00132266666674| /test/n50/dv/| Better route from NON-NEXT-HOP neighbor: (0,0,0)(0,-1,0):51-3-metric:2-NaN
+		--->0-metric:1(changed)
+DEBUG| 353.00132266666674| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,16,0)(0,-1,0):51-1-metric:3-NaN
+		--->50-metric:2(changed)
+DEBUG| 353.00132266666674| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-1,0):51-1-metric:3-NaN
+		--->50-metric:2(changed)
+DEBUG| 353.00132266666674| /test/n0/dv/| Better route from NON-NEXT-HOP neighbor: (0,50,0)(0,-1,0):51-1-metric:2-NaN
+		--->50-metric:1(changed)
+DEBUG| 358.00132266666674| /test/n50/dv/| TRIGGERED UPDATE
+DEBUG| 358.00132266666674| /test/n0/dv/| TRIGGERED UPDATE
+DEBUG| 359.00172800000007| /test/n8/dv/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-1,0):50-0-metric:3-NaN
+		--->metric:2(changed)
+DEBUG| 359.00172800000007| /test/n16/dv/| Route update from NEXT-HOP neighbor: (0,0,0)(0,-1,0):50-0-metric:3-NaN
+		--->metric:2(changed)
+DEBUG| 361.00019199999997| /test/n8/dv/| REGULAR UPDATE
+DEBUG| 361.00019199999997| /test/n16/dv/| REGULAR UPDATE
+DEBUG| 361.00019199999997| /test/n24/dv/| REGULAR UPDATE
+DEBUG| 361.00019199999997| /test/n51/dv/| REGULAR UPDATE
+DEBUG| 361.00019199999997| /test/n52/dv/| REGULAR UPDATE
+DEBUG| 364.00172800000007| /test/n8/dv/| TRIGGERED UPDATE
+DEBUG| 364.00172800000007| /test/n16/dv/| TRIGGERED UPDATE
+DEBUG| 372.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 372.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 372.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 372.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 400.0: Inject a mcast packet at n16/csl/100@up to group -111.
+DEBUG| 400.0| /test/n16/dvmrp/| MCAST QUERY for (16,-111,-1)(-1,-1,-1)
+DEBUG| 400.0| /test/n16/dvmrp/| MCAST QUERY: matched rt entries: ((0,16,0)(0,-8,0):??-null-metric:0--dependents:(0,24){2,3}-NaN)
+DEBUG| 400.0| /test/n16/dvmrp/| MCAST QUERY: add fc entry: src=16, srcmask=-8, upstream=9223372036854775807(if=-1), dependentIfs=2,3, outgoingIfs=2,3
+FC@| EVENT--400.0--/test/n16/csl/rt/.rt_mcast@--RT Entry Added--(16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-NaN--
+DEBUG| 402.0113493333333| /test/n0/dvmrp/| MCAST QUERY for (16,-111,3)(-1,-1,-1)
+DEBUG| 402.0113493333333| /test/n0/dvmrp/| MCAST QUERY: matched rt entries: ((0,16,0)(0,-8,0):16-3-metric:1--dependents:(){}-514.0029653333333)
+DEBUG| 402.0113493333333| /test/n0/dvmrp/| SEND PRUNE to 16 at if 3: DVMRPv3_PRUNE,src:16/-8,group:-111,pruneLifetime:7200
+DEBUG| 402.0113493333333| /test/n0/dvmrp/| MCAST QUERY: add fc entry: src=16, srcmask=-8, upstream=16(if=3), dependentIfs=, outgoingIfs=
+FC@| EVENT--402.0113493333333--/test/n0/csl/rt/.rt_mcast@--RT Entry Added--(16,-111,3)(-8,-1,-1):??--upstream:16--(. . . . .)--sentPruneUpstream-NaN--
+DEBUG| 402.0113493333333| /test/n24/dvmrp/| MCAST QUERY for (16,-111,4)(-1,-1,-1)
+DEBUG| 402.0113493333333| /test/n24/dvmrp/| MCAST QUERY: matched rt entries: ((0,16,0)(0,-8,0):16-4-metric:1--dependents:(8){3}-514.0029653333333)
+DEBUG| 402.0113493333333| /test/n24/dvmrp/| MCAST QUERY: add fc entry: src=16, srcmask=-8, upstream=16(if=4), dependentIfs=3, outgoingIfs=3
+FC@| EVENT--402.0113493333333--/test/n24/csl/rt/.rt_mcast@--RT Entry Added--(16,-111,4)(-8,-1,-1):??-3-upstream:16--(. . . + .)-NaN--
+DEBUG| 403.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 403.00138666666663| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 403.00138666666663| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 404.012032| /test/n16/dvmrp/| PRUNE from neighbor 0 at if 2
+FC@| EVENT--404.012032--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-7604.012032,(16,-111,0)(-8,-1,0):??-3-upstream:<null>--(. . 7604.012032 +)-7604.012032)--(prune)
+DEBUG| 404.02269866666666| /test/n8/dvmrp/| MCAST QUERY for (16,-111,3)(-1,-1,-1)
+DEBUG| 404.02269866666666| /test/n8/dvmrp/| MCAST QUERY: matched rt entries: ((0,16,0)(0,-8,0):24-3-metric:2--dependents:(){}-514.0025386666666)
+DEBUG| 404.02269866666666| /test/n8/dvmrp/| SEND PRUNE to 24 at if 3: DVMRPv3_PRUNE,src:16/-8,group:-111,pruneLifetime:7200
+DEBUG| 404.02269866666666| /test/n8/dvmrp/| MCAST QUERY: add fc entry: src=16, srcmask=-8, upstream=24(if=3), dependentIfs=, outgoingIfs=
+FC@| EVENT--404.02269866666666--/test/n8/csl/rt/.rt_mcast@--RT Entry Added--(16,-111,3)(-8,-1,-1):??--upstream:24--(. . . .)--sentPruneUpstream-NaN--
+DEBUG| 406.0233813333333| /test/n24/dvmrp/| PRUNE from neighbor 8 at if 3
+FC@| EVENT--406.0233813333333--/test/n24/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,4)(-8,-1,-1):??-3-upstream:16--(. . . + .)-7606.023381333333,(16,-111,4)(-8,-1,-1):??--upstream:16--(. . . 7606.023381333333 .)-7606.023381333333)--(prune)
+DEBUG| 406.0233813333333| /test/n24/dvmrp/| SEND PRUNE to 16 at if 4: DVMRPv3_PRUNE,src:16/-8,group:-111,pruneLifetime:7200
+DEBUG| 408.02406399999995| /test/n16/dvmrp/| PRUNE from neighbor 24 at if 3
+FC@| EVENT--408.02406399999995--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-3-upstream:<null>--(. . 7604.012032 +)-7604.012032,(16,-111,0)(-8,-1,0):??--upstream:<null>--(. . 7604.012032 7608.024064)-7604.012032)--(prune)
+>>>>> Time 420.0: Forwarding cache entries after prunes:
+----- /test/n0/csl/rt/ -----:
+#Entries=8
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{}	upstream:16--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{}	upstream:<null>--(. . 7604.012032 7608.024064)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{}	upstream:16--(. . . 7606.023381333333 .)--sentPruneUpstream	timeout:7606.023381333333
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{}	upstream:24--(. . . .)--sentPruneUpstream	timeout:NaN
+
+
+>>>>> Time 420.0: Join group -111 at n0 and n8.
+DEBUG| 420.0| /test/n0/dvmrp/| MCAST HOST JOIN EVENT: -111 at if 5
+FC@| EVENT--420.0--/test/n0/csl/rt/.rt_mcast@--RT Entry Added--(0,-111,-1)(0,-1,-1):??-5--GroupEntry--NaN--
+FC@| EVENT--420.0--/test/n0/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,3)(-8,-1,-1):??--upstream:16--(. . . . .)--sentPruneUpstream-NaN,(16,-111,3)(-8,-1,-1):??-5-upstream:16--(. . . . .)--sentPruneUpstream-NaN)--(graft)
+DEBUG| 420.0| /test/n0/dvmrp/| SEND GRAFT to 16 at if 3: DVMRPv3_GRAFT,src:16/-8,group:-111
+DEBUG| 420.0| /test/n8/dvmrp/| MCAST HOST JOIN EVENT: -111 at if -1
+DEBUG| 420.0| /test/n8/dvmrp/| SEND GRAFT to 24 at if 3: DVMRPv3_GRAFT,src:16/-8,group:-111
+DEBUG| 422.0014293333333| /test/n16/dvmrp/| GRAFT from neighbor 0 at if 2
+FC@| EVENT--422.0014293333333--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??--upstream:<null>--(. . 7604.012032 7608.024064)-7604.012032,(16,-111,0)(-8,-1,0):??-2-upstream:<null>--(. . + 7608.024064)-7604.012032)--(graft)
+DEBUG| 422.0014293333333| /test/n16/dvmrp/| SEND GRAFT-ACK to 0 at if 2: DVMRPv3_GRAFT-ACK,src:16/-8,group:-111
+DEBUG| 422.00204799999995| /test/n24/dvmrp/| GRAFT from neighbor 8 at if 3
+FC@| EVENT--422.00204799999995--/test/n24/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,4)(-8,-1,-1):??--upstream:16--(. . . 7606.023381333333 .)--sentPruneUpstream-7606.023381333333,(16,-111,4)(-8,-1,-1):??-3-upstream:16--(. . . + .)--sentPruneUpstream-7606.023381333333)--(graft)
+DEBUG| 422.00204799999995| /test/n24/dvmrp/| SEND GRAFT to 16 at if 4: DVMRPv3_GRAFT,src:16/-8,group:-111
+DEBUG| 422.00204799999995| /test/n24/dvmrp/| SEND GRAFT-ACK to 8 at if 3: DVMRPv3_GRAFT-ACK,src:16/-8,group:-111
+DEBUG| 424.0020693333333| /test/n0/dvmrp/| GRAFT-ACK from neighbor 16 at if 3
+DEBUG| 424.0026879999999| /test/n16/dvmrp/| GRAFT from neighbor 24 at if 3
+FC@| EVENT--424.0026879999999--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-2-upstream:<null>--(. . + 7608.024064)-7604.012032,(16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-7604.012032)--(graft)
+DEBUG| 424.0026879999999| /test/n16/dvmrp/| SEND GRAFT-ACK to 24 at if 3: DVMRPv3_GRAFT-ACK,src:16/-8,group:-111
+DEBUG| 424.0030079999999| /test/n8/dvmrp/| GRAFT-ACK from neighbor 24 at if 3
+DEBUG| 426.0033279999999| /test/n24/dvmrp/| GRAFT-ACK from neighbor 16 at if 4
+>>>>> Time 430.0: Forwarding cache entries after grafts:
+----- /test/n0/csl/rt/ -----:
+#Entries=9
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{5}	upstream:16--(. . . . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{5}	-GroupEntry-	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{2,3}	upstream:<null>--(. . + +)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{3}	upstream:16--(. . . + .)	timeout:NaN
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{}	upstream:24--(. . . .)	timeout:NaN
+
+
+DEBUG| 432.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 432.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 432.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 432.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 450.0: Simulation stops.  Resume for testing another link failure.
+DEBUG| 463.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 463.00138666666663| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 463.00138666666663| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 470.0: Leave group -111 at n0.
+DEBUG| 470.0| /test/n0/dvmrp/| MCAST HOST LEAVE EVENT: -111 at if 5
+FC@| EVENT--470.0--/test/n0/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,3)(-8,-1,-1):??-5-upstream:16--(. . . . .)-NaN,(16,-111,3)(-8,-1,-1):??--upstream:16--(. . . . .)-NaN)--(prune)
+FC@| EVENT--470.0--/test/n0/csl/rt/.rt_mcast@--RT Entry Modified--((0,-111,-1)(0,-1,-1):??-5--GroupEntry--NaN,(0,-111,-1)(0,-1,-1):??---GroupEntry--NaN)--(prune)
+>>>>> Time 480.0: Inject a mcast packet at n16/csl/100@up to group -111.
+DEBUG| 482.0113493333333| /test/n0/dvmrp/| MCAST QUERY for (16,-111,3)(-1,-1,-1)
+DEBUG| 482.0113493333333| /test/n0/dvmrp/| SEND PRUNE to 16 at if 3: DVMRPv3_PRUNE,src:16/-8,group:-111,pruneLifetime:7200
+DEBUG| 484.012032| /test/n16/dvmrp/| PRUNE from neighbor 0 at if 2
+FC@| EVENT--484.012032--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-7604.012032,(16,-111,0)(-8,-1,0):??-3-upstream:<null>--(. . 7684.012032 +)-7604.012032)--(prune)
+ROUTER_8@| sz1044(INET)sz20--src:16--dest:-111--prot:3--TTL:2/255--ToS:#0--label:0__<To Group -111, #2>__
+DEBUG| 484.02269866666666| /test/n8/dvmrp/| MCAST QUERY for (16,-111,3)(-1,-1,-1)
+DEBUG| 492.00078933333333| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 492.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 492.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 492.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 500.0: Forwarding cache entries after prunes:
+----- /test/n0/csl/rt/ -----:
+#Entries=9
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{}	upstream:16--(. . . . .)--sentPruneUpstream	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{3}	upstream:<null>--(. . 7684.012032 +)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{3}	upstream:16--(. . . + .)	timeout:NaN
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{}	upstream:24--(. . . .)	timeout:NaN
+
+
+>>>>> Time 510.0: The link between n8 and n52 fails.
+DEBUG| 523.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 523.0013866666666| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 523.0013866666666| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 552.0007893333334| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 552.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 552.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 552.001088| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 560.0| /test/n24/dvmrp/| NEIGHBOR DOWN EVENT: <8,-8> at 3
+DEBUG| 560.0| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):??-null-metric:0--dependents:(0,16){2,4}-NaN
+DEBUG| 560.0| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,16,0)(0,-8,0):16-4-metric:1--dependents:(){}-694.0025386666666
+FC@| EVENT--560.0--/test/n24/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,4)(-8,-1,-1):??-3-upstream:16--(. . . + .)-NaN,(16,-111,4)(-8,-1,-1):??--upstream:16--(. . . . .)-NaN)--
+DEBUG| 560.0| /test/n24/dvmrp/| hold-down (0,8,0)(0,-8,0):8-3-metric:INF(changed)--dependents:(16){4}-680.0 due to NEIGHBOR TIMEOUT: 8
+DEBUG| 560.0| /test/n8/dvmrp/| NEIGHBOR DOWN EVENT: <24,-8> at 3
+DEBUG| 560.0| /test/n8/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):??-null-metric:0--dependents:(0){2}-NaN
+DEBUG| 560.0| /test/n8/dvmrp/| hold-down (0,24,0)(0,-8,0):24-3-metric:INF(changed)--dependents:(){}-680.0 due to NEIGHBOR TIMEOUT: 24
+DEBUG| 560.0| /test/n8/dvmrp/| hold-down (0,16,0)(0,-8,0):24-3-metric:INF(changed)--dependents:(){}-680.0 due to NEIGHBOR TIMEOUT: 24
+DEBUG| 565.0| /test/n24/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 565.0| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 567.0010239999999| /test/n16/dvmrp/| hold-down (0,8,0)(0,-8,0):24-3-metric:2--dependents:(){}-694.003264 due to route invalidation from NEXT-HOP neighbor
+		--->metric:INF(changed)--dependents:(){}
+DEBUG| 572.0010239999999| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 583.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 583.0013866666666| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 583.0013866666666| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 585.0028373333332| /test/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,16,0)(0,-8,0):24-3-metric:INF--dependents:(){}-680.0
+		--->0-metric:2(changed)--dependents:(){}
+DEBUG| 585.0028373333332| /test/n8/dvmrp/| SYNC fc entries with the rt entry: (0,16,0)(0,-8,0):0-2-metric:2(changed)--dependents:(){}-725.0028373333332
+FC@| EVENT--585.0028373333332--/test/n8/csl/rt/.rt_mcast@--RT Entry Removed--(16,-111,3)(-8,-1,-1):??--upstream:24--(. . . .)-NaN--
+FC@| EVENT--585.0028373333332--/test/n8/csl/rt/.rt_mcast@--RT Entry Added--(16,-111,2)(-8,-1,-1):??--upstream:0--(. . . .)-NaN--
+DEBUG| 585.0028373333332| /test/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,24,0)(0,-8,0):24-3-metric:INF--dependents:(){}-680.0
+		--->0-metric:2(changed)--dependents:(){}
+DEBUG| 585.0028373333332| /test/n8/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):0-2-metric:2(changed)--dependents:(){}-725.0028373333332
+DEBUG| 585.0028373333332| /test/n24/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-8,0):8-3-metric:INF--dependents:(16){4}-680.0
+		--->0-metric:2(changed)--dependents:(16){4}
+DEBUG| 585.0028373333332| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):0-2-metric:2(changed)--dependents:(16){4}-725.0028373333332
+DEBUG| 585.0035626666665| /test/n16/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-8,0):24-3-metric:INF--dependents:(){}-687.0010239999999
+		--->0-metric:2(changed)--dependents:(){}
+DEBUG| 585.0035626666665| /test/n16/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):0-2-metric:2(changed)--dependents:(){}-725.0035626666665
+DEBUG| 590.0028373333332| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 2
+DEBUG| 590.0028373333332| /test/n24/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 590.0035626666665| /test/n16/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 592.0038613333331| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):8-2-metric:1--dependents:(24){4}-725.0025386666666
+DEBUG| 592.0040746666666| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):24-4-metric:1--dependents:(8){2}-732.0038613333331
+DEBUG| 592.0040746666666| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,16,0)(0,-8,0):16-3-metric:1--dependents:(8){2}-725.003264
+FC@| EVENT--592.0040746666666--/test/n0/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,3)(-8,-1,-1):??--upstream:16--(. . . . .)--sentPruneUpstream-NaN,(16,-111,3)(-8,-1,-1):??-2-upstream:16--(. . + . .)-NaN)--
+DEBUG| 592.0040746666666| /test/n0/dvmrp/| SEND GRAFT to 16 at if 3: DVMRPv3_GRAFT,src:16/-8,group:-111
+DEBUG| 592.0045866666665| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):0-2-metric:2--dependents:(){}-725.0028373333332
+DEBUG| 592.0045866666666| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):8-2-metric:1--dependents:(16,24){3,4}-732.0040746666666
+DEBUG| 594.0047146666666| /test/n16/dvmrp/| GRAFT from neighbor 0 at if 2
+FC@| EVENT--594.0047146666666--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-3-upstream:<null>--(. . 7684.012032 +)-7604.012032,(16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-7604.012032)--(graft)
+DEBUG| 594.0047146666666| /test/n16/dvmrp/| SEND GRAFT-ACK to 0 at if 2: DVMRPv3_GRAFT-ACK,src:16/-8,group:-111
+DEBUG| 596.0053546666666| /test/n0/dvmrp/| GRAFT-ACK from neighbor 16 at if 3
+DEBUG| 612.0007893333334| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 612.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 612.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 612.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 630.0: Stabilized routes after link failure:
+----- /test/n0/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,0,0)(0,-8,0)   	??-{}	metric:0--dependents:(8,16,24){2,3,4}	timeout:NaN
+(0,16,0)(0,-8,0)   	16-{3}	metric:1--dependents:(8){2}	timeout:754.0029653333333
+(0,24,0)(0,-8,0)   	24-{4}	metric:1--dependents:(8){2}	timeout:754.0025386666666
+(0,8,0)(0,-8,0)   	8-{2}	metric:1--dependents:(16,24){3,4}	timeout:754.00224
+
+----- /test/n16/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,16,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,24){2,3}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:754.003264
+(0,24,0)(0,-8,0)   	24-{3}	metric:1--dependents:(){}	timeout:754.0025386666666
+(0,8,0)(0,-8,0)   	0-{2}	metric:2--dependents:(){}	timeout:754.003264
+
+----- /test/n24/dvmrp/ -----:
+ifset: 2,3,4
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,24,0)(0,-8,0)   	??-{}	metric:0--dependents:(0,16){2,4}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:754.0025386666666
+(0,16,0)(0,-8,0)   	16-{4}	metric:1--dependents:(){}	timeout:754.0025386666666
+(0,8,0)(0,-8,0)   	0-{2}	metric:2--dependents:(){}	timeout:754.0025386666666
+
+----- /test/n8/dvmrp/ -----:
+ifset: 2,3
+Entry:<key>	<next_hop>-<out_ifs>	<metric--dependents(dependent_ifs)>	<timeout>
+(0,8,0)(0,-8,0)   	??-{}	metric:0--dependents:(0){2}	timeout:NaN
+(0,0,0)(0,-8,0)   	0-{2}	metric:1--dependents:(){}	timeout:754.0025386666666
+(0,24,0)(0,-8,0)   	0-{2}	metric:2--dependents:(){}	timeout:754.0025386666666
+(0,16,0)(0,-8,0)   	0-{2}	metric:2--dependents:(){}	timeout:754.0025386666666
+
+
+>>>>> Time 650.0: Forwarding cache entries after link failure:
+----- /test/n0/csl/rt/ -----:
+#Entries=9
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{2}	upstream:16--(. . + . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{2,3}	upstream:<null>--(. . + +)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{}	upstream:16--(. . . . .)	timeout:NaN
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,2)(-8,-1,-1)   	---{}	upstream:0--(. . . .)	timeout:NaN
+
+
+DEBUG| 643.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 643.0013866666666| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 643.0013866666666| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 650.0: Inject a mcast packet at n16/csl/100@up to group -111.
+DEBUG| 652.0113493333333| /test/n24/dvmrp/| MCAST QUERY for (16,-111,4)(-1,-1,-1)
+DEBUG| 652.0113493333333| /test/n24/dvmrp/| SEND PRUNE to 16 at if 4: DVMRPv3_PRUNE,src:16/-8,group:-111,pruneLifetime:7200
+DEBUG| 654.0120320000001| /test/n16/dvmrp/| PRUNE from neighbor 24 at if 3
+FC@| EVENT--654.0120320000001--/test/n16/csl/rt/.rt_mcast@--RT Entry Modified--((16,-111,0)(-8,-1,0):??-2,3-upstream:<null>--(. . + +)-7604.012032,(16,-111,0)(-8,-1,0):??-2-upstream:<null>--(. . + 7854.0120320000005)-7604.012032)--(prune)
+ROUTER_8@| sz1044(INET)sz20--src:16--dest:-111--prot:2--TTL:2/255--ToS:#0--label:0__<To Group -111, #3>__
+DEBUG| 654.0226986666667| /test/n8/dvmrp/| MCAST QUERY for (16,-111,2)(-1,-1,-1)
+>>>>> Time 670.0: Forwarding cache entries after prunes:
+----- /test/n0/csl/rt/ -----:
+#Entries=9
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{2}	upstream:16--(. . + . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{2}	upstream:<null>--(. . + 7854.0120320000005)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	52-{1}	metric:4(changed)	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{}	upstream:16--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:INF	timeout:782.0011306666667
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:INF	timeout:782.0011306666667
+(16,-111,2)(-8,-1,-1)   	---{}	upstream:0--(. . . .)	timeout:NaN
+
+
+DEBUG| 672.0007893333334| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 672.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 672.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 672.001088| /test/n16/dvmrp/| REGULAR UPDATE
+>>>>> Time 674.0: DV's have adapted themselves to the new topology.
+>>>>>             The virtual topology starts changing back due to the recovery of unicast routes.
+>>>>>             But this does not affect the multicast tree for group -111.
+DEBUG| 674.0013866666668| /test/n8/dvmrp/| NEIGHBOR UP EVENT: <24,-8> at 3
+DEBUG| 693.0013866666668| /test/n24/dvmrp/| NEIGHBOR UP EVENT: <8,-8> at 3
+DEBUG| 699.0044586666669| /test/n24/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,8,0)(0,-8,0):0-2-metric:2--dependents:(){}-814.0025386666666
+		--->8-metric:1(changed)--dependents:(){}
+DEBUG| 699.0044586666669| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):8-3-metric:1(changed)--dependents:(){}-839.0044586666669
+DEBUG| 703.001088| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 703.0013866666666| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 703.0013866666666| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 704.0044586666669| /test/n24/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 706.0054826666668| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):8-2-metric:1--dependents:(16){3}-845.0025386666666
+DEBUG| 707.0065066666667| /test/n8/dvmrp/| SYNC fc entries with the rt entry: (0,8,0)(0,-8,0):??-null-metric:0--dependents:(0,24){2,3}-NaN
+DEBUG| 707.0065066666667| /test/n8/dvmrp/| Better route from NON-NEXT-HOP neighbor: (0,24,0)(0,-8,0):0-2-metric:2--dependents:(){}-845.0028373333332
+		--->24-metric:1(changed)--dependents:(){}
+DEBUG| 707.0065066666667| /test/n8/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):24-3-metric:1(changed)--dependents:(){}-847.0065066666667
+DEBUG| 712.0065066666667| /test/n8/dvmrp/| TRIGGERED UPDATE: # of changed entries = 1
+DEBUG| 714.0075306666666| /test/n0/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):24-4-metric:1--dependents:(){}-846.0054826666668
+DEBUG| 715.0085546666666| /test/n24/dvmrp/| SYNC fc entries with the rt entry: (0,24,0)(0,-8,0):??-null-metric:0--dependents:(0,8,16){2,3,4}-NaN
+DEBUG| 732.0007893333334| /test/n8/dvmrp/| REGULAR UPDATE
+DEBUG| 732.001088| /test/n0/dvmrp/| REGULAR UPDATE
+DEBUG| 732.001088| /test/n24/dvmrp/| REGULAR UPDATE
+DEBUG| 732.001088| /test/n16/dvmrp/| REGULAR UPDATE
+DEBUG| 734.0013866666668| /test/n8/dvmrp/| REGULAR UPDATE
+>>>>> Time 750.0: Forwarding cache entries after the virtual topology is recovered:
+----- /test/n0/csl/rt/ -----:
+#Entries=9
+(0,0,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{1}	metric:1	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(0,52,0)(0,-1,0)   	51-{1}	metric:2	timeout:NaN
+(16,-111,3)(-8,-1,-1)   	---{2}	upstream:16--(. . + . .)	timeout:NaN
+(0,-111,-1)(0,-1,-1)   	---{}	-GroupEntry-	timeout:NaN
+
+----- /test/n16/csl/rt/ -----:
+#Entries=8
+(0,16,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(16,-111,0)(-8,-1,0)   	---{2}	upstream:<null>--(. . + 7854.0120320000005)	timeout:7604.012032
+
+----- /test/n24/csl/rt/ -----:
+#Entries=8
+(0,24,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,51,0)(0,-1,0)   	51-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	52-{1}	metric:1	timeout:NaN
+(0,0,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,50,0)(0,-1,0)   	51-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	52-{1}	metric:2	timeout:NaN
+(0,8,0)(0,-1,0)   	51-{0}	metric:3	timeout:NaN
+(16,-111,4)(-8,-1,-1)   	---{}	upstream:16--(. . . . .)--sentPruneUpstream	timeout:NaN
+
+----- /test/n8/csl/rt/ -----:
+#Entries=8
+(0,8,0)(0,-1,0)   	---{}	metric:0	timeout:NaN
+(0,50,0)(0,-1,0)   	50-{0}	metric:1	timeout:NaN
+(0,52,0)(0,-1,0)   	50-{0}	metric:3	timeout:NaN
+(0,0,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,16,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,51,0)(0,-1,0)   	50-{0}	metric:2	timeout:NaN
+(0,24,0)(0,-1,0)   	50-{0}	metric:3	timeout:NaN
+(16,-111,2)(-8,-1,-1)   	---{}	upstream:0--(. . . .)	timeout:NaN
+
+
+>>>>> Time 750.0: ~~~~~~~~~ The End ~~~~~~~~~
