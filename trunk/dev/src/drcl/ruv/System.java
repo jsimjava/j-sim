@@ -387,10 +387,11 @@ public class System extends Component
   {
     java.lang.System.out.println("System [-ubh] [-s shell_class] [-t term_class] [init script]");
     java.lang.System.out.println("Options:");
-    java.lang.System.out.println("    -u: use the RUV system as part of other programs (e.g. GUI).");
-    java.lang.System.out.println("    -b: execute a script uninteractively.");
-    java.lang.System.out.println("    -e: end the program when simulation is stopped .");
+    java.lang.System.out.println("    -a: use the RUV system as part of other programs (e.g. GUI).");
+    java.lang.System.out.println("    -u: execute a script uninteractively; usually accompanied by the -e option.");
+    java.lang.System.out.println("    -e: end the program when simulation is stopped.");
     java.lang.System.out.println("    -h: display help.");
+    java.lang.System.out.println("    -n: no terminal display.");
     java.lang.System.exit(1);
   }
   
